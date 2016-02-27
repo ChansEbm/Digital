@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data class=".ItemAreaLayout">
+
+        <variable
+            name="area"
+            type="com.szbb.pro.entity.Login.AreaListBean.ListEntity"/>
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:background="@drawable/bg_white_gravy_selector"
+                 android:minHeight="@dimen/minHeight_50dp"
+                 android:paddingEnd="@dimen/large_margin_15dp"
+                 android:paddingStart="@dimen/large_margin_15dp">
+
+        <TextView
+            style="@style/textStyle"
+            android:layout_gravity="center_vertical"
+            android:text="@{area.name}"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:src="@mipmap/ic_arrow_right"/>
+    </FrameLayout>
+</layout>

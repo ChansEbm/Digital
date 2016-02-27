@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data class=".ItemAccountCementLayout">
+
+        <variable
+            name="cement"
+            type="com.szbb.pro.entity.Vip.AccountCementBean.ListEntity"/>
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="@drawable/bg_white_gravy_selector"
+                  android:minHeight="133dp"
+                  android:orientation="vertical"
+                  android:padding="@dimen/large_margin_15dp">
+
+        <TextView
+            style="@style/textStyle"
+            android:text="@{cement.title}"
+            android:textSize="@dimen/text_large_size"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            style="@style/textStyle"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/small_margin_5dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text="@{cement.summary}"
+            android:textColor="@color/color_text_gravy"
+            />
+
+        <TextView
+            style="@style/textStyle"
+            android:layout_marginTop="@dimen/small_margin_5dp"
+            android:text="@{cement.addtime}"
+            />
+    </LinearLayout>
+</layout>

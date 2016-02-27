@@ -1,0 +1,166 @@
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:app="http://schemas.android.com/apk/res-auto"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:background="@color/theme_primary"
+                  android:clipToPadding="false"
+                  android:fitsSystemWindows="true"
+                  android:orientation="vertical">
+
+        <include layout="@layout/title_bar"/>
+
+        <FrameLayout
+            android:id="@+id/flyt_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/color_white"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/color_white"
+            android:baselineAligned="false"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/llyt_main_bottom_order"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_white_gravy_selector"
+                android:clickable="true"
+                android:descendantFocusability="beforeDescendants"
+                android:gravity="center"
+                android:longClickable="false"
+                android:onClick="onClick"
+                android:orientation="vertical">
+
+                <cn.bingoogolapple.badgeview.BGABadgeImageView
+                    android:id="@+id/iv_main_bottom_order"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:contentDescription="@string/action_settings"
+                    android:scaleType="center"
+                    android:src="@mipmap/ic_order_nor"
+                    app:badge_gravity="rightTop"
+                    app:badge_horizontalMargin="0dp"
+                    app:badge_verticalMargin="0dp"/>
+
+                <TextView
+                    android:id="@+id/tv_main_bottom_order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/main_bottom_order"
+                    android:textColor="@color/color_gravy"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llyt_main_bottom_nearby"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_white_gravy_selector"
+                android:clickable="true"
+                android:descendantFocusability="beforeDescendants"
+                android:gravity="center"
+                android:longClickable="false"
+                android:onClick="onClick"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <cn.bingoogolapple.badgeview.BGABadgeImageView
+                    android:id="@+id/iv_main_bottom_nearby"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:contentDescription="@string/action_settings"
+                    android:scaleType="center"
+                    android:src="@mipmap/ic_nearby_nor"
+                    app:badge_gravity="rightTop"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_main_bottom_nearby"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/main_bottom_nearby"
+                    android:textColor="@color/color_gravy"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llyt_main_bottom_fittings"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_white_gravy_selector"
+                android:clickable="true"
+                android:descendantFocusability="beforeDescendants"
+                android:gravity="center"
+                android:longClickable="false"
+                android:onClick="onClick"
+                android:orientation="vertical">
+
+                <cn.bingoogolapple.badgeview.BGABadgeImageView
+                    android:id="@+id/iv_main_bottom_fitting"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:contentDescription="@string/action_settings"
+                    android:scaleType="center"
+                    android:src="@mipmap/ic_fittings_nor"
+                    app:badge_gravity="rightTop"
+                    app:badge_horizontalMargin="0dp"
+                    app:badge_verticalMargin="0dp"/>
+
+                <TextView
+                    android:id="@+id/tv_main_bottom_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/main_bottom_fittings"
+                    android:textColor="@color/color_gravy"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/llyt_main_bottom_vip"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_white_gravy_selector"
+                android:clickable="true"
+                android:descendantFocusability="beforeDescendants"
+                android:gravity="center"
+                android:onClick="onClick"
+                android:orientation="vertical">
+
+                <cn.bingoogolapple.badgeview.BGABadgeImageView
+                    android:id="@+id/iv_main_bottom_vip"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:contentDescription="@string/action_settings"
+                    android:scaleType="center"
+                    android:src="@mipmap/ic_vip_nor"
+                    app:badge_gravity="rightTop"
+                    app:badge_horizontalMargin="5dp"
+                    app:badge_verticalMargin="5dp"/>
+
+                <TextView
+                    android:id="@+id/tv_main_bottom_vip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/main_bottom_vip"
+                    android:textColor="@color/color_gravy"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

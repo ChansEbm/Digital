@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="history"
+            type="com.szbb.pro.entity.Appointment.AppointmentHistoryItemBean.ListEntity"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_white_gravy_selector"
+        android:minHeight="100dp"
+        android:padding="@dimen/large_margin_15dp">
+
+        <TextView
+            android:id="@+id/tv_t1"
+            style="@style/textStyle"
+            android:text="@string/appointment_time"
+            android:textColor="@color/color_text_dark"/>
+
+        <TextView
+            style="@style/textStyle"
+            android:layout_marginStart="@dimen/small_margin_5dp"
+            android:layout_toEndOf="@id/tv_t1"
+            android:text="@{history.appoint_time}"
+            android:textColor="@color/color_text_dark"
+            />
+
+        <TextView
+            android:id="@+id/tv_t2"
+            style="@style/textStyle"
+            android:layout_below="@id/tv_t1"
+            android:layout_marginTop="@dimen/middle_margin_10dp"
+            android:text="@string/contact"
+            android:textColor="@color/color_text_gravy"/>
+
+        <TextView
+            style="@style/textStyle"
+            android:layout_alignTop="@id/tv_t2"
+            android:layout_marginStart="@dimen/small_margin_5dp"
+            android:layout_toEndOf="@id/tv_t2"
+            android:text="@{history.nickname}"
+            android:textColor="@color/color_text_gravy"
+            />
+
+        <TextView
+            android:id="@+id/tv_t3"
+            style="@style/textStyle"
+            android:layout_below="@id/tv_t2"
+            android:layout_marginTop="@dimen/middle_margin_10dp"
+            android:text="@string/contact_phone"
+            android:textColor="@color/color_text_gravy"/>
+
+        <TextView
+            style="@style/textStyle"
+            android:layout_alignTop="@id/tv_t3"
+            android:layout_marginStart="@dimen/small_margin_5dp"
+            android:layout_toEndOf="@id/tv_t3"
+            android:text="@{history.tel}"
+            android:textColor="@color/color_text_gravy"
+            />
+
+        <TextView
+            android:id="@+id/tv_t4"
+            style="@style/textStyle"
+            android:layout_below="@id/tv_t3"
+            android:layout_marginTop="@dimen/middle_margin_10dp"
+            android:text="@string/appointment_result"
+            android:textColor="@color/color_text_gravy"/>
+
+        <TextView
+            style="@style/textStyle"
+            android:layout_alignTop="@id/tv_t4"
+            android:layout_marginStart="@dimen/small_margin_5dp"
+            android:layout_toEndOf="@id/tv_t4"
+            android:text="@{history.result}"
+            android:textColor="@color/color_orange_light"
+            />
+
+        <TextView
+            android:id="@+id/tv_t5"
+            style="@style/textStyle"
+            android:layout_below="@id/tv_t4"
+            android:layout_marginTop="@dimen/middle_margin_10dp"
+            android:text="@string/appointment_note"
+            android:textColor="@color/color_text_gravy"/>
+
+        <TextView
+            style="@style/textStyle"
+            android:layout_alignTop="@id/tv_t5"
+            android:layout_marginStart="@dimen/small_margin_5dp"
+            android:layout_toEndOf="@id/tv_t5"
+            android:text="@{history.remarks}"
+            android:textColor="@color/color_text_gravy"
+            />
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data class="PopupShopCarLayout"/>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:background="@color/color_white"
+                  android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/minHeight_50dp"
+            android:background="@color/color_bg_silver"
+            android:paddingEnd="@dimen/large_margin_15dp"
+            android:paddingStart="@dimen/large_margin_15dp">
+
+            <TextView
+                style="@style/textStyle"
+                android:layout_gravity="center_vertical"
+                android:text="@string/shop_car"
+                android:textColor="@color/color_text_gravy"/>
+
+            <TextView
+                android:id="@+id/tv_clear"
+                style="@style/textStyle"
+                android:layout_gravity="center_vertical|end"
+                android:drawablePadding="@dimen/small_margin_5dp"
+                android:drawableStart="@mipmap/ic_trash"
+                android:gravity="center"
+                android:text="@string/clear_all"
+                android:textColor="@color/color_text_gravy"/>
+        </FrameLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </ScrollView>
+    </LinearLayout>
+</layout>

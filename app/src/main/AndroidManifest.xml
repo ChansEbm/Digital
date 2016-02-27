@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="com.szbb.pro"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <!-- 这个权限用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!-- 这个权限用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!-- 访问网络，网络定位需要上网 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- SD卡读取权限，用户写入离线定位数据 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"/>
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.READ_PROFILE"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+
+    <application
+        android:name=".base.BaseApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/app_icon"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="LpkfUciAUiUcvGrE8Y4B5mOR"/>
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote">
+        </service>
+
+        <activity
+            android:name=".ui.Activity.Main.WelcomeActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.Activity.Main.MainActivity"/>
+        <activity android:name=".ui.Activity.Login.LoginActivity"/>
+        <activity android:name=".ui.Activity.Login.FindPwdActivity"/>
+        <activity android:name=".ui.Activity.Login.RegisterActivity"/>
+        <activity android:name=".ui.Activity.Login.SkillActivity"/>
+        <activity android:name=".ui.Activity.Login.CompleteInfoActivity"/>
+        <activity android:name=".ui.Activity.Locate.ProvinceActivity"/>
+        <activity android:name=".ui.Activity.Locate.CityActivity"/>
+        <activity
+            android:name=".ui.Activity.Locate.DistrictActivity"
+            android:noHistory="true"/>
+        <activity android:name=".ui.Activity.Orders.Appointment.AppointmentClientActivity"/>
+        <activity android:name=".ui.Activity.Expenses.ExpensesDetailActivity"/>
+        <activity android:name=".ui.Activity.Orders.Appointment.AppointmentReturnActivity"/>
+        <activity android:name=".ui.Activity.Orders.Appointment.AppointmentAlterActivity"/>
+        <activity android:name=".test.TestAty"/>
+        <activity android:name=".ui.Activity.Orders.Appointment.AppointmentHistoryActivity"/>
+        <activity android:name=".ui.Activity.Expenses.ExpensesApplyActivity">
+        </activity>
+        <activity android:name=".ui.Activity.Expenses.ExpensesResultActivity">
+        </activity>
+        <activity android:name=".ui.Activity.Locate.LocationActivity">
+        </activity>
+        <activity android:name=".ui.Activity.Orders.Operating.OrderDetailActivity">
+        </activity>
+        <activity android:name=".ui.Activity.Locate.StreetActivity">
+        </activity>
+        <activity android:name=".entity.Order.ServiceObjActivity">
+        </activity>
+        <activity android:name=".ui.Activity.Orders.Operating.FittingWareHouseActivity">
+        </activity>
+        <activity android:name=".ui.Activity.Orders.Operating.FittingApplyActivity">
+        </activity>
+        <activity android:name=".ui.Activity.Orders.Operating.FittingResendActivity">
+        </activity>
+        <activity android:name=".ui.Activity.Orders.Operating.FittingAdditionalActivity">
+        </activity>
+        <activity android:name=".ui.Activity.Orders.Operating.FittingReceiverActivity">
+        </activity>
+        <activity android:name=".test.SecondActivity">
+        </activity>
+        <activity
+            android:name=".CaptureActivityAnyOrientation"
+            android:screenOrientation="fullSensor"
+            android:stateNotNeeded="true"
+            android:theme="@style/zxing_CaptureTheme"
+            android:windowSoftInputMode="stateAlwaysHidden">
+        </activity>
+        <activity android:name=".ui.Activity.Orders.FittingOrders.FittingApplyDetailActivity">
+        </activity>
+        <activity android:name=".ui.Activity.Orders.FittingOrders.FittingResendDetailActivity">
+        </activity>
+        <activity android:name=".ui.Activity.Orders.FittingOrders.FittingResendByWorkerActivity">
+        </activity>
+        <activity android:name=".ui.Activity.Vip.Wallet.WalletActivity">
+        </activity>
+        <activity android:name=".ui.Activity.Vip.Wallet.BankCardActivity">
+        </activity>
+        <activity android:name=".ui.Activity.Vip.Wallet.AddBankCardActivity">
+        </activity>
+        <activity android:name=".ui.Activity.Vip.WorkHistoryActivity">
+        </activity>
+        <activity android:name=".ui.Activity.Vip.SystemMsg.SystemMsgActivity">
+        </activity>
+        <activity android:name=".ui.Activity.Vip.SystemMsg.OrderHintActivity">
+        </activity>
+        <activity android:name=".ui.Activity.Vip.SystemMsg.AccountCementActivity">
+        </activity>
+        <activity android:name=".ui.Activity.Vip.SystemMsg.SystemMsgDetailActivity">
+        </activity>
+        <activity android:name=".ui.Activity.Vip.Wallet.PayPasswordActivity">
+        </activity>
+    </application>
+
+</manifest>

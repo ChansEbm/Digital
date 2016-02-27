@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data class=".FittingResendByWorkerLayout">
+
+        <variable
+            name="resend"
+            type="com.szbb.pro.entity.Fittings.FittingResendBean"/>
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:background="@color/theme_primary"
+                 android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_bg_gravy"
+            android:orientation="vertical">
+
+            <include layout="@layout/title_bar"/>
+
+            <com.szbb.pro.widget.StatusBar
+                android:id="@+id/statusBar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/minHeight_50dp"
+                android:background="@color/color_white"
+                app:emptyColor="@color/color_text_sliver"
+                app:fillColor="@color/theme_primary"
+                app:lineThickness="@dimen/small_margin_5dp"
+                app:statusTextSize="@dimen/text_small_size"/>
+
+            <ScrollView
+                android:id="@+id/scrollView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/textStyle"
+                        android:layout_height="@dimen/labelHeight_35dp"
+                        android:layout_marginStart="@dimen/large_margin_15dp"
+                        android:gravity="center"
+                        android:text="@string/fitting_lists"
+                        android:textColor="@color/color_text_gravy"/>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        style="@style/textStyle"
+                        android:layout_height="@dimen/labelHeight_35dp"
+                        android:layout_marginStart="@dimen/large_margin_15dp"
+                        android:gravity="center"
+                        android:text="@string/fitting_worker_message_info"
+                        android:textColor="@color/color_text_gravy"/>
+
+                    <LinearLayout
+                        android:id="@+id/llyt_upload_pic_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/color_white"
+                        android:gravity="center_vertical"
+                        android:minHeight="102dp"
+                        android:orientation="horizontal"
+                        android:paddingEnd="@dimen/large_margin_15dp"
+                        android:paddingStart="@dimen/large_margin_15dp">
+
+                        <TextView
+                            style="@style/textStyle"
+                            android:text="@string/photo"/>
+
+                        <HorizontalScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/small_margin_5dp"
+                            android:scrollbars="none">
+
+                            <LinearLayout
+                                android:id="@+id/llyt_upload_pic"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <include
+                                    android:id="@+id/add"
+                                    layout="@layout/item_pics"/>
+
+                            </LinearLayout>
+                        </HorizontalScrollView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llyt_worker_report"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_white_gravy_selector"
+                        android:gravity="center_vertical"
+                        android:minHeight="@dimen/minHeight_50dp"
+                        android:onClick="onClick"
+                        android:orientation="horizontal"
+                        android:paddingEnd="@dimen/large_margin_15dp"
+                        android:paddingStart="@dimen/large_margin_15dp">
+
+                        <TextView
+                            style="@style/textStyle"
+                            android:text="@string/fitting_worker_message"/>
+
+                        <TextView
+                            android:id="@+id/tv_worker_message"
+                            style="@style/textStyle"
+                            android:layout_marginStart="@dimen/small_margin_5dp"
+                            android:text="@{resend.remarks}"
+                            />
+                    </LinearLayout>
+
+                    <TextView
+                        style="@style/textStyle"
+                        android:layout_height="@dimen/labelHeight_35dp"
+                        android:gravity="center_vertical"
+                        android:paddingStart="@dimen/large_margin_15dp"
+                        android:text="邮寄信息"
+                        android:textColor="@color/color_text_gravy"
+                        android:textSize="@dimen/text_small_size"/>
+
+                    <FrameLayout
+                        android:id="@+id/flyt_shipment"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/minHeight_50dp"
+                        android:background="@drawable/bg_white_gravy_selector"
+                        android:onClick="onClick"
+                        android:paddingEnd="@dimen/large_margin_15dp"
+                        android:paddingStart="@dimen/large_margin_15dp">
+
+                        <TextView
+                            style="@style/textStyle"
+                            android:layout_gravity="center_vertical"
+                            android:text="@string/delivery_way"/>
+
+                        <TextView
+                            style="@style/textStyle"
+                            android:layout_gravity="center_vertical|end"
+                            android:drawableEnd="@mipmap/ic_arrow_down"
+                            android:drawablePadding="@dimen/small_margin_5dp"
+                            android:text="@{resend.shippingType}"
+                            android:textColor="@color/color_text_gravy"/>
+                    </FrameLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rylt_scan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_white_gravy_selector"
+                        android:minHeight="@dimen/minHeight_50dp"
+                        android:onClick="onClick"
+                        android:paddingEnd="@dimen/large_margin_15dp"
+                        android:paddingStart="@dimen/large_margin_15dp">
+
+                        <TextView
+                            android:id="@+id/tv_scan"
+                            style="@style/textStyle"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="@dimen/small_margin_5dp"
+                            android:drawablePadding="@dimen/small_margin_5dp"
+                            android:drawableTop="@mipmap/ic_scan"
+                            android:gravity="center"
+                            android:onClick="onClick"
+                            android:text="@string/scan_code"
+                            android:textSize="7sp"/>
+
+                        <TextView
+                            style="@style/textStyle"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="@dimen/middle_margin_10dp"
+                            android:layout_toStartOf="@id/tv_scan"
+                            android:text="@{resend.shippingNum}"
+                            />
+
+
+                        <TextView
+                            style="@style/textStyle"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:text="@string/delivery_number"/>
+                    </RelativeLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/minHeight_50dp"
+                        android:background="@color/color_white"
+                        android:paddingEnd="@dimen/large_margin_15dp"
+                        android:paddingStart="@dimen/large_margin_15dp">
+
+                        <TextView
+                            style="@style/textStyle"
+                            android:layout_gravity="center_vertical"
+                            android:text="@string/expenses_payment_method"/>
+
+                        <RadioGroup
+                            android:id="@+id/radioGroup"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical|end">
+
+                            <RadioButton
+                                android:id="@+id/rb_prepaid"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/prepaid"/>
+
+                            <RadioButton
+                                android:id="@+id/rb_cash_on_delivery"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checked="true"
+                                android:text="@string/cash_on_delivery"/>
+                        </RadioGroup>
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/flyt_cost"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/minHeight_50dp"
+                        android:background="@drawable/bg_white_gravy_selector"
+                        android:onClick="onClick"
+                        android:paddingEnd="@dimen/large_margin_15dp"
+                        android:paddingStart="@dimen/large_margin_15dp">
+
+                        <TextView
+                            style="@style/textStyle"
+                            android:layout_gravity="center_vertical"
+                            android:text="@string/shipment"/>
+
+                        <TextView
+                            style="@style/textStyle"
+                            android:layout_gravity="center_vertical|end"
+                            android:drawableEnd="@mipmap/ic_arrow_right"
+                            android:drawablePadding="@dimen/small_margin_5dp"
+                            android:text="@{resend.shippingCost}"
+                            />
+                    </FrameLayout>
+
+                    <Button
+                        android:id="@+id/btn_submit"
+                        style="@style/buttonStyle"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/large_margin_15dp"
+                        android:layout_marginTop="@dimen/large_margin_15dp"
+                        android:onClick="onClick"
+                        android:text="@string/submit"/>
+
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+
+
+    </FrameLayout>
+</layout>

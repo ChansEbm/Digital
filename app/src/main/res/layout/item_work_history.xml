@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data class=".ItemWorkHistoryLayout">
+
+        <variable
+            name="history"
+            type="com.szbb.pro.entity.Vip.WorkHistoryBean.ListEntity"/>
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_white"
+                    android:minHeight="60dp"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/small_margin_5dp"
+                    android:paddingEnd="@dimen/large_margin_15dp"
+                    android:paddingStart="@dimen/large_margin_15dp"
+                    android:paddingTop="@dimen/small_margin_5dp">
+
+        <TextView
+            android:id="@+id/tv_t1"
+            style="@style/textStyle"
+            android:text="@string/order_detail_no"
+            />
+
+        <TextView
+            style="@style/textStyle"
+            android:layout_marginStart="@dimen/small_margin_5dp"
+            android:layout_toEndOf="@id/tv_t1"
+            android:text="@{history.sn}"/>
+
+        <TextView
+            android:id="@+id/tv_t2"
+            style="@style/textStyle"
+            android:layout_below="@id/tv_t1"
+            android:layout_marginTop="@dimen/small_margin_5dp"
+            android:text="@string/label_service_cost"
+            android:textColor="@color/color_text_red"
+            android:textSize="@dimen/text_small_size"
+            />
+
+        <TextView
+            style="@style/textStyle"
+            android:layout_alignTop="@id/tv_t2"
+            android:layout_marginStart="@dimen/small_margin_5dp"
+            android:layout_toEndOf="@id/tv_t2"
+            android:text="@{history.order_cost}"
+            android:textColor="@color/color_text_red"
+            android:textSize="@dimen/text_small_size"
+            />
+
+        <TextView
+            android:id="@id/tv_t3"
+            style="@style/textStyle"
+            android:layout_alignParentEnd="true"
+            android:text="@{history.complete_time}"
+            android:textColor="@color/color_text_gravy"
+            android:textSize="@dimen/text_small_size"
+            />
+
+        <TextView
+            style="@style/textStyle"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@id/tv_t2"
+            android:layout_below="@id/tv_t3"
+            android:text="@{history.status_desc}"
+            android:textSize="@dimen/text_small_size"
+            />
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data class=".WaitingAccountLayout">
+
+        <variable
+            name="accountCommon"
+            type="com.szbb.pro.entity.Order.MyOrderBean.ListEntity"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_white"
+        android:orientation="vertical">
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/color_bg_line"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minHeight="86dp"
+            android:orientation="horizontal"
+            android:paddingEnd="@dimen/large_margin_15dp"
+            android:paddingStart="@dimen/large_margin_15dp">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="9dp"
+                android:layout_marginTop="9dp"
+                android:layout_weight="0.7"
+                android:minHeight="59dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_waiting_account_client_name"
+                    style="@style/textStyle"
+                    android:text="@{accountCommon.nickname}"
+                    android:textColor="@color/color_text_dark"
+                    />
+
+                <TextView
+                    style="@style/textStyle"
+                    android:layout_marginStart="@dimen/small_margin_5dp"
+                    android:layout_toEndOf="@id/tv_waiting_account_client_name"
+                    android:text="@{accountCommon.tel}"
+
+                    />
+
+                <TextView
+                    android:id="@+id/tv_waiting_account_client_address"
+                    style="@style/textStyle"
+
+                    android:layout_below="@id/tv_waiting_account_client_name"
+                    android:layout_marginTop="9dp"
+                    android:text="@string/address"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_address"
+                    style="@style/textStyle"
+                    android:layout_alignTop="@id/tv_waiting_account_client_address"
+                    android:layout_marginStart="@dimen/small_margin_5dp"
+                    android:layout_toEndOf="@id/tv_waiting_account_client_address"
+                    android:text="@{accountCommon.address}"/>
+
+                <TextView
+                    android:id="@+id/tv_waiting_account_appointment_time"
+                    style="@style/textStyle"
+                    android:layout_below="@id/tv_address"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="9dp"
+                    android:text="@string/complete_time"
+                    />
+
+                <TextView
+                    style="@style/textStyle"
+                    android:layout_alignTop="@id/tv_waiting_account_appointment_time"
+                    android:layout_marginStart="@dimen/small_margin_5dp"
+                    android:layout_toEndOf="@id/tv_waiting_account_appointment_time"
+                    android:text="@{accountCommon.complete_time}"
+                    android:textColor="@color/color_text_org"
+                    />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_waiting_account_state"
+                style="@style/textStyle"
+                android:layout_marginStart="@dimen/large_margin_15dp"
+                android:text="待结算"
+                android:textColor="@color/color_text_red"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/color_bg_line"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minHeight="80dp"
+            android:orientation="vertical"
+            android:paddingEnd="@dimen/large_margin_15dp"
+            android:paddingStart="@dimen/large_margin_15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_factory"/>
+
+                <TextView
+                    style="@style/textStyle"
+                    android:layout_marginStart="@dimen/small_margin_5dp"
+                    android:text="@{accountCommon.fullType}"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llyt_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/middle_margin_10dp"
+                android:orientation="horizontal"
+                android:paddingEnd="40dp"
+                android:paddingStart="30dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

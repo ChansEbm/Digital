@@ -1,0 +1,129 @@
+<layout>
+
+    <data class=".WareHouseLayout"/>
+
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/theme_primary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_bg_gravy"
+            android:minHeight="@dimen/minHeight_50dp"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <include layout="@layout/title_bar"/>
+
+                <com.miguelcatalan.materialsearchview.MaterialSearchView
+                    android:id="@+id/materialSearchView"
+                    style="@style/MaterialSearchViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:id="@+id/flyt_classify"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/minHeight_50dp"
+                android:layout_marginTop="@dimen/large_margin_15dp"
+                android:background="@drawable/bg_white_gravy_selector"
+                android:onClick="onClick"
+                android:paddingEnd="@dimen/large_margin_15dp"
+                android:paddingStart="@dimen/large_margin_15dp">
+
+                <TextView
+                    style="@style/textStyle"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/classify"
+                    android:textColor="@color/color_text_gravy"/>
+
+                <TextView
+                    android:id="@+id/tv_classify"
+                    style="@style/textStyle"
+                    android:layout_gravity="center_vertical|end"
+                    android:drawableEnd="@mipmap/ic_arrow_down"
+                    android:drawablePadding="@dimen/small_margin_5dp"
+                    android:text="@string/wait_for_choose"
+                    android:textColor="@color/color_text_gravy"/>
+            </FrameLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/large_margin_15dp"
+                android:layout_weight="1"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/llyt_shop_car"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/color_orange_normal"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingEnd="@dimen/large_margin_15dp"
+                    android:paddingStart="@dimen/large_margin_15dp">
+
+                    <ImageView
+                        android:id="@+id/iv_shop_car"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/ic_shop_car"/>
+
+                    <TextView
+                        style="@style/textStyle"
+                        android:layout_marginStart="@dimen/large_margin_15dp"
+                        android:text="@string/all"
+                        android:textColor="@color/color_white"
+                        android:textSize="@dimen/text_large_size"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/tv_count"
+                        style="@style/textStyle"
+                        android:layout_marginStart="@dimen/small_margin_5dp"
+                        android:textColor="@color/color_white"
+                        android:textSize="@dimen/text_large_size"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        style="@style/textStyle"
+                        android:layout_marginStart="@dimen/small_margin_5dp"
+                        android:text="@string/num_of_fitting"
+                        android:textColor="@color/color_white"
+                        android:textSize="@dimen/text_large_size"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_done"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:background="@drawable/bg_blue_dark_selector"
+                    android:onClick="onClick"
+                    android:text="@string/choose_done"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/text_large_size"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </FrameLayout>
+</layout>

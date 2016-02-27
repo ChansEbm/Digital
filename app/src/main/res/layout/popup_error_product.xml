@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data class=".PopupErrorProductLayout"/>
+
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:background="@color/color_50_black"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/color_bg_gravy"
+            android:minHeight="227dp"
+            android:orientation="vertical"
+            android:paddingEnd="@dimen/large_margin_15dp"
+            android:paddingStart="@dimen/large_margin_15dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/minHeight_50dp">
+
+                <TextView
+                    android:id="@+id/cancel"
+                    style="@style/textStyle"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/negative"
+                    android:textColor="@color/color_text_sliver"/>
+
+                <TextView
+                    style="@style/textStyle"
+                    android:layout_gravity="center"
+                    android:text="@string/enter_right_info"
+                    android:textSize="@dimen/text_large_size"/>
+
+                <TextView
+                    android:id="@+id/submit"
+                    style="@style/textStyle"
+                    android:layout_gravity="end|center_vertical"
+                    android:text="@string/submit"
+                    android:textColor="@color/theme_primary"
+                    android:textSize="@dimen/text_large_size"/>
+            </FrameLayout>
+
+            <EditText
+                android:id="@+id/edt_error"
+                android:layout_width="match_parent"
+                android:layout_height="131dp"
+                android:background="@color/color_white"
+                android:gravity="center"
+                android:hint="@string/enter_right_info_detail"
+                android:singleLine="true"
+                android:textSize="@dimen/text_normal_size"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/large_margin_15dp"
+                android:layout_marginTop="@dimen/large_margin_15dp"
+                android:gravity="center_vertical"
+                android:minHeight="@dimen/minHeight_50dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/textStyle"
+                    android:text="@string/upload_pic"/>
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:id="@+id/llyt_upload_pic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btn_add"
+                            android:layout_width="@dimen/minHeight_50dp"
+                            android:layout_height="@dimen/minHeight_50dp"
+                            android:layout_marginStart="@dimen/small_margin_5dp"
+                            android:background="@mipmap/ic_add_default"/>
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+</layout>

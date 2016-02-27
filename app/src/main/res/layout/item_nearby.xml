@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:fresco="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="nearbyContent"
+            type="com.szbb.pro.entity.NearbyContentBean"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_white"
+        android:descendantFocusability="blocksDescendants"
+        android:minHeight="86.5dp"
+        android:paddingBottom="4dp"
+        android:paddingEnd="13dp"
+        android:paddingStart="13dp"
+        android:paddingTop="9dp">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_logo"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginEnd="10dp"
+            fresco:actualImageScaleType="centerInside"
+            fresco:placeholderImage="@mipmap/ic_factory"/>
+
+        <TextView
+            android:id="@+id/tv_nearby_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/sdv_logo"
+            android:layout_toEndOf="@id/sdv_logo"
+            android:text="@{nearbyContent.title}"
+            android:textColor="@color/color_text_dark"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/tv_classify"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sdv_logo"
+            android:layout_marginTop="8dp"
+            android:text="@{nearbyContent.subTitle}"
+            android:textColor="@color/color_gravy"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/tv_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_classify"
+            android:layout_marginTop="23dp"
+            android:drawablePadding="3dp"
+            android:drawableStart="@mipmap/ic_header"
+            android:text="@{nearbyContent.detailMsg}"
+            android:textColor="@color/color_gravy"
+            android:textSize="12sp"/>
+
+        <Button
+            android:id="@+id/btn_order"
+            android:layout_width="78dp"
+            android:layout_height="35dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bg_round_normal_blue_dark_selector"
+            android:text="@string/main_i_will_pick"
+            android:textColor="@color/color_white"
+            android:textSize="17sp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="13dp"
+            android:layout_toStartOf="@id/btn_order"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{nearbyContent.totalPrice}"
+                android:textColor="@color/color_text_red"
+                android:textSize="19.205sp"/>
+
+            <TextView
+                android:id="@+id/tv_award"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{nearbyContent.bounds}"
+                android:textColor="@color/color_gravy"
+                android:textSize="12sp"/>
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

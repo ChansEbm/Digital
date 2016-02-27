@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data class=".AppointmentAlterLayout"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/theme_primary"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_bg_gravy"
+            android:orientation="vertical">
+
+            <include layout="@layout/title_bar"/>
+
+            <FrameLayout
+                android:id="@+id/flyt_new_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large_margin_15dp"
+                android:background="@drawable/bg_white_gravy_selector"
+                android:minHeight="50dp"
+                android:onClick="onClick"
+                android:paddingEnd="@dimen/large_margin_15dp"
+                android:paddingStart="@dimen/large_margin_15dp">
+
+                <TextView
+                    style="@style/textStyle"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/alter_new_time"/>
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    style="@style/textStyle"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    style="@style/textStyle"
+                    android:layout_gravity="center_vertical|end"
+                    android:drawableEnd="@mipmap/ic_arrow_right"
+                    android:drawablePadding="@dimen/small_margin_5dp"
+                    android:textColor="@color/color_text_gravy"/>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/flyt_reason"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large_margin_15dp"
+                android:background="@drawable/bg_white_gravy_selector"
+                android:minHeight="50dp"
+                android:onClick="onClick"
+                android:paddingEnd="@dimen/large_margin_15dp"
+                android:paddingStart="@dimen/large_margin_15dp">
+
+                <TextView
+                    style="@style/textStyle"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/alter_reason"/>
+
+                <TextView
+                    android:id="@+id/tv_reason"
+                    style="@style/textStyle"
+                    android:layout_gravity="center_vertical|end"
+                    android:drawableEnd="@mipmap/ic_arrow_right"
+                    android:drawablePadding="@dimen/small_margin_5dp"
+                    android:textColor="@color/color_text_gravy"/>
+            </FrameLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/textInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large_margin_15dp"
+                android:background="@color/color_white"
+                android:minHeight="50dp"
+                android:paddingEnd="@dimen/large_margin_15dp"
+                android:paddingStart="@dimen/large_margin_15dp"
+                android:paddingTop="@dimen/small_margin_5dp">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small_margin_5dp"
+                    android:background="@null"
+                    android:textSize="15sp"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/button"
+                style="@style/buttonStyle"
+                android:layout_marginTop="@dimen/large_margin_15dp"
+                android:minHeight="45dp"
+                android:onClick="onClick"
+                android:text="@string/confirm_submit"/>
+        </LinearLayout>
+    </FrameLayout>
+</layout>

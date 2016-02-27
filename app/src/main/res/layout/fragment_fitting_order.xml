@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data class=".FittingOrderLayout"/>
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_bg_gravy">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_menu"
+            android:layout_width="90dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@color/color_white"/>
+
+        <FrameLayout
+            android:id="@+id/flyt_contant"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include
+                android:id="@+id/include"
+                layout="@layout/refresh_recycler"/>
+
+        </FrameLayout>
+    </android.support.v4.widget.DrawerLayout>
+</layout>

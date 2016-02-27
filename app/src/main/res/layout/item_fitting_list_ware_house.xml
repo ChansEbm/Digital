@@ -1,0 +1,84 @@
+<layout>
+
+    <data class=".ItemFittingApplyLayout">
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="fitting"
+            type="com.szbb.pro.entity.Fittings.FittingWareHouseBean.AcceListEntity"/>
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="92dp"
+                    android:background="@color/color_white"
+                    android:minHeight="92dp"
+                    android:paddingEnd="31dp"
+                    android:paddingStart="26dp">
+
+        <FrameLayout
+            android:id="@+id/flyt_pic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/large_margin_15dp">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/simpleDraweeView"
+                android:layout_width="84dp"
+                android:layout_height="72dp"
+                app:actualImageScaleType="fitCenter"
+                app:placeholderImage="@mipmap/ic_placeholder"
+                app:placeholderImageScaleType="fitCenter"/>
+
+            <TextView
+                style="@style/textStyle"
+                android:layout_gravity="end"
+                android:background="@drawable/bg_blue_oval"
+                android:text="@string/other"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/text_small_size"
+                app:visibility="@{fitting.isExtra ? View.VISIBLE :  View.GONE}"/>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@id/flyt_pic"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_item_apply_fitting_name"
+                style="@style/textStyle"
+                android:text="@{fitting.acce_name}"/>
+
+            <TextView
+                android:id="@+id/tv_item_apply_fitting_spec"
+                style="@style/textStyle"
+                android:layout_marginTop="8dp"
+                android:text="@{fitting.acce_model}"
+                android:textColor="@color/color_text_gravy"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/textStyle"
+                android:text="@string/fitting_item_count"
+                />
+
+            <TextView
+                style="@style/textStyle"
+                android:text="@{String.valueOf(fitting.count)}"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

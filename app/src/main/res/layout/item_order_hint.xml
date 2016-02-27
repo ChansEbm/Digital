@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data class=".ItemOrderHintLayout">
+
+        <variable
+            name="hint"
+            type="com.szbb.pro.entity.Vip.OrderHintBean.ListEntity"/>
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="@color/color_white"
+                  android:gravity="center_vertical"
+                  android:minHeight="177dp"
+                  android:orientation="vertical"
+                  android:padding="@dimen/large_margin_15dp">
+
+        <TextView
+            style="@style/textStyle"
+            android:text="@{hint.title}"
+            android:textColor="@color/color_text_org"
+            android:textSize="@dimen/text_large_size"
+            />
+
+        <TextView
+            style="@style/textStyle"
+            android:layout_marginBottom="@dimen/small_margin_5dp"
+            android:layout_marginTop="@dimen/small_margin_5dp"
+            android:text="@{hint.addtime}"
+            />
+
+        <TextView
+            style="@style/textStyle"
+            android:layout_marginBottom="@dimen/small_margin_5dp"
+            android:text="@{hint.sn}"
+            />
+
+        <TextView
+            style="@style/textStyle"
+            android:layout_marginBottom="@dimen/small_margin_5dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text="@{hint.content}"
+            android:textColor="@color/color_text_gravy"/>
+    </LinearLayout>
+</layout>

@@ -1,0 +1,123 @@
+<resources>
+
+    <style name="AppTheme" parent="BaseAppTheme"/>
+
+    <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimaryDark">@color/theme_primary</item>
+        <item name="android:editTextStyle">@style/editTextStyle</item>
+        <item name="editTextColor">@color/color_text_dark</item>
+        <item name="colorAccent">@color/theme_primary_dark</item>
+        <item name="actionMenuTextColor">@color/color_white</item>
+        <item name="android:orientation">horizontal</item>
+        <!--沉浸式状态栏-->
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
+
+
+
+    <!--TextView默认属性-->
+    <style name="textStyle" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/color_text_dark</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_normal_size</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+    <!--Button默认属性-->
+    <style name="buttonStyle" parent="Base.TextAppearance.AppCompat.Button">
+        <item name="android:textColor">@color/color_white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_marginStart">@dimen/large_margin_15dp</item>
+        <item name="android:layout_marginEnd">@dimen/large_margin_15dp</item>
+        <item name="android:background">@drawable/bg_round_normal_blue_dark_selector</item>
+    </style>
+
+    <!--EditText默认属性-->
+    <style name="editTextStyle" parent="android:Widget.EditText">
+        <item name="android:textCursorDrawable">@drawable/bg_cursor</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!--完善资料edt-->
+    <style name="completeEditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:focusable">false</item>
+        <item name="android:gravity">center_vertical|end</item>
+        <item name="android:enabled">false</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/color_text_dark</item>
+        <item name="android:textSize">@dimen/text_normal_size</item>
+        <item name="android:textColorHint">@color/color_text_gravy</item>
+        <item name="android:focusableInTouchMode">false</item>
+        <item name="android:background">@null</item>
+        <item name="android:drawableEnd">@mipmap/ic_arrow_right</item>
+        <item name="android:drawablePadding">@dimen/small_margin_5dp</item>
+    </style>
+
+    <!--Dialog属性-->
+    <style name="dialogDefaultStyle" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowSoftInputMode">adjustPan</item>
+    </style>
+
+    <!--搜索框的样式-->
+    <style name="MaterialSearchViewStyle">
+        <item name="searchBackground">@color/theme_primary_dark</item>
+        <item name="searchVoiceIcon">@drawable/ic_action_voice_search_inverted</item>
+        <item name="searchCloseIcon">@drawable/ic_action_navigation_close_inverted</item>
+        <item name="searchBackIcon">@drawable/ic_action_navigation_arrow_back_inverted</item>
+        <item name="searchSuggestionBackground">@android:color/white</item>
+        <item name="android:textColor">@color/theme_primary_text_inverted</item>
+        <item name="android:textColorHint">@color/theme_secondary_text_inverted</item>
+        <item name="android:hint">@string/search</item>
+    </style>
+
+    <!--设置TabLayout字体属性-->
+    <style name="TabLayout" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="PopupAnim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/anim_popup_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_popup_out</item>
+    </style>
+
+    <style name="DefaultSimpleDraweeView">
+        <!--实际图片的显示方式-->
+        <item name="actualImageScaleType">centerCrop</item>
+        <!--加载图片的动画渐变时间-->
+        <item name="fadeDuration">1000</item>
+        <!--默认占位图-->
+        <item name="placeholderImage">@mipmap/ic_placeholder</item>
+        <!--默认占位图的显示方式-->
+        <item name="placeholderImageScaleType">centerInside</item>
+        <!--默认加载图的旋转一圈时间-->
+        <item name="progressBarAutoRotateInterval">3000</item>
+        <!--默认加载图-->
+        <item name="progressBarImage">@mipmap/ic_progress</item>
+        <!--默认加载图显示方式-->
+        <item name="progressBarImageScaleType">centerInside</item>
+    </style>
+
+    <style name="RbMainTab">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:paddingTop">@dimen/small_margin_5dp</item>
+        <item name="android:button">@null</item>
+        <item name="android:drawablePadding">@dimen/small_margin_5dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@drawable/main_tab_selector</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:background">@drawable/bg_white_gravy_selector</item>
+    </style>
+</resources>

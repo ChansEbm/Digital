@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data class=".ExpensesResultLayout">
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="result"
+            type="com.szbb.pro.entity.Expenses.ExpensesResultBean.DataEntity"/>
+    </data>
+
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/theme_primary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_bg_gravy"
+            android:orientation="vertical">
+
+            <include layout="@layout/title_bar"/>
+
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/large_margin_15dp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/color_white"
+                        android:minHeight="92dp"
+                        android:padding="@dimen/large_margin_15dp">
+
+                        <TextView
+                            android:id="@+id/tv_t1"
+                            style="@style/textStyle"
+                            android:text="@string/orderState"
+                            />
+
+                        <TextView
+                            style="@style/textStyle"
+                            android:layout_alignTop="@id/tv_t1"
+                            android:layout_marginStart="@dimen/small_margin_5dp"
+                            android:layout_toEndOf="@id/tv_t1"
+                            android:text="@{result.cost_status}"
+                            android:textColor="@color/color_text_org"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_t2"
+                            style="@style/textStyle"
+                            android:layout_below="@id/tv_t1"
+                            android:layout_marginTop="@dimen/middle_margin_10dp"
+                            android:text="@string/order_no"
+                            />
+
+                        <TextView
+                            style="@style/textStyle"
+                            android:layout_alignTop="@id/tv_t2"
+                            android:layout_marginStart="@dimen/small_margin_5dp"
+                            android:layout_toEndOf="@id/tv_t2"
+                            android:text="@{result.sn}"
+                            android:textColor="@color/color_text_org"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_t3"
+                            style="@style/textStyle"
+                            android:layout_below="@id/tv_t2"
+                            android:layout_marginTop="@dimen/middle_margin_10dp"
+                            android:text="@string/create_time"
+                            />
+
+                        <TextView
+                            style="@style/textStyle"
+                            android:layout_alignTop="@id/tv_t3"
+                            android:layout_marginStart="@dimen/small_margin_5dp"
+                            android:layout_toEndOf="@id/tv_t3"
+                            android:text="@{result.addtime}"
+                            android:textColor="@color/color_text_org"
+                            />
+                    </RelativeLayout>
+
+                    <include layout="@layout/line"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/color_white"
+                        android:minHeight="50dp"
+                        android:padding="@dimen/large_margin_15dp">
+
+                        <TextView
+                            android:id="@+id/tv_t4"
+                            style="@style/textStyle"
+                            android:layout_centerVertical="true"
+                            android:text="@string/expenses_apply_name"
+                            />
+
+                        <TextView
+                            style="@style/textStyle"
+                            android:layout_alignTop="@id/tv_t4"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="@dimen/small_margin_5dp"
+                            android:layout_toEndOf="@id/tv_t4"
+                            android:text="@{result.cost_type_desc}"
+                            />
+                    </RelativeLayout>
+
+                    <include layout="@layout/line"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/color_white"
+                        android:minHeight="50dp"
+                        android:padding="@dimen/large_margin_15dp">
+
+                        <TextView
+                            android:id="@+id/tv_t5"
+                            style="@style/textStyle"
+                            android:layout_centerVertical="true"
+                            android:text="@string/expenses_apply_price"
+                            />
+
+                        <TextView
+                            style="@style/textStyle"
+                            android:layout_alignTop="@id/tv_t5"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="@dimen/small_margin_5dp"
+                            android:layout_toEndOf="@id/tv_t5"
+                            android:text="@{result.money}"
+                            />
+                    </RelativeLayout>
+
+                    <include layout="@layout/line"/>
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="116dp"
+                        android:background="@color/color_white">
+
+                        <LinearLayout
+                            android:id="@+id/llyt_upload_pic"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingEnd="@dimen/large_margin_15dp"
+                            android:paddingStart="@dimen/large_margin_15dp">
+
+                        </LinearLayout>
+                    </HorizontalScrollView>
+
+                    <include layout="@layout/line"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/color_white"
+                        android:padding="@dimen/large_margin_15dp">
+
+                        <TextView
+                            android:id="@id/tv_t5"
+                            style="@style/textStyle"
+                            android:text="@string/note"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_note"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/small_margin_5dp"
+                            android:layout_toEndOf="@id/tv_t5"
+                            android:background="@null"
+                            android:text="@{result.remarks}"
+                            android:textColor="@color/color_text_gravy"/>
+                    </RelativeLayout>
+
+                    <include layout="@layout/line"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/large_margin_15dp"
+                        android:background="@color/color_white"
+                        android:minHeight="150dp"
+                        android:orientation="vertical"
+                        app:visibility="@{result.isNotPass ?View.VISIBLE:View.GONE}">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/color_white"
+                            android:padding="@dimen/large_margin_15dp"
+                            >
+
+                            <TextView
+                                android:id="@id/tv_t3"
+                                style="@style/textStyle"
+                                android:text="@string/expenses_apply_reason"
+                                />
+
+                            <EditText
+                                android:id="@+id/editText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/small_margin_5dp"
+                                android:layout_toEndOf="@id/tv_t3"
+                                android:background="@null"
+                                android:enabled="false"
+                                android:text="@{result.reply}"
+                                android:textColor="@color/color_text_gravy"/>
+                        </RelativeLayout>
+
+                        <include layout="@layout/line"/>
+
+                        <Button
+                            android:id="@+id/button"
+                            style="@style/buttonStyle"
+                            android:layout_marginBottom="@dimen/large_margin_15dp"
+                            android:layout_marginTop="@dimen/large_margin_15dp"
+                            android:onClick="onClick"
+                            android:text="@string/reapply"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
+        </LinearLayout>
+    </FrameLayout>
+</layout>

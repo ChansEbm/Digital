@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="pendingSimple"
+            type="com.szbb.pro.entity.Order.MyOrderBean.ListEntity"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_white"
+        android:minHeight="122dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="66dp"
+            android:paddingEnd="@dimen/large_margin_15dp"
+            android:paddingStart="@dimen/large_margin_15dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/textStyle"
+                    android:gravity="center_vertical"
+                    android:lineSpacingExtra="6dp"
+                    android:text="工单将于"
+                    android:textColor="@color/color_text_gravy"
+                    android:textSize="@dimen/text_normal_size"/>
+
+                <TextView
+                    android:id="@+id/tv_new_order_countdown"
+                    style="@style/textStyle"
+                    android:gravity="center_vertical"
+                    android:lineSpacingExtra="6dp"
+                    android:text="@{pendingSimple.appoint_drop_time}"
+                    android:textColor="@color/color_orange_light"
+                    android:textSize="@dimen/text_normal_size"/>
+
+                <TextView
+                    style="@style/textStyle"
+                    android:gravity="center_vertical"
+                    android:lineSpacingExtra="6dp"
+                    android:text="后过时"
+                    android:textColor="@color/color_text_gravy"
+                    android:textSize="@dimen/text_normal_size"/>
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/btn_pending_operation_order"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bg_round_normal_blue_dark_selector"
+                android:text="@string/pending_operate_order"
+                android:textColor="@color/color_white"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/color_bg_line"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:paddingEnd="@dimen/large_margin_15dp"
+            android:paddingStart="@dimen/large_margin_15dp">
+
+            <ImageView
+                android:id="@+id/iv_new_order_contact_i1"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/ic_factory"/>
+
+            <TextView
+                android:id="@+id/tv_new_order_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_toEndOf="@id/iv_new_order_contact_i1"
+                android:text="@{pendingSimple.fullType}"
+                android:textColor="@color/color_text_dark"
+                android:textSize="@dimen/text_large_size"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="6dp"
+                android:layout_marginTop="@dimen/large_margin_15dp"
+                android:src="@mipmap/ic_arrow_down"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+</layout>

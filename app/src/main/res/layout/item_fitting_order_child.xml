@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="child"
+            type="com.szbb.pro.entity.Fittings.FittingOrderBean.Child"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_white"
+        android:minHeight="94dp"
+        android:orientation="vertical"
+        android:padding="@dimen/large_margin_15dp"
+        android:paddingStart="@dimen/large_margin_15dp">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/simpleDraweeView"
+            android:layout_width="87dp"
+            android:layout_height="74dp"
+            android:layout_centerVertical="true"
+            app:actualImageScaleType="centerInside"
+            app:fadeDuration="800"
+            app:placeholderImage="@mipmap/ic_placeholder"
+            app:progressBarAutoRotateInterval="3000"
+            app:progressBarImage="@mipmap/ic_progress"
+            app:progressBarImageScaleType="centerInside"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+
+            android:layout_marginStart="@dimen/large_margin_15dp"
+            android:layout_toEndOf="@id/simpleDraweeView"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/textStyle"
+                android:text="@{child.fittingName}"
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin_5dp">
+
+                <TextView
+                    android:id="@+id/tv_t5"
+                    style="@style/textStyle"
+                    android:text="@string/spec"
+                    android:textColor="@color/color_text_gravy"
+                    android:textSize="@dimen/text_small_size"/>
+
+                <TextView
+                    style="@style/textStyle"
+                    android:text="@{child.spec}"
+                    android:textColor="@color/color_text_gravy"
+                    android:textSize="@dimen/text_small_size"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            style="@style/textStyle"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/large_margin_15dp"
+            android:text="@{child.num}"/>
+    </RelativeLayout>
+</layout>

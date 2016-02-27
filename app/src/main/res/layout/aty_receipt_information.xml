@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/theme_primary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_bg_gravy"
+            android:focusable="true"
+            android:orientation="vertical">
+
+            <include layout="@layout/title_bar"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large_margin_15dp"
+                android:background="@color/color_white"
+                android:gravity="center_vertical"
+                android:minHeight="50dp"
+                android:paddingEnd="@dimen/large_margin_15dp"
+                android:paddingStart="@dimen/large_margin_15dp">
+
+                <TextView
+                    style="@style/textStyle"
+                    android:text="@string/receiver"/>
+
+                <EditText
+                    android:id="@+id/edt_receipt"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/small_margin_5dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:inputType="text"/>
+
+                <Button
+                    android:id="@+id/btn_sent_to_user"
+                    style="@style/buttonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="33dp"
+                    android:background="@drawable/bg_round_orange_dark_disable_sliver"
+                    android:onClick="onClick"
+                    android:paddingEnd="@dimen/large_margin_15dp"
+                    android:paddingStart="@dimen/large_margin_15dp"
+                    android:text="配件发到用户处"/>
+            </LinearLayout>
+
+            <include layout="@layout/line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_white"
+                android:gravity="center_vertical"
+                android:minHeight="50dp"
+                android:paddingEnd="@dimen/large_margin_15dp"
+                android:paddingStart="@dimen/large_margin_15dp">
+
+                <TextView
+                    style="@style/textStyle"
+                    android:text="@string/phone_num"
+                    />
+
+                <EditText
+                    android:id="@+id/edt_phone"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/small_margin_5dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:inputType="phone"
+                    android:maxLength="11"
+                    />
+
+            </LinearLayout>
+
+            <include layout="@layout/line"/>
+
+            <FrameLayout
+                android:id="@+id/flyt_real_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@drawable/bg_white_gravy_selector"
+                android:minHeight="50dp"
+                android:paddingEnd="@dimen/large_margin_15dp"
+                android:paddingStart="@dimen/large_margin_15dp">
+
+                <TextView
+                    style="@style/textStyle"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/real_location"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    android:src="@mipmap/ic_arrow_right"/>
+            </FrameLayout>
+
+            <include layout="@layout/line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_white"
+                android:gravity="center_vertical"
+                android:minHeight="50dp"
+                android:paddingEnd="@dimen/large_margin_15dp"
+                android:paddingStart="@dimen/large_margin_15dp">
+
+                <TextView
+                    style="@style/textStyle"
+                    android:text="@string/detail_address"
+                    />
+
+                <EditText
+                    android:id="@+id/edt_detail_address"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/small_margin_5dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+
+                    android:inputType="text"
+                    />
+
+            </LinearLayout>
+
+            <include layout="@layout/line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_white"
+                android:gravity="center_vertical"
+                android:minHeight="50dp"
+                android:paddingEnd="@dimen/large_margin_15dp"
+                android:paddingStart="@dimen/large_margin_15dp">
+
+                <TextView
+                    style="@style/textStyle"
+                    android:text="@string/post_code"
+                    />
+
+                <EditText
+                    android:id="@+id/edt_post_code"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/small_margin_5dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:inputType="number"
+                    android:maxLength="6"/>
+
+            </LinearLayout>
+
+            <include layout="@layout/line"/>
+
+            <Button
+                android:id="@+id/btn_confirm"
+                style="@style/buttonStyle"
+                android:layout_marginTop="@dimen/large_margin_15dp"
+                android:text="@string/confirm"
+                />
+        </LinearLayout>
+    </FrameLayout>
+</layout>

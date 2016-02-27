@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_bg_gravy"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:background="@color/color_white"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/flyt_nearby_top_nearby"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_white_gravy_selector"
+                android:clickable="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/main_top_nearby"
+                    android:textColor="@color/color_text_dark"
+                    android:textSize="12sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:contentDescription="@string/action_settings"
+                    android:src="@mipmap/ic_trangle_nor" />
+            </FrameLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="23dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/color_bg_line" />
+
+            <FrameLayout
+                android:id="@+id/flyt_nearby_top_classify"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_white_gravy_selector"
+                android:clickable="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/main_top_classify"
+                    android:textColor="@color/color_text_dark"
+                    android:textSize="12sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:contentDescription="@string/action_settings"
+                    android:src="@mipmap/ic_trangle_nor" />
+            </FrameLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="23dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/color_bg_line" />
+
+            <FrameLayout
+                android:id="@+id/flyt_nearby_top_sort"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_white_gravy_selector"
+                android:clickable="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/main_top_sort"
+                    android:textColor="@color/color_text_dark"
+                    android:textSize="12sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:contentDescription="@string/action_settings"
+                    android:src="@mipmap/ic_trangle_nor" />
+            </FrameLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="23dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/color_bg_line" />
+
+            <FrameLayout
+                android:id="@+id/flyt_nearby_top_price"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_white_gravy_selector"
+                android:clickable="true">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/main_top_price"
+                    android:textColor="@color/color_text_dark"
+                    android:textSize="12sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:contentDescription="@string/action_settings"
+                    android:src="@mipmap/ic_trangle_nor" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_bg_line" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="35dp"
+            android:paddingEnd="14dp"
+            android:paddingStart="14dp">
+
+            <ImageView
+                android:id="@+id/iv_main_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="8dp"
+                android:contentDescription="@string/action_settings"
+                android:src="@mipmap/ic_location" />
+
+            <TextView
+                android:id="@+id/tv_nearby_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/iv_main_location"
+                android:text="@string/main_location"
+                android:textColor="@color/color_text_dark"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/iv_nearby_refresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:clickable="true"
+                android:contentDescription="@string/action_settings"
+                android:src="@mipmap/ic_refresh" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_bg_line" />
+
+        <include
+            layout="@layout/refresh_recycler" />
+    </LinearLayout>
+</layout>

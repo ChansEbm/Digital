@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data class=".ItemExpensesDetailParentLayout">
+
+        <variable
+            name="parent"
+            type="com.szbb.pro.entity.Expenses.ExpenseDetailBean.ListEntity"/>
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="@color/color_white"
+                  android:gravity="center_vertical"
+                  android:minHeight="@dimen/minHeight_50dp"
+                  android:orientation="vertical"
+                  android:paddingEnd="@dimen/large_margin_15dp"
+                  android:paddingStart="@dimen/large_margin_15dp">
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/textStyle"
+            android:text="@{parent.cate_name}"
+            android:textSize="@dimen/text_large_size"
+            />
+    </LinearLayout>
+</layout>

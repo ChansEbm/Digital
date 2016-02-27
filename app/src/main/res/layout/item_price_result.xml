@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="result"
+            type="com.szbb.pro.entity.TextBean"/>
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="30dp"
+        android:orientation="vertical"
+        android:paddingEnd="@dimen/large_margin_15dp"
+        android:paddingStart="@dimen/large_margin_15dp">
+
+        <TextView
+            android:id="@+id/text"
+            style="@style/textStyle"
+            android:layout_gravity="center_vertical"
+            android:text="@{result.text}"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:src="@mipmap/ic_arrow_right"/>
+    </FrameLayout>
+</layout>

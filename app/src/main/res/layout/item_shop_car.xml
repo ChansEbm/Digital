@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data class=".ShopCarLayout">
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="shopCar"
+            type="com.szbb.pro.entity.Fittings.FittingWareHouseBean.AcceListEntity"/>
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="92dp"
+                    android:background="@color/color_white"
+                    android:minHeight="92dp"
+                    android:paddingEnd="@dimen/large_margin_15dp"
+                    android:paddingStart="@dimen/large_margin_15dp">
+
+        <FrameLayout
+            android:id="@+id/flyt_pic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/large_margin_15dp">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/simpleDraweeView"
+                android:layout_width="84dp"
+                android:layout_height="72dp"
+                app:actualImageScaleType="fitCenter"
+                app:placeholderImage="@mipmap/ic_placeholder"
+                app:placeholderImageScaleType="fitCenter"/>
+
+            <TextView
+                style="@style/textStyle"
+                android:layout_gravity="end"
+                android:background="@drawable/bg_blue_oval"
+                android:text="@string/other"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/text_small_size"
+                app:visibility="@{shopCar.isExtra ? View.VISIBLE :  View.GONE}"/>
+        </FrameLayout>
+
+        <com.szbb.pro.widget.CountView
+            android:id="@+id/countView"
+            android:layout_width="110dp"
+            android:layout_height="@dimen/minHeight_50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@id/flyt_pic"
+            android:layout_toStartOf="@id/countView"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_item_apply_fitting_name"
+                style="@style/textStyle"
+                android:text="@{shopCar.acce_name}"/>
+
+            <TextView
+                android:id="@+id/tv_item_apply_fitting_spec"
+                style="@style/textStyle"
+                android:layout_marginTop="8dp"
+                android:ellipsize="middle"
+                android:singleLine="true"
+                android:text="@{shopCar.acce_model}"
+                android:textColor="@color/color_text_gravy"/>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</layout>

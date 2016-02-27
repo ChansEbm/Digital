@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data class=".ItemServiceObjLayout">
+
+        <variable
+            name="service"
+            type="com.szbb.pro.entity.Order.OrderDetailBean.ListEntity.ServiceListEntity"/>
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_white_gravy_selector"
+        android:minHeight="@dimen/minHeight_50dp"
+        android:orientation="vertical"
+        android:paddingEnd="@dimen/large_margin_15dp"
+        android:paddingStart="@dimen/large_margin_15dp">
+
+        <TextView
+            style="@style/textStyle"
+            android:layout_gravity="center_vertical"
+            android:text="@{service.service_name}"/>
+
+        <TextView
+            style="@style/textStyle"
+            android:layout_gravity="center_vertical|end"
+            android:text="@{service.service_cost}"
+            android:textColor="@color/color_text_gravy"/>
+    </FrameLayout>
+</layout>

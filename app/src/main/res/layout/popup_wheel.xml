@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data class=".WheelPickerLayout"/>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_white"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/large_margin_15dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:paddingEnd="@dimen/large_margin_15dp"
+            android:paddingStart="@dimen/large_margin_15dp">
+
+            <TextView
+                android:id="@+id/negative"
+                style="@style/textStyle"
+                android:layout_gravity="center_vertical"
+                android:text="@string/negative"
+                android:textColor="@color/selector_blue_text_color"/>
+
+            <TextView
+                android:id="@+id/title"
+                style="@style/textStyle"
+                android:layout_gravity="center"
+                android:text="@string/choose_time"
+                android:textColor="@color/color_text_light_gravy"
+                android:textSize="@dimen/text_small_size"/>
+
+            <TextView
+                android:id="@+id/positive"
+                style="@style/textStyle"
+                android:layout_gravity="end|center_vertical"
+                android:text="@string/positive"
+                android:textColor="@color/selector_blue_text_color"/>
+
+        </FrameLayout>
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small_margin_5dp"
+            android:background="@color/color_white"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.aigestudio.wheelpicker.widget.curved.WheelDatePicker
+                android:id="@+id/datePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="191dp"/>
+
+            <com.aigestudio.wheelpicker.widget.curved.WheelTimePicker
+                android:id="@+id/timePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="191dp"
+                android:layout_marginStart="@dimen/large_margin_15dp"/>
+
+            <com.aigestudio.wheelpicker.view.WheelCurvedPicker
+                android:id="@+id/curvedPicker"
+                android:layout_width="wrap_content"
+                android:layout_height="191dp"/>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

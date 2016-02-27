@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data class="PopAreaLayout"/>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:background="@color/color_white"
+                  android:orientation="vertical">
+        <!--
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:paddingEnd="@dimen/large_margin_15dp"
+                    android:paddingStart="@dimen/large_margin_15dp">
+
+                    <TextView
+                        android:id="@+id/negative"
+                        style="@style/textStyle"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/negative"
+                        android:textColor="@color/selector_blue_text_color"/>
+
+                    <TextView
+                        android:id="@+id/title"
+                        style="@style/textStyle"
+                        android:layout_gravity="center"
+                        android:text="@string/choose_time"
+                        android:textColor="@color/color_text_light_gravy"
+                        android:textSize="@dimen/text_small_size"/>
+
+                    <TextView
+                        android:id="@+id/positive"
+                        style="@style/textStyle"
+                        android:layout_gravity="end|center_vertical"
+                        android:text="@string/positive"
+                        android:textColor="@color/selector_blue_text_color"/>
+
+                </FrameLayout>
+        -->
+
+        <com.szbb.pro.widget.AreaPicker
+            android:id="@+id/areaPicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</layout>

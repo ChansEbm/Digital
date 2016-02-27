@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data class=".RegisterLayout"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/theme_primary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_bg_gravy"
+            android:orientation="vertical">
+
+            <include layout="@layout/title_bar"/>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/large_margin_15dp"
+                    android:orientation="vertical">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/tInput_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/color_white"
+                        android:minHeight="50dp"
+                        android:paddingBottom="@dimen/small_margin_5dp"
+                        android:paddingEnd="@dimen/large_margin_15dp"
+                        android:paddingStart="@dimen/large_margin_15dp"
+                        android:paddingTop="@dimen/small_margin_5dp">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:digits="1234567890"
+                            android:inputType="phone"
+                            android:maxLength="11"
+                            android:textSize="@dimen/text_normal_size"/>
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/large_margin_15dp"
+                        android:background="@color/color_white"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingEnd="@dimen/large_margin_15dp"
+                        android:paddingStart="@dimen/large_margin_15dp">
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/tInput_verification_code"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:minHeight="50dp"
+                            android:padding="0dp"
+                            android:paddingBottom="@dimen/small_margin_5dp"
+                            android:paddingTop="@dimen/small_margin_5dp">
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:digits="1234567890"
+                                android:textSize="@dimen/text_normal_size"
+                                android:inputType="number"
+                                android:maxLength="6"
+                                />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <Button
+                            android:id="@+id/btn_verification_code"
+                            android:layout_width="wrap_content"
+                            android:layout_height="37dp"
+                            android:background="@drawable/bg_blue_normal_frame"
+                            android:paddingEnd="@dimen/large_margin_15dp"
+                            android:paddingStart="@dimen/large_margin_15dp"
+                            android:text="@string/reg_verification_code"
+                            android:textColor="@color/theme_primary"/>
+                    </LinearLayout>
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/tInput_pwd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/large_margin_15dp"
+                        android:background="@color/color_white"
+                        android:minHeight="50dp"
+                        android:paddingBottom="@dimen/small_margin_5dp"
+                        android:paddingEnd="@dimen/large_margin_15dp"
+                        android:paddingStart="@dimen/large_margin_15dp"
+                        android:paddingTop="@dimen/small_margin_5dp">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPassword"
+                            android:textSize="@dimen/text_normal_size"
+                            android:maxLength="16"/>
+
+                    </android.support.design.widget.TextInputLayout>
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/tInput_pwd_confirm"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/large_margin_15dp"
+                        android:background="@color/color_white"
+                        android:minHeight="50dp"
+                        android:paddingBottom="@dimen/small_margin_5dp"
+                        android:paddingEnd="@dimen/large_margin_15dp"
+                        android:paddingStart="@dimen/large_margin_15dp"
+                        android:paddingTop="@dimen/small_margin_5dp">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPassword"
+                            android:textSize="@dimen/text_normal_size"
+                            android:maxLength="16"/>
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/large_margin_15dp"
+                        android:layout_marginEnd="@dimen/large_margin_15dp"
+                        android:layout_marginStart="@dimen/large_margin_15dp"
+                        android:layout_marginTop="@dimen/large_margin_15dp"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/cb_protocol"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="false"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/reg_i_agree"
+                            android:textColor="@color/color_gravy"
+                            android:textSize="13sp"/>
+
+                        <TextView
+                            android:id="@+id/tv_protocol"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:clickable="true"
+                            android:text="@string/reg_protocol"
+                            android:textColor="@color/theme_primary"
+                            android:textSize="13sp"/>
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/btn_submit"
+                        style="@style/buttonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:enabled="false"
+                        android:text="@string/submit"
+                        android:textColor="@color/color_white"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+    </FrameLayout>
+</layout>

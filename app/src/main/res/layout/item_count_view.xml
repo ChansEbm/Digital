@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data class=".ItemCountViewLayout">
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="shopCar"
+            type="com.szbb.pro.entity.Fittings.FittingWareHouseBean.AcceListEntity"/>
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="110dp"
+                  android:layout_height="wrap_content"
+                  android:minHeight="40dp"
+                  android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_minus"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:text="-"/>
+
+        <TextView
+            style="@style/textStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@{String.valueOf(shopCar.count)}"
+            android:textColor="@color/color_text_gravy"/>
+
+        <Button
+            android:id="@+id/btn_add"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:text="+"/>
+    </LinearLayout>
+</layout>

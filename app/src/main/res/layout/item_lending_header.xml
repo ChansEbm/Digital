@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="header"
+            type="com.szbb.pro.entity.Lending.LendingMainClassBean"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:gravity="center_vertical"
+            android:minHeight="20dp"
+            android:paddingStart="@dimen/large_margin_15dp"
+            android:text="@{header.text}"
+            android:textColor="@color/theme_primary"/>
+
+        <include layout="@layout/line"/>
+    </LinearLayout>
+</layout>

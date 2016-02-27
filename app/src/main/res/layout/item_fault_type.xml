@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--故障类型Item-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:minHeight="42dp"
+             android:orientation="vertical"
+             android:paddingEnd="@dimen/large_margin_15dp"
+             android:paddingStart="@dimen/large_margin_15dp">
+
+    <TextView
+        android:id="@+id/textView"
+        style="@style/textStyle"
+        android:layout_gravity="center_vertical"
+        android:text="1313"
+        android:textSize="14sp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|end"
+        android:contentDescription="@string/app_name"
+        android:src="@mipmap/ic_arrow_right"/>
+
+</FrameLayout>

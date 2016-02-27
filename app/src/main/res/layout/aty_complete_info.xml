@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data class=".CompleteInfoLayout"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/theme_primary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_bg_gravy"
+            android:orientation="vertical">
+
+            <include layout="@layout/title_bar"/>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/rylt_upload_avatar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/large_margin_15dp"
+                        android:background="@drawable/bg_white_gravy_selector"
+                        android:descendantFocusability="blocksDescendants"
+                        android:minHeight="103dp"
+                        android:onClick="onClick"
+                        android:paddingEnd="@dimen/large_margin_15dp"
+                        android:paddingStart="@dimen/large_margin_15dp">
+
+                        <TextView
+                            style="@style/textStyle"
+                            android:layout_centerVertical="true"
+                            android:text="@string/organizing_upload_avatar"/>
+
+                        <ImageView
+                            android:id="@+id/iv_i1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:contentDescription="@string/app_name"
+                            android:src="@mipmap/ic_arrow_right"/>
+
+                        <com.facebook.drawee.view.SimpleDraweeView
+                            android:id="@+id/sdv_avatar"
+                            android:layout_width="76dp"
+                            android:layout_height="76dp"
+                            android:layout_centerVertical="true"
+                            android:layout_toStartOf="@id/iv_i1"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            app:actualImageScaleType="centerCrop"
+                            app:placeholderImage="@mipmap/ic_avatar_default"
+                            app:placeholderImageScaleType="center"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rylt_real_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/large_margin_15dp"
+                        android:background="@drawable/bg_white_gravy_selector"
+                        android:clickable="true"
+                        android:descendantFocusability="blocksDescendants"
+                        android:minHeight="50dp"
+                        android:onClick="onClick"
+                        android:paddingEnd="@dimen/large_margin_15dp"
+                        android:paddingStart="@dimen/large_margin_15dp">
+
+                        <TextView
+                            style="@style/textStyle"
+                            android:layout_centerVertical="true"
+                            android:text="@string/organizing_real_name"/>
+
+                        <com.szbb.pro.widget.NotEventEditText
+                            android:id="@+id/edt_real_name"
+                            style="@style/completeEditTextStyle"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:hint="@string/organizing_please_input_real_name"
+                            android:textColor="@color/color_text_dark"/>
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/large_margin_15dp"
+                        android:background="@color/color_white"
+                        android:minHeight="100dp"
+                        android:orientation="vertical">
+
+                        <FrameLayout
+                            android:id="@+id/rylt_region"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_white_gravy_selector"
+                            android:minHeight="50dp"
+                            android:onClick="onClick"
+                            android:paddingEnd="@dimen/large_margin_15dp"
+                            android:paddingStart="@dimen/large_margin_15dp">
+
+                            <TextView
+                                style="@style/textStyle"
+                                android:layout_gravity="center_vertical"
+                                android:text="@string/real_location"/>
+
+                            <com.szbb.pro.widget.NotEventEditText
+                                android:id="@+id/edt_location"
+                                style="@style/completeEditTextStyle"
+                                android:layout_gravity="center_vertical|end"
+                                android:contentDescription="@string/app_name"/>
+                        </FrameLayout>
+
+                        <include
+                            layout="@layout/line"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_marginEnd="@dimen/large_margin_15dp"
+                            android:layout_marginStart="@dimen/large_margin_15dp"/>
+
+                        <RelativeLayout
+                            android:id="@+id/rylt_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_white_gravy_selector"
+                            android:minHeight="50dp"
+                            android:onClick="onClick"
+                            android:paddingEnd="@dimen/large_margin_15dp"
+                            android:paddingStart="@dimen/large_margin_15dp">
+
+                            <TextView
+                                style="@style/textStyle"
+                                android:layout_centerVertical="true"
+                                android:text="@string/detail_address"
+                                />
+
+                            <ImageView
+                                android:id="@+id/iv_location"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:clickable="true"
+                                android:contentDescription="@string/app_name"
+                                android:onClick="onClick"
+                                android:src="@mipmap/ic_location_blue"/>
+
+                            <com.szbb.pro.widget.NotEventEditText
+                                android:id="@+id/edt_detail_address"
+                                style="@style/completeEditTextStyle"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="@dimen/small_margin_5dp"
+                                android:layout_toStartOf="@id/iv_location"
+                                android:hint="@string/organization_input_detail_location"/>
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/large_margin_15dp"
+                        android:background="@color/color_white"
+                        android:minHeight="147dp"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:id="@+id/rylt_citizen_id"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_white_gravy_selector"
+                            android:minHeight="50dp"
+                            android:onClick="onClick"
+                            android:paddingEnd="@dimen/large_margin_15dp"
+                            android:paddingStart="@dimen/large_margin_15dp">
+
+                            <TextView
+                                style="@style/textStyle"
+                                android:layout_centerVertical="true"
+                                android:text="@string/organizing_citizen_ID"
+                                />
+
+
+                            <com.szbb.pro.widget.NotEventEditText
+                                android:id="@+id/tv_real_citizen_id"
+                                style="@style/completeEditTextStyle"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:hint="@string/organizing_please_input_correct_citizen_ID"
+                                />
+                        </RelativeLayout>
+
+                        <include
+                            layout="@layout/line"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_marginEnd="@dimen/large_margin_15dp"
+                            android:layout_marginStart="@dimen/large_margin_15dp"/>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:paddingEnd="@dimen/large_margin_15dp"
+                            android:paddingStart="@dimen/large_margin_15dp">
+
+                            <TextView
+                                style="@style/textStyle"
+                                android:layout_centerVertical="true"
+                                android:text="@string/organizing_upload_citizen_picture"/>
+
+                            <com.facebook.drawee.view.SimpleDraweeView
+                                android:id="@+id/sdv_citizen_id_back_side"
+                                android:layout_width="75dp"
+                                android:layout_height="75dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="@dimen/large_margin_15dp"
+                                android:onClick="onClick"
+                                app:actualImageScaleType="centerCrop"
+                                app:placeholderImage="@mipmap/ic_citizen_front_side"
+                                app:placeholderImageScaleType="centerInside"/>
+
+                            <com.facebook.drawee.view.SimpleDraweeView
+                                android:id="@+id/sdv_citizen_id_font_side"
+                                android:layout_width="75dp"
+                                android:layout_height="75dp"
+                                android:layout_centerVertical="true"
+                                android:layout_toStartOf="@id/sdv_citizen_id_back_side"
+                                android:onClick="onClick"
+                                app:actualImageScaleType="centerCrop"
+                                app:placeholderImage="@mipmap/ic_citizen_back_side"
+                                app:placeholderImageScaleType="centerInside"/>
+
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:id="@+id/rylt_skill"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/large_margin_15dp"
+                        android:background="@drawable/bg_white_gravy_selector"
+                        android:minHeight="50dp"
+                        android:onClick="onClick"
+                        android:paddingEnd="@dimen/large_margin_15dp"
+                        android:paddingStart="@dimen/large_margin_15dp">
+
+                        <TextView
+                            style="@style/textStyle"
+                            android:layout_gravity="center_vertical"
+                            android:singleLine="true"
+                            android:text="@string/organizing_skill"/>
+
+                        <com.szbb.pro.widget.NotEventEditText
+                            android:id="@+id/edt_skill"
+                            style="@style/completeEditTextStyle"
+                            android:layout_gravity="center_vertical|end"/>
+                    </FrameLayout>
+
+                    <Button
+                        android:id="@+id/button"
+                        style="@style/buttonStyle"
+                        android:layout_marginBottom="@dimen/large_margin_15dp"
+                        android:layout_marginTop="@dimen/large_margin_15dp"
+                        android:onClick="onClick"
+                        android:text="@string/submit"/>
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+    </FrameLayout>
+</layout>

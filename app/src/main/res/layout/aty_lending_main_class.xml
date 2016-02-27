@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/theme_primary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_white"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <include layout="@layout/title_bar"/>
+
+                <com.miguelcatalan.materialsearchview.MaterialSearchView
+                    android:id="@+id/materialSearchView"
+                    style="@style/MaterialSearchViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </FrameLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/large_margin_15dp"
+                >
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+
+                <com.szbb.pro.widget.FancyIndexer
+                    android:id="@+id/fancyIndexer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/large_margin_15dp"
+                    app:additionalTipOffset="20dip"
+                    app:fontColor="#a06c"
+                    app:maxBezierHeight="30dip"
+                    app:maxBezierWidth="180dip"
+                    app:maxFontSize="60"
+                    app:minFontSize="32"
+                    app:tipFontColor="@color/color_orange_press"
+                    app:tipFontSize="72"
+                    app:widthOffset="5dp"/>
+
+            </RelativeLayout>
+        </LinearLayout>
+    </FrameLayout>
+</layout>

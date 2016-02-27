@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data class=".ItemExpensesDetailChildLayout">
+
+        <variable
+            name="child"
+            type="com.szbb.pro.entity.Expenses.ExpenseDetailBean.ListEntity.CateListEntity"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_white"
+            android:minHeight="@dimen/labelHeight_35dp"
+            android:paddingEnd="@dimen/large_margin_15dp"
+            android:paddingStart="@dimen/large_margin_15dp">
+
+            <TextView
+                android:id="@+id/tv_name"
+                style="@style/textStyle"
+                android:layout_centerVertical="true"
+                android:text="@{child.cost_name}"
+                android:textColor="@color/color_text_gravy"/>
+
+            <TextView
+                android:id="@+id/tv_cost"
+                style="@style/textStyle"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:text="@{child.cost_money}"
+                android:textColor="@color/color_text_gravy"/>
+        </RelativeLayout>
+    </LinearLayout>
+</layout>

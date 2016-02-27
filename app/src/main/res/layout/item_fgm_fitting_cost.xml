@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data class=".ItemFgmFittingCostLayout">
+
+        <variable
+            name="cost"
+            type="com.szbb.pro.entity.Fittings.FittingCostBean.ListEntity"/>
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="@drawable/bg_white_gravy_selector"
+                  android:minHeight="130dp"
+                  android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:minHeight="65dp"
+            android:padding="@dimen/large_margin_15dp">
+
+            <TextView
+                android:id="@+id/tv_t1"
+                style="@style/textStyle"
+                android:text="@{cost.brand}"/>
+
+            <TextView
+                android:id="@+id/tv_t2"
+                style="@style/textStyle"
+                android:layout_marginStart="@dimen/small_margin_5dp"
+                android:layout_toEndOf="@id/tv_t1"
+                android:text="@{cost.model}"
+                android:textColor="@color/color_orange_light"/>
+
+            <TextView
+                style="@style/textStyle"
+                android:layout_below="@id/tv_t1"
+                android:layout_marginTop="@dimen/small_margin_5dp"
+                android:text="@{cost.name}"
+                android:textColor="@color/color_text_gravy"/>
+        </RelativeLayout>
+
+        <include layout="@layout/line"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:minHeight="65dp"
+            android:padding="@dimen/large_margin_15dp">
+
+            <TextView
+                android:id="@+id/tv_t3"
+                style="@style/textStyle"
+                android:text="@{cost.cost_type_desc + cost.money}"/>
+
+            <TextView
+                style="@style/textStyle"
+                android:layout_below="@id/tv_t3"
+                android:layout_marginTop="@dimen/small_margin_5dp"
+                android:text="@{cost.addtime}"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/ic_arrow_right"/>
+        </RelativeLayout>
+    </LinearLayout>
+</layout>

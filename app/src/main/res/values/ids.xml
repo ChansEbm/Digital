@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="nav" type="id"/>
+    <item name="positive" type="id"/>
+    <item name="negative" type="id"/>
+    <item name="tag_cupcake" type="id"/>
+    <item name="tag_donut" type="id"/>
+</resources>

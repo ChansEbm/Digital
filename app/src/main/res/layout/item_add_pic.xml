@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data class=".ItemAddPicLayout"/>
+
+    <Button
+        android:id="@+id/btn_add_pic"
+        android:layout_width="76dp"
+        android:layout_height="76dp"
+        android:background="@mipmap/ic_add_default"
+        android:tag="tag"/>
+</layout>
