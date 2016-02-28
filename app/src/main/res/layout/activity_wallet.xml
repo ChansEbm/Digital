@@ -5,11 +5,10 @@
 
         <variable
             name="wallet"
-            type="com.szbb.pro.entity.Vip.WalletBean.DataEntity"/>
+            type="com.szbb.pro.entity.Vip.WalletBean.DataEntity" />
     </data>
 
-    <FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/theme_primary">
@@ -24,7 +23,7 @@
                 android:background="@color/color_white"
                 android:orientation="vertical">
 
-                <include layout="@layout/title_bar"/>
+                <include layout="@layout/title_bar" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -40,17 +39,17 @@
                         style="@style/textStyle"
                         android:layout_centerHorizontal="true"
                         android:text="@string/wallet_account_balance"
-                        android:textColor="@color/color_white"
-                        />
+                        android:textColor="@color/color_white" />
 
                     <TextView
+                        android:id="@+id/tv_detail"
                         style="@style/textStyle"
                         android:layout_alignBottom="@id/tv_t1"
                         android:layout_alignParentEnd="true"
                         android:onClick="onClick"
                         android:text="@string/wallet_translation_details"
                         android:textColor="@color/color_white"
-                        android:textSize="10sp"/>
+                        android:textSize="10sp" />
 
                     <TextView
                         android:id="@id/tv_t2"
@@ -60,7 +59,7 @@
                         android:text="@{wallet.money}"
                         android:textColor="@color/color_white"
                         android:textSize="50sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@id/tv_t3"
@@ -70,7 +69,7 @@
                         android:layout_marginTop="@dimen/large_margin_15dp"
                         android:text="@string/wallet_security_deposit"
                         android:textColor="@color/color_white"
-                        android:textSize="10sp"/>
+                        android:textSize="10sp" />
 
                     <TextView
                         android:id="@id/tv_t4"
@@ -79,7 +78,7 @@
                         android:layout_below="@id/tv_t3"
                         android:text="@{wallet.quality_money}"
                         android:textColor="@color/color_white"
-                        android:textSize="10sp"/>
+                        android:textSize="10sp" />
 
                     <TextView
                         android:id="@id/tv_t5"
@@ -88,14 +87,14 @@
                         android:layout_centerHorizontal="true"
                         android:text="@{wallet.income_money}"
                         android:textColor="@color/color_white"
-                        android:textSize="24sp"/>
+                        android:textSize="24sp" />
 
                     <TextView
                         style="@style/textStyle"
                         android:layout_above="@id/tv_t5"
                         android:layout_centerHorizontal="true"
                         android:text="@string/wallet_cumulative_revenue"
-                        android:textColor="@color/color_white"/>
+                        android:textColor="@color/color_white" />
                 </RelativeLayout>
 
                 <FrameLayout
@@ -116,13 +115,12 @@
                             style="@style/textStyle"
                             android:text="@string/wallet_wait_confirm"
                             android:textColor="@color/color_text_gravy"
-                            android:textSize="10sp"/>
+                            android:textSize="10sp" />
 
                         <TextView
                             style="@style/textStyle"
                             android:text="@{wallet.unsettled_money}"
-                            android:textColor="#004d9b"
-                            />
+                            android:textColor="#004d9b" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -135,13 +133,12 @@
                             style="@style/textStyle"
                             android:text="@string/wallet_withdrawing"
                             android:textColor="@color/color_text_gravy"
-                            android:textSize="10sp"/>
+                            android:textSize="10sp" />
 
                         <TextView
                             style="@style/textStyle"
                             android:text="@{wallet.withdrawing_money}"
-                            android:textColor="#004d9b"
-                            />
+                            android:textColor="#004d9b" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -154,12 +151,12 @@
                             style="@style/textStyle"
                             android:text="@string/wallet_withdrawed"
                             android:textColor="@color/color_text_gravy"
-                            android:textSize="10sp"/>
+                            android:textSize="10sp" />
 
                         <TextView
                             style="@style/textStyle"
                             android:text="@{wallet.withdrawials_money}"
-                            android:textColor="#004d9b"/>
+                            android:textColor="#004d9b" />
                     </LinearLayout>
                 </FrameLayout>
             </LinearLayout>
@@ -172,7 +169,7 @@
                 android:layout_marginTop="@dimen/large_margin_15dp"
                 android:background="@drawable/bg_round_orange_dark_disable_sliver"
                 android:onClick="onClick"
-                android:text="@string/wallet_withdraw"/>
+                android:text="@string/wallet_withdraw" />
 
             <Button
                 android:id="@+id/btn_bank_card"
@@ -180,7 +177,7 @@
                 android:layout_above="@id/btn_withdraw"
                 android:background="@drawable/bg_round_blue_medium_nav_selector"
                 android:onClick="onClick"
-                android:text="@string/wallet_bank_card"/>
+                android:text="@string/wallet_bank_card" />
 
         </RelativeLayout>
     </FrameLayout>

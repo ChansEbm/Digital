@@ -4,7 +4,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <!--登录页&& 注册页 && 找回密码页-->
-
     <string name="pwd">密码</string>
     <string name="login_reg">注册</string>
     <string name="login_find_pwd">找回密码</string>
@@ -193,6 +192,10 @@
     <string name="wallet_withdrawed">已提现(元)</string>
     <string name="wallet_bank_card">我的银行卡</string>
     <string name="wallet_withdraw">我要提现</string>
+    <string name="wallet_balance">余额 :</string>
+    <string name="wallet_money">金额 :</string>
+    <string name="wallet_sn">单号 :</string>
+    <string name="wallet_trade_id">交易ID :</string>
     <!--添加银行卡-->
     <string name="please_input_account_attr">请选择开户银行</string>
     <string name="please_input_account_city">请选择开户城市</string>
@@ -223,6 +226,8 @@
     <string name="title_work_history">历史工单</string>
     <string name="title_detail">详情</string>
     <string name="title_set_withdraw_pwd">设置提现密码</string>
+    <string name="title_input_withdraw_pwd">输入提现密码</string>
+    <string name="title_transaction_detail">交易明细</string>
 
     <!--label -->
     <string name="label_name">名称</string>
@@ -331,7 +336,7 @@
     <string name="resend_fitting">回寄配件</string>
     <string name="no_network_is_detected">检测网络连接失败</string>
     <string name="check_setting">检查设置</string>
-    <string name="connect_server_error">连接服务器失败</string>
+    <string name="connect_server_error">连接服务器超时</string>
     <string name="label">标签</string>
     <string name="wait_for_choose">请选择</string>
     <string name="notice">注意</string>
@@ -349,6 +354,7 @@
     <string name="edit">编辑</string>
     <string name="receiver_info">收件人信息</string>
     <string name="logistics_info">物流查询</string>
+    <string name="delete">删除</string>
 
     <!--验证-->
     <string name="invalid_citizenID">无效身份证号码</string>
@@ -382,10 +388,18 @@
         神州联保用户协议神州联保用户协议神州联保用户协议神州联保用户协议神州联保用户协议神州联保用户协议神州联
         保用户协议神州联保用户协议神州联保用户协议神州联保用户协议神州联保用户协议神州联保用户协议神州联保用
         户协议神州联保用户协议神州联保用户协议神州联保用户协议</string>
-    <string name="bank_card_rule">提示：
-1. 开户人姓名必须为技工真实姓名 ,开户行、卡号必须准确无
-误，否则 <b> 无法提现</b>；\n
-2. 银行卡仅支持储蓄卡，请勿绑定信用卡。</string>
-    1
+    <string name="bank_card_rule">提示：\n1. 开户人姓名必须为技工真实姓名 ,开户行、卡号必须准确无\n误，否则 <b> 无法提现</b>；\n2. 银行卡仅支持储蓄卡，请勿绑定信用卡。</string>
+    <string name="cancel">取消</string>
+    <string name="year">年</string>
+    <string name="month">月</string>
+    <string name="day">日</string>
+    <string name="hour">时</string>
+    <string name="minute">分</string>
+    <string name="sunday">周日</string>
+    <string name="monday">周一</string>
+    <string name="tuesday">周二</string>
+    <string name="wednesday">周三</string>
+    <string name="thursday">周四</string>
+    <string name="friday">周五</string>
+    <string name="saturday">周六</string>
 </resources>
-

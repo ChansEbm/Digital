@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data class=".TransactionDetailLayout" />
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/theme_primary"
+        tools:context="com.szbb.pro.ui.Activity.Vip.Wallet.TransactionDetailActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_bg_gravy"
+            android:orientation="vertical">
+
+            <include layout="@layout/title_bar" />
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/minHeight_50dp"
+                android:background="@color/color_white"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="@color/theme_primary"
+                app:tabIndicatorHeight="3dp"
+                app:tabSelectedTextColor="@color/theme_primary"
+                app:tabTextAppearance="@style/TabLayout"
+                app:tabTextColor="@color/color_text_dark" />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/large_margin_15dp" />
+        </LinearLayout>
+
+    </FrameLayout>
+
+</layout>

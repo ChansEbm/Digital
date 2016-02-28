@@ -96,12 +96,6 @@ public class LoginActivity extends BaseAty<AuthBean, AuthBean> {
             case R.id.tv_login_find_pwd:
                 start(FindPwdActivity.class);
                 break;
-            case R.id.positive:
-                AppTools.removeAllActivitys();
-                break;
-            case R.id.negative:
-                messageDialog.dismiss();
-                break;
         }
     }
 
@@ -129,10 +123,15 @@ public class LoginActivity extends BaseAty<AuthBean, AuthBean> {
                 start(CompleteInfoActivity.class);
             } else if (authBean.getIs_complete_info() == 1) {
                 if (authBean.getIs_check() == 0) {
+                    messageDialog = new MessageDialog(this);
                     messageDialog.setTitle(getString(R.string.reviewing)).setMessage(getString(R
                             .string.your_profile_is_reviewing)).setPositiveButton(getString(R
-                            .string.positive), this).setNegativeButton(getString(R.string
-                            .negative), this).show();
+                            .string.positive), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            AppTools.removeSingleActivity(LoginActivity.this);
+                        }
+                    }).show();
                 } else {
                     start(MainActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TASK, Intent
                             .FLAG_ACTIVITY_NEW_TASK);

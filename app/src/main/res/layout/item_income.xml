@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data class=".ItemIncomeLayout">
+
+        <variable
+            name="income"
+            type="com.szbb.pro.entity.Vip.IncomeBean.ListEntity" />
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_white"
+        android:minHeight="58dp"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/middle_margin_10dp"
+        android:paddingEnd="@dimen/large_margin_15dp"
+        android:paddingStart="@dimen/large_margin_15dp"
+        android:paddingTop="@dimen/middle_margin_10dp">
+
+        <TextView
+            android:id="@+id/tv_t1"
+            style="@style/textStyle"
+            android:text="@string/wallet_sn" />
+
+        <TextView
+            style="@style/textStyle"
+            android:layout_toEndOf="@id/tv_t1"
+            android:text="@{income.sn}" />
+
+        <TextView
+            style="@style/textStyle"
+            android:layout_alignBaseline="@id/tv_t1"
+            android:layout_alignParentEnd="true"
+            android:text="@{income.addtime}"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@id/tv_t2"
+            style="@style/textStyle"
+            android:layout_below="@id/tv_t1"
+            android:layout_marginTop="@dimen/small_margin_5dp"
+            android:text="@string/wallet_balance"
+            android:textColor="@color/color_text_gravy"
+            android:textSize="13sp" />
+
+        <TextView
+            style="@style/textStyle"
+            android:layout_alignTop="@id/tv_t2"
+            android:layout_toEndOf="@id/tv_t2"
+            android:text="@{income.remain_money}"
+            android:textColor="@color/color_text_gravy"
+            android:textSize="13sp" />
+
+        <TextView
+            style="@style/textStyle"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@id/tv_t2"
+            android:text="@{income.money}"
+            android:textColor="@color/color_text_red" />
+    </RelativeLayout>
+</layout>

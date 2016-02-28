@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data class=".RefreshRecyclerLayout"/>
+    <data class=".RefreshRecyclerLayout" />
 
-    <cn.bingoogolapple.refreshlayout.BGARefreshLayout
-        android:id="@+id/refreshLayout"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <cn.bingoogolapple.refreshlayout.BGARefreshLayout
+            android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-    </cn.bingoogolapple.refreshlayout.BGARefreshLayout>
+            android:layout_height="match_parent">
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        </cn.bingoogolapple.refreshlayout.BGARefreshLayout>
+
+        <ImageView
+            android:id="@+id/empty_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/ic_empty_content"
+            android:visibility="gone" />
+    </FrameLayout>
 </layout>

@@ -32,10 +32,15 @@
         <item>200元-299元</item>
         <item>300元或以上</item>
     </string-array>
-    <string-array name="tabs">
+    <string-array name="tabs_order_name">
         <item>新工单</item>
         <item>待处理</item>
         <item>待结算</item>
+    </string-array>
+    <string-array name="tabs_transaction_name">
+        <item>收入</item>
+        <item>提现</item>
+        <item>其他</item>
     </string-array>
     <string-array name="fault">
         <item>故障1</item>

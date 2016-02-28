@@ -79,7 +79,7 @@ public class OrderFragment extends BaseFgm implements UpdateUIListener {
     }
 
     private void initTabs() {
-        tabs = getActivity().getResources().getStringArray(R.array.tabs);
+        tabs = getActivity().getResources().getStringArray(R.array.tabs_order_name);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
         tabLayout.addTab(tabLayout.newTab().setText(tabs[0]), true);
         tabLayout.addTab(tabLayout.newTab().setText(tabs[1]));

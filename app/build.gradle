@@ -60,7 +60,7 @@ dependencies {
     compile 'cn.bingoogolapple:bga-badgeview:1.0.2@aar'
     compile 'cn.bingoogolapple:bga-adapter:1.0.5@aar'
     //gson
-    compile 'com.google.code.gson:gson:2.2.4'
+    compile 'com.google.code.gson:gson:2.3.1'
     compile 'cn.aigestudio.wheelpicker:WheelPicker:1.0.3'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
@@ -71,4 +71,7 @@ dependencies {
     //EventBus
     compile 'de.greenrobot:eventbus:2.4.0'
     compile files('libs/renderscript-v8.jar')
+
+    compile "com.daimajia.swipelayout:library:1.2.0@aar"
+
 }

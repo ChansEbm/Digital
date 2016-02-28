@@ -23,9 +23,12 @@ import com.szbb.pro.entity.Order.OrderDetailBean;
 import com.szbb.pro.entity.Vip.AccountCementBean;
 import com.szbb.pro.entity.Vip.BankBean;
 import com.szbb.pro.entity.Vip.BankCardBean;
+import com.szbb.pro.entity.Vip.IncomeBean;
 import com.szbb.pro.entity.Vip.OrderHintBean;
+import com.szbb.pro.entity.Vip.OtherCostBean;
 import com.szbb.pro.entity.Vip.VipInfoBean;
 import com.szbb.pro.entity.Vip.WalletBean;
+import com.szbb.pro.entity.Vip.WithdrawBean;
 import com.szbb.pro.entity.Vip.WorkHistoryBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.impl.OkHttpResponseListener;
@@ -155,17 +158,16 @@ public class NetworkModel<E> {
      * @param cardBackPath  id pic back
      * @param networkParams networkParams
      */
-    public void saveWorkerInfo(@NonNull String nickName, @NonNull String thumbPath,
+    public void saveWorkerInfo(@NonNull String nickName, String thumbPath,
                                @NonNull String workerAreaIds, @NonNull String workerAddress,
                                @NonNull String lat, @NonNull String lng, @NonNull String cardNo,
-                               @NonNull String cardFrontPath, @NonNull String cardBackPath,
+                               String cardFrontPath, String cardBackPath,
                                NetworkParams
                                        networkParams) {
 
         fileMaps = new HashMap<>();
         clearAllParams();
-        if (isNecessaryFieldEmpty(nickName, thumbPath, workerAreaIds, workerAddress, lat, lat,
-                cardFrontPath, cardBackPath))
+        if (isNecessaryFieldEmpty(nickName, workerAreaIds, workerAddress, lat, lat))
             return;
         params.put("auth", getAuth());
         params.put("nickname", nickName);
@@ -450,7 +452,6 @@ public class NetworkModel<E> {
      * @param detailId      the product's id
      * @param money         apply price
      * @param costType      apply type
-     * @param costUse       apply name
      * @param remarks       remarks
      * @param filePaths     the pic's path
      * @param networkParams networkParams
@@ -921,9 +922,86 @@ public class NetworkModel<E> {
                 tOkHttpResponseListener);
     }
 
+    public void delCard(String payPassword, NetworkParams networkParams) {
+        clearAllParams();
+        if (isNecessaryFieldEmpty(payPassword)) return;
+        params.put("auth", getAuth());
+        params.put("pay_password", payPassword);
+        new OkHttpBuilder.POST(appCompatActivity).urlAPIMember("delCard").entityClass
+                (BaseBean
+                        .class).params(params).enqueue(networkParams,
+                tOkHttpResponseListener);
+    }
+
+    public void getPhoneCode(@NonNull String phoneNum, NetworkParams networkParams) {
+        clearAllParams();
+        if (isNecessaryFieldEmpty(phoneNum)) return;
+        params.put("auth", getAuth());
+        params.put("phone", phoneNum);
+        new OkHttpBuilder.POST(appCompatActivity).urlAPIMember("getPhoneCode").entityClass
+                (BaseBean
+                        .class).params(params).enqueue(networkParams,
+                tOkHttpResponseListener);
+    }
+
+    public void resetPayPassword(String phone, String code, String payPassword, String rePayPassword, NetworkParams networkParams) {
+        clearAllParams();
+        if (isNecessaryFieldEmpty(phone, code, payPassword, rePayPassword)) return;
+        params.put("auth", getAuth());
+        params.put("phone", phone);
+        params.put("code", code);
+        params.put("pay_password", payPassword);
+        params.put("re_password", rePayPassword);
+        new OkHttpBuilder.POST(appCompatActivity).urlAPIMember("resetPayPassword").entityClass
+                (BaseBean
+                        .class).params(params).enqueue(networkParams,
+                tOkHttpResponseListener);
+    }
+
+    public void incomeList(NetworkParams networkParams) {
+        clearAllParams();
+        params.put("auth", getAuth());
+        new OkHttpBuilder.POST(appCompatActivity).urlAPIMember("incomeList").entityClass
+                (IncomeBean
+                        .class).params(params).enqueue(networkParams,
+                tOkHttpResponseListener);
+    }
+
+    public void withdrawalsList(NetworkParams networkParams) {
+        clearAllParams();
+        params.put("auth", getAuth());
+        new OkHttpBuilder.POST(appCompatActivity).urlAPIMember("withdrawalsList").entityClass
+                (WithdrawBean
+                        .class).params(params).enqueue(networkParams,
+                tOkHttpResponseListener);
+    }
+
+    public void otherCostList(NetworkParams networkParams) {
+        clearAllParams();
+        params.put("auth", getAuth());
+        new OkHttpBuilder.POST(appCompatActivity).urlAPIMember("otherCostList").entityClass
+                (OtherCostBean
+                        .class).params(params).enqueue(networkParams,
+                tOkHttpResponseListener);
+    }
+
+    public void withdrawals(@NonNull String outMoney, @NonNull String payPassword, NetworkParams networkParams) {
+        clearAllParams();
+        if (isNecessaryFieldEmpty(outMoney, payPassword))
+            return;
+        params.put("auth", getAuth());
+        params.put("out_money", outMoney);
+        params.put("pay_password", payPassword);
+        new OkHttpBuilder.POST(appCompatActivity).urlAPIMember("withdrawals").entityClass
+                (BaseBean
+                        .class).params(params).enqueue(networkParams,
+                tOkHttpResponseListener);
+    }
+
 
     private boolean isNecessaryFieldEmpty(String... strings) {
         for (String string : strings) {
+            LogTools.w(string);
             if (TextUtils.isEmpty(string)) {
                 logError();
                 return true;

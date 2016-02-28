@@ -9,12 +9,15 @@ import android.view.View;
 import com.szbb.pro.R;
 import com.szbb.pro.TestLayout;
 import com.szbb.pro.base.BaseAty;
+import com.szbb.pro.entity.Tx;
 import com.szbb.pro.impl.AreaCallBack;
 import com.szbb.pro.impl.UpdateUIListener;
+import com.szbb.pro.library.dialog.WheelViewDialog;
 import com.szbb.pro.widget.AreaPicker;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * Created by ChanZeeBm on 2015/9/19.
@@ -27,43 +30,18 @@ public class TestAty extends BaseAty implements
     List<String> p = new ArrayList<>();
     List<List<String>> c = new ArrayList<>();
     AreaPicker areaPicker;
+    WheelViewDialog wheelViewDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         testLayout = (TestLayout) viewDataBinding;
-        List<String> child = new ArrayList<>();
-        p.add("1");
-        child.add("11");
-        child.add("11");
-        child.add("11");
-        c.add(child);
-        child = new ArrayList<>();
-        p.add("2");
-        child.add("22");
-        child.add("22");
-        child.add("22");
-        c.add(child);
-        child = new ArrayList<>();
-        p.add("3");
-        child.add("33");
-        child.add("33");
-        child.add("33");
-        c.add(child);
-        child = new ArrayList<>();
-        p.add("4");
-        child.add("44");
-        child.add("44");
-        child.add("44");
-        c.add(child);
-        child = new ArrayList<>();
-        p.add("5");
-        child.add("55");
-        child.add("55");
-        child.add("55");
-        c.add(child);
-        areaPicker = testLayout.area;
-        areaPicker.setAreaCallBack(this);
+        wheelViewDialog = new WheelViewDialog(this, WheelViewDialog.TWO_LINKAGE);
+        Tx tx = new Tx();
+        tx.setColor("2");
+        testLayout.setTest(tx);
+        testLayout.executePendingBindings();
+
     }
 
     @Override
@@ -95,6 +73,7 @@ public class TestAty extends BaseAty implements
     @Override
     protected void onClick(int id, View view) {
 
+        wheelViewDialog.show();
     }
 
     @Override
@@ -109,11 +88,11 @@ public class TestAty extends BaseAty implements
 
     @Override
     public List<String> getProvince() {
-        return p;
+        return null;
     }
 
     @Override
     public List<List<String>> getCity() {
-        return c;
+        return null;
     }
 }

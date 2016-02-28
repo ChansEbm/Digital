@@ -9,7 +9,6 @@ import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.entity.Base.BaseBean;
 import com.szbb.pro.entity.Vip.WalletBean;
 import com.szbb.pro.eum.NetworkParams;
-import com.szbb.pro.ui.Activity.Vip.Wallet.BankCardActivity;
 
 public class WalletActivity extends BaseAty<WalletBean, BaseBean> {
     private WalletLayout walletLayout;
@@ -39,9 +38,12 @@ public class WalletActivity extends BaseAty<WalletBean, BaseBean> {
     protected void onClick(int id, View view) {
         switch (id) {
             case R.id.btn_bank_card:
-                start(BankCardActivity.class);
+                start(CreditCardActivity.class);
                 break;
             case R.id.btn_withdraw:
+                break;
+            case R.id.tv_detail:
+                start(TransactionDetailActivity.class);
                 break;
         }
     }

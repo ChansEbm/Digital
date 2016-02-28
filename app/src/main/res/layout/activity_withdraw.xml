@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data class=".WithdrawLayout">
+
+        <variable
+            name="bank"
+            type="com.szbb.pro.entity.Vip.BankCardBean.DataEntity" />
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/theme_primary"
+        tools:context="com.szbb.pro.ui.Activity.Vip.Wallet.WithdrawActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_bg_gravy"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large_margin_15dp"
+                android:background="@color/color_white"
+                android:minHeight="@dimen/minHeight_50dp"
+                android:paddingEnd="@dimen/large_margin_15dp"
+                android:paddingStart="@dimen/large_margin_15dp">
+
+                <TextView
+                    style="@style/textStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:gravity="center_vertical"
+                    android:text="@{bank.cardtype}" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/small_margin_5dp">
+
+                    <TextView
+                        style="@style/textStyle"
+                        android:text="@{bank.bank_name}"
+                        android:textColor="@color/color_text_org" />
+
+                    <TextView
+                        style="@style/textStyle"
+                        android:layout_marginStart="@dimen/small_margin_5dp"
+                        android:text="@{bank.credit_card}"
+                        android:textColor="@color/color_text_org" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <include layout="@layout/line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_white"
+                android:minHeight="@dimen/minHeight_50dp"
+                android:paddingEnd="@dimen/large_margin_15dp"
+                android:paddingStart="@dimen/large_margin_15dp">
+
+                <TextView
+                    style="@style/textStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:gravity="center_vertical"
+                    android:text="@string/wallet_money" />
+
+                <EditText
+                    android:id="@+id/edt_money"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:paddingStart="@dimen/small_margin_5dp" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/textStyle"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/large_margin_15dp"
+                android:layout_marginTop="@dimen/large_margin_15dp"
+                android:text="注：每笔提现会收取1元手续费"
+                android:textColor="@color/color_text_gravy" />
+
+            <Button
+                android:id="@+id/button"
+                style="@style/buttonStyle"
+                android:onClick="onClick"
+                android:text="@string/confirm" />
+        </LinearLayout>
+
+    </FrameLayout>
+</layout>

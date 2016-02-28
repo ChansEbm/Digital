@@ -10,7 +10,7 @@ import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.test.TestAty;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.ui.Activity.Login.LoginActivity;
-import com.szbb.pro.ui.Activity.Vip.Wallet.AddBankCardActivity;
+import com.szbb.pro.ui.Activity.Vip.Wallet.AddCreditCardActivity;
 
 /**
  * Created by ChanZeeBm on 2015/9/9.
@@ -30,7 +30,7 @@ public class WelcomeActivity extends BaseAty {
                 if (!AppKeyMap.IS_DEBUG)
                     start(LoginActivity.class);
                 else
-                    start(AddBankCardActivity.class);//TestAty MainActivity
+                    start(TestAty.class);//TestAty MainActivity
                 AppTools.removeSingleActivity(WelcomeActivity.this);
             }
         }, 300);

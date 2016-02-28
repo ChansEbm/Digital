@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-    <data class=".AddBankCardLayout"/>
+    <data class=".AddBankCardLayout" />
 
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/tv1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/color_bg_gravy"
@@ -25,12 +25,12 @@
 
                 <TextView
                     style="@style/textStyle"
-                    android:text="@string/account_holder"/>
+                    android:text="@string/account_holder" />
 
                 <TextView
                     android:id="@+id/tv_account_holder"
                     style="@style/textStyle"
-                    android:layout_marginStart="@dimen/small_margin_5dp"/>
+                    android:layout_marginStart="@dimen/small_margin_5dp" />
             </LinearLayout>
 
             <FrameLayout
@@ -49,16 +49,16 @@
                     android:id="@+id/tv_account_attr"
                     style="@style/textStyle"
                     android:layout_gravity="center_vertical"
-                    android:text="@string/please_input_account_attr"/>
+                    android:text="@string/please_input_account_attr" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center_vertical"
-                    android:src="@mipmap/ic_arrow_down"/>
+                    android:src="@mipmap/ic_arrow_down" />
             </FrameLayout>
 
-            <include layout="@layout/line"/>
+            <include layout="@layout/line" />
 
             <FrameLayout
                 android:id="@+id/flyt_account_city"
@@ -76,16 +76,16 @@
                     android:id="@+id/tv_account_city"
                     style="@style/textStyle"
                     android:layout_gravity="center_vertical"
-                    android:text="@string/please_input_account_city"/>
+                    android:text="@string/please_input_account_city" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center_vertical"
-                    android:src="@mipmap/ic_arrow_down"/>
+                    android:src="@mipmap/ic_arrow_down" />
             </FrameLayout>
 
-            <include layout="@layout/line"/>
+            <include layout="@layout/line" />
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/tInput_enter_account"
@@ -101,7 +101,7 @@
                     android:layout_height="match_parent"
                     android:digits="1234567890"
                     android:inputType="number"
-                    android:maxLength="16"/>
+                    android:maxLength="16" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -117,7 +117,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="number"
-                    android:maxLength="16"/>
+                    android:maxLength="16" />
             </android.support.design.widget.TextInputLayout>
 
             <TextView
@@ -128,7 +128,7 @@
                 android:layout_marginStart="@dimen/large_margin_15dp"
                 android:layout_marginTop="@dimen/large_margin_15dp"
                 android:gravity="center_vertical"
-                android:text="@string/bank_card_rule"/>
+                android:text="@string/bank_card_rule" />
         </LinearLayout>
 
         <Button
@@ -137,7 +137,6 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/large_margin_15dp"
             android:onClick="onClick"
-            android:text="@string/next"
-            />
+            android:text="@string/confirm" />
     </RelativeLayout>
 </layout>

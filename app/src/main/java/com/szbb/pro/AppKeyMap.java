@@ -29,7 +29,7 @@ public class AppKeyMap {
     //默认动画执行时间 300ms
     public final static int DEFAULT_DURATION = 300;
 
-    public final static boolean IS_DEBUG = true;
+    public final static boolean IS_DEBUG = false;
 
     //be flag
     public final static int CUPCAKE = 0x01f;

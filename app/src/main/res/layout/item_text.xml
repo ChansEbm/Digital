@@ -1,23 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/li"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal">
 
-    <data>
-
-        <variable
-            name="bean"
-            type="com.szbb.pro.entity.TextBean"/>
-    </data>
-
-    <LinearLayout
+    <TextView
+        android:id="@+id/tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@{bean.rootBackground}"
         android:gravity="center"
+        android:textColor="@android:color/black" />
 
-        android:minHeight="42dp">
-
-        <com.szbb.pro.widget.StatusBar
-            android:layout_width="match_parent"
-            android:layout_height="70dp"/>
-    </LinearLayout>
-</layout>
+</LinearLayout>

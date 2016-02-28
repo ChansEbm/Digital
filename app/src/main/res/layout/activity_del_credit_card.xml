@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data class=".DelCreditCardLayout" />
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/theme_primary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_bg_gravy"
+            android:orientation="vertical"
+            tools:context="com.szbb.pro.ui.Activity.Vip.Wallet.DelCreditCardActivity">
+
+            <include layout="@layout/title_bar" />
+
+            <TextView
+                style="@style/textStyle"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/large_margin_15dp"
+                android:layout_marginTop="@dimen/large_margin_15dp"
+                android:text="请输入提现密码验证身份，删除后可重新添加"
+                android:textColor="@color/color_text_gravy" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/minHeight_50dp"
+                android:background="@color/color_white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingEnd="@dimen/large_margin_15dp"
+                android:paddingStart="@dimen/large_margin_15dp">
+
+                <EditText
+                    android:id="@+id/edt_pwd"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="请输入提现密码"
+                    android:inputType="textPassword"
+                    android:maxLength="20"
+                    android:textColorHint="@color/color_text_gravy"
+                    android:textSize="@dimen/text_normal_size" />
+
+                <Button
+                    android:id="@+id/btn_find_pwd"
+                    android:layout_width="0dp"
+                    android:layout_height="33dp"
+                    android:layout_weight="0.3"
+                    android:background="@drawable/bg_round_blue_dark_selector"
+                    android:text="@string/login_find_pwd"
+                    android:textColor="@color/color_white" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_confirm"
+                style="@style/buttonStyle"
+                android:layout_marginTop="@dimen/large_margin_15dp"
+                android:text="@string/confirm" />
+        </LinearLayout>
+    </FrameLayout>
+</layout>

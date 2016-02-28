@@ -13,6 +13,8 @@ import com.szbb.pro.entity.Base.BaseBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.tools.AppTools;
 
+import de.greenrobot.event.EventBus;
+
 public class PayPasswordActivity extends BaseAty<BaseBean, BaseBean> {
 
     private PayPasswordLayout payPasswordLayout;
@@ -64,6 +66,7 @@ public class PayPasswordActivity extends BaseAty<BaseBean, BaseBean> {
     @Override
     public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {
         Toast.makeText(PayPasswordActivity.this, baseBean.getMsg(), Toast.LENGTH_SHORT).show();
+        EventBus.getDefault().post("ok");
         AppTools.removeSingleActivity(this);
     }
 

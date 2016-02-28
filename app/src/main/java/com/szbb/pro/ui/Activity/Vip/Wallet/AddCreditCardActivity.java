@@ -7,35 +7,39 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.szbb.pro.AddBankCardLayout;
-import com.szbb.pro.AppKeyMap;
 import com.szbb.pro.R;
 import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.entity.Base.BaseBean;
 import com.szbb.pro.entity.Vip.BankBean;
 import com.szbb.pro.eum.NetworkParams;
-import com.szbb.pro.eum.WheelOptions;
-import com.szbb.pro.impl.AreaCallBack;
-import com.szbb.pro.impl.OnWheelMultiOptsCallback;
+import com.szbb.pro.library.dialog.OnTextSetListener;
+import com.szbb.pro.library.dialog.WheelViewDialog;
+import com.szbb.pro.library.model.AreaBean;
 import com.szbb.pro.tools.AppTools;
-import com.szbb.pro.widget.PopupWindow.AreaPopupWindow;
-import com.szbb.pro.widget.PopupWindow.WheelPopupWindow;
+import com.szbb.pro.tools.LogTools;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddBankCardActivity extends BaseAty<BaseBean, BaseBean> implements
-        OnWheelMultiOptsCallback, AreaCallBack {
+import de.greenrobot.event.EventBus;
+
+public class AddCreditCardActivity extends BaseAty<BaseBean, BaseBean> implements
+        OnTextSetListener {
     private AddBankCardLayout addBankCardLayout;
     private EditText edtAccount;
     private EditText edtReAccount;
     private TextInputLayout tInputAccount;
     private TextInputLayout tInputReAccount;
 
-    private WheelPopupWindow wheelPopupWindow;
     private String payPassword = "";
-    private AreaPopupWindow areaPopupWindow;
 
+    private WheelViewDialog citysDialog;
+    private WheelViewDialog banksDialog;
+
+    private String cityId = "-1";
     private BankBean bankBean = new BankBean();
+    private String bankId = "-1";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,14 +50,11 @@ public class AddBankCardActivity extends BaseAty<BaseBean, BaseBean> implements
 
     @Override
     protected void initViews() {
-        wheelPopupWindow = new WheelPopupWindow(this);
-        wheelPopupWindow.setOptions(WheelOptions.STANDER);
-        wheelPopupWindow.setOnWheelMultiOptsCallback(this);
+        citysDialog = new WheelViewDialog(this, WheelViewDialog.TWO_LINKAGE);
+        banksDialog = new WheelViewDialog(this, WheelViewDialog.ONE_LEVEL);
 
         tInputAccount = addBankCardLayout.tInputEnterAccount;
         tInputReAccount = addBankCardLayout.tInputReEnterAccount;
-
-        areaPopupWindow = new AreaPopupWindow(this);
     }
 
     @Override
@@ -63,7 +64,11 @@ public class AddBankCardActivity extends BaseAty<BaseBean, BaseBean> implements
                 .please_re_enter_bank_account));
         edtAccount = tInputAccount.getEditText();
         edtReAccount = tInputReAccount.getEditText();
-        areaPopupWindow.setAreaCallBack(this);
+        citysDialog.setPositiveButton(getString(R.string.confirm), this);
+        citysDialog.setTitle(R.string.please_input_account_city);
+
+        banksDialog.setPositiveButton(getString(R.string.confirm), this);
+        banksDialog.setTitle(R.string.please_input_account_attr);
 
         networkModel.bankList(NetworkParams.CUPCAKE);
     }
@@ -77,13 +82,10 @@ public class AddBankCardActivity extends BaseAty<BaseBean, BaseBean> implements
     protected void onClick(int id, View view) {
         switch (id) {
             case R.id.flyt_account_attr:
-                wheelPopupWindow.setPopupTitle(getString(R.string.please_input_account_attr));
-                wheelPopupWindow.setCurvedData(getResources().getStringArray(R.array.fitting_nor));
-                wheelPopupWindow.setParams(AppKeyMap.CUPCAKE);
+                banksDialog.show();
                 break;
             case R.id.flyt_account_city:
-                wheelPopupWindow.setPopupTitle(getString(R.string.please_input_account_city));
-                areaPopupWindow.showAtDefaultLocation();
+                citysDialog.show();
                 break;
             case R.id.button:
                 checkNecessaryAndProgress();
@@ -92,14 +94,11 @@ public class AddBankCardActivity extends BaseAty<BaseBean, BaseBean> implements
     }
 
     private void checkNecessaryAndProgress() {
-        String aTag = (String) addBankCardLayout.flytAccountAttr.getTag();
-        if (TextUtils.equals(aTag, "NaN")) {
+        if (TextUtils.equals(bankId, "-1")) {
             AppTools.showNormalSnackBar(parentView, getString(R.string.please_input_account_attr));
             return;
         }
-
-        aTag = (String) addBankCardLayout.flytAccountCity.getTag();
-        if (TextUtils.equals(aTag, "NaN")) {
+        if (TextUtils.equals(cityId, "-1")) {
             AppTools.showNormalSnackBar(parentView, getString(R.string
                     .please_input_account_city));
             return;
@@ -122,57 +121,62 @@ public class AddBankCardActivity extends BaseAty<BaseBean, BaseBean> implements
             AppTools.showNormalSnackBar(parentView, getString(R.string.account_not_match));
             return;
         }
-//        networkModel.addCard(account, "", bankName, bankCity);
+        networkModel.addCard(account, bankId, cityId, payPassword, NetworkParams.DONUT);
     }
 
-    @Override
-    public void onWheelSelect(String selectData, WheelOptions wheelOptions, int params, int index) {
-        switch (params) {
-            case AppKeyMap.CUPCAKE:
-                addBankCardLayout.flytAccountAttr.setTag("okay");
-                addBankCardLayout.tvAccountAttr.setText(selectData);
-                break;
-            case AppKeyMap.DONUT:
-                addBankCardLayout.flytAccountCity.setTag("okay");
-                addBankCardLayout.tvAccountCity.setText(selectData);
-                break;
-        }
-    }
 
     @Override
     public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {
         if (paramsCode == NetworkParams.CUPCAKE) {
             this.bankBean = (BankBean) baseBean;
-            areaPopupWindow.notifyData();
+            initCity();
+            initBankList();
+        } else if (paramsCode == NetworkParams.DONUT) {
+            EventBus.getDefault().post("ok");
         }
     }
 
-    @Override
-    public void onSelect(String provinceName, String cityName, int provinceIndex, int cityIndex) {
-        addBankCardLayout.tvAccountCity.setText(provinceName + "-" + cityName);
-    }
-
-    @Override
-    public List<String> getProvince() {
-        final List<BankBean.CityListEntity> city_list = bankBean.getCity_list();
-        List<String> list = new ArrayList<>();
-        for (BankBean.CityListEntity cityListEntity : city_list) {
-            list.add(cityListEntity.getCity_name());
+    private void initBankList() {
+        List<BankBean.BankListEntity> bank_list = bankBean.getBank_list();
+        ArrayList<String> areaBeans = new ArrayList<>();
+        for (BankBean.BankListEntity bankListEntity : bank_list) {
+            areaBeans.add(bankListEntity.getBank_name());
         }
-        return list;
+        banksDialog.setData(areaBeans);
     }
 
-    @Override
-    public List<List<String>> getCity() {
-        final List<BankBean.CityListEntity> city_list = bankBean.getCity_list();
-        List<List<String>> citys = new ArrayList<>();
-        for (BankBean.CityListEntity cityListEntity : city_list) {
-            List<String> city = new ArrayList<>();
-            for (BankBean.CityListEntity.ChildsEntity childsEntity : cityListEntity.getChilds()) {
-                city.add(childsEntity.getCity_name());
+    private void initCity() {
+        List<BankBean.CityListEntity> allCityData = bankBean.getCity_list();
+        ArrayList<AreaBean> finalData = new ArrayList<>();
+        for (BankBean.CityListEntity allData : allCityData) {
+            AreaBean provinceBean = new AreaBean();
+            provinceBean.setName(allData.getCity_name());
+            LogTools.w(allData.getCity_name());
+            List<BankBean.CityListEntity.ChildsEntity> childs = allData.getChilds();
+            List<AreaBean> citys = new ArrayList<>();
+            for (BankBean.CityListEntity.ChildsEntity child : childs) {
+                AreaBean cityBean = new AreaBean();
+                cityBean.setName(child.getCity_name());
+                LogTools.i(child.getCity_name());
+                citys.add(cityBean);
             }
-            citys.add(city);
+            provinceBean.setArea(citys);
+            finalData.add(provinceBean);
         }
-        return citys;
+        citysDialog.setData(finalData);
+
+    }
+
+
+    @Override
+    public void onTextSet(WheelViewDialog wheelViewDialog, String text, int[] pos) {
+        if (wheelViewDialog == citysDialog) {
+            cityId = this.bankBean.getCity_list().get(pos[0]).getChilds().get(pos[1]).getCity_id();
+            addBankCardLayout.tvAccountCity.setText(text);
+        } else if (wheelViewDialog == banksDialog) {
+            bankId = this.bankBean.getBank_list().get(pos[0]).getBank_id();
+            addBankCardLayout.tvAccountAttr.setText(text);
+        }
+        wheelViewDialog.dismiss();
     }
 }
