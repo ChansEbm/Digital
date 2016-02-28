@@ -27,6 +27,7 @@ import com.orhanobut.logger.LogLevel;
 import com.orhanobut.logger.Logger;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.FileSaveTools;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import java.io.File;
 
@@ -57,6 +58,7 @@ public class BaseApplication extends Application {
         FileSaveTools.getInstance().init(this);
         initGalleryFinal();
         Logger.init("digital").setMethodCount(3).hideThreadInfo().setLogLevel(LogLevel.FULL);
+        CrashReport.initCrashReport(getApplicationContext(), "900020359", true);
     }
 
     private void initGalleryFinal() {
