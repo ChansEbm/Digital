@@ -2,6 +2,7 @@ package com.szbb.pro.entity.Vip;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.text.TextUtils;
 
 import com.szbb.pro.entity.Base.BaseBean;
 
@@ -28,6 +29,32 @@ public class WalletBean extends BaseBean {
         private String unsettled_money;
         private String withdrawing_money;
         private String withdrawials_money;
+        private String is_bind_card;
+        private String has_pay_password;
+
+        public boolean isBindCard() {
+            return TextUtils.equals("1", getIs_bind_card());
+        }
+
+        public boolean isHasPayPassword() {
+            return TextUtils.equals("1", getHas_pay_password());
+        }
+
+        public String getIs_bind_card() {
+            return is_bind_card;
+        }
+
+        public void setIs_bind_card(String is_bind_card) {
+            this.is_bind_card = is_bind_card;
+        }
+
+        public String getHas_pay_password() {
+            return has_pay_password;
+        }
+
+        public void setHas_pay_password(String has_pay_password) {
+            this.has_pay_password = has_pay_password;
+        }
 
         @Bindable
         public String getMoney() {

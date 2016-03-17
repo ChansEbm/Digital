@@ -84,7 +84,7 @@
                             android:id="@+id/btn_verification_code"
                             android:layout_width="wrap_content"
                             android:layout_height="37dp"
-                            android:background="@drawable/bg_blue_normal_frame"
+                            android:background="@drawable/bg_cyan_frame"
                             android:paddingEnd="@dimen/large_margin_15dp"
                             android:paddingStart="@dimen/large_margin_15dp"
                             android:text="@string/reg_verification_code"

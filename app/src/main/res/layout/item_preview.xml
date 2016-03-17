@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data class=".ItemPreviewLayout"/>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:app="http://schemas.android.com/apk/res-auto"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:gravity="center"
+                  android:orientation="vertical">
+
+        <com.szbb.pro.widget.SimplePhotoView
+            android:id="@+id/simpleDraweeView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:actualImageScaleType="fitCenter"
+            app:viewAspectRatio="1.33"/>
+    </LinearLayout>
+</layout>

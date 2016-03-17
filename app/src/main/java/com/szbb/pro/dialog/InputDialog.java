@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.method.DigitsKeyListener;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -88,13 +89,17 @@ public class InputDialog implements View.OnClickListener {
         }
     }
 
-    public void setInputType(int inputType) {
-        setEditTextInputType(inputType);
+    public void setInputType(int inputType, boolean isPassword) {
+        setEditTextInputType(inputType, isPassword);
     }
 
-    public void setEditTextInputType(int inputType) {
-        editText.setKeyListener(DigitsKeyListener.getInstance());
-        editText.setInputType(inputType);
+    public void setEditTextInputType(int inputType, boolean isPassword) {
+        if (!isPassword) {
+            editText.setKeyListener(DigitsKeyListener.getInstance());
+            editText.setInputType(inputType);
+        } else {
+            editText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        }
     }
 
     public void setInputCallBack(InputCallBack inputCallBack) {
@@ -111,8 +116,8 @@ public class InputDialog implements View.OnClickListener {
     }
 
     public void show() {
-        if (TextUtils.isEmpty(title) || params == null) {
-            LogTools.e("title or params not set");
+        if (TextUtils.isEmpty(title)) {
+            LogTools.e("title not set");
             return;
         }
         editText.setText("");

@@ -73,4 +73,9 @@ public abstract class BasePopupWindow extends PopupWindow implements PopupWindow
      * @return 子类布局Id
      */
     public abstract int getPopupLayout();
+
+    @Override
+    public void onClick(View v) {
+        AppTools.hideSoftInputMethod(v);
+    }
 }

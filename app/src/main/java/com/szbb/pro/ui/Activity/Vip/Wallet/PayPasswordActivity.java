@@ -1,11 +1,11 @@
 package com.szbb.pro.ui.Activity.Vip.Wallet;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TextInputLayout;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
+import com.jungly.gridpasswordview.GridPasswordView;
 import com.szbb.pro.PayPasswordLayout;
 import com.szbb.pro.R;
 import com.szbb.pro.base.BaseAty;
@@ -13,15 +13,11 @@ import com.szbb.pro.entity.Base.BaseBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.tools.AppTools;
 
-import de.greenrobot.event.EventBus;
-
 public class PayPasswordActivity extends BaseAty<BaseBean, BaseBean> {
 
     private PayPasswordLayout payPasswordLayout;
-    private EditText pwdEditText;
-    private EditText rePwdEditText;
-    private TextInputLayout pwdTextInputLayout;
-    private TextInputLayout rePwdTextInputLayout;
+    private GridPasswordView gdvPwd;
+    private GridPasswordView gdvRePwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,17 +28,13 @@ public class PayPasswordActivity extends BaseAty<BaseBean, BaseBean> {
     @Override
     protected void initViews() {
         defaultTitleBar(this).setTitle(R.string.title_set_withdraw_pwd);
-        pwdTextInputLayout = payPasswordLayout.tInputPwd;
-        rePwdTextInputLayout = payPasswordLayout.tInputPwdConfirm;
-
-        pwdEditText = pwdTextInputLayout.getEditText();
-        rePwdEditText = rePwdTextInputLayout.getEditText();
+        gdvPwd = payPasswordLayout.gdvPwd;
+        gdvRePwd = payPasswordLayout.gdvRePwd;
     }
 
     @Override
     protected void initEvents() {
-        pwdTextInputLayout.setHint("请输入密码");
-        rePwdTextInputLayout.setHint("请确认密码");
+
     }
 
     @Override
@@ -56,9 +48,9 @@ public class PayPasswordActivity extends BaseAty<BaseBean, BaseBean> {
     }
 
     private void progressInfo() {
-        String pwd = pwdEditText.getText().toString();
-        String rePwd = rePwdEditText.getText().toString();
-        if (AppTools.verifyPwd(pwdTextInputLayout, pwd, rePwd)) {
+        String pwd = gdvPwd.getPassWord();
+        String rePwd = gdvRePwd.getPassWord();
+        if (AppTools.verifyPwd(parentView, pwd, rePwd)) {
             networkModel.setPayPassword(pwd, rePwd, NetworkParams.CUPCAKE);
         }
     }
@@ -66,8 +58,8 @@ public class PayPasswordActivity extends BaseAty<BaseBean, BaseBean> {
     @Override
     public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {
         Toast.makeText(PayPasswordActivity.this, baseBean.getMsg(), Toast.LENGTH_SHORT).show();
-        EventBus.getDefault().post("ok");
-        AppTools.removeSingleActivity(this);
+        start(WalletActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP, Intent
+                .FLAG_ACTIVITY_SINGLE_TOP);
     }
 
 }

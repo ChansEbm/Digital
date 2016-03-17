@@ -9,6 +9,7 @@ import com.szbb.pro.R;
 import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.test.TestAty;
 import com.szbb.pro.tools.AppTools;
+import com.szbb.pro.ui.Activity.Login.CompleteInfoActivity;
 import com.szbb.pro.ui.Activity.Login.LoginActivity;
 import com.szbb.pro.ui.Activity.Vip.Wallet.AddCreditCardActivity;
 
@@ -27,10 +28,10 @@ public class WelcomeActivity extends BaseAty {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (!AppKeyMap.IS_DEBUG)
-                    start(LoginActivity.class);
+                if (AppKeyMap.IS_DEBUG)
+                    start(TestAty.class);
                 else
-                    start(TestAty.class);//TestAty MainActivity
+                    start(LoginActivity.class);
                 AppTools.removeSingleActivity(WelcomeActivity.this);
             }
         }, 300);

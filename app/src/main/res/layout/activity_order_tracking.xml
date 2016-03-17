@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data class=".OrderTrackingLayout">
+
+        <variable
+            name="track"
+            type="com.szbb.pro.entity.Order.OrderTrackingBean.DataEntity"/>
+    </data>
+
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/theme_primary"
+        tools:context=".ui.Activity.Orders.Operating.OrderTrackingActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_bg_gravy"
+            android:orientation="vertical">
+
+            <include layout="@layout/title_bar"/>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/color_white"
+                        android:minHeight="90dp"
+                        android:padding="@dimen/large_margin_15dp">
+
+
+                        <TextView
+                            android:id="@+id/tv_t1"
+                            style="@style/textStyle"
+                            android:text="@string/order_detail_no"/>
+
+                        <TextView
+                            style="@style/textStyle"
+                            android:layout_alignTop="@id/tv_t1"
+                            android:layout_marginStart="@dimen/small_margin_5dp"
+                            android:layout_toEndOf="@id/tv_t1"
+                            android:text="@{track.sn}"
+                            android:textColor="@color/color_text_gravy"/>
+
+
+                        <TextView
+                            android:id="@+id/tv_t2"
+                            style="@style/textStyle"
+                            android:layout_below="@id/tv_t1"
+                            android:layout_marginTop="@dimen/middle_margin_10dp"
+                            android:text="@string/order_make_order_time"/>
+
+                        <TextView
+                            style="@style/textStyle"
+                            android:layout_alignTop="@id/tv_t2"
+                            android:layout_marginStart="@dimen/small_margin_5dp"
+                            android:layout_toEndOf="@id/tv_t2"
+                            android:text="@{track.addtime}"
+                            android:textColor="@color/color_text_gravy"/>
+
+                        <TextView
+                            android:id="@+id/tv_t3"
+                            style="@style/textStyle"
+                            android:layout_below="@id/tv_t2"
+                            android:layout_marginTop="@dimen/middle_margin_10dp"
+                            android:text="@string/order_detail_take_time"/>
+
+                        <TextView
+                            style="@style/textStyle"
+                            android:layout_alignTop="@id/tv_t3"
+                            android:layout_marginStart="@dimen/small_margin_5dp"
+                            android:layout_toEndOf="@id/tv_t3"
+                            android:text="@{track.distribute_time}"
+                            android:textColor="@color/color_text_gravy"/>
+
+
+                        <Button
+                            android:id="@+id/btn_sign_again"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_below="@id/btn_sign_appointment"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/bg_cyan_frame"
+                            android:minHeight="34dp"
+                            android:minWidth="85dp"
+                            android:onClick="onClick"
+                            android:text="@string/order_detail_sign_again"
+                            android:textColor="@color/theme_primary"
+                            android:visibility="gone"/>
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/large_margin_15dp"
+                        android:background="@color/color_white"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/large_margin_15dp">
+
+                        <com.szbb.pro.widget.FancyIndicator
+                            android:id="@+id/fancyIndicator"
+                            android:layout_width="@dimen/minHeight_50dp"
+                            android:layout_height="match_parent"
+                            app:chosenColor="@color/theme_primary"
+                            app:fancy_lineThickness="2dp"
+                            app:fancy_radius="@dimen/small_margin_5dp"
+                            app:normalColor="@color/color_text_gravy"/>
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+    </FrameLayout>
+</layout>

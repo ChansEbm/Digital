@@ -26,6 +26,7 @@ public class CreditCardActivity extends BaseAty<BaseBean, BaseBean> implements I
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bankCardLayout = (BankCardLayout) viewDataBinding;
+        password = getIntent().getStringExtra("payPassword");
         EventBus.getDefault().register(this);
     }
 
@@ -52,14 +53,17 @@ public class CreditCardActivity extends BaseAty<BaseBean, BaseBean> implements I
             final BankCardBean.DataEntity card = bankCardLayout.getCard();
             final boolean hasPayPassword = card.hasPayPassword();
             boolean bindCard = card.isBindCard();
+            if (!hasPayPassword) {
+                start(PayPasswordActivity.class);
+                return true;
+            }
             if (bindCard) {
                 AppTools.showNormalSnackBar(parentView, "目前只支持添加一张银行卡");
                 return false;
-            }
-            if (!hasPayPassword) {
-                start(PayPasswordActivity.class);
             } else {
-                AppTools.showNormalSnackBar(parentView, "目前只支持添加一张银行卡");
+                startActivity(new Intent().setClass(this, AddCreditCardActivity.class).putExtra
+                        ("payPassword", password));
+                return true;
             }
         }
         return true;
@@ -83,7 +87,6 @@ public class CreditCardActivity extends BaseAty<BaseBean, BaseBean> implements I
         if (TextUtils.equals(event, "ok"))
             networkModel.myCard(NetworkParams.CUPCAKE);
     }
-
 
     @Override
     public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {

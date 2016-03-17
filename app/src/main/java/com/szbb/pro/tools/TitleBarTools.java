@@ -52,6 +52,12 @@ public class TitleBarTools {
         return this;
     }
 
+    //设置标题背景
+    public TitleBarTools setTitleBackgroundColor(int color) {
+        toolbar.setBackgroundColor(title.getResources().getColor(color));
+        return this;
+    }
+
     //设置居中标题
     public TitleBarTools setTitle(int resId) {
         title.setText(resId);

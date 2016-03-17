@@ -92,5 +92,4 @@ public abstract class CommonBinderAdapter<T> extends RecyclerView.Adapter<Common
         return holder;
     }
 
-
 }

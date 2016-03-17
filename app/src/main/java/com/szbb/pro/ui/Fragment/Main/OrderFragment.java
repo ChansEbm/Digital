@@ -16,11 +16,13 @@ import com.szbb.pro.databinding.FgmOrderBinding;
 import com.szbb.pro.impl.UpdateUIListener;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.ui.Fragment.Order.NewOrderFragment;
-import com.szbb.pro.ui.Fragment.Order.PendingFragment;
+import com.szbb.pro.ui.Fragment.Order.ServicedFragment;
 import com.szbb.pro.ui.Fragment.Order.WaitAccountFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.jpush.android.api.BasicPushNotificationBuilder;
 
 /**
  * Created by ChanZeeBm on 2015/9/16.
@@ -40,7 +42,6 @@ public class OrderFragment extends BaseFgm implements UpdateUIListener {
         broadcast = new UpdateUIBroadcast();
         broadcast.setListener(this);
         AppTools.registerBroadcast(broadcast, AppKeyMap.APPOINTMENT_CLIENT_ACTION);
-
     }
 
     @Override
@@ -48,6 +49,7 @@ public class OrderFragment extends BaseFgm implements UpdateUIListener {
         binding = (FgmOrderBinding) viewDataBinding;
         tabLayout = binding.tabLayout;
         viewPager = binding.viewPager;
+
 
         initTabs();
         initFragments();
@@ -88,7 +90,7 @@ public class OrderFragment extends BaseFgm implements UpdateUIListener {
 
     private void initFragments() {
         fragmentList.add(new NewOrderFragment());
-        fragmentList.add(new PendingFragment());
+        fragmentList.add(new ServicedFragment());
         fragmentList.add(new WaitAccountFragment());
     }
 

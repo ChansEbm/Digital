@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data class=".PersonalInfoLayout">
+
+        <variable
+            name="info"
+            type="com.szbb.pro.entity.Vip.VipInfoBean.WorkerDataEntity"/>
+    </data>
+
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/theme_primary"
+        tools:context="com.szbb.pro.ui.Activity.Vip.PersonalInfo.PersonalInfoActivity">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_bg_gravy"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/title_bar"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_white"
+                    android:gravity="center_vertical"
+                    android:minHeight="@dimen/minHeight_50dp"
+                    android:orientation="horizontal"
+                    android:paddingEnd="@dimen/large_margin_15dp"
+                    android:paddingStart="@dimen/large_margin_15dp">
+
+                    <TextView
+                        style="@style/textStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.35"
+                        android:text="@string/info_nickname"
+                        />
+
+                    <TextView
+                        style="@style/textStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@{info.nickname}"
+                        />
+
+                </LinearLayout>
+
+                <include layout="@layout/line"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_white"
+                    android:gravity="center_vertical"
+                    android:minHeight="@dimen/minHeight_50dp"
+                    android:orientation="horizontal"
+                    android:paddingEnd="@dimen/large_margin_15dp"
+                    android:paddingStart="@dimen/large_margin_15dp">
+
+                    <TextView
+                        style="@style/textStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.35"
+                        android:text="@string/info_bind_phone"
+                        />
+
+                    <TextView
+                        style="@style/textStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@{info.telephone}"
+                        android:textColor="@color/color_text_gravy"/>
+
+                </LinearLayout>
+
+                <include layout="@layout/line"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_white"
+                    android:gravity="center_vertical"
+                    android:minHeight="@dimen/minHeight_50dp"
+                    android:orientation="horizontal"
+                    android:paddingEnd="@dimen/large_margin_15dp"
+                    android:paddingStart="@dimen/large_margin_15dp"
+                    >
+
+                    <TextView
+                        style="@style/textStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.35"
+                        android:text="@string/real_location"
+                        />
+
+                    <TextView
+                        style="@style/textStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@{info.worker_area_ids_desc}"
+                        android:textColor="@color/color_text_gravy"/>
+
+                </LinearLayout>
+
+                <include layout="@layout/line"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_white"
+                    android:gravity="center_vertical"
+                    android:minHeight="@dimen/minHeight_50dp"
+                    android:orientation="horizontal"
+                    android:paddingEnd="@dimen/large_margin_15dp"
+                    android:paddingStart="@dimen/large_margin_15dp">
+
+                    <TextView
+                        style="@style/textStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.35"
+                        android:text="@string/detail_address"
+                        />
+
+                    <TextView
+                        style="@style/textStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:ellipsize="middle"
+                        android:maxLines="2"
+                        android:text="@{info.worker_address}"
+                        android:textColor="@color/color_text_gravy"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/large_margin_15dp"
+                    android:background="@color/color_white"
+                    android:gravity="center_vertical"
+                    android:minHeight="@dimen/minHeight_50dp"
+                    android:orientation="horizontal"
+                    android:paddingEnd="@dimen/large_margin_15dp"
+                    android:paddingStart="@dimen/large_margin_15dp">
+
+                    <TextView
+                        style="@style/textStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.35"
+                        android:text="@string/organizing_citizen_ID"
+                        />
+
+                    <TextView
+                        style="@style/textStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:ellipsize="middle"
+                        android:maxLines="2"
+                        android:text="@{info.card_no}"
+                        android:textColor="@color/color_text_gravy"/>
+                </LinearLayout>
+
+                <include layout="@layout/line"/>
+
+                <LinearLayout
+                    android:id="@+id/llyt_citizen_pic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_white_gravy_selector"
+                    android:gravity="center_vertical"
+                    android:minHeight="100dp"
+                    android:onClick="onClick"
+                    android:orientation="horizontal"
+                    android:paddingEnd="@dimen/large_margin_15dp"
+                    android:paddingStart="@dimen/large_margin_15dp">
+
+                    <TextView
+                        style="@style/textStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.35"
+                        android:text="@string/info_citizen_pic"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <com.facebook.drawee.view.SimpleDraweeView
+                            android:id="@+id/sdv_font"
+                            style="@style/DefaultSimpleDraweeView"
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:onClick="onClick"/>
+
+                        <com.facebook.drawee.view.SimpleDraweeView
+                            android:id="@+id/sdv_back"
+                            style="@style/DefaultSimpleDraweeView"
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:layout_marginStart="@dimen/large_margin_15dp"
+                            android:onClick="onClick"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/large_margin_15dp"
+                    android:background="@color/color_white"
+                    android:gravity="center_vertical"
+                    android:minHeight="@dimen/minHeight_50dp"
+                    android:orientation="horizontal"
+                    android:paddingEnd="@dimen/large_margin_15dp"
+                    android:paddingStart="@dimen/large_margin_15dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        style="@style/textStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.35"
+                        android:text="@string/info_my_skill"/>
+
+                    <TextView
+                        style="@style/textStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:ellipsize="middle"
+                        android:maxLines="2"
+                        android:textColor="@color/color_text_gravy"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llyt_receiver_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/large_margin_15dp"
+                    android:background="@drawable/bg_white_gravy_selector"
+                    android:gravity="center_vertical"
+                    android:minHeight="@dimen/minHeight_50dp"
+                    android:onClick="onClick"
+                    android:orientation="horizontal"
+                    android:paddingEnd="@dimen/large_margin_15dp"
+                    android:paddingStart="@dimen/large_margin_15dp">
+
+                    <TextView
+                        style="@style/textStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.35"
+                        android:text="@string/receiver_info"
+                        />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/ic_arrow_right"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llyt_change_pwd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/large_margin_15dp"
+                    android:background="@drawable/bg_white_gravy_selector"
+                    android:gravity="center_vertical"
+                    android:minHeight="@dimen/minHeight_50dp"
+                    android:onClick="onClick"
+                    android:orientation="horizontal"
+                    android:paddingEnd="@dimen/large_margin_15dp"
+                    android:paddingStart="@dimen/large_margin_15dp">
+
+                    <TextView
+                        style="@style/textStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.35"
+                        android:text="@string/info_change_pwd"
+                        />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/ic_arrow_right"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
+</layout>

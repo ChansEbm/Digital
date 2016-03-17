@@ -48,23 +48,28 @@
             android:layout_marginTop="@dimen/small_margin_5dp"
             android:background="@color/color_white"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingEnd="@dimen/large_margin_15dp"
+            android:paddingStart="@dimen/large_margin_15dp">
 
             <com.aigestudio.wheelpicker.widget.curved.WheelDatePicker
                 android:id="@+id/datePicker"
-                android:layout_width="wrap_content"
-                android:layout_height="191dp"/>
+                android:layout_width="0dp"
+                android:layout_height="191dp"
+                android:layout_weight="1"/>
 
             <com.aigestudio.wheelpicker.widget.curved.WheelTimePicker
                 android:id="@+id/timePicker"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="191dp"
-                android:layout_marginStart="@dimen/large_margin_15dp"/>
+                android:layout_marginStart="@dimen/large_margin_15dp"
+                android:layout_weight="1"/>
 
             <com.aigestudio.wheelpicker.view.WheelCurvedPicker
                 android:id="@+id/curvedPicker"
-                android:layout_width="wrap_content"
-                android:layout_height="191dp"/>
+                android:layout_width="0dp"
+                android:layout_height="191dp"
+                android:layout_weight="1"/>
         </LinearLayout>
     </LinearLayout>
 </layout>

@@ -23,4 +23,10 @@
         <attr name="lineThickness" format="dimension"/>
         <attr name="isCenter" format="boolean"/>
     </declare-styleable>
+    <declare-styleable name="FancyIndicator">
+        <attr name="fancy_radius" format="dimension"/>
+        <attr name="fancy_lineThickness" format="dimension"/>
+        <attr name="chosenColor" format="color|reference"/>
+        <attr name="normalColor" format="color|reference"/>
+    </declare-styleable>
 </resources>

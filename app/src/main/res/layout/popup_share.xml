@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data class=".ShareLayout">
+
+        <variable
+            name="share"
+            type="com.szbb.pro.entity.Base.Events"/>
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/textStyle"
+            android:layout_width="match_parent"
+            android:background="@color/color_white"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/minHeight_50dp"
+            android:paddingStart="@dimen/small_margin_5dp"
+            android:text="@string/label_send_way"
+            android:textColor="@color/color_text_gravy"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:id="@+id/wechat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_white_gravy_selector"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/minHeight_50dp"
+            android:onClick="@{share.onClickListener}"
+            android:paddingStart="@dimen/large_margin_15dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/large_margin_15dp"
+                android:src="@mipmap/ssdk_oks_logo_wechat"/>
+
+            <TextView
+                style="@style/textStyle"
+                android:text="@string/ssdk_wechat"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/wechat_moment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_white_gravy_selector"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/minHeight_50dp"
+            android:onClick="@{share.onClickListener}"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/large_margin_15dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/large_margin_15dp"
+                android:src="@mipmap/ssdk_oks_logo_wechatmoments"/>
+
+            <TextView
+                style="@style/textStyle"
+                android:text="@string/label_wechat_moment"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/qq"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_white_gravy_selector"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/minHeight_50dp"
+            android:onClick="@{share.onClickListener}"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/large_margin_15dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/large_margin_15dp"
+                android:src="@mipmap/ssdk_oks_logo_qq"/>
+
+            <TextView
+                style="@style/textStyle"
+                android:text="@string/label_qq"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/qzone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_white_gravy_selector"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/minHeight_50dp"
+            android:onClick="@{share.onClickListener}"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/large_margin_15dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/large_margin_15dp"
+                android:src="@mipmap/ssdk_oks_logo_qzone"/>
+
+            <TextView
+                style="@style/textStyle"
+                android:text="@string/ssdk_qzone"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

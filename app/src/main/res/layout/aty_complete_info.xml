@@ -232,7 +232,7 @@
                                 android:layout_marginStart="@dimen/large_margin_15dp"
                                 android:onClick="onClick"
                                 app:actualImageScaleType="centerCrop"
-                                app:placeholderImage="@mipmap/ic_citizen_front_side"
+                                app:placeholderImage="@mipmap/ic_font_side"
                                 app:placeholderImageScaleType="centerInside"/>
 
                             <com.facebook.drawee.view.SimpleDraweeView
@@ -243,7 +243,7 @@
                                 android:layout_toStartOf="@id/sdv_citizen_id_back_side"
                                 android:onClick="onClick"
                                 app:actualImageScaleType="centerCrop"
-                                app:placeholderImage="@mipmap/ic_citizen_back_side"
+                                app:placeholderImage="@mipmap/ic_back_side"
                                 app:placeholderImageScaleType="centerInside"/>
 
                         </RelativeLayout>

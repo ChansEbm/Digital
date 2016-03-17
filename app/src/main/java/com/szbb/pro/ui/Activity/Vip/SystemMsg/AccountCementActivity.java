@@ -15,6 +15,7 @@ import com.szbb.pro.adapters.CommonBinderHolder;
 import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.entity.Vip.AccountCementBean;
 import com.szbb.pro.eum.NetworkParams;
+import com.szbb.pro.ui.Activity.Vip.WebViewActivity;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import java.util.List;
@@ -98,7 +99,7 @@ public class AccountCementActivity extends BaseAty<AccountCementBean, AccountCem
     public void onBinderItemClick(View view, int pos) {
         final AccountCementBean.ListEntity listEntity = list.get(pos);
         final String url = listEntity.getUrl();
-        startActivity(new Intent().setClass(this, SystemMsgDetailActivity.class).putExtra("url",
-                url));
+        startActivity(new Intent().setClass(this, WebViewActivity.class).putExtra("url",
+                url).putExtra("title", getString(R.string.title_detail)));
     }
 }

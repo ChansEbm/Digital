@@ -7,14 +7,12 @@ import android.databinding.ViewDataBinding;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.WindowManager;
 
 import com.szbb.pro.AppKeyMap;
 import com.szbb.pro.R;
 import com.szbb.pro.adapters.CommonBinderAdapter;
-import com.szbb.pro.adapters.MultiAdapter;
 import com.szbb.pro.broadcast.UpdateUIBroadcast;
 import com.szbb.pro.entity.Base.BaseBean;
 import com.szbb.pro.eum.NetworkParams;
@@ -31,6 +29,8 @@ import java.util.List;
 
 import cn.finalteam.galleryfinal.GalleryFinal;
 import cn.finalteam.galleryfinal.model.PhotoInfo;
+import cn.jpush.android.api.JPushInterface;
+import cn.sharesdk.framework.ShareSDK;
 
 /**
  * Created by ChanZeeBm on 2015/9/7.
@@ -39,16 +39,13 @@ public abstract class BaseAty<E, T> extends AppCompatActivity implements View.On
         BinderOnItemClickListener, OkHttpResponseListener<E>, UpdateUIListener, GalleryFinal
                 .OnHanlderResultCallback {
 
+    protected View parentView;
     protected CommonBinderAdapter<T> commonBinderAdapter;
-    protected MultiAdapter<T> multiAdapter;
-    protected RecyclerView.LayoutManager layoutManager;
     protected ArrayList<T> list = new ArrayList<>();
     protected TitleBarTools titleBarTools;
     protected ViewDataBinding viewDataBinding;
     protected NetworkModel networkModel;
-    protected View parentView;
     protected UpdateUIBroadcast uiBroadcast;
-    private BaseApplication baseApplication;
     private boolean isFirstRunnable = true;
 
     @Override
@@ -67,15 +64,25 @@ public abstract class BaseAty<E, T> extends AppCompatActivity implements View.On
             //            getWindow().addFlags(WindowManager.LayoutParams
             // .FLAG_TRANSLUCENT_NAVIGATION);//虚拟底部
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);//状态栏
+            viewDataBinding.getRoot().setFitsSystemWindows(true);
         }
+//        CustomPushNotificationBuilder customPushNotificationBuilder = new
+//                CustomPushNotificationBuilder(this, R.layout.customer_notitfication_layout, R.id
+//                .icon, R.id.title, R.id.text);
+//        customPushNotificationBuilder.statusBarDrawable = R.mipmap.a1;
+//        customPushNotificationBuilder.layoutIconDrawable = R.mipmap.stauts_icon;
+//        JPushInterface.setPushNotificationBuilder(1, customPushNotificationBuilder);
+
         networkModel = new NetworkModel(this, viewDataBinding.getRoot());
         networkModel.setResultCallBack(this);
-        baseApplication = (BaseApplication) getApplication();
         AppTools.addActivity(this);
         uiBroadcast = new UpdateUIBroadcast();
         uiBroadcast.setListener(this);
         AppTools.registerBroadcast(uiBroadcast, AppKeyMap.NO_NETWORK_ACTION);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//竖屏
+        //初始化ShareSDK
+        ShareSDK.initSDK(this);
+
     }
 
     @Override
@@ -86,6 +93,18 @@ public abstract class BaseAty<E, T> extends AppCompatActivity implements View.On
             initEvents();
             isFirstRunnable = !isFirstRunnable;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        JPushInterface.onResume(getApplicationContext());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        JPushInterface.onPause(getApplicationContext());
     }
 
     protected TitleBarTools titleBarTools(AppCompatActivity activity) {
@@ -144,6 +163,7 @@ public abstract class BaseAty<E, T> extends AppCompatActivity implements View.On
     @Override
     public void onClick(View v) {
         int id = v.getId();
+        AppTools.hideSoftInputMethod(v);
         if (id == R.id.nav) {
             LogTools.i("close activity");
             AppTools.removeSingleActivity(this);
@@ -211,6 +231,7 @@ public abstract class BaseAty<E, T> extends AppCompatActivity implements View.On
         if (intent.getAction().equals(AppKeyMap.NO_NETWORK_ACTION))
             noNetworkStatus();
     }
+
 
 }
 

@@ -32,7 +32,7 @@ public class OkHttpBuilder {
      * @param params  the params what we need to push
      * @return the fullUrl with params
      */
-    private static String attachHttpGetParam(String fullUrl, Map<String, String> params) {
+    public static String attachHttpGetParam(String fullUrl, Map<String, String> params) {
         StringBuilder stringBuilder = new StringBuilder(fullUrl);
         for (String key : params.keySet()) {
             stringBuilder.append("&").append(key).append("=").append(params.get(key
@@ -80,7 +80,6 @@ public class OkHttpBuilder {
             this.appCompatActivity = appCompatActivity;
         }
 
-
         /**
          * 设置要访问的URL
          *
@@ -92,10 +91,6 @@ public class OkHttpBuilder {
             return this;
         }
 
-        public GET fullUrl(String url) {
-            this.fullUrl = url;
-            return this;
-        }
 
         /**
          * 添加请求的参数(only string)
@@ -184,7 +179,6 @@ public class OkHttpBuilder {
         }
 
 
-
         public POST urlWorker(String workerUrl) {
             this.fullUrl = AppKeyMap.HEAD_API_WORKER + workerUrl;
             return this;
@@ -207,6 +201,11 @@ public class OkHttpBuilder {
 
         public POST urlAPIMember(String memberUrl) {
             this.fullUrl = AppKeyMap.HEAD_APIMEMBER + memberUrl;
+            return this;
+        }
+
+        public POST urlAPIPush(String pushUrl) {
+            this.fullUrl = AppKeyMap.HEAD_APIPUSH + pushUrl;
             return this;
         }
 

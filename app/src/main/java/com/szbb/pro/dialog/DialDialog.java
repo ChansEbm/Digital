@@ -41,6 +41,9 @@ public class DialDialog {
         }).setNegativeButton(R.string.negative, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (listener != null) {
+                    listener.dial();
+                }
                 dialog.dismiss();
             }
         });

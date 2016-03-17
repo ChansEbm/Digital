@@ -65,18 +65,19 @@ public class ExpensesDetailActivity extends BaseAty<ExpenseDetailBean, BaseBean>
     @Override
     protected void initEvents() {
         expandableListView.setAdapter(commonExpandableAdapter);
-        networkModel.orderSettlement(orderId, NetworkParams.CUPCAKE);
         commonExpandableAdapter.setGroupClickable(true);
         expandableListView.setGroupIndicator(null);
         expandableListView.setChildDivider(null);
         expandableListView.setChildDivider(getResources().getDrawable(R.color.color_transparent));
         expandableListView.setDivider(getResources().getDrawable(R.color.color_transparent));
         expandableListView.setDividerHeight(0);
+
+        networkModel.orderSettlement(orderId, NetworkParams.CUPCAKE);
     }
 
     private void expand() {
-        ArrayListViewTools.measureAbsListViewHeight(expandableListView);
         ArrayListViewTools.expandGroup(expandableListView, true);
+        ArrayListViewTools.measureAbsListViewHeight(expandableListView);
     }
 
     @Override
@@ -104,6 +105,7 @@ public class ExpensesDetailActivity extends BaseAty<ExpenseDetailBean, BaseBean>
         }
         commonExpandableAdapter.notifyDataSetChanged();
         expand();
+        expensesDetailLayout.setDetail(expenseDetailBean);
     }
 
 }

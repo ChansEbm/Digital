@@ -12,6 +12,7 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.model.LatLng;
+import com.szbb.pro.AppKeyMap;
 import com.szbb.pro.LocationLayout;
 import com.szbb.pro.R;
 import com.szbb.pro.base.BaseAty;
@@ -23,18 +24,31 @@ public class LocationActivity extends BaseAty implements BDLocationListener {
     private BaiduMap baiduMap;
     private LocationLayout locationLayout;
     private MapModel mapModel;
+    private int flag = -1;
+    private double lat = -1d;
+    private double lng = -1d;
+    private String title = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         locationLayout = (LocationLayout) viewDataBinding;
+        flag = getIntent().getIntExtra("flag", -1);
+        if (flag == -1)
+            AppTools.removeSingleActivity(this);
+        lat = getIntent().getDoubleExtra("lat", -1);
+        lng = getIntent().getDoubleExtra("lng", -1);
+        title = getIntent().getStringExtra("title");
     }
 
     @Override
     protected void initViews() {
+        defaultTitleBar(this).setTitle(title);
         mapModel = new MapModel(this);
-        defaultTitleBar(this).setTitle(R.string.now_position);
-        checkNetWorkStateAndLocate();
+        mapView = locationLayout.mapView;
+        if (flag == AppKeyMap.CUPCAKE)
+            checkNetWorkStateAndLocate();
+        mapModel.moveToSpecifyLocation(mapView.getMap(), new LatLng(lat, lng));
     }
 
     @Override
@@ -44,13 +58,13 @@ public class LocationActivity extends BaseAty implements BDLocationListener {
 
     @Override
     protected void noNetworkStatus() {
-
+        AppTools.stopLocate();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_done, menu);
-        return true;
+        return flag == AppKeyMap.CUPCAKE;
     }
 
     @Override
@@ -64,7 +78,7 @@ public class LocationActivity extends BaseAty implements BDLocationListener {
             setResult(RESULT_OK, new Intent().putExtra("lat", lat).putExtra("lng", lng));
             AppTools.removeSingleActivity(this);
         }
-        return true;
+        return flag == AppKeyMap.CUPCAKE;
     }
 
     @Override
@@ -79,7 +93,6 @@ public class LocationActivity extends BaseAty implements BDLocationListener {
                     .no_network_is_detected));
             return false;
         }
-        mapView = locationLayout.mapView;
         baiduMap = mapView.getMap();
         AppTools.locate(this);
         return true;

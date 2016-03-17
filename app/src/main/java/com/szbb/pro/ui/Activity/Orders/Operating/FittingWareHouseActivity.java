@@ -27,7 +27,6 @@ import com.szbb.pro.impl.CountChangeCallBack;
 import com.szbb.pro.impl.OnCountListener;
 import com.szbb.pro.impl.OnWheelOptsSelectCallback;
 import com.szbb.pro.tools.AppTools;
-import com.szbb.pro.tools.LogTools;
 import com.szbb.pro.widget.PopupWindow.ShopCarPopupWindow;
 import com.szbb.pro.widget.PopupWindow.WheelPopupWindow;
 
@@ -73,7 +72,6 @@ public class FittingWareHouseActivity extends BaseAty implements MaterialSearchV
         orderId = getIntent().getStringExtra("orderId");
         serviceId = getIntent().getStringExtra("serviceId");
         accId = getIntent().getStringExtra("accId");
-        LogTools.v("accId:" + accId);
         detailId = getIntent().getStringExtra("detailId");
 
         fittingWareHouseLayout = (WareHouseLayout) viewDataBinding;
@@ -132,12 +130,12 @@ public class FittingWareHouseActivity extends BaseAty implements MaterialSearchV
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.add) {
-            //添加其他配件
-            startActivityForResult(new Intent().setClass(this, FittingAdditionalActivity.class)
-                    .putExtra("detailId", detailId), AppKeyMap.CUPCAKE);
-        }
-        return true;
+//        if (item.getItemId() == R.id.add) {
+//            //添加其他配件
+//            startActivityForResult(new Intent().setClass(this, FittingAdditionalActivity.class)
+//                    .putExtra("detailId", detailId), AppKeyMap.CUPCAKE);
+//        }
+        return false;
     }
 
     @Override
@@ -163,18 +161,18 @@ public class FittingWareHouseActivity extends BaseAty implements MaterialSearchV
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == AppKeyMap.CUPCAKE && resultCode == RESULT_OK) {
-            FittingWareHouseBean.AcceListEntity acceListEntity = data.getParcelableExtra
-                    ("acceList");
-            acceListEntitySparseArray.put(Integer.valueOf(acceListEntity.getAcce_id()),
-                    acceListEntity);
-            shopCarPopupWindow.addItem(Integer.valueOf(acceListEntity.getAcce_id()),
-                    acceListEntity);
-            notifyShopCarCount();
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        if (requestCode == AppKeyMap.CUPCAKE && resultCode == RESULT_OK) {
+//            FittingWareHouseBean.AcceListEntity acceListEntity = data.getParcelableExtra
+//                    ("acceList");
+//            acceListEntitySparseArray.put(Integer.valueOf(acceListEntity.getAcce_id()),
+//                    acceListEntity);
+//            shopCarPopupWindow.addItem(Integer.valueOf(acceListEntity.getAcce_id()),
+//                    acceListEntity);
+//            notifyShopCarCount();
+//        }
+//    }
 
     private void startActivityByAccType() {
         Intent intent = new Intent();

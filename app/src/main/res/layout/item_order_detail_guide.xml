@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data class="ItemOrderDetailGuideLayout">
+
+        <variable
+            name="guide"
+            type="com.szbb.pro.entity.Order.OrderDetailBean.DataEntity.AcceCostListEntity"/>
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:background="@drawable/bg_white_gravy_selector"
+                 android:minHeight="@dimen/minHeight_50dp"
+                 android:paddingEnd="@dimen/large_margin_15dp"
+                 android:paddingStart="@dimen/large_margin_15dp">
+
+        <TextView
+            style="@style/textStyle"
+            android:layout_gravity="center_vertical"
+            android:text="@{guide.title}"
+            android:textColor="@color/color_text_gravy"/>
+
+        <TextView
+            style="@style/textStyle"
+            android:layout_gravity="center_vertical|end"
+            android:drawableEnd="@mipmap/ic_arrow_right"
+            android:drawablePadding="@dimen/small_margin_5dp"
+            android:text="@{guide.exe_desc}"
+            android:textColor="@color/color_text_org"
+            />
+    </FrameLayout>
+</layout>

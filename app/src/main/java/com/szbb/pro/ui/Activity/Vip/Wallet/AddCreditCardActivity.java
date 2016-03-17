@@ -6,11 +6,13 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
+import com.github.pwittchen.prefser.library.Prefser;
 import com.szbb.pro.AddBankCardLayout;
 import com.szbb.pro.R;
 import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.entity.Base.BaseBean;
 import com.szbb.pro.entity.Vip.BankBean;
+import com.szbb.pro.entity.Vip.VipInfoBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.library.dialog.OnTextSetListener;
 import com.szbb.pro.library.dialog.WheelViewDialog;
@@ -50,11 +52,15 @@ public class AddCreditCardActivity extends BaseAty<BaseBean, BaseBean> implement
 
     @Override
     protected void initViews() {
+        defaultTitleBar(this).setTitle(R.string.title_add_credit_card);
         citysDialog = new WheelViewDialog(this, WheelViewDialog.TWO_LINKAGE);
         banksDialog = new WheelViewDialog(this, WheelViewDialog.ONE_LEVEL);
-
         tInputAccount = addBankCardLayout.tInputEnterAccount;
         tInputReAccount = addBankCardLayout.tInputReEnterAccount;
+
+        Prefser prefser = new Prefser(AppTools.getSharePreferences());
+        VipInfoBean infoBean = prefser.get("VipInfo", VipInfoBean.class, new VipInfoBean());
+        addBankCardLayout.tvAccountHolder.setText(infoBean.getWorker_data().getNickname());
     }
 
     @Override
@@ -89,6 +95,9 @@ public class AddCreditCardActivity extends BaseAty<BaseBean, BaseBean> implement
                 break;
             case R.id.button:
                 checkNecessaryAndProgress();
+                break;
+            case R.id.frameLayout:
+                AppTools.hideSoftInputMethod(view);
                 break;
         }
     }

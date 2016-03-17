@@ -7,6 +7,10 @@
         <variable
             name="detail"
             type="com.szbb.pro.entity.Order.OrderDetailBean.DataEntity"/>
+
+        <import type="android.text.TextUtils"/>
+
+        <import type="android.view.View"/>
     </data>
 
     <FrameLayout
@@ -37,36 +41,80 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/large_margin_15dp"
+                        android:background="@color/color_white"
+                        android:minHeight="65dp"
+                        android:padding="@dimen/middle_margin_10dp">
+
+                        <TextView
+                            android:id="@+id/tv_t4"
+                            style="@style/textStyle"
+                            android:text="@{detail.sign_in_desc}"/>
+
+                        <TextView
+                            android:id="@+id/tv_t5"
+                            style="@style/textStyle"
+                            android:layout_below="@id/tv_t4"
+                            android:layout_marginTop="@dimen/middle_margin_10dp"
+                            android:text="@string/order_detail_no"/>
+
+                        <TextView
+                            style="@style/textStyle"
+                            android:layout_alignTop="@id/tv_t5"
+                            android:layout_marginStart="@dimen/small_margin_5dp"
+                            android:layout_toEndOf="@id/tv_t5"
+                            android:text="@{detail.sn}"
+                            android:textColor="@color/color_orange_normal"/>
+
+                        <Button
+                            android:id="@+id/btn_track"
+                            style="@style/buttonStyle"
+                            android:layout_width="85dp"
+                            android:layout_height="34dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="0dp"
+                            android:onClick="onClick"
+                            android:text="@string/title_order_tracking"
+                            android:textSize="@dimen/text_normal_size"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
                         android:background="@color/color_white"
-                        android:minHeight="163.5dp"
+                        android:minHeight="120dp"
                         android:padding="@dimen/large_margin_15dp">
+
 
                         <TextView
                             android:id="@+id/tv_t1"
                             style="@style/textStyle"
-                            android:text="@string/order_detail_ticktock"/>
+                            android:text="@string/order_detail_state"/>
 
                         <TextView
                             style="@style/textStyle"
+                            android:layout_alignTop="@id/tv_t1"
                             android:layout_marginStart="@dimen/small_margin_5dp"
                             android:layout_toEndOf="@id/tv_t1"
-                            android:text="@{detail.diffTime}"
+                            android:text="@{detail.order_status_desc}"
                             android:textColor="@color/color_orange_normal"/>
+
 
                         <TextView
                             android:id="@+id/tv_t2"
                             style="@style/textStyle"
                             android:layout_below="@id/tv_t1"
                             android:layout_marginTop="@dimen/middle_margin_10dp"
-                            android:text="@string/order_detail_state"/>
+                            android:text="@string/order_detail_take_time"/>
 
                         <TextView
                             style="@style/textStyle"
                             android:layout_alignTop="@id/tv_t2"
                             android:layout_marginStart="@dimen/small_margin_5dp"
                             android:layout_toEndOf="@id/tv_t2"
-                            android:text="@{detail.order_status_desc}"
+                            android:text="@{detail.distribute_time}"
                             android:textColor="@color/color_orange_normal"/>
 
                         <TextView
@@ -74,72 +122,47 @@
                             style="@style/textStyle"
                             android:layout_below="@id/tv_t2"
                             android:layout_marginTop="@dimen/middle_margin_10dp"
-                            android:text="@string/order_detail_no"/>
+                            android:text="@string/appointment_time"/>
 
                         <TextView
                             style="@style/textStyle"
                             android:layout_alignTop="@id/tv_t3"
                             android:layout_marginStart="@dimen/small_margin_5dp"
                             android:layout_toEndOf="@id/tv_t3"
-                            android:text="@{detail.sn}"
-                            android:textColor="@color/color_orange_normal"/>
-
-                        <TextView
-                            android:id="@+id/tv_t4"
-                            style="@style/textStyle"
-                            android:layout_below="@id/tv_t3"
-                            android:layout_marginTop="@dimen/middle_margin_10dp"
-                            android:text="@string/order_detail_take_time"/>
-
-                        <TextView
-                            style="@style/textStyle"
-                            android:layout_alignTop="@id/tv_t4"
-                            android:layout_marginStart="@dimen/small_margin_5dp"
-                            android:layout_toEndOf="@id/tv_t4"
-                            android:text="@{detail.distribute_time}"
-                            android:textColor="@color/color_orange_normal"/>
-
-                        <TextView
-                            android:id="@+id/tv_t5"
-                            style="@style/textStyle"
-                            android:layout_below="@id/tv_t4"
-                            android:layout_marginTop="@dimen/middle_margin_10dp"
-                            android:text="@string/appointment_time"/>
-
-                        <TextView
-                            style="@style/textStyle"
-                            android:layout_alignTop="@id/tv_t5"
-                            android:layout_marginStart="@dimen/small_margin_5dp"
-                            android:layout_toEndOf="@id/tv_t5"
                             android:text="@{detail.formatAppointTime}"
                             android:textColor="@color/color_orange_normal"/>
 
-                        <TextView
-                            android:id="@+id/tv_t6"
-                            style="@style/textStyle"
-                            android:layout_below="@id/tv_t5"
+                        <LinearLayout
+                            android:id="@+id/subsidy"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_t3"
                             android:layout_marginTop="@dimen/middle_margin_10dp"
-                            android:text="@string/delivery_path_length"/>
+                            android:orientation="horizontal"
+                            app:visibility="@{TextUtils.isEmpty(detail.subsidy)?View.GONE:View.VISIBLE}">
 
-                        <TextView
-                            style="@style/textStyle"
-                            android:layout_alignTop="@id/tv_t6"
-                            android:layout_marginStart="@dimen/small_margin_5dp"
-                            android:layout_toEndOf="@id/tv_t6"
-                            android:text="@{detail.est_miles}"
-                            android:textColor="@color/color_orange_normal"/>
+                            <TextView
+                                style="@style/textStyle"
+                                android:text="@string/fitting_subsidy"/>
+
+                            <TextView
+                                style="@style/textStyle"
+                                android:layout_marginStart="@dimen/small_margin_5dp"
+                                android:text="@{detail.subsidy}"
+                                />
+                        </LinearLayout>
 
                         <Button
                             android:id="@+id/btn_sign_appointment"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
-                            android:background="@drawable/bg_round_orange_dark_disable_white"
+                            android:background="@drawable/bg_cyan_frame"
                             android:minHeight="34dp"
                             android:minWidth="85dp"
                             android:onClick="onClick"
                             android:text="@string/order_detail_sign_in"
-                            android:textColor="@color/color_enable_white_disable_orange"/>
+                            android:textColor="@color/theme_primary"/>
 
                         <Button
                             android:id="@+id/btn_edit_appointment"
@@ -148,54 +171,59 @@
                             android:layout_alignParentEnd="true"
                             android:layout_below="@id/btn_sign_appointment"
                             android:layout_marginTop="20dp"
-                            android:background="@drawable/bg_round_normal_blue_dark_selector"
+                            android:background="@drawable/bg_cyan_frame"
                             android:minHeight="34dp"
                             android:minWidth="85dp"
                             android:onClick="onClick"
                             android:text="@string/order_detail_edit_appointment"
-                            android:textColor="@color/color_white"/>
+                            android:textColor="@color/theme_primary"/>
 
                         <Button
-                            android:id="@+id/btn_sign_again"
+                            android:id="@+id/btn_appointment_again"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_below="@id/btn_sign_appointment"
                             android:layout_marginTop="20dp"
-                            android:background="@drawable/bg_round_normal_blue_dark_selector"
+                            android:background="@drawable/bg_cyan_frame"
                             android:minHeight="34dp"
                             android:minWidth="85dp"
                             android:onClick="onClick"
                             android:text="@string/order_detail_sign_again"
-                            android:textColor="@color/color_white"
+                            android:textColor="@color/theme_primary"
                             android:visibility="gone"/>
 
 
                     </RelativeLayout>
 
-                    <include layout="@layout/line"/>
-
-                    <LinearLayout
+                    <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/large_margin_15dp"
                         android:background="@color/color_white"
-                        android:gravity="center_vertical"
-                        android:minHeight="@dimen/minHeight_50dp"
-                        android:orientation="horizontal"
+                        android:minHeight="@dimen/labelHeight_35dp"
                         android:paddingEnd="@dimen/large_margin_15dp"
                         android:paddingStart="@dimen/large_margin_15dp">
 
-                        <ImageView
-                            android:layout_width="@dimen/large_margin_15dp"
-                            android:layout_height="@dimen/large_margin_15dp"
-                            android:src="@mipmap/ic_factory"/>
-
                         <TextView
                             style="@style/textStyle"
-                            android:layout_marginStart="@dimen/small_margin_5dp"
-                            android:text="@{detail.type_and_pro}"
-                            android:textSize="@dimen/text_large_size"/>
-                    </LinearLayout>
+                            android:layout_gravity="center_vertical"
+                            android:text="@string/label_make_order_people"
+                            />
+
+                        <Button
+                            android:id="@+id/btn_engineer"
+                            android:layout_width="59dp"
+                            android:layout_height="23dp"
+                            android:layout_gravity="center_vertical|end"
+                            android:background="@drawable/bg_cyan_frame"
+                            android:drawableStart="@mipmap/ic_phone_blue_small"
+                            android:onClick="onClick"
+                            android:paddingStart="@dimen/small_margin_5dp"
+                            android:text="@string/label_engineer"
+                            android:textColor="@color/theme_primary"
+                            android:textSize="11sp"/>
+                    </FrameLayout>
 
                     <include layout="@layout/line"/>
 
@@ -203,91 +231,145 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/color_white"
-                        android:padding="@dimen/large_margin_15dp">
-
-                        <TextView
-                            android:id="@+id/tv_t7"
-                            style="@style/textStyle"
-                            android:text="联系方式"
-                            android:textSize="@dimen/text_large_size"
-                            android:textStyle="bold"/>
-
-                        <TextView
-                            android:id="@+id/tv_t8"
-                            style="@style/textStyle"
-                            android:layout_below="@id/tv_t7"
-                            android:layout_marginTop="@dimen/middle_margin_10dp"
-                            android:text="@{detail.nickname}"
-                            android:textColor="@color/color_text_gravy"/>
+                        android:minHeight="@dimen/labelHeight_35dp"
+                        android:paddingStart="@dimen/large_margin_15dp">
 
                         <TextView
                             style="@style/textStyle"
-                            android:layout_alignTop="@id/tv_t8"
-                            android:layout_marginStart="@dimen/middle_margin_10dp"
-                            android:layout_toEndOf="@id/tv_t8"
-                            android:text="@{detail.tel}"
-                            android:textColor="@color/color_text_gravy"/>
-
-                        <TextView
-                            android:id="@+id/tv_t9"
-                            style="@style/textStyle"
-                            android:layout_below="@id/tv_t8"
-                            android:layout_marginTop="@dimen/middle_margin_10dp"
-                            android:text="@string/address"
-                            android:textColor="@color/color_text_gravy"/>
-
-                        <TextView
-                            style="@style/textStyle"
-                            android:layout_alignTop="@id/tv_t9"
-                            android:layout_marginStart="@dimen/middle_margin_10dp"
-                            android:layout_toEndOf="@id/tv_t9"
-                            android:text="@{detail.address}"
-                            android:textColor="@color/color_text_gravy"/>
-
-                        <TextView
-                            android:id="@+id/tv_call"
-                            style="@style/textStyle"
-                            android:layout_alignParentEnd="true"
-                            android:drawablePadding="@dimen/small_margin_5dp"
-                            android:drawableStart="@mipmap/ic_phone_blue"
-                            android:gravity="center"
-                            android:onClick="onClick"
-                            android:text="@string/make_call"
-                            android:textColor="@color/theme_primary"/>
+                            android:layout_centerVertical="true"
+                            android:text="@{detail.factory_desc}"
+                            android:textColor="@color/color_text_gravy"
+                            />
                     </RelativeLayout>
-
 
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minHeight="@dimen/minHeight_50dp"
+                        android:layout_marginTop="@dimen/large_margin_15dp"
+                        android:background="@color/color_white"
+                        android:minHeight="@dimen/labelHeight_35dp"
                         android:paddingEnd="@dimen/large_margin_15dp"
                         android:paddingStart="@dimen/large_margin_15dp">
 
                         <TextView
                             style="@style/textStyle"
                             android:layout_gravity="center_vertical"
-                            android:text="@{detail.factory_desc}"
-                            android:textColor="@color/color_text_gravy"
-                            android:textSize="@dimen/text_large_size"
-                            android:textStyle="bold"/>
+                            android:text="@string/user_information"
+                            />
+
+                        <Button
+                            android:id="@+id/btn_user"
+                            android:layout_width="59dp"
+                            android:layout_height="23dp"
+                            android:layout_gravity="center_vertical|end"
+                            android:background="@drawable/bg_cyan_frame"
+                            android:drawableStart="@mipmap/ic_phone_blue_small"
+                            android:onClick="onClick"
+                            android:paddingStart="@dimen/small_margin_5dp"
+                            android:text="@string/user"
+                            android:textColor="@color/theme_primary"
+                            android:textSize="11sp"/>
+                    </FrameLayout>
+
+                    <include layout="@layout/line"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/color_white"
+                        android:minHeight="87dp"
+                        android:padding="@dimen/large_margin_15dp">
 
                         <TextView
-                            android:id="@+id/tv_technology_hot_line"
+                            android:id="@+id/tv_location"
                             style="@style/textStyle"
-                            android:layout_gravity="center_vertical|end"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="@dimen/large_margin_15dp"
+                            android:layout_marginStart="@dimen/middle_margin_10dp"
                             android:drawablePadding="@dimen/small_margin_5dp"
-                            android:drawableStart="@mipmap/ic_phone_blue"
-                            android:gravity="center"
+                            android:drawableTop="@mipmap/ic_location_blue"
                             android:onClick="onClick"
-                            android:text="@string/order_detail_technology_support_hot_line"
-                            android:textColor="@color/theme_primary"/>
+                            android:text="@string/locate"
+                            android:textColor="@color/theme_primary"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_t7"
+                            style="@style/textStyle"
+                            android:text="@{detail.nickname}"
+                            android:textColor="@color/color_text_gravy"/>
+
+                        <TextView
+                            style="@style/textStyle"
+                            android:layout_marginStart="@dimen/middle_margin_10dp"
+                            android:layout_toEndOf="@id/tv_t7"
+                            android:text="@{detail.tel}"
+                            android:textColor="@color/color_text_gravy"/>
+
+                        <TextView
+                            android:id="@+id/tv_t8"
+                            style="@style/textStyle"
+                            android:layout_below="@id/tv_t7"
+                            android:layout_marginTop="@dimen/middle_margin_10dp"
+                            android:text="@string/address"
+                            android:textColor="@color/color_text_gravy"/>
+
+                        <TextView
+                            android:id="@+id/tv_t9"
+                            style="@style/textStyle"
+                            android:layout_alignTop="@id/tv_t8"
+                            android:layout_marginStart="@dimen/small_margin_5dp"
+                            android:layout_toEndOf="@id/tv_t8"
+                            android:layout_toStartOf="@id/tv_location"
+                            android:text="@{detail.address}"
+                            android:textColor="@color/color_text_gravy"/>
+
+                        <TextView
+                            android:id="@+id/tv_t10"
+                            style="@style/textStyle"
+                            android:layout_below="@id/tv_t9"
+                            android:layout_marginTop="@dimen/middle_margin_10dp"
+                            android:text="@string/order_detail_way"
+                            android:textColor="@color/color_text_gravy"/>
+
+                        <TextView
+                            style="@style/textStyle"
+                            android:layout_alignTop="@id/tv_t10"
+                            android:layout_marginStart="@dimen/small_margin_5dp"
+                            android:layout_toEndOf="@id/tv_t10"
+                            android:text="@{detail.est_miles}"
+                            android:textColor="@color/color_text_red"/>
+
+
+                    </RelativeLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/large_margin_15dp"
+                        android:background="@color/color_white"
+                        android:minHeight="@dimen/labelHeight_35dp"
+                        android:paddingEnd="@dimen/large_margin_15dp"
+                        android:paddingStart="@dimen/large_margin_15dp">
+
+                        <TextView
+                            style="@style/textStyle"
+                            android:layout_gravity="center_vertical"
+                            android:text="@{detail.acce_cost_title}"
+                            />
                     </FrameLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerView_guide"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recyclerView"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/large_margin_15dp"/>
 
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -356,16 +438,68 @@
                                 android:text="@string/confirm_submit"/>
                         </LinearLayout>
 
-                        <Button
-                            android:id="@+id/btn_expenses"
-                            android:onClick="onClick"
-                            style="@style/buttonStyle"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginBottom="@dimen/large_margin_15dp"
-                            android:layout_marginTop="@dimen/large_margin_15dp"
-                            android:text="@string/title_expenses_apply"
-                            android:visibility="gone"
-                            />
+                        <LinearLayout
+                            android:id="@+id/llyt_evaluation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/color_white"
+                            android:minHeight="100dp"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:minHeight="@dimen/minHeight_50dp"
+                                android:paddingEnd="@dimen/large_margin_15dp"
+                                android:paddingStart="@dimen/large_margin_15dp">
+
+                                <TextView
+                                    style="@style/textStyle"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="@string/order_service_evaluation"
+                                    />
+
+                                <TextView
+                                    style="@style/textStyle"
+                                    android:layout_gravity="center_vertical|end"
+                                    android:text="@{detail.service_evaluation}"
+                                    android:textColor="@color/color_text_org"/>
+
+                            </FrameLayout>
+
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:minHeight="@dimen/minHeight_50dp"
+                                android:paddingEnd="@dimen/large_margin_15dp"
+                                android:paddingStart="@dimen/large_margin_15dp">
+
+                                <TextView
+                                    style="@style/textStyle"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="@string/order_total_account"
+                                    />
+
+                                <TextView
+                                    style="@style/textStyle"
+                                    android:layout_gravity="center_vertical|end"
+                                    android:text="@{detail.order_settlement}"
+                                    android:textColor="@color/color_text_org"/>
+
+                            </FrameLayout>
+
+                            <Button
+                                android:id="@+id/btn_expenses"
+                                style="@style/buttonStyle"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginBottom="@dimen/large_margin_15dp"
+                                android:layout_marginTop="@dimen/large_margin_15dp"
+                                android:onClick="onClick"
+                                android:text="@string/title_expenses_apply"
+                                />
+                        </LinearLayout>
+
                     </FrameLayout>
                 </LinearLayout>
             </ScrollView>

@@ -26,7 +26,7 @@ import org.solovyev.android.views.llm.LinearLayoutManager;
 import java.util.List;
 
 /**
- * 回寄配件详情
+ * 回寄配件详情 模式
  */
 public class FittingResendDetailActivity extends BaseAty<BaseBean, FittingDetailBean
         .DataEntity.AcceListEntity> {
@@ -63,7 +63,7 @@ public class FittingResendDetailActivity extends BaseAty<BaseBean, FittingDetail
 
     @Override
     protected void initEvents() {
-        defaultTitleBar(this).setTitle(R.string.fitting_detail);
+        defaultTitleBar(this).setTitle(R.string.title_fitting_detail);
         recyclerView.setAdapter(commonBinderAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(AppTools.defaultHorizontalDecoration());
@@ -80,6 +80,8 @@ public class FittingResendDetailActivity extends BaseAty<BaseBean, FittingDetail
         switch (id) {
             case R.id.btn_submit:
                 progressButtonEvent(view);
+                break;
+            case R.id.btn_logistics_top:
                 break;
         }
     }

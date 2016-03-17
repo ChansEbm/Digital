@@ -96,7 +96,7 @@ public class AppointmentClientActivity extends BaseAty<BaseBean, OrderDetailBean
 
         appointmentClientLayout.scrollView.smoothScrollTo(0, 0);
         if (getIntent() != null) {
-            orderId = getIntent().getStringExtra("orderid");
+            orderId = getIntent().getStringExtra("orderId");
             networkModel.orderDetail(orderId, "", NetworkParams
                     .CUPCAKE);
         }
@@ -115,6 +115,7 @@ public class AppointmentClientActivity extends BaseAty<BaseBean, OrderDetailBean
             @Override
             public void onBind(ViewDataBinding viewDataBinding, CommonBinderHolder holder, int
                     position, OrderDetailBean.ListEntity listEntity) {
+                listEntity.setProductNum("产品" + (position + 1));
                 ItemAppointmentLayout itemAppointmentLayout = (ItemAppointmentLayout)
                         viewDataBinding;
                 String label = listEntity.getFault_lable();

@@ -20,11 +20,15 @@ import com.szbb.pro.entity.Fittings.FittingDetailBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.model.MarkPictureModel;
 import com.szbb.pro.tools.AppTools;
+import com.szbb.pro.tools.OkHttpBuilder;
+import com.szbb.pro.ui.Activity.Vip.WebViewActivity;
 import com.szbb.pro.widget.StatusBar;
 
 import org.solovyev.android.views.llm.LinearLayoutManager;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 配件申请订单详情 A模式
@@ -65,7 +69,7 @@ public class FittingApplyDetailActivity extends BaseAty<BaseBean, FittingDetailB
 
     @Override
     protected void initEvents() {
-        defaultTitleBar(this).setTitle(R.string.fitting_detail);
+        defaultTitleBar(this).setTitle(R.string.title_fitting_detail);
         recyclerView.setAdapter(commonBinderAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(AppTools.defaultHorizontalDecoration());
@@ -122,13 +126,13 @@ public class FittingApplyDetailActivity extends BaseAty<BaseBean, FittingDetailB
             case "0":
                 statusBar.setTextArr(R.array.fitting_not_pass);
                 statusBar.setProgress(2);
-                fittingApplyDetailLayout.btnEdit.setVisibility(View.VISIBLE);
+//                fittingApplyDetailLayout.btnEdit.setVisibility(View.VISIBLE);
                 fittingApplyDetailLayout.btnSubmit.setVisibility(View.GONE);
                 break;
             case "1":
                 statusBar.setTextArr(R.array.fitting_nor);
                 statusBar.setProgress(0);
-                fittingApplyDetailLayout.btnEdit.setVisibility(View.VISIBLE);
+//                fittingApplyDetailLayout.btnEdit.setVisibility(View.VISIBLE);
                 fittingApplyDetailLayout.btnSubmit.setVisibility(View.GONE);
                 break;
             case "2":
@@ -153,11 +157,13 @@ public class FittingApplyDetailActivity extends BaseAty<BaseBean, FittingDetailB
             case "5":
                 statusBar.setTextArr(R.array.fitting_resending);
                 statusBar.setProgress(4);
+                fittingApplyDetailLayout.llytShipping.setVisibility(View.VISIBLE);
                 fittingApplyDetailLayout.btnSubmit.setVisibility(View.GONE);
                 break;
             case "6":
                 statusBar.setTextArr(R.array.fitting_done);
                 statusBar.setProgress(5);
+                fittingApplyDetailLayout.llytShipping.setVisibility(View.VISIBLE);
                 fittingApplyDetailLayout.btnSubmit.setVisibility(View.GONE);
                 break;
         }
@@ -175,6 +181,13 @@ public class FittingApplyDetailActivity extends BaseAty<BaseBean, FittingDetailB
                 progressButtonEvent(view);
                 break;
             case R.id.btn_logistics:
+                Map<String, String> params = new HashMap<>();
+                final String shipping_num = fittingApplyDetailLayout.getDetail().getShipping_num();
+                params.put("expressNum", shipping_num);
+                String url = OkHttpBuilder.attachHttpGetParam(AppKeyMap.HEAD_QUERYLOGISTICS,
+                        params);
+                startActivity(new Intent().setClass(this, WebViewActivity.class).putExtra("url",
+                        url).putExtra("title", getString(R.string.logistics_info)));
                 break;
             case R.id.btn_edit:
                 break;

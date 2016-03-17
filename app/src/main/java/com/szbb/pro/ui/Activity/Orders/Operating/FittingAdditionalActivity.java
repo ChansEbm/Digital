@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.SparseArray;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.szbb.pro.AppKeyMap;
@@ -22,7 +24,6 @@ import com.szbb.pro.impl.OnAddPictureDoneListener;
 import com.szbb.pro.impl.OnPhotoOptsSelectListener;
 import com.szbb.pro.model.MarkPictureModel;
 import com.szbb.pro.tools.AppTools;
-import com.szbb.pro.tools.LogTools;
 import com.szbb.pro.widget.CountView;
 import com.szbb.pro.widget.PopupWindow.TakePhotoPopupWindow;
 
@@ -54,6 +55,9 @@ public class FittingAdditionalActivity extends BaseAty<OtherFittingBean, Object>
     private String description;
 
     private String detailId = "";
+    private String orderId;
+    private String serviceId;
+    private String accId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +65,9 @@ public class FittingAdditionalActivity extends BaseAty<OtherFittingBean, Object>
         fittingAdditionalLayout = (FittingAdditionalLayout) viewDataBinding;
         if (getIntent() == null)
             AppTools.removeSingleActivity(this);
+        orderId = getIntent().getStringExtra("orderId");
+        serviceId = getIntent().getStringExtra("serviceId");
+        accId = getIntent().getStringExtra("accId");
         detailId = getIntent().getStringExtra("detailId");
     }
 
@@ -71,7 +78,6 @@ public class FittingAdditionalActivity extends BaseAty<OtherFittingBean, Object>
         takePhotoPopupWindow = new TakePhotoPopupWindow(this);
         takePhotoPopupWindow.setOnPhotoOptsSelectListener(this);
         countView = fittingAdditionalLayout.countView;
-
     }
 
     @Override
@@ -81,10 +87,10 @@ public class FittingAdditionalActivity extends BaseAty<OtherFittingBean, Object>
 
     private void initAllSimpleDraweeView() {
         fittingAdditionalLayout.font.simpleDraweeView.getHierarchy().setPlaceholderImage(R.mipmap
-                .ic_citizen_front_side);
+                .ic_font_side);
         fittingAdditionalLayout.font.simpleDraweeView.setTag("front");
         fittingAdditionalLayout.back.simpleDraweeView.getHierarchy().setPlaceholderImage(R.mipmap
-                .ic_citizen_back_side);
+                .ic_back_side);
         fittingAdditionalLayout.back.simpleDraweeView.setTag("back");
         fittingAdditionalLayout.model.simpleDraweeView.getHierarchy().setPlaceholderImage(R.mipmap
                 .ic_model);
@@ -114,7 +120,7 @@ public class FittingAdditionalActivity extends BaseAty<OtherFittingBean, Object>
                 inputDialog.show();
                 break;
             case R.id.flyt_code:
-                inputDialog.setInputType(InputType.TYPE_CLASS_NUMBER);
+                inputDialog.setInputType(InputType.TYPE_CLASS_NUMBER, false);
                 inputDialog.setTitle(getString(R.string.label_code));
                 inputDialog.setParams(NetworkParams.FROYO);//citizen reg
                 inputDialog.show();
@@ -152,6 +158,21 @@ public class FittingAdditionalActivity extends BaseAty<OtherFittingBean, Object>
                 return;
         }
         takePhotoPopupWindow.showAtDefaultLocation();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_additional, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        startActivity(new Intent().putExtra("orderId", orderId).putExtra("serviceId",
+                serviceId).putExtra("accId", accId).putExtra("detailId", detailId)
+                .setClass
+                        (this, FittingWareHouseActivity.class));
+        return true;
     }
 
     @Override
@@ -293,17 +314,34 @@ public class FittingAdditionalActivity extends BaseAty<OtherFittingBean, Object>
         final OtherFittingBean.DataEntity data = t.getData();
         FittingWareHouseBean.AcceListEntity acceListEntity = new FittingWareHouseBean
                 .AcceListEntity();
-        LogTools.w(data.getOther_acce_id());
+
         acceListEntity.setAcce_id(String.valueOf(data.getOther_acce_id()));
         acceListEntity.setAcce_name(data.getOther_acce_name());
         acceListEntity.setCount(Integer.valueOf(data.getOther_acce_nums()));
         acceListEntity.setAcce_model(data.getOther_acce_remarks());
         acceListEntity.setAcce_thumb(data.getOther_acce_thumb());
-        acceListEntity.setIsExtra(true);
 
+        startActivityByAccType(acceListEntity);
+    }
+
+    private void startActivityByAccType(FittingWareHouseBean.AcceListEntity acceListEntity) {
         Intent intent = new Intent();
-        intent.putExtra("acceList", acceListEntity);
-        setResult(RESULT_OK, intent);
-        AppTools.removeSingleActivity(this);
+        Bundle bundle = new Bundle();
+        bundle.putString("detailId", detailId);
+        bundle.putString("orderId", orderId);
+        bundle.putParcelable("acceListEntity", acceListEntity);
+        intent.putExtras(bundle);
+        switch (accId) {
+            case "1":
+                intent.setClass(this, FittingApplyActivity.class);
+                break;
+            case "2":
+                intent.setClass(this, FittingResendActivity.class);
+                break;
+            default:
+                return;
+
+        }
+        startActivity(intent);
     }
 }

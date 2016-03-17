@@ -62,7 +62,7 @@
                             android:id="@+id/tv_t2"
                             style="@style/textStyle"
                             android:layout_below="@id/tv_t1"
-                            android:text="123"
+                            android:text="@{card.cardtype}"
                             android:textColor="@color/color_text_gravy"
                             android:textSize="@dimen/text_small_size" />
 

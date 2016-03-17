@@ -85,5 +85,12 @@ public class VerificationTools {
         return true;
     }
 
+    public static boolean verifyZipCode(Context context, @NonNull View view, @NonNull
+    String zipCode) {
+        if (!zipCode.matches(AppKeyMap.ZIP_CODE_REGEX)) {
+            AppTools.showNormalSnackBar(view, context.getString(R.string.invalid_zip_code));
+        }
+        return zipCode.matches(AppKeyMap.ZIP_CODE_REGEX);
+    }
 
 }

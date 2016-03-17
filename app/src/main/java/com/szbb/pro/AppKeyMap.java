@@ -2,8 +2,6 @@ package com.szbb.pro;
 
 import com.szbb.pro.tools.AppTools;
 
-import java.util.ArrayList;
-
 /**
  * Created by ChanZeeBm on 2015/9/7.
  */
@@ -16,6 +14,8 @@ public class AppKeyMap {
     public final static String CHINESE_PEOPLE_REGEX = "(([\\u4E00-\\u9FA5]|[·]){2,15})";
     //密码正则(只能输入数字字母)
     public final static String PWD_REGEX = "^[A-Za-z0-9]+$";
+    //邮编正则
+    public final static String ZIP_CODE_REGEX = "^[1-9]\\d{5}$";
     //Action Key
     public final static String ACTION_KEY = "ACTION_KEY";
     //定位Action
@@ -49,6 +49,13 @@ public class AppKeyMap {
     public final static String HEAD_API_ACCE_ORDER = HEAD + "ApiAcceOrder/";
     public final static String HEAD_APINEARORDER = HEAD + "ApiNearOrder/";
     public final static String HEAD_APIMEMBER = HEAD + "ApiMember/";
+    public final static String HEAD_APIPAGES = HEAD + "ApiPages/";
+    public final static String HEAD_APIPUSH = HEAD + "ApiPush/";
+    public final static String HEAD_ABOUT_US = HEAD_APIPAGES + "aboutUs";
+    public final static String HEAD_MUSTREAD = HEAD_APIPAGES + "mustRead";
+    public final static String HEAD_JOINTPRICE = HEAD_APIPAGES + "jointPrice";
+    public final static String HEAD_REGISTERAGREEMENT = HEAD_APIPAGES + "registerAgreement";
+    public final static String HEAD_QUERYLOGISTICS = HEAD_APIPAGES + "queryLogistics";
 
     public final static String CONTENT_JPG = "image/jpg";
     public final static String CONTENT_PNG = "image/png";
@@ -56,17 +63,8 @@ public class AppKeyMap {
     public final static String CONTENT_MP3 = "audio/mp3";
     public final static String CONTENT_OCT = "application/octet-stream";
 
-
     //用户标识
     public final static String AUTH = "auth";
-    //是否审核通过key
-    public final static String IS_CHECK = "isCheck";
-    //是否完善信息
-    public final static String IS_COMPLETE_INFO = "isCompleteInfo";
-
-    public static ArrayList<String> PROVINCE = new ArrayList<>();
-    public static ArrayList<ArrayList<String>> CITY = new ArrayList<>();
-    public static ArrayList<ArrayList<ArrayList<String>>> AREA = new ArrayList<>();
 
     public static boolean isAuthEmpty() {
         return AppTools.getStringSharedPreferences(AUTH, "").isEmpty();

@@ -15,16 +15,14 @@ import me.drakeet.materialdialog.MaterialDialog;
  */
 public class MessageDialog {
     private MaterialDialog materialDialog;
+    private View.OnClickListener onClickListener;
+    private String positive = "";
+    private String negative = "";
 
     public MessageDialog(Context context) {
         materialDialog = new MaterialDialog(context).setCanceledOnTouchOutside(true)
-                .setPositiveButton("", null).setNegativeButton("",
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                materialDialog.dismiss();
-                            }
-                        });
+                .setPositiveButton(positive, onClickListener).setNegativeButton(negative,
+                        onClickListener);
         setPositiveId();
         setNegativeId();
     }
@@ -42,12 +40,14 @@ public class MessageDialog {
     public MessageDialog setPositiveButton(String positiveButton, View.OnClickListener
             onClickListener) {
         materialDialog.setPositiveButton(positiveButton, onClickListener);
+        setPositiveId();
         return this;
     }
 
     public MessageDialog setNegativeButton(String negativeButton, View.OnClickListener
             onClickListener) {
         materialDialog.setNegativeButton(negativeButton, onClickListener);
+        setNegativeId();
         return this;
     }
 

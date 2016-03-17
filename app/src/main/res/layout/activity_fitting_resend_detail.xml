@@ -267,103 +267,109 @@
                         android:text="@string/fitting_worker_message_info"
                         android:textColor="@color/color_text_gravy"/>
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/color_white"
-                        android:minHeight="@dimen/minHeight_50dp"
-                        android:paddingEnd="@dimen/large_margin_15dp"
-                        android:paddingStart="@dimen/large_margin_15dp">
+                        android:orientation="vertical">
 
-                        <TextView
-                            style="@style/textStyle"
-                            android:layout_centerVertical="true"
-                            android:text="@string/delivery_way"/>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/color_white"
+                            android:minHeight="@dimen/minHeight_50dp"
+                            android:paddingEnd="@dimen/large_margin_15dp"
+                            android:paddingStart="@dimen/large_margin_15dp">
 
-                        <Button
-                            android:id="@+id/btn_logistics_bottom"
-                            style="@style/buttonStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginEnd="0dp"
-                            android:text="@string/logistics_info"
-                            />
+                            <TextView
+                                style="@style/textStyle"
+                                android:layout_centerVertical="true"
+                                android:text="@string/delivery_way"/>
 
-                        <TextView
-                            style="@style/textStyle"
-                            android:layout_centerVertical="true"
-                            android:layout_toStartOf="@id/btn_logistics_bottom"
-                            android:text="@{detail.shipping_type}"
-                            />
-                    </RelativeLayout>
+                            <Button
+                                android:id="@+id/btn_logistics_bottom"
+                                style="@style/buttonStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="0dp"
+                                android:text="@string/logistics_info"
+                                />
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/color_white"
-                        android:minHeight="@dimen/minHeight_50dp"
-                        android:paddingEnd="@dimen/large_margin_15dp"
-                        android:paddingStart="@dimen/large_margin_15dp">
+                            <TextView
+                                style="@style/textStyle"
+                                android:layout_centerVertical="true"
+                                android:layout_toStartOf="@id/btn_logistics_bottom"
+                                android:text="@{detail.shipping_type}"
+                                />
+                        </RelativeLayout>
 
-                        <TextView
-                            style="@style/textStyle"
-                            android:layout_centerVertical="true"
-                            android:text="@string/fitting_post_back_no"/>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/color_white"
+                            android:minHeight="@dimen/minHeight_50dp"
+                            android:paddingEnd="@dimen/large_margin_15dp"
+                            android:paddingStart="@dimen/large_margin_15dp">
 
-
-                        <TextView
-                            style="@style/textStyle"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:text="@{detail.shipping_num}"
-                            />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/color_white"
-                        android:minHeight="@dimen/minHeight_50dp"
-                        android:paddingEnd="@dimen/large_margin_15dp"
-                        android:paddingStart="@dimen/large_margin_15dp">
-
-                        <TextView
-                            style="@style/textStyle"
-                            android:layout_centerVertical="true"
-                            android:text="@string/expenses_payment_method"/>
+                            <TextView
+                                style="@style/textStyle"
+                                android:layout_centerVertical="true"
+                                android:text="@string/fitting_post_back_no"/>
 
 
-                        <TextView
-                            style="@style/textStyle"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:text="@{detail.shipping_paytype}"
-                            />
-                    </RelativeLayout>
+                            <TextView
+                                style="@style/textStyle"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:text="@{detail.shipping_num}"
+                                />
+                        </RelativeLayout>
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/color_white"
-                        android:minHeight="@dimen/minHeight_50dp"
-                        android:paddingEnd="@dimen/large_margin_15dp"
-                        android:paddingStart="@dimen/large_margin_15dp">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/color_white"
+                            android:minHeight="@dimen/minHeight_50dp"
+                            android:paddingEnd="@dimen/large_margin_15dp"
+                            android:paddingStart="@dimen/large_margin_15dp">
 
-                        <TextView
-                            style="@style/textStyle"
-                            android:layout_centerVertical="true"
-                            android:text="@string/shipment"/>
+                            <TextView
+                                style="@style/textStyle"
+                                android:layout_centerVertical="true"
+                                android:text="@string/expenses_payment_method"/>
 
 
-                        <TextView
-                            style="@style/textStyle"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:text="@{detail.shipping_money}"
-                            />
-                    </RelativeLayout>
+                            <TextView
+                                style="@style/textStyle"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:text="@{detail.shipping_paytype}"
+                                />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/color_white"
+                            android:minHeight="@dimen/minHeight_50dp"
+                            android:paddingEnd="@dimen/large_margin_15dp"
+                            android:paddingStart="@dimen/large_margin_15dp">
+
+                            <TextView
+                                style="@style/textStyle"
+                                android:layout_centerVertical="true"
+                                android:text="@string/shipment"/>
+
+
+                            <TextView
+                                style="@style/textStyle"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:text="@{detail.shipping_money}"
+                                />
+                        </RelativeLayout>
+                    </LinearLayout>
 
                     <HorizontalScrollView
                         android:layout_width="match_parent"

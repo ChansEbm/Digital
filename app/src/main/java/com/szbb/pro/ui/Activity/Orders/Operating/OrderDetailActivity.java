@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -22,6 +23,7 @@ import com.szbb.pro.R;
 import com.szbb.pro.adapters.CommonBinderAdapter;
 import com.szbb.pro.adapters.CommonBinderHolder;
 import com.szbb.pro.base.BaseAty;
+import com.szbb.pro.databinding.ItemOrderDetailGuideLayout;
 import com.szbb.pro.dialog.DialDialog;
 import com.szbb.pro.dialog.InputDialog;
 import com.szbb.pro.entity.Base.BaseBean;
@@ -41,6 +43,8 @@ import com.szbb.pro.model.OrderModel;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.ui.Activity.Expenses.ExpensesApplyActivity;
 import com.szbb.pro.ui.Activity.Expenses.ExpensesDetailActivity;
+import com.szbb.pro.ui.Activity.Expenses.ExpensesResultActivity;
+import com.szbb.pro.ui.Activity.Locate.LocationActivity;
 import com.szbb.pro.ui.Activity.Main.MainActivity;
 import com.szbb.pro.ui.Activity.Orders.Appointment.AppointmentAlterActivity;
 import com.szbb.pro.ui.Activity.Orders.Appointment.AppointmentClientActivity;
@@ -57,6 +61,7 @@ import org.solovyev.android.views.llm.LinearLayoutManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.bingoogolapple.badgeview.BGABadgeTextView;
 import cn.finalteam.galleryfinal.FunctionConfig;
 import cn.finalteam.galleryfinal.GalleryFinal;
 import cn.finalteam.galleryfinal.model.PhotoInfo;
@@ -70,6 +75,7 @@ public class OrderDetailActivity extends BaseAty<BaseBean, OrderDetailBean.ListE
         OnAlterPopupWindowOptsClickListener, OnWheelMultiOptsCallback,
         OnPhotoOptsSelectListener, OnAddPictureDoneListener, InputCallBack, OnErrorProductCallback {
     private RecyclerView recyclerView;
+    private RecyclerView guideRecyclerView;
     private OrderDetailLayout orderDetailLayout;
 
     private Button btnSignAppointment;//预约签到按钮
@@ -90,6 +96,10 @@ public class OrderDetailActivity extends BaseAty<BaseBean, OrderDetailBean.ListE
     private ArrayList<String> picArr = new ArrayList<>();//保存添加的图片
     private LinearLayoutManager linearLayoutManager;
 
+
+    private CommonBinderAdapter<OrderDetailBean.DataEntity.AcceCostListEntity> guideAdapter;
+    private List<OrderDetailBean.DataEntity.AcceCostListEntity> guideList = new ArrayList<>();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,8 +118,9 @@ public class OrderDetailActivity extends BaseAty<BaseBean, OrderDetailBean.ListE
         alterPopupWindow = new AlterPopupWindow(this);
         gridPasswordView = orderDetailLayout.gridPasswordView;
         btnSignAppointment = orderDetailLayout.btnSignAppointment;
-        btnSignAgain = orderDetailLayout.btnSignAgain;
+        btnSignAgain = orderDetailLayout.btnAppointmentAgain;
         recyclerView = orderDetailLayout.recyclerView;
+        guideRecyclerView = orderDetailLayout.recyclerViewGuide;
 
         commonBinderAdapter = new CommonBinderAdapter<OrderDetailBean.ListEntity>(this, R.layout
                 .item_order_detail, list) {
@@ -117,6 +128,7 @@ public class OrderDetailActivity extends BaseAty<BaseBean, OrderDetailBean.ListE
             @Override
             public void onBind(ViewDataBinding viewDataBinding, CommonBinderHolder holder, int
                     position, OrderDetailBean.ListEntity listEntity) {
+                listEntity.setProductNum("产品:" + (position + 1));
                 ItemOrderDetailLayout itemOrderDetail = (ItemOrderDetailLayout) viewDataBinding;
                 String faultLabel = listEntity.getFault_lable();//故障标签
                 LinearLayout linearLayout = itemOrderDetail.llytLabel;
@@ -127,8 +139,8 @@ public class OrderDetailActivity extends BaseAty<BaseBean, OrderDetailBean.ListE
                 //根据上次服务结果选择隐藏或者显示某些项
                 if (orderModel.changeStatusByLastService(itemOrderDetail, listEntity)) {
                     //如果是已完单 则添加后台图片到图片放置处
-//                    orderModel.addPic(listEntity.getComplete_photos(), itemOrderDetail
-//                            .llytUploadPic);
+                    orderModel.addPic(listEntity.getComplete_photos(), itemOrderDetail
+                            .llytUploadPic);
                 } else {
                     //如果上次还没完单,则控制可以手动添加照片
                     orderModel.addPicInHandler(listEntity.getAddPics(), itemOrderDetail
@@ -144,22 +156,40 @@ public class OrderDetailActivity extends BaseAty<BaseBean, OrderDetailBean.ListE
                 ((ItemOrderDetailLayout) viewDataBinding).setDetail(listEntity);
             }
         };
+
+        guideAdapter = new CommonBinderAdapter<OrderDetailBean.DataEntity.AcceCostListEntity>
+                (this, R.layout.item_order_detail_guide, guideList) {
+
+            @Override
+            public void onBind(ViewDataBinding viewDataBinding, CommonBinderHolder holder, int
+                    position, OrderDetailBean.DataEntity.AcceCostListEntity acceCostListEntity) {
+                ItemOrderDetailGuideLayout layout = (ItemOrderDetailGuideLayout) viewDataBinding;
+                layout.setGuide(acceCostListEntity);
+            }
+        };
     }
 
     @Override
     protected void initEvents() {
         btnSignAppointment.setOnClickListener(this);
-        orderDetailLayout.tvTechnologyHotLine.setOnClickListener(this);
         alterPopupWindow.setOnAlterPopupWindowOptsClickListener(this);
         takePhotoPopupWindow.setOnPhotoOptsSelectListener(this);
         wheelPopupWindow.setOnWheelMultiOptsCallback(this);
+        guideAdapter.setBinderOnItemClickListener(this);
 
+        initRecyclerView();
+        progressNewData();
+    }
+
+    private void initRecyclerView() {
+        guideRecyclerView.setAdapter(guideAdapter);
+        guideRecyclerView.addItemDecoration(AppTools.defaultHorizontalDecoration());
+        guideRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this)
                 .colorResId(R
                         .color.color_bg_gravy).sizeResId(R.dimen.large_margin_15dp).build());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(commonBinderAdapter);
-        progressNewData();
     }
 
     @Override
@@ -174,16 +204,9 @@ public class OrderDetailActivity extends BaseAty<BaseBean, OrderDetailBean.ListE
 
     @Override
     protected void onClick(int id, View view) {
+        final OrderDetailBean.DataEntity detail = orderDetailLayout.getDetail();
         switch (id) {
-            case R.id.tv_call:
-                dialDialog = new DialDialog(this, null);
-                dialDialog.show(orderDetailLayout.getDetail().getTel());
-                break;
-            case R.id.tv_technology_hot_line:
-                dialDialog = new DialDialog(this, null);
-                dialDialog.show(orderDetailLayout.getDetail().getFactory_technology_tel());
-                break;
-            case R.id.tv_error_product:
+            case R.id.tv_error_product://产品错误报告
                 int errorPos = (int) view.getTag();
                 OrderDetailBean.ListEntity errorListEntity = list.get
                         (errorPos);
@@ -193,7 +216,7 @@ public class OrderDetailActivity extends BaseAty<BaseBean, OrderDetailBean.ListE
                 errorProductPopupWindow.setOnErrorProductCallback(this);
                 errorProductPopupWindow.showAtLocation(parentView, Gravity.BOTTOM, 0, 0);
                 break;
-            case R.id.btn_sign_appointment:
+            case R.id.btn_sign_appointment://签到
                 if (AppTools.isNetworkConnected()) {
                     AppTools.showNormalSnackBar(parentView, getString(R.string.main_locating));
                     AppTools.locate(this);
@@ -202,14 +225,14 @@ public class OrderDetailActivity extends BaseAty<BaseBean, OrderDetailBean.ListE
                             .no_network_is_detected));
                 }
                 break;
-            case R.id.btn_edit_appointment:
+            case R.id.btn_edit_appointment://修改预约
                 alterPopupWindow.showAtLocation(parentView, Gravity.BOTTOM, 0, 0);
                 break;
-            case R.id.btn_sign_again:
-                startActivity(new Intent().putExtra("orderid", orderId).setClass(this,
+            case R.id.btn_appointment_again://再次预约
+                startActivity(new Intent().putExtra("orderId", orderId).setClass(this,
                         AppointmentClientActivity.class));
                 break;
-            case R.id.flyt_service_obj:
+            case R.id.flyt_service_obj://服务项目
                 serviceObjPos = (int) view.getTag();
                 OrderDetailBean.ListEntity listEntity = list.get
                         (serviceObjPos);
@@ -218,19 +241,19 @@ public class OrderDetailActivity extends BaseAty<BaseBean, OrderDetailBean.ListE
                     );
                 }
                 break;
-            case R.id.flyt_service_result:
+            case R.id.flyt_service_result://服务结果
                 servicePos = (int) view.getTag();
                 orderModel.thisServiceType(this, this).showAtLocation(parentView, Gravity.BOTTOM,
                         0, 0);
                 break;
-            case R.id.btn_add_pic:
+            case R.id.btn_add_pic://添加图片
                 picPos = (int) view.getTag();
                 this.picArr = new ArrayList<>();
                 this.picArr = (ArrayList<String>) (list.get(picPos))
                         .getAddPics();
                 takePhotoPopupWindow.showAtLocation(parentView, Gravity.BOTTOM, 0, 0);
                 break;
-            case R.id.llyt_report:
+            case R.id.llyt_report://填写备注
                 reportPos = (int) view.getTag();
                 InputDialog inputDialog = new InputDialog(this);
                 inputDialog.setInputCallBack(this);
@@ -240,18 +263,43 @@ public class OrderDetailActivity extends BaseAty<BaseBean, OrderDetailBean.ListE
 //                        (reportPos);
                 inputDialog.show();
                 break;
-            case R.id.button:
+            case R.id.button://每个产品的按钮
                 progressButtonEvent(view);
                 break;
-            case R.id.btn_resend_code:
+            case R.id.btn_resend_code://重发验证码
                 networkModel.getServiceCode(orderId, NetworkParams.HONEYCOMB);
                 break;
-            case R.id.btn_confirm_done:
+            case R.id.btn_confirm_done://完成工单
                 completeAcce();
                 break;
-            case R.id.btn_expenses:
+            case R.id.btn_expenses://费用详情
                 startActivity(new Intent().setClass(this, ExpensesDetailActivity.class).putExtra
                         ("orderId", orderId));
+                break;
+            case R.id.btn_engineer:
+                final String factory_technology_tel = detail.getFactory_technology_tel();
+                dialDialog = new DialDialog(this, null);
+                dialDialog.show(factory_technology_tel);
+                break;
+            case R.id.btn_user:
+                final String tel = detail.getTel();
+                dialDialog = new DialDialog(this, null);
+                dialDialog.show(tel);
+                break;
+            case R.id.tv_location:
+                final double lat = Double.parseDouble(detail.getLat());
+                final double lng = Double.parseDouble(detail.getLng());
+                startActivity(new Intent().putExtra("flag", AppKeyMap.DONUT).putExtra("lat", lat)
+                        .putExtra("lng", lng).putExtra("title", "用户所在地址").setClass(this,
+                                LocationActivity.class));
+                break;
+            case R.id.btn_track:
+                final String orderid = detail.getOrderid();
+                startActivity(new Intent().putExtra("orderId", orderid).setClass(this,
+                        OrderTrackingActivity.class));
+                break;
+            case R.id.textView:
+                start(CustomerServiceActivity.class);
                 break;
         }
     }
@@ -280,18 +328,29 @@ public class OrderDetailActivity extends BaseAty<BaseBean, OrderDetailBean.ListE
     }
 
     @Override
+    public void onBinderItemClick(View view, int pos) {
+        final OrderDetailBean.DataEntity.AcceCostListEntity acceCostListEntity = guideList.get(pos);
+        Class<?> cls = acceCostListEntity.getIntentFlag();
+        String acid = acceCostListEntity.getAcid();
+        Intent intent = new Intent();
+        if (cls.equals(ExpensesResultActivity.class)) {
+            intent.putExtra("costId", acid);
+        } else {
+            intent.putExtra("acceId", acid);
+        }
+        startActivity(intent.setClass(this, cls));
+
+    }
+
+    @Override
     public void onJsonObjectSuccess(BaseBean o, NetworkParams paramsCode) {
         //首次进来获取数据
         if (paramsCode == NetworkParams.CUPCAKE) {//获取全局数据
             OrderDetailBean orderDetailBean = (OrderDetailBean) o;
-            boolean isSignIn = orderDetailBean.getData().isSignIn();//是否已签到
-            boolean isAllRepair = orderDetailBean.getData().isAllRepair();//是否全部产品维修完毕
-            //该工单是否全部完毕,并且已完成提交
-            boolean isAllComplete = orderDetailBean.getData().getIs_submit_complete();
-            List<OrderDetailBean.ListEntity> listEntities = orderDetailBean.getList();
-            changeButtonState(isSignIn, isAllRepair, isAllComplete);
-            notifyAdapter(listEntities);
-            orderDetailLayout.setDetail(orderDetailBean.getData());
+            final OrderDetailBean.DataEntity data = orderDetailBean.getData();
+            fillProductList(orderDetailBean, data);
+            fillGuideList(data);
+            orderDetailLayout.setDetail(data);
         } else if (paramsCode == NetworkParams.DONUT) {//预约签到的返回
             AppTools.showNormalSnackBar(parentView, getString(R.string
                     .order_detail_already_sign_in));
@@ -302,12 +361,27 @@ public class OrderDetailActivity extends BaseAty<BaseBean, OrderDetailBean.ListE
             // 用于再次判断是否全部工单已完成
         } else if (paramsCode == NetworkParams.ICECREAMSANDWICH) {
             orderDetailLayout.llytEvaluate.setVisibility(View.GONE);
-            orderDetailLayout.btnExpenses.setVisibility(View.VISIBLE);
+            orderDetailLayout.llytEvaluation.setVisibility(View.VISIBLE);
             AppTools.sendBroadcast(null, AppKeyMap.WAITING_COST_ACTION);
             Intent intent = new Intent().addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent
                     .FLAG_ACTIVITY_SINGLE_TOP).setClass(this, MainActivity.class);
             startActivity(intent);
         }
+    }
+
+    private void fillGuideList(OrderDetailBean.DataEntity data) {
+        guideList.addAll(data.getAcce_cost_list());
+        guideAdapter.notifyDataSetChanged();
+    }
+
+    private void fillProductList(OrderDetailBean orderDetailBean, OrderDetailBean.DataEntity data) {
+        boolean isSignIn = data.isSignIn();//是否已签到
+        boolean isAllRepair = data.isAllRepair();//是否全部产品维修完毕
+        //该工单是否全部完毕,并且已完成提交
+        boolean isAllComplete = data.getIs_submit_complete();
+        List<OrderDetailBean.ListEntity> listEntities = orderDetailBean.getList();
+        changeButtonState(isSignIn, isAllRepair, isAllComplete);
+        notifyAdapter(listEntities);
     }
 
     /**
@@ -317,7 +391,7 @@ public class OrderDetailActivity extends BaseAty<BaseBean, OrderDetailBean.ListE
      */
     private void changeButtonState(boolean isSignIn, boolean isAllRepair, boolean isAllComplete) {
         btnSignAppointment.setText(isSignIn ? getString(R.string
-                .order_detail_already_sign_in) : getString(R.string.order_detail_sign_in));
+                .order_detail_already_sign_in) : getString(R.string.order_detail_appoint_sign_in));
         btnSignAppointment.setEnabled(!isSignIn);
         btnSignAgain.setVisibility(isSignIn ? View.VISIBLE : View.GONE);
 
@@ -329,7 +403,7 @@ public class OrderDetailActivity extends BaseAty<BaseBean, OrderDetailBean.ListE
 
         if (isAllComplete) {
             orderDetailLayout.llytEvaluate.setVisibility(View.GONE);
-            orderDetailLayout.btnExpenses.setVisibility(View.VISIBLE);
+            orderDetailLayout.llytEvaluation.setVisibility(View.VISIBLE);
         }
     }
 
@@ -421,7 +495,7 @@ public class OrderDetailActivity extends BaseAty<BaseBean, OrderDetailBean.ListE
                     startActivity(new Intent().putExtra("orderId", orderId).putExtra("serviceId",
                             serviceId).putExtra("accId", accId).putExtra("detailId", detailId)
                             .setClass
-                                    (this, FittingWareHouseActivity.class));
+                                    (this, FittingAdditionalActivity.class));
                     break;
                 case EXPENSES://apply expenses
                     startActivity(new Intent().putExtra("detailid", listEntity.getDetailid())
@@ -432,6 +506,23 @@ public class OrderDetailActivity extends BaseAty<BaseBean, OrderDetailBean.ListE
             AppTools.showNormalSnackBar(parentView, getString(R.string
                     .order_detail_please_enter_service_result));
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_custom_service, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        final View actionView = menu.findItem(R.id.custom_service).getActionView();
+        BGABadgeTextView textView = (BGABadgeTextView) actionView.findViewById(R.id.textView);
+        textView.showCirclePointBadge();
+        textView.setOnClickListener(this);
+
+        titleBarTools.getToolbar().setPadding(0, 0, 15, 0);
+        return true;
     }
 
     /**

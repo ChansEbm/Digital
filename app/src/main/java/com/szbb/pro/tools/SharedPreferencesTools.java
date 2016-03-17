@@ -60,4 +60,8 @@ public class SharedPreferencesTools {
     public void commit() {
         editor.commit();
     }
+
+    public SharedPreferences getSharedPreferences(){
+        return sharedPreferences;
+    }
 }

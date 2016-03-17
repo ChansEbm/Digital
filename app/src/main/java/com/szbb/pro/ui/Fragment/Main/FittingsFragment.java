@@ -20,6 +20,7 @@ import de.greenrobot.event.EventBus;
 
 /**
  * Created by ChanZeeBm on 2015/9/16.
+ * 配件订单页面
  */
 public class FittingsFragment extends BaseFgm {
     private TabLayout tabLayout;//上方导航栏

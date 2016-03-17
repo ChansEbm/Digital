@@ -74,7 +74,7 @@ public class SkillActivity extends BaseAty implements BinderOnItemClickListener,
             SkillBean skillBean = new SkillBean();
             skillBean.setTextColor(getResources().getColor(R.color.theme_primary));
             skillBean.setRootBackground(getResources().getDrawable(R.drawable
-                    .bg_blue_normal_frame));
+                    .bg_cyan_frame));
             skillBean.setRootGravity(Gravity.CENTER);
             skillBean.setText("洗衣机" + i);
             list.add(skillBean);
@@ -91,7 +91,7 @@ public class SkillActivity extends BaseAty implements BinderOnItemClickListener,
                 } else {
                     skillBean.setTextColor(getResources().getColor(R.color.theme_primary));
                     skillBean.setRootBackground(getResources().getDrawable(R.drawable
-                            .bg_blue_normal_frame));
+                            .bg_cyan_frame));
                 }
                 GridLayoutManager.LayoutParams params = (GridLayoutManager.LayoutParams)
                         itemSkillBinding.getRoot().getLayoutParams();

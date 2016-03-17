@@ -7,10 +7,14 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.pwittchen.prefser.library.Prefser;
 import com.szbb.pro.R;
 import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.databinding.AtyMainBinding;
+import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.impl.OnPopUpSelectListener;
+import com.szbb.pro.tools.AppTools;
+import com.szbb.pro.tools.LogTools;
 import com.szbb.pro.ui.Fragment.Main.FittingsFragment;
 import com.szbb.pro.ui.Fragment.Main.NearbyFragment;
 import com.szbb.pro.ui.Fragment.Main.OrderFragment;
@@ -72,7 +76,13 @@ public class MainActivity extends BaseAty implements OnPopUpSelectListener {
 
     @Override
     protected void initEvents() {
-
+        String extra_registration_id;
+        Prefser prefser = new Prefser(AppTools.getSharePreferences());
+        extra_registration_id = prefser.get("registrationId", String.class, "");
+        if (!extra_registration_id.isEmpty()) {
+            LogTools.v(extra_registration_id);
+            networkModel.setDevice(extra_registration_id, NetworkParams.CUPCAKE);
+        }
     }
 
     @Override
@@ -103,7 +113,6 @@ public class MainActivity extends BaseAty implements OnPopUpSelectListener {
                 titleBarTools.hideTitleBar();
                 titleBarTools.setTitle(titles[2]);
                 break;
-
             case R.id.llyt_main_bottom_vip:
                 changeFragment(3);
                 titleBarTools.showTitleBar();
@@ -148,7 +157,6 @@ public class MainActivity extends BaseAty implements OnPopUpSelectListener {
             bgaBadgeImageView.setImageResource(bottomImageNormal[i]);
         }
     }
-
 
     @Override
     public void onPopUpItemClick(int parentIndex, int childIndex) {

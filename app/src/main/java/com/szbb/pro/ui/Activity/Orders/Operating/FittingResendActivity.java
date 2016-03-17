@@ -68,6 +68,7 @@ public class FittingResendActivity extends BaseAty<BaseBean, FittingWareHouseBea
     private int flag;
     private ArrayList<String> alreadyAdd = new ArrayList<>();
     private SparseArray<String> picsPath = new SparseArray<>();
+    private FittingWareHouseBean.AcceListEntity acceListEntity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +79,11 @@ public class FittingResendActivity extends BaseAty<BaseBean, FittingWareHouseBea
             AppTools.removeSingleActivity(this);
         acceListEntitySparseArray = getIntent().getExtras().getSparseParcelableArray
                 ("acceListEntitySparseArray");
+        acceListEntity = getIntent().getExtras().getParcelable("acceListEntity");//获取从配件申请页面进来的值
+        if (acceListEntitySparseArray == null && acceListEntity != null) {//如果是直接从配件申请进来 则执行该步骤
+            acceListEntitySparseArray = new SparseArray<>();
+            acceListEntitySparseArray.put(0, acceListEntity);
+        }
         detailId = getIntent().getExtras().getString("detailId");
         orderId = getIntent().getExtras().getString("orderId");
     }
@@ -193,10 +199,10 @@ public class FittingResendActivity extends BaseAty<BaseBean, FittingWareHouseBea
 
     private void initAllSimpleDraweeView() {
         fittingResendLayout.font.simpleDraweeView.getHierarchy().setPlaceholderImage(R.mipmap
-                .ic_citizen_front_side);
+                .ic_font_side);
         fittingResendLayout.font.simpleDraweeView.setTag("front");
         fittingResendLayout.back.simpleDraweeView.getHierarchy().setPlaceholderImage(R.mipmap
-                .ic_citizen_back_side);
+                .ic_back_side);
         fittingResendLayout.back.simpleDraweeView.setTag("back");
         fittingResendLayout.model.simpleDraweeView.getHierarchy().setPlaceholderImage(R.mipmap
                 .ic_model);

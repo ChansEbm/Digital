@@ -1,4 +1,5 @@
 <resources>
+
     <style name="AppTheme" parent="BaseAppTheme"/>
 
     <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -9,9 +10,8 @@
         <item name="actionMenuTextColor">@color/color_white</item>
         <item name="android:orientation">horizontal</item>
         <!--沉浸式状态栏-->
-        <item name="android:fitsSystemWindows">true</item>
+        <!--<item name="android:fitsSystemWindows">true</item>-->
     </style>
-
 
 
     <!--TextView默认属性-->
@@ -88,6 +88,12 @@
         <item name="android:windowEnterAnimation">@anim/anim_popup_in</item>
         <item name="android:windowExitAnimation">@anim/anim_popup_out</item>
     </style>
+
+    <style name="PhotoPopupAnim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/anim_photo_popup_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_photo_popup_out</item>
+    </style>
+
 
     <style name="DefaultSimpleDraweeView">
         <!--实际图片的显示方式-->

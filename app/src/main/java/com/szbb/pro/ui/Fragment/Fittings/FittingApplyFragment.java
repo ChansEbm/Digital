@@ -33,6 +33,7 @@ import de.greenrobot.event.EventBus;
 
 /**
  * Created by ChanZeeBm on 2015/11/2.
+ * 配件订单- 配件申请
  */
 public class FittingApplyFragment extends BaseFgm<MyFittingOrderBean, MyFittingOrderBean
         .ListEntity> implements BGARefreshLayout
@@ -201,11 +202,11 @@ public class FittingApplyFragment extends BaseFgm<MyFittingOrderBean, MyFittingO
     private void switchExeType(MyFittingOrderBean.ListEntity listEntity, String acceid) {
         final String exe_type = listEntity.getExe_type();
         switch (exe_type) {
-            case "1":
+            case "1"://A模式
                 startActivity(new Intent().setClass(getContext(), FittingApplyDetailActivity.class)
                         .putExtra("acceId", acceid));
                 break;
-            case "2":
+            case "2"://B模式
                 startActivity(new Intent().setClass(getContext(), FittingResendDetailActivity.class)
                         .putExtra("acceId", acceid));
                 break;
@@ -248,7 +249,7 @@ public class FittingApplyFragment extends BaseFgm<MyFittingOrderBean, MyFittingO
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout bgaRefreshLayout) {
         final int status = myFittingOrderBean.getCond().getStatus();
-        networkModel.acceList( status + "", "", "", NetworkParams.CUPCAKE);
+        networkModel.acceList(status + "", "", "", NetworkParams.CUPCAKE);
     }
 
     @Override
@@ -256,7 +257,7 @@ public class FittingApplyFragment extends BaseFgm<MyFittingOrderBean, MyFittingO
         if (myFittingOrderBean.getIsNext() == 1) {
             final int page = myFittingOrderBean.getPage();
             final int status = myFittingOrderBean.getCond().getStatus();
-            networkModel.acceList( status + "", (page + 1) + "", "", NetworkParams.DONUT);
+            networkModel.acceList(status + "", (page + 1) + "", "", NetworkParams.DONUT);
         } else {
             AppTools.showNormalSnackBar(parentView, getString(R.string.no_more));
             return false;

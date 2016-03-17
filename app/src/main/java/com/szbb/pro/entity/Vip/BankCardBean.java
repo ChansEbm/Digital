@@ -1,5 +1,6 @@
 package com.szbb.pro.entity.Vip;
 
+import android.databinding.Bindable;
 import android.text.TextUtils;
 
 import com.szbb.pro.entity.Base.BaseBean;
@@ -32,6 +33,7 @@ public class BankCardBean extends BaseBean {
         private String credit_card;
         private String bank_name;
         private String bank_city;
+        private String cardtype;
 
 
         public String getIs_bind_card() {
@@ -74,6 +76,15 @@ public class BankCardBean extends BaseBean {
             this.has_pay_password = has_pay_password;
         }
 
+        @Bindable
+        public String getCardtype() {
+            return cardtype;
+        }
+
+        public void setCardtype(String cardtype) {
+            this.cardtype = cardtype;
+        }
+
         public boolean isBindCard() {
             return TextUtils.equals(getIs_bind_card(), "1");
         }
@@ -81,6 +92,5 @@ public class BankCardBean extends BaseBean {
         public boolean hasPayPassword() {
             return TextUtils.equals(getHas_pay_password(), "1");
         }
-
     }
 }

@@ -3,7 +3,7 @@ package com.szbb.pro.tools;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.View;
+import android.widget.TextView;
 
 import com.baidu.location.BDLocationListener;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -22,7 +23,6 @@ import com.szbb.pro.impl.DialListener;
 import com.szbb.pro.impl.ImageLoadComplete;
 
 import java.sql.Date;
-import java.util.Set;
 
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 
@@ -279,6 +279,10 @@ public class AppTools {
         return VerificationTools.verifyVerificationCode(context, view, verificationCode);
     }
 
+    public static boolean verifyZipCode(View view, String zipCode) {
+        return VerificationTools.verifyZipCode(context, view, zipCode);
+    }
+
     /**
      * verify the password
      *
@@ -397,7 +401,7 @@ public class AppTools {
      * @param bundle the params in receiver
      * @param action the action be filtered
      */
-    public static void sendBroadcast( Bundle bundle, @NonNull String action) {
+    public static void sendBroadcast(Bundle bundle, @NonNull String action) {
         BroadcastTools.sendBroadcast(context, bundle, action);
     }
 
@@ -502,33 +506,12 @@ public class AppTools {
         return StringFormatTools.stringToMD5(str);
     }
 
-    public static String getImagePathFromAlbum(Intent activityResultIntent) {
-        return StringFormatTools.getImagePathFromAlbum(context, activityResultIntent);
-    }
-
     public static SharedPreferencesTools putStringSharedPreferences(String key, String value) {
         initSharedPreferencesTools();
         sharedPreferencesTools.putString(key, value).commit();
         return sharedPreferencesTools;
     }
 
-    public static SharedPreferencesTools putBooleanSharedPreferences(String key, boolean value) {
-        initSharedPreferencesTools();
-        sharedPreferencesTools.putBoolean(key, value).commit();
-        return sharedPreferencesTools;
-    }
-
-    public static SharedPreferencesTools putIntSharedPreferences(String key, int value) {
-        initSharedPreferencesTools();
-        sharedPreferencesTools.putInt(key, value).commit();
-        return sharedPreferencesTools;
-    }
-
-    public static SharedPreferencesTools putSetSharedPreferences(String key, Set<String> value) {
-        initSharedPreferencesTools();
-        sharedPreferencesTools.putSet(key, value).commit();
-        return sharedPreferencesTools;
-    }
 
     public static String getStringSharedPreferences(String key, String
             defaultValue) {
@@ -536,26 +519,23 @@ public class AppTools {
         return sharedPreferencesTools.getString(key, defaultValue);
     }
 
-    public static boolean getBooleanSharePreferences(String key, boolean defaultValue) {
-        initSharedPreferencesTools();
-        return sharedPreferencesTools.getBoolean(key, defaultValue);
-    }
-
-    public static int getIntSharedPreferences(String key, int defaultValue) {
-        initSharedPreferencesTools();
-        return sharedPreferencesTools.getInt(key, defaultValue);
-    }
-
-    public static Set<String> getSetSharedPreferences(String key, Set<String> defaultValue) {
-        initSharedPreferencesTools();
-        return sharedPreferencesTools.getSet(key, defaultValue);
-    }
-
-
     private static void initSharedPreferencesTools() {
         if (sharedPreferencesTools == null) {
             sharedPreferencesTools = new SharedPreferencesTools(context);
         }
+    }
+
+    public static SharedPreferences getSharePreferences() {
+        initSharedPreferencesTools();
+        return sharedPreferencesTools.getSharedPreferences();
+    }
+
+    public static void deleteDrawable(TextView textView) {
+        ViewUtils.deleteDrawable(textView);
+    }
+
+    protected static void setCompoundDrawable(TextView textView, int resId, int side) {
+        ViewUtils.setCompoundDrawable(textView, resId, side);
     }
 
 

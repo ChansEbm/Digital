@@ -1,5 +1,6 @@
 package com.szbb.pro.model;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -20,6 +21,7 @@ import com.szbb.pro.entity.Login.AreaListBean;
 import com.szbb.pro.entity.Login.AuthBean;
 import com.szbb.pro.entity.Order.MyOrderBean;
 import com.szbb.pro.entity.Order.OrderDetailBean;
+import com.szbb.pro.entity.Order.OrderTrackingBean;
 import com.szbb.pro.entity.Vip.AccountCementBean;
 import com.szbb.pro.entity.Vip.BankBean;
 import com.szbb.pro.entity.Vip.BankCardBean;
@@ -34,6 +36,7 @@ import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.impl.OkHttpResponseListener;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.LogTools;
+import com.szbb.pro.tools.MiscUtils;
 import com.szbb.pro.tools.OkHttpBuilder;
 
 import java.util.ArrayList;
@@ -59,6 +62,7 @@ public class NetworkModel<E> {
         this.appCompatActivity = appCompatActivity;
         this.parentView = parentView;
     }
+
 
     public void setResultCallBack(OkHttpResponseListener<E> tOkHttpResponseListener) {
         this.tOkHttpResponseListener = tOkHttpResponseListener;
@@ -362,10 +366,10 @@ public class NetworkModel<E> {
      * @param networkParams networkParams
      */
     public void changeAppoint(@NonNull String orderId, @NonNull String appointTime, @NonNull String
-            updateReason, @NonNull String remarks, NetworkParams
+            updateReason,  String remarks, NetworkParams
                                       networkParams) {
         clearAllParams();
-        if (isNecessaryFieldEmpty(orderId, appointTime, updateReason, remarks))
+        if (isNecessaryFieldEmpty(orderId, appointTime, updateReason))
             return;
         params.put("auth", getAuth());
         params.put("orderid", orderId);
@@ -703,6 +707,17 @@ public class NetworkModel<E> {
                                 tOkHttpResponseListener);
     }
 
+    public void orderTrace(String orderId, NetworkParams networkParams) {
+        clearAllParams();
+        if (isNecessaryFieldEmpty(orderId))
+            return;
+        params.put("auth", getAuth());
+        params.put("orderid", orderId);
+        new OkHttpBuilder.POST(appCompatActivity).urlOrder("orderTrace").entityClass
+                (OrderTrackingBean.class).params(params).enqueue(networkParams,
+                tOkHttpResponseListener);
+    }
+
     public void acceList(@NonNull String status, String page, String
             pageSize, NetworkParams networkParams) {
         clearAllParams();
@@ -944,7 +959,8 @@ public class NetworkModel<E> {
                 tOkHttpResponseListener);
     }
 
-    public void resetPayPassword(String phone, String code, String payPassword, String rePayPassword, NetworkParams networkParams) {
+    public void resetPayPassword(String phone, String code, String payPassword, String
+            rePayPassword, NetworkParams networkParams) {
         clearAllParams();
         if (isNecessaryFieldEmpty(phone, code, payPassword, rePayPassword)) return;
         params.put("auth", getAuth());
@@ -985,7 +1001,8 @@ public class NetworkModel<E> {
                 tOkHttpResponseListener);
     }
 
-    public void withdrawals(@NonNull String outMoney, @NonNull String payPassword, NetworkParams networkParams) {
+    public void withdrawals(@NonNull String outMoney, @NonNull String payPassword, NetworkParams
+            networkParams) {
         clearAllParams();
         if (isNecessaryFieldEmpty(outMoney, payPassword))
             return;
@@ -996,6 +1013,69 @@ public class NetworkModel<E> {
                 (BaseBean
                         .class).params(params).enqueue(networkParams,
                 tOkHttpResponseListener);
+    }
+
+    public void saveAddressee(@NonNull String addressee, String phone, String areaIds, String
+            detailAddress, String postCodes, NetworkParams networkParams) {
+        clearAllParams();
+        if (isNecessaryFieldEmpty(addressee, phone, areaIds, detailAddress, postCodes))
+            return;
+        params.put("auth", getAuth());
+        params.put("addressee", addressee);
+        params.put("phone", phone);
+        params.put("area_ids", areaIds);
+        params.put("detail_address", detailAddress);
+        params.put("postcodes", postCodes);
+        new OkHttpBuilder.POST(appCompatActivity).urlAPIMember("saveAddressee").entityClass
+                (BaseBean
+                        .class).params(params).enqueue(networkParams,
+                tOkHttpResponseListener);
+    }
+
+    public void editPassword(@NonNull String oldPwd, @NonNull String newPwd, @NonNull String
+            reNewPwd, NetworkParams
+                                     networkParams) {
+
+        clearAllParams();
+        if (isNecessaryFieldEmpty(oldPwd, newPwd, reNewPwd))
+            return;
+        params.put("auth", getAuth());
+        params.put("old_password", oldPwd);
+        params.put("new_password", newPwd);
+        params.put("re_password", reNewPwd);
+        new OkHttpBuilder.POST(appCompatActivity).urlAPIMember("editPassword").entityClass
+                (BaseBean
+                        .class).params(params).enqueue(networkParams,
+                tOkHttpResponseListener);
+    }
+
+    public void submitFeedback(String content, NetworkParams networkParams) {
+        clearAllParams();
+        if (isNecessaryFieldEmpty(content))
+            return;
+        params.put("auth", getAuth());
+        params.put("content", content);
+        new OkHttpBuilder.POST(appCompatActivity).urlAPIMember("submitFeedback").entityClass
+                (BaseBean
+                        .class).params(params).enqueue(networkParams,
+                tOkHttpResponseListener);
+    }
+
+    public void setDevice(@NonNull String registrationId,
+                          NetworkParams networkParams) {
+        clearAllParams();
+        if (isNecessaryFieldEmpty(registrationId))
+            return;
+        params.put("auth", getAuth());
+        params.put("registration_id", registrationId);
+        params.put("dev_type", "2");
+        params.put("dev_model", MiscUtils.getModel(appCompatActivity));
+
+        new OkHttpBuilder.POST(appCompatActivity).urlAPIPush("setDevice").entityClass
+                (BaseBean
+                        .class).params(params).enqueue(networkParams,
+                tOkHttpResponseListener);
+
     }
 
 

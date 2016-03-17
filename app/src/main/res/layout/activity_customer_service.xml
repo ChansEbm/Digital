@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data class=".CustomerServiceLayout"/>
+
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/theme_primary"
+        tools:context="com.szbb.pro.ui.Activity.Orders.Operating.CustomerServiceActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_white"
+            android:orientation="vertical">
+
+            <include layout="@layout/title_bar"/>
+
+            <include
+                android:id="@+id/include"
+                layout="@layout/refresh_recycler"/>
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/color_black"/>
+
+            <com.bm.library.PhotoView
+                android:id="@+id/photoView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"/>
+        </FrameLayout>
+    </FrameLayout>
+</layout>

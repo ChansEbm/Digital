@@ -207,7 +207,7 @@
                 android:layout_marginEnd="@dimen/large_margin_15dp"
                 android:layout_marginStart="@dimen/large_margin_15dp"
                 android:layout_toEndOf="@id/tv_t5"
-                android:background="@drawable/bg_blue_normal_frame"
+                android:background="@drawable/bg_cyan_frame"
                 android:gravity="center"
                 android:minHeight="22dp"
                 android:minWidth="56dp"

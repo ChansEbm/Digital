@@ -15,11 +15,13 @@ import com.szbb.pro.R;
 import com.szbb.pro.adapters.CommonBinderAdapter;
 import com.szbb.pro.adapters.CommonBinderHolder;
 import com.szbb.pro.base.BaseAty;
+import com.szbb.pro.dialog.InputDialog;
 import com.szbb.pro.entity.Base.BaseBean;
 import com.szbb.pro.entity.Fittings.CustomerAddressBean;
 import com.szbb.pro.entity.Fittings.FittingWareHouseBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.eum.PhotoPopupOpts;
+import com.szbb.pro.impl.InputCallBack;
 import com.szbb.pro.impl.OnAddPictureDoneListener;
 import com.szbb.pro.impl.OnPhotoOptsSelectListener;
 import com.szbb.pro.model.MarkPictureModel;
@@ -39,10 +41,13 @@ import cn.finalteam.galleryfinal.model.PhotoInfo;
  * 先申请配件
  */
 public class FittingApplyActivity extends BaseAty<BaseBean, FittingWareHouseBean
-        .AcceListEntity> implements OnPhotoOptsSelectListener, OnAddPictureDoneListener {
+        .AcceListEntity> implements OnPhotoOptsSelectListener, OnAddPictureDoneListener,
+        InputCallBack {
     private FittingApplyLayout fittingApplyLayout;
     private SparseArray<FittingWareHouseBean.AcceListEntity> acceListEntitySparseArray
-            = new SparseArray<>();
+            = null;
+    private FittingWareHouseBean.AcceListEntity acceListEntity = new FittingWareHouseBean
+            .AcceListEntity();
     private SparseArray<String> picsPath = new SparseArray<>();
 
     private String detailId = "";//用于最后提交
@@ -51,6 +56,8 @@ public class FittingApplyActivity extends BaseAty<BaseBean, FittingWareHouseBean
 
     private RecyclerView recyclerView;
     private TakePhotoPopupWindow takePhotoPopupWindow;
+
+    private InputDialog inputDialog;
 
     private int flag = -1;
 
@@ -61,7 +68,12 @@ public class FittingApplyActivity extends BaseAty<BaseBean, FittingWareHouseBean
         if (getIntent() == null)
             AppTools.removeSingleActivity(this);
         acceListEntitySparseArray = getIntent().getExtras().getSparseParcelableArray
-                ("acceListEntitySparseArray");
+                ("acceListEntitySparseArray");//如果是直接从配件申请进来,则肯定为空
+        acceListEntity = getIntent().getExtras().getParcelable("acceListEntity");//获取从配件申请页面进来的值
+        if (acceListEntitySparseArray == null && acceListEntity != null) {//如果是直接从配件申请进来 则执行该步骤
+            acceListEntitySparseArray = new SparseArray<>();
+            acceListEntitySparseArray.put(0, acceListEntity);
+        }
         detailId = getIntent().getExtras().getString("detailId");
         orderId = getIntent().getExtras().getString("orderId");
     }
@@ -100,10 +112,10 @@ public class FittingApplyActivity extends BaseAty<BaseBean, FittingWareHouseBean
 
     private void initAllSimpleDraweeView() {
         fittingApplyLayout.font.simpleDraweeView.getHierarchy().setPlaceholderImage(R.mipmap
-                .ic_citizen_front_side);
+                .ic_font_side);
         fittingApplyLayout.font.simpleDraweeView.setTag("front");
         fittingApplyLayout.back.simpleDraweeView.getHierarchy().setPlaceholderImage(R.mipmap
-                .ic_citizen_back_side);
+                .ic_back_side);
         fittingApplyLayout.back.simpleDraweeView.setTag("back");
         fittingApplyLayout.model.simpleDraweeView.getHierarchy().setPlaceholderImage(R.mipmap
                 .ic_model);
@@ -142,6 +154,13 @@ public class FittingApplyActivity extends BaseAty<BaseBean, FittingWareHouseBean
                         .putExtra
                                 ("orderId", orderId), AppKeyMap.CUPCAKE);
                 break;
+            case R.id.llyt_report:
+                inputDialog = new InputDialog(this);
+                inputDialog.setTitle(getString(R.string.fitting_leave_supplier_message));
+                inputDialog.setInputCallBack(this);
+                inputDialog.show();
+                break;
+
         }
     }
 
@@ -292,5 +311,10 @@ public class FittingApplyActivity extends BaseAty<BaseBean, FittingWareHouseBean
         int key = picsPath.keyAt(index);
         alreadyAdd.remove(picsPath.get(key));
         picsPath.delete(key);
+    }
+
+    @Override
+    public void inputWord(String word, NetworkParams networkParams) {
+        fittingApplyLayout.tvMessage.setText(word);
     }
 }

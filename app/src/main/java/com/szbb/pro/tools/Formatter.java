@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by ChanZeeBm on 2015/10/17.
@@ -12,7 +13,7 @@ public class Formatter {
 
     public static String convertMillions(long millions) {
         if (millions < 1000) {
-            return "00:00:00";
+            return "-1";
         }
         long seconds = millions / 1000;
         long minute = seconds / 60;
@@ -28,7 +29,13 @@ public class Formatter {
     }
 
     public static String formatTime(Date date) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat simpleDateFormat;
+        try {
+            simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
         return simpleDateFormat.format(date);
     }
 

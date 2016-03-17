@@ -2,21 +2,30 @@ package com.szbb.pro.entity.Order;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.databinding.BindingAdapter;
 import android.databinding.ObservableBoolean;
+import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.text.Html;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.widget.TextView;
 
 import com.szbb.pro.BR;
+import com.szbb.pro.R;
 import com.szbb.pro.entity.Base.BaseBean;
 import com.szbb.pro.eum.ButtonType;
 import com.szbb.pro.tools.AppTools;
+import com.szbb.pro.ui.Activity.Expenses.ExpensesResultActivity;
+import com.szbb.pro.ui.Activity.Orders.FittingOrders.FittingApplyDetailActivity;
+import com.szbb.pro.ui.Activity.Orders.FittingOrders.FittingResendDetailActivity;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ScheduledExecutorService;
 
 /**
  * Created by ChanZeeBm on 2016/1/6.
@@ -48,12 +57,14 @@ public class OrderDetailBean extends BaseBean {
         private String orderid;
         private String sn;
         private String order_status_desc;
-        private String appoint_time;
+        private String appoint_time = "";
         private String is_all_repair = "";//后台字段
         private String is_submit_complete = "";
         private String diffTime;//预约时间跟现在时间的时间差
         private String formatAppointTime = "";
         private String is_sign_in;
+        private String sign_in_time;
+        private Spanned sign_in_desc;
         private ObservableBoolean observableBoolean = new ObservableBoolean();
         private String distribute_time;
         private String nickname;
@@ -69,6 +80,15 @@ public class OrderDetailBean extends BaseBean {
         private String factory_desc;
         private String factory_technology_tel;
         private String acce_exe_type;
+        private List<AcceCostListEntity> acce_cost_list;
+        private String subsidy;
+        private String acce_cost_title;
+
+        private String service_evaluation;
+        private String order_settlement;
+
+        public DataEntity() {
+        }
 
         public String getOrderid() {
             return orderid;
@@ -243,6 +263,7 @@ public class OrderDetailBean extends BaseBean {
 
         @Bindable
         public String getFormatAppointTime() {
+            appoint_time = TextUtils.isEmpty(appoint_time) ? "" : appoint_time;
             return AppTools.formatTime(new Date(Long.parseLong(appoint_time + "000")));
         }
 
@@ -266,6 +287,164 @@ public class OrderDetailBean extends BaseBean {
         public void setIs_submit_complete(String is_submit_complete) {
             this.is_submit_complete = is_submit_complete;
         }
+
+        public List<AcceCostListEntity> getAcce_cost_list() {
+            return acce_cost_list;
+        }
+
+        public void setAcce_cost_list(List<AcceCostListEntity> acce_cost_list) {
+            this.acce_cost_list = acce_cost_list;
+        }
+
+        @Bindable
+        public Spanned getSign_in_desc() {
+            if (TextUtils.isEmpty(getAppoint_time())) {
+                return null;
+            }
+            long ct = System.currentTimeMillis();
+            long at = Long.parseLong(getAppoint_time() + "000");
+            String result = AppTools.convertMillions(at - ct);
+            String isSignIn = getIs_sign_in();
+            if (TextUtils.equals(isSignIn, "0")) {
+                if (TextUtils.equals("-1", result)) {
+                    this.sign_in_desc = Html.fromHtml("<font color=\"#ff9000\">签到已超时</font>");
+                } else {
+                    this.sign_in_desc = Html.fromHtml("<font " +
+                            "color=\"#a0a0a0\">距上门服务还有</font><font " +
+                            "color=\"#ff9000" +
+                            "\">" + result + "</font>");
+                }
+            } else if (TextUtils.equals(isSignIn, "1"))
+                this.sign_in_desc = Html.fromHtml("<font color=\"#a0a0a0\">已于" + getSign_in_time() +
+                        "</font><font " +
+                        "color=\"#ff9000\">签到成功</font>");
+            else if (TextUtils.equals(isSignIn, "2"))
+                this.sign_in_desc = Html.fromHtml("<font color=\"#ff9000\">签到失败</font>");
+            return sign_in_desc;
+        }
+
+        public String getSign_in_time() {
+            return sign_in_time;
+        }
+
+        public void setSign_in_time(String sign_in_time) {
+            this.sign_in_time = sign_in_time;
+        }
+
+        @Bindable
+        public String getSubsidy() {
+            return subsidy;
+        }
+
+        public void setSubsidy(String subsidy) {
+            this.subsidy = subsidy;
+        }
+
+        @Bindable
+        public String getAcce_cost_title() {
+            return acce_cost_title;
+        }
+
+        public void setAcce_cost_title(String acce_cost_title) {
+            this.acce_cost_title = acce_cost_title;
+        }
+
+        @Bindable
+        public String getService_evaluation() {
+            return service_evaluation;
+        }
+
+        public void setService_evaluation(String service_evaluation) {
+            this.service_evaluation = service_evaluation;
+        }
+
+        @Bindable
+        public String getOrder_settlement() {
+            return order_settlement;
+        }
+
+        public void setOrder_settlement(String order_settlement) {
+            this.order_settlement = order_settlement;
+        }
+
+
+        public static class AcceCostListEntity {
+            private String handle_type;
+            private String exe_type;
+            private String exe_status;
+            private String exe_desc;
+            private String title;
+            private String addtime;
+            private String acid;
+
+            public String getHandle_type() {
+                return handle_type;
+            }
+
+            public void setHandle_type(String handle_type) {
+                this.handle_type = handle_type;
+            }
+
+            public String getExe_type() {
+                return exe_type;
+            }
+
+            public void setExe_type(String exe_type) {
+                this.exe_type = exe_type;
+            }
+
+            public String getExe_status() {
+                return exe_status;
+            }
+
+            public void setExe_status(String exe_status) {
+                this.exe_status = exe_status;
+            }
+
+            public String getExe_desc() {
+                return exe_desc;
+            }
+
+            public void setExe_desc(String exe_desc) {
+                this.exe_desc = exe_desc;
+            }
+
+            public String getTitle() {
+                return title;
+            }
+
+            public void setTitle(String title) {
+                this.title = title;
+            }
+
+            public String getAddtime() {
+                return addtime;
+            }
+
+            public void setAddtime(String addtime) {
+                this.addtime = addtime;
+            }
+
+            public Class<?> getIntentFlag() {
+                if (TextUtils.equals("0", getExe_type())) {//费用申请
+                    return ExpensesResultActivity.class;
+                } else if (TextUtils.equals("1", getExe_type())) {//A模式
+                    return FittingApplyDetailActivity.class;
+                } else if (TextUtils.equals("2", getExe_type())) {//B模式
+                    return FittingResendDetailActivity.class;
+                }
+                return null;
+            }
+
+            public String getAcid() {
+                return acid;
+            }
+
+            public void setAcid(String acid) {
+                this.acid = acid;
+            }
+        }
+
     }
 
     public static class ListEntity extends BaseObservable implements Parcelable {
@@ -289,6 +468,7 @@ public class OrderDetailBean extends BaseBean {
         private String brand;
         private String stantard;
         private String model;
+        private String service_type;
         private String fault_lable;
         private String fault_desc;
         private String product_thumb;
@@ -300,8 +480,10 @@ public class OrderDetailBean extends BaseBean {
         private ButtonType buttonType = ButtonType.NAN;
         private String report = "";
         private ArrayList<ServiceListEntity> service_list;
-        private List<CompletePhotosEntity> complete_photos;
-        private List<String> addPics = new ArrayList<>();
+        private ArrayList<CompletePhotosEntity> complete_photos;
+        private ArrayList<String> addPics = new ArrayList<>();
+        private String complete_report;
+        private String productNum;
 
         public ListEntity() {
         }
@@ -328,10 +510,26 @@ public class OrderDetailBean extends BaseBean {
             this.buttonType = tmpButtonType == -1 ? null : ButtonType.values()[tmpButtonType];
             this.report = in.readString();
             this.service_list = new ArrayList<ServiceListEntity>();
-            in.readList(this.service_list, List.class.getClassLoader());
+            in.readList(this.service_list, getClass().getClassLoader());
             this.complete_photos = new ArrayList<CompletePhotosEntity>();
-            in.readList(this.complete_photos, List.class.getClassLoader());
+            in.readList(this.complete_photos, getClass().getClassLoader());
             this.addPics = in.createStringArrayList();
+            this.complete_report = in.readString();
+        }
+
+        @BindingAdapter(value = {"app:compoundDrawable"})
+        public static void setCompoundDrawable(TextView textView, String lastHandleType) {
+            if (TextUtils.equals(lastHandleType, "3") || TextUtils.equals
+                    (lastHandleType, "4")) {
+                textView.setCompoundDrawables(null, null, null, null);
+            } else {
+                Drawable drawable = textView.getResources().getDrawable(R.mipmap.ic_arrow_right);
+                if (drawable != null) {
+                    drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable
+                            .getMinimumHeight());
+                    textView.setCompoundDrawables(null, null, drawable, null);
+                }
+            }
         }
 
         public String getDetailid() {
@@ -406,6 +604,7 @@ public class OrderDetailBean extends BaseBean {
             this.product_thumb = product_thumb;
         }
 
+        @Bindable
         public String getLast_handle_type() {
             return last_handle_type;
         }
@@ -511,7 +710,7 @@ public class OrderDetailBean extends BaseBean {
         }
 
         public void setComplete_photos(List<CompletePhotosEntity> complete_photos) {
-            this.complete_photos = complete_photos;
+            this.complete_photos = (ArrayList<CompletePhotosEntity>) complete_photos;
         }
 
         public List<String> getAddPics() {
@@ -519,7 +718,7 @@ public class OrderDetailBean extends BaseBean {
         }
 
         public void setAddPics(List<String> addPics) {
-            this.addPics = addPics;
+            this.addPics = (ArrayList<String>) addPics;
         }
 
         @Bindable
@@ -530,6 +729,15 @@ public class OrderDetailBean extends BaseBean {
         public void setReport(String report) {
             this.report = report;
             notifyPropertyChanged(BR.report);
+        }
+
+        @Bindable
+        public String getComplete_report() {
+            return complete_report;
+        }
+
+        public void setComplete_report(String complete_report) {
+            this.complete_report = complete_report;
         }
 
         @Override
@@ -561,12 +769,51 @@ public class OrderDetailBean extends BaseBean {
             dest.writeList(this.service_list);
             dest.writeList(this.complete_photos);
             dest.writeStringList(this.addPics);
+            dest.writeString(this.complete_report);
         }
 
-        public static class ServiceListEntity extends BaseObservable implements Serializable {
+        @Bindable
+        public String getService_type() {
+            return service_type;
+        }
+
+        public void setService_type(String service_type) {
+            this.service_type = service_type;
+        }
+
+        @Bindable
+        public String getProductNum() {
+            return productNum;
+        }
+
+        public void setProductNum(String productNum) {
+            this.productNum = productNum;
+        }
+
+        public static class ServiceListEntity extends BaseObservable implements Parcelable {
+
+            public static final Creator<ServiceListEntity> CREATOR = new
+                    Creator<ServiceListEntity>() {
+                        public ServiceListEntity createFromParcel(Parcel source) {
+                            return new ServiceListEntity(source);
+                        }
+
+                        public ServiceListEntity[] newArray(int size) {
+                            return new ServiceListEntity[size];
+                        }
+                    };
             private String service_id;
             private String service_name;
             private String service_cost;
+
+            public ServiceListEntity() {
+            }
+
+            protected ServiceListEntity(Parcel in) {
+                this.service_id = in.readString();
+                this.service_name = in.readString();
+                this.service_cost = in.readString();
+            }
 
             public String getService_id() {
                 return service_id;
@@ -592,6 +839,18 @@ public class OrderDetailBean extends BaseBean {
 
             public void setService_cost(String service_cost) {
                 this.service_cost = service_cost;
+            }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(this.service_id);
+                dest.writeString(this.service_name);
+                dest.writeString(this.service_cost);
             }
         }
 

@@ -208,6 +208,17 @@ public class OrderModel implements View.OnClickListener {
             itemOrderDetail.button.setVisibility(View.GONE);
             itemOrderDetail.llytReport.setVisibility(View.VISIBLE);
             itemOrderDetail.llytReport.setEnabled(false);
+
+            itemOrderDetail.ivResult.setVisibility(View.VISIBLE);
+            if (TextUtils.equals(listEntity.getLast_handle_type(), "3")) {
+                itemOrderDetail.ivResult.setImageResource(R.mipmap.ic_already_done);
+            } else if (TextUtils.equals(listEntity.getLast_handle_type(), "4")) {
+                itemOrderDetail.ivResult.setImageResource(R.mipmap.ic_cannt_be_done);
+            }
+
+//            AppTools.deleteDrawable(itemOrderDetail.tvHandleResult);//删除本次服务结果右侧箭头
+//            AppTools.deleteDrawable(itemOrderDetail.tvLastResult);//删除上次服务结果右侧箭头
+//            AppTools.deleteDrawable(itemOrderDetail.tvObj);//删除服务项目结果右侧箭头
             return true;
         }
         return false;

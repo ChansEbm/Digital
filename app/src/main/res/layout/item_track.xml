@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data class="ItemTrackLayout">
+
+        <variable
+            name="track"
+            type="com.szbb.pro.entity.Order.OrderTrackingBean.DataEntity.ProcessListEntity"/>
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="@color/color_white"
+                  android:minHeight="70dp"
+                  android:orientation="vertical"
+                  android:paddingStart="@dimen/large_margin_15dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/small_margin_5dp"
+            android:layout_weight="1"
+            android:minHeight="70dp">
+
+            <TextView
+                style="@style/textStyle"
+                android:layout_gravity="center_vertical"
+                android:text="@{track.title}"
+                app:bindTrackColor="@{track.pos}"
+                />
+
+            <TextView
+                style="@style/textStyle"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="@dimen/large_margin_15dp"
+                android:text="@{track.addtime}"
+                android:textSize="11sp"
+                app:bindTrackColor="@{track.pos}"
+                />
+        </FrameLayout>
+    </LinearLayout>
+</layout>

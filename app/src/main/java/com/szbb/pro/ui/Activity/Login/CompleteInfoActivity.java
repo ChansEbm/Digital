@@ -42,6 +42,9 @@ import de.greenrobot.event.EventBus;
 public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements UpdateUIListener,
         InputCallBack,
         OnPhotoOptsSelectListener {
+    private final int AVATAR = 0X010;
+    private final int ID_FONT = 0X020;
+    private final int ID_BACK = 0x030;
     private CompleteInfoLayout completeInfoLayout;
     private SimpleDraweeView avatarSimpleDraweeView;//头像
     private SimpleDraweeView citizenIdFrontSimpleDraweeView;//身份证正面
@@ -52,30 +55,21 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
     private EditText edtCompleteInfoCitizenID;//身份证号码
     private EditText edtCompleteInfoSkill;//技能选择
     private InputDialog inputDialog;
-
     private UpdateUIBroadcast broadcast;
     private TakePhotoPopupWindow takePhotoPopupWindow;
-
     private Intent intent;
     private String avatarPath = "";
     private String idFontPath = "";
     private String idBackPath = "";
-
     private String provinceId = "";
     private String cityId = "";
     private String districtId = "";
     private String streetId = "";
     private String areaId = "";
-
     private String realName = "";
     private String location = "";
     private String detailAddress = "";
     private String citizenID = "";
-
-    private final int AVATAR = 0X010;
-    private final int ID_FONT = 0X020;
-    private final int ID_BACK = 0x030;
-
     private double lat = 0d;
     private double lng = 0d;
 
@@ -177,7 +171,9 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
                 start(ProvinceActivity.class);
                 break;
             case R.id.iv_location:
-                startActivityForResult(new Intent().setClass(this, LocationActivity.class),
+                startActivityForResult(new Intent().putExtra("flag", AppKeyMap.CUPCAKE).putExtra
+                                ("title", getString(R.string.now_position)).setClass
+                                (this, LocationActivity.class),
                         AppKeyMap.LOLLIPOP);
                 break;
             case R.id.sdv_citizen_id_font_side:
