@@ -11,6 +11,7 @@ import com.szbb.pro.R;
 import com.szbb.pro.WebViewLayout;
 import com.szbb.pro.base.BaseAty;
 
+
 public class WebViewActivity extends BaseAty {
     private WebViewLayout detailLayout;
     private String url = "";
@@ -57,6 +58,7 @@ public class WebViewActivity extends BaseAty {
         webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setBlockNetworkImage(false);
+
         detailLayout.webView.loadUrl(url);
     }
 

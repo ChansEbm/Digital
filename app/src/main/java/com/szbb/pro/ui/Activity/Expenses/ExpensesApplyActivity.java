@@ -14,6 +14,7 @@ import com.szbb.pro.ExpensesApplyLayout;
 import com.szbb.pro.R;
 import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.dialog.InputDialog;
+import com.szbb.pro.entity.Base.BaseBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.eum.PhotoPopupOpts;
 import com.szbb.pro.eum.WheelOptions;
@@ -37,7 +38,8 @@ import cn.finalteam.galleryfinal.model.PhotoInfo;
 /**
  * 费用申请
  */
-public class ExpensesApplyActivity extends BaseAty implements OnPhotoOptsSelectListener,
+public class ExpensesApplyActivity extends BaseAty<BaseBean, BaseBean> implements
+        OnPhotoOptsSelectListener,
         OnAddPictureDoneListener, OnWheelOptsSelectCallback, InputCallBack {
     private ExpensesApplyLayout expensesApplyLayout;
     private EditText editText;
@@ -206,7 +208,7 @@ public class ExpensesApplyActivity extends BaseAty implements OnPhotoOptsSelectL
     }
 
     @Override
-    public void onJsonObjectSuccess(Object o, NetworkParams paramsCode) {
+    public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {
         start(OrderDetailActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP, Intent
                 .FLAG_ACTIVITY_SINGLE_TOP);
     }

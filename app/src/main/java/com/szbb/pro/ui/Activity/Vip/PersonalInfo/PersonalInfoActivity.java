@@ -19,10 +19,9 @@ import java.util.ArrayList;
  */
 public class PersonalInfoActivity extends BaseAty {
     private PersonalInfoLayout personalInfoLayout;
-    private Prefser prefser;
     private VipInfoBean vipInfoBean;
     private ArrayList<String> picSources = new ArrayList<>();
- 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,13 +31,14 @@ public class PersonalInfoActivity extends BaseAty {
     @Override
     protected void initViews() {
         defaultTitleBar(this).setTitle(R.string.vip_personal_info);
-        prefser = new Prefser(AppTools.getSharePreferences());
+        Prefser prefser = new Prefser(AppTools.getSharePreferences());
         vipInfoBean = prefser.get("VipInfo", VipInfoBean.class, new VipInfoBean());
     }
 
     @Override
     protected void initEvents() {
-        final VipInfoBean.WorkerDataEntity worker_data = vipInfoBean.getWorker_data();
+        final VipInfoBean.WorkerDataEntity worker_data = vipInfoBean
+                .getWorker_data();
         personalInfoLayout.setInfo(worker_data);
         personalInfoLayout.sdvFont.setImageURI(Uri.parse(worker_data
                 .getCard_front()));

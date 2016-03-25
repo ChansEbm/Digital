@@ -7,9 +7,14 @@ import android.widget.EditText;
 import com.szbb.pro.FeedBackLayout;
 import com.szbb.pro.R;
 import com.szbb.pro.base.BaseAty;
+import com.szbb.pro.entity.Base.BaseBean;
 import com.szbb.pro.eum.NetworkParams;
+import com.szbb.pro.tools.AppTools;
 
-public class FeedBackActivity extends BaseAty {
+/**
+ * 意见反馈
+ */
+public class FeedBackActivity extends BaseAty<BaseBean, BaseBean> {
     private FeedBackLayout feedBackLayout;
     private EditText edtFeedBack;
 
@@ -21,6 +26,7 @@ public class FeedBackActivity extends BaseAty {
 
     @Override
     protected void initViews() {
+        defaultTitleBar(this).setTitle(R.string.vip_feedback);
         edtFeedBack = feedBackLayout.edtFeed;
     }
 
@@ -43,5 +49,10 @@ public class FeedBackActivity extends BaseAty {
                     networkModel.submitFeedback(feedBack, NetworkParams.CUPCAKE);
                 break;
         }
+    }
+
+    @Override
+    public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {
+        AppTools.removeSingleActivity(this);
     }
 }

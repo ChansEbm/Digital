@@ -13,6 +13,7 @@ import com.szbb.pro.adapters.CommonBinderAdapter;
 import com.szbb.pro.adapters.CommonBinderHolder;
 import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.databinding.AtyDistrictBinding;
+import com.szbb.pro.entity.Base.BaseBean;
 import com.szbb.pro.entity.EventBus.AreaEvent;
 import com.szbb.pro.entity.Login.AreaListBean;
 import com.szbb.pro.eum.NetworkParams;
@@ -26,7 +27,7 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by ChanZeeBm on 2015/10/17.
  */
-public class ProvinceActivity extends BaseAty implements
+public class ProvinceActivity extends BaseAty<BaseBean, AreaListBean.ListEntity> implements
         BinderOnItemClickListener {
     private AtyDistrictBinding binding;
     private RecyclerView recyclerView;
@@ -99,8 +100,8 @@ public class ProvinceActivity extends BaseAty implements
     }
 
     @Override
-    public void onJsonObjectSuccess(Object o, NetworkParams paramsCode) {
-        AreaListBean areaListBean = (AreaListBean) o;
+    public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {
+        AreaListBean areaListBean = (AreaListBean) baseBean;
         this.list.addAll(areaListBean.getList());
         commonBinderAdapter.notifyDataSetChanged();
     }

@@ -45,6 +45,7 @@ public class FindCreditPasswordActivity extends BaseAty<BaseBean, BaseBean> {
 
     @Override
     protected void initEvents() {
+        defaultTitleBar(this).setTitle(R.string.login_find_pwd);
         tInputVerifyCode.setHint(getString(R.string.please_input_verification_code));
         tInputPwd.setHint(getString(R.string.reg_pwd));
         tInputRePwd.setHint(getString(R.string.reg_confirm_pwd));
@@ -64,7 +65,7 @@ public class FindCreditPasswordActivity extends BaseAty<BaseBean, BaseBean> {
                     networkModel.getPhoneCode(phone, NetworkParams.CUPCAKE);
                 }
                 break;
-            case R.id.btn_confirm:
+            case R.id.btn_submit:
                 checkNecessaryAndProgress();
                 break;
         }
@@ -90,7 +91,8 @@ public class FindCreditPasswordActivity extends BaseAty<BaseBean, BaseBean> {
     @Override
     public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {
         if (paramsCode == NetworkParams.DONUT) {
-            start(WalletActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP, Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            start(WalletActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP, Intent
+                    .FLAG_ACTIVITY_SINGLE_TOP);
         }
     }
 }

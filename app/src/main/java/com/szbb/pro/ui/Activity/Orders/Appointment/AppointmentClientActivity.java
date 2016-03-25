@@ -20,8 +20,8 @@ import com.szbb.pro.R;
 import com.szbb.pro.adapters.CommonBinderAdapter;
 import com.szbb.pro.adapters.CommonBinderHolder;
 import com.szbb.pro.base.BaseAty;
+import com.szbb.pro.dialog.DialDialog;
 import com.szbb.pro.dialog.InputDialog;
-import com.szbb.pro.dialog.MessageDialog;
 import com.szbb.pro.entity.Base.BaseBean;
 import com.szbb.pro.entity.Order.OrderDetailBean;
 import com.szbb.pro.eum.NetworkParams;
@@ -53,7 +53,6 @@ public class AppointmentClientActivity extends BaseAty<BaseBean, OrderDetailBean
     private TextView tvAppointmentTime;
     private TextView tvAppointmentResult;
     private InputDialog inputDialog;
-    private TextView tvAddress;
 
     private String result = "";
     private String appointmentTime = "";
@@ -86,7 +85,6 @@ public class AppointmentClientActivity extends BaseAty<BaseBean, OrderDetailBean
         appointmentClientLayout.flytClientAppointmentChooseResult.setOnClickListener(this);
         appointmentClientLayout.btnClientAppointmentSubmit.setOnClickListener(this);
         appointmentClientLayout.ryltAppointmentRemark.setOnClickListener(this);
-        appointmentClientLayout.tvClientAppointmentClientAddress.setOnClickListener(this);
         flytAppointmentTime.setOnClickListener(this);
         ryltAppointmentRemark.setOnClickListener(this);
 
@@ -135,6 +133,8 @@ public class AppointmentClientActivity extends BaseAty<BaseBean, OrderDetailBean
 
     @Override
     protected void onClick(int id, View view) {
+        DialDialog dialDialog = new DialDialog(this, null);
+        final OrderDetailBean.DataEntity appointment = appointmentClientLayout.getAppointment();
         switch (id) {
             case R.id.flyt_client_appointment_choose_result:
                 wheelPopupWindow.setOptions(WheelOptions.STANDER);
@@ -164,12 +164,18 @@ public class AppointmentClientActivity extends BaseAty<BaseBean, OrderDetailBean
                 inputDialog.setParams(NetworkParams.CUPCAKE);
                 inputDialog.show();
                 break;
-            case R.id.tv_client_appointment_client_address:
-                MessageDialog messageDialog = new MessageDialog(this);
-                messageDialog.setTitle(getString(R.string.address));
-                messageDialog.setMessage(appointmentClientLayout.getAppointment().getAddress());
-                messageDialog.show();
+            case R.id.btn_engineer:
+                final String factory_technology_tel = appointment
+                        .getFactory_technology_tel();
+                dialDialog.call(factory_technology_tel);
                 break;
+            case R.id.btn_user:
+                final String tel = appointment.getTel();
+                dialDialog.call(tel);
+                break;
+            case R.id.tv_location:
+                break;
+
         }
     }
 

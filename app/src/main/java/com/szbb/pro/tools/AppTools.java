@@ -322,7 +322,7 @@ public class AppTools {
     public static void showDialDialog(FragmentActivity fragmentActivity, String phoneNum,
                                       DialListener listener) {
         DialDialog dialDialog = new DialDialog(fragmentActivity, listener);
-        dialDialog.show(phoneNum);
+        dialDialog.call(phoneNum);
     }
 
     /**

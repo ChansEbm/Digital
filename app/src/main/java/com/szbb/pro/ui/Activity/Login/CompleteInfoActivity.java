@@ -3,6 +3,7 @@ package com.szbb.pro.ui.Activity.Login;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -61,13 +62,8 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
     private String avatarPath = "";
     private String idFontPath = "";
     private String idBackPath = "";
-    private String provinceId = "";
-    private String cityId = "";
-    private String districtId = "";
-    private String streetId = "";
     private String areaId = "";
     private String realName = "";
-    private String location = "";
     private String detailAddress = "";
     private String citizenID = "";
     private double lat = 0d;
@@ -198,13 +194,13 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
 
     public void onEventMainThread(AreaEvent areaEvent) {
         Bundle bundle = areaEvent.getIntent().getExtras();
-        provinceId = bundle.getString("provinceId", "");
+        String provinceId = bundle.getString("provinceId", "");
         String province = bundle.getString("province", "");
-        cityId = bundle.getString("cityId", "");
+        String cityId = bundle.getString("cityId", "");
         String city = bundle.getString("city", "");
-        districtId = bundle.getString("districtId", "");
+        String districtId = bundle.getString("districtId", "");
         String district = bundle.getString("district", "");
-        streetId = bundle.getString("streetId", "");
+        String streetId = bundle.getString("streetId", "");
         String street = bundle.getString("street", "");
         this.areaId = provinceId;
         LogTools.w(province + "" + city + "" + district + "" + street + "");
@@ -302,10 +298,14 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
     private boolean checkNecessary() {
 
         this.realName = edtCompleteInfoRealName.getText().toString();
-        this.location = edtCompleteInfoLocation.getText().toString();
+        String location = edtCompleteInfoLocation.getText().toString();
         this.detailAddress = edtCompleteInfoDetailAddress.getText().toString();
         this.citizenID = edtCompleteInfoCitizenID.getText().toString();
-
+        if (TextUtils.isEmpty(avatarPath)) {
+            AppTools.showNormalSnackBar(parentView, getString(R.string
+                    .please_upload_avatar));
+            return false;
+        }
         if (realName.isEmpty()) {
             AppTools.showNormalSnackBar(parentView, getString(R.string
                     .organizing_please_input_real_name));
@@ -321,8 +321,17 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
                     .organization_input_detail_location));
             return false;
         }
-
-        if (citizenID.toString().isEmpty()) {
+        if (TextUtils.isEmpty(idFontPath)) {
+            AppTools.showNormalSnackBar(parentView, getString(R.string
+                    .please_upload_citizen_font));
+            return false;
+        }
+        if (TextUtils.isEmpty(idBackPath)) {
+            AppTools.showNormalSnackBar(parentView, getString(R.string
+                    .please_upload_citizen_back));
+            return false;
+        }
+        if (citizenID.isEmpty()) {
             AppTools.showNormalSnackBar(parentView, getString(R.string
                     .organizing_please_input_correct_citizen_ID));
             return false;

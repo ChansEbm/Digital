@@ -5,21 +5,23 @@
 
         <variable
             name="bank"
-            type="com.szbb.pro.entity.Vip.BankCardBean.DataEntity" />
+            type="com.szbb.pro.entity.Vip.CreditCardBean.DataEntity"/>
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/theme_primary"
-        tools:context="com.szbb.pro.ui.Activity.Vip.Wallet.WithdrawActivity">
+                 xmlns:tools="http://schemas.android.com/tools"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:background="@color/theme_primary"
+                 tools:context="com.szbb.pro.ui.Activity.Vip.Wallet.WithdrawActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/color_bg_gravy"
             android:orientation="vertical">
+
+            <include layout="@layout/title_bar"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -36,7 +38,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.3"
                     android:gravity="center_vertical"
-                    android:text="@{bank.cardtype}" />
+                    android:text="@{bank.cardtype}"/>
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -49,17 +51,17 @@
                     <TextView
                         style="@style/textStyle"
                         android:text="@{bank.bank_name}"
-                        android:textColor="@color/color_text_org" />
+                        android:textColor="@color/color_text_org"/>
 
                     <TextView
                         style="@style/textStyle"
                         android:layout_marginStart="@dimen/small_margin_5dp"
                         android:text="@{bank.credit_card}"
-                        android:textColor="@color/color_text_org" />
+                        android:textColor="@color/color_text_org"/>
                 </LinearLayout>
             </LinearLayout>
 
-            <include layout="@layout/line" />
+            <include layout="@layout/line"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -75,7 +77,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.3"
                     android:gravity="center_vertical"
-                    android:text="@string/wallet_money" />
+                    android:text="@string/wallet_money"/>
 
                 <EditText
                     android:id="@+id/edt_money"
@@ -83,7 +85,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:paddingStart="@dimen/small_margin_5dp" />
+                    android:digits="1234567890"
+                    android:inputType="number"
+                    android:paddingStart="@dimen/small_margin_5dp"/>
             </LinearLayout>
 
             <TextView
@@ -92,13 +96,13 @@
                 android:layout_marginBottom="@dimen/large_margin_15dp"
                 android:layout_marginTop="@dimen/large_margin_15dp"
                 android:text="注：每笔提现会收取1元手续费"
-                android:textColor="@color/color_text_gravy" />
+                android:textColor="@color/color_text_gravy"/>
 
             <Button
                 android:id="@+id/button"
                 style="@style/buttonStyle"
                 android:onClick="onClick"
-                android:text="@string/confirm" />
+                android:text="@string/confirm"/>
         </LinearLayout>
 
     </FrameLayout>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+    >
 
     <data class=".AppointmentClientLayout">
 
@@ -33,129 +33,152 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_marginTop="@dimen/large_margin_15dp"
-                        android:background="@color/color_bg_line"/>
 
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/large_margin_15dp"
+                        android:background="@color/color_white"
+                        android:minHeight="@dimen/labelHeight_35dp"
+                        android:paddingEnd="@dimen/large_margin_15dp"
+                        android:paddingStart="@dimen/large_margin_15dp">
+
+                        <TextView
+                            style="@style/textStyle"
+                            android:layout_gravity="center_vertical"
+                            android:text="@string/label_make_order_people"
+                            />
+
+                        <Button
+                            android:id="@+id/btn_engineer"
+                            android:layout_width="59dp"
+                            android:layout_height="23dp"
+                            android:layout_gravity="center_vertical|end"
+                            android:background="@drawable/bg_cyan_frame"
+                            android:drawableStart="@mipmap/ic_phone_blue_small"
+                            android:onClick="onClick"
+                            android:paddingStart="@dimen/small_margin_5dp"
+                            android:text="@string/label_engineer"
+                            android:textColor="@color/theme_primary"
+                            android:textSize="11sp"/>
+                    </FrameLayout>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/color_white"
-                        android:gravity="center_vertical"
-                        android:minHeight="117dp"
-                        android:paddingEnd="0dp"
+                        android:minHeight="@dimen/labelHeight_35dp"
                         android:paddingStart="@dimen/large_margin_15dp">
 
                         <TextView
-                            android:id="@+id/tv_client_appointment_client_product_name"
                             style="@style/textStyle"
-                            android:text="@{appointment.nickname}"/>
-
-                        <TextView
-                            android:id="@+id/tv_client_appointment_client_phone"
-                            style="@style/textStyle"
-                            android:layout_alignTop="@id/tv_client_appointment_client_product_name"
-                            android:layout_marginStart="@dimen/small_margin_5dp"
-                            android:layout_toEndOf="@id/tv_client_appointment_client_product_name"
-                            android:text="@{appointment.tel}"/>
-
-                        <LinearLayout
-                            android:id="@+id/llyt_l1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/tv_client_appointment_client_phone"
-                            android:layout_marginTop="@dimen/middle_margin_10dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/tv_t4"
-                                style="@style/textStyle"
-                                android:text="@string/address"/>
-
-                            <TextView
-                                android:id="@+id/tv_client_appointment_client_address"
-                                style="@style/textStyle"
-                                android:layout_width="0dp"
-                                android:layout_marginStart="@dimen/small_margin_5dp"
-                                android:layout_weight="1"
-                                android:ellipsize="middle"
-                                android:singleLine="true"
-                                android:text="@{appointment.address}"/>
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="36dp"
-                                android:layout_marginStart="@dimen/small_margin_5dp"
-                                android:contentDescription="@string/app_name"
-                                android:src="@mipmap/ic_location_blue"/>
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/tv_t5"
-                            style="@style/textStyle"
-                            android:layout_below="@id/llyt_l1"
-                            android:layout_marginTop="@dimen/middle_margin_10dp"
-                            android:text="@string/appointment_mileage"
+                            android:layout_centerVertical="true"
+                            android:text="@{appointment.factory_desc}"
+                            android:textColor="@color/color_text_gravy"
                             />
-
-                        <TextView
-                            style="@style/textStyle"
-                            android:layout_alignTop="@id/tv_t5"
-                            android:layout_marginStart="@dimen/small_margin_5dp"
-                            android:layout_toEndOf="@id/tv_t5"
-                            android:text="@{appointment.est_miles}"
-                            android:textColor="@color/color_text_org"/>
-
-
                     </RelativeLayout>
 
-                    <View
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:background="@color/color_bg_line"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/large_margin_15dp"
+                        android:background="@color/color_white"
+                        android:minHeight="@dimen/labelHeight_35dp"
+                        android:paddingEnd="@dimen/large_margin_15dp"
+                        android:paddingStart="@dimen/large_margin_15dp">
 
-                    <LinearLayout
+                        <TextView
+                            style="@style/textStyle"
+                            android:layout_gravity="center_vertical"
+                            android:text="@string/user_information"
+                            />
+
+                        <Button
+                            android:id="@+id/btn_user"
+                            android:layout_width="59dp"
+                            android:layout_height="23dp"
+                            android:layout_gravity="center_vertical|end"
+                            android:background="@drawable/bg_cyan_frame"
+                            android:drawableStart="@mipmap/ic_phone_blue_small"
+                            android:onClick="onClick"
+                            android:paddingStart="@dimen/small_margin_5dp"
+                            android:text="@string/user"
+                            android:textColor="@color/theme_primary"
+                            android:textSize="11sp"/>
+                    </FrameLayout>
+
+                    <include layout="@layout/line"/>
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/color_white"
-                        android:gravity="center_vertical"
-                        android:minHeight="@dimen/minHeight_50dp"
-                        android:orientation="vertical"
-                        android:paddingEnd="0dp"
-                        android:paddingStart="@dimen/large_margin_15dp">
+                        android:minHeight="87dp"
+                        android:padding="@dimen/large_margin_15dp">
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/tv_location"
+                            style="@style/textStyle"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="@dimen/large_margin_15dp"
+                            android:layout_marginStart="@dimen/middle_margin_10dp"
+                            android:drawablePadding="@dimen/small_margin_5dp"
+                            android:drawableTop="@mipmap/ic_location_blue"
+                            android:onClick="onClick"
+                            android:text="@string/locate"
+                            android:textColor="@color/theme_primary"
+                            />
 
-                            <com.facebook.drawee.view.SimpleDraweeView
-                                android:id="@+id/sdv_client_appointment_classify_icon"
-                                android:layout_width="15dp"
-                                android:layout_height="15dp"
-                                android:layout_centerVertical="true"
-                                app:placeholderImage="@mipmap/ic_placeholder"/>
+                        <TextView
+                            android:id="@+id/tv_t7"
+                            style="@style/textStyle"
+                            android:text="@{appointment.nickname}"
+                            android:textColor="@color/color_text_gravy"/>
 
-                            <TextView
-                                android:id="@+id/tv_client_appointment_classify_name"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginStart="10dp"
-                                android:layout_toEndOf="@id/sdv_client_appointment_classify_icon"
-                                android:textColor="@color/color_text_dark"
-                                android:textSize="11.69sp"/>
+                        <TextView
+                            style="@style/textStyle"
+                            android:layout_marginStart="@dimen/middle_margin_10dp"
+                            android:layout_toEndOf="@id/tv_t7"
+                            android:text="@{appointment.tel}"
+                            android:textColor="@color/color_text_gravy"/>
 
-                        </RelativeLayout>
+                        <TextView
+                            android:id="@+id/tv_t8"
+                            style="@style/textStyle"
+                            android:layout_below="@id/tv_t7"
+                            android:layout_marginTop="@dimen/middle_margin_10dp"
+                            android:text="@string/address"
+                            android:textColor="@color/color_text_gravy"/>
 
+                        <TextView
+                            android:id="@+id/tv_t9"
+                            style="@style/textStyle"
+                            android:layout_alignTop="@id/tv_t8"
+                            android:layout_marginStart="@dimen/small_margin_5dp"
+                            android:layout_toEndOf="@id/tv_t8"
+                            android:layout_toStartOf="@id/tv_location"
+                            android:text="@{appointment.address}"
+                            android:textColor="@color/color_text_gravy"/>
 
-                    </LinearLayout>
+                        <TextView
+                            android:id="@+id/tv_t10"
+                            style="@style/textStyle"
+                            android:layout_below="@id/tv_t9"
+                            android:layout_marginTop="@dimen/middle_margin_10dp"
+                            android:text="@string/order_detail_way"
+                            android:textColor="@color/color_text_gravy"/>
+
+                        <TextView
+                            style="@style/textStyle"
+                            android:layout_alignTop="@id/tv_t10"
+                            android:layout_marginStart="@dimen/small_margin_5dp"
+                            android:layout_toEndOf="@id/tv_t10"
+                            android:text="@{appointment.est_miles}"
+                            android:textColor="@color/color_text_red"/>
+
+                    </RelativeLayout>
+
 
                     <include layout="@layout/line"/>
 
@@ -164,16 +187,6 @@
                         android:layout_height="0.5dp"
                         android:layout_marginTop="@dimen/large_margin_15dp"
                         android:background="@color/color_bg_line"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/color_white"
-                        android:gravity="center_vertical"
-                        android:minHeight="38dp"
-                        android:paddingStart="@dimen/large_margin_15dp"
-                        android:text="@{appointment.factory_desc}"
-                        android:textColor="@color/color_text_dark"/>
 
                     <include layout="@layout/line"/>
 

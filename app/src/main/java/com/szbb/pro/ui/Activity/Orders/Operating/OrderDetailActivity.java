@@ -205,6 +205,7 @@ public class OrderDetailActivity extends BaseAty<BaseBean, OrderDetailBean.ListE
     @Override
     protected void onClick(int id, View view) {
         final OrderDetailBean.DataEntity detail = orderDetailLayout.getDetail();
+        final String orderId = detail.getOrderid();
         switch (id) {
             case R.id.tv_error_product://产品错误报告
                 int errorPos = (int) view.getTag();
@@ -279,12 +280,12 @@ public class OrderDetailActivity extends BaseAty<BaseBean, OrderDetailBean.ListE
             case R.id.btn_engineer:
                 final String factory_technology_tel = detail.getFactory_technology_tel();
                 dialDialog = new DialDialog(this, null);
-                dialDialog.show(factory_technology_tel);
+                dialDialog.call(factory_technology_tel);
                 break;
             case R.id.btn_user:
                 final String tel = detail.getTel();
                 dialDialog = new DialDialog(this, null);
-                dialDialog.show(tel);
+                dialDialog.call(tel);
                 break;
             case R.id.tv_location:
                 final double lat = Double.parseDouble(detail.getLat());
@@ -294,12 +295,12 @@ public class OrderDetailActivity extends BaseAty<BaseBean, OrderDetailBean.ListE
                                 LocationActivity.class));
                 break;
             case R.id.btn_track:
-                final String orderid = detail.getOrderid();
-                startActivity(new Intent().putExtra("orderId", orderid).setClass(this,
+                startActivity(new Intent().putExtra("orderId", orderId).setClass(this,
                         OrderTrackingActivity.class));
                 break;
-            case R.id.textView:
-                start(CustomerServiceActivity.class);
+            case R.id.textView://联系客服
+                startActivity(new Intent().putExtra("orderId", orderId).setClass(this,
+                        CustomerServiceActivity.class));
                 break;
         }
     }
@@ -370,6 +371,7 @@ public class OrderDetailActivity extends BaseAty<BaseBean, OrderDetailBean.ListE
     }
 
     private void fillGuideList(OrderDetailBean.DataEntity data) {
+        guideList.clear();
         guideList.addAll(data.getAcce_cost_list());
         guideAdapter.notifyDataSetChanged();
     }
@@ -390,9 +392,9 @@ public class OrderDetailActivity extends BaseAty<BaseBean, OrderDetailBean.ListE
      * @param isSignIn is sign in or not
      */
     private void changeButtonState(boolean isSignIn, boolean isAllRepair, boolean isAllComplete) {
-        btnSignAppointment.setText(isSignIn ? getString(R.string
-                .order_detail_already_sign_in) : getString(R.string.order_detail_appoint_sign_in));
-        btnSignAppointment.setEnabled(!isSignIn);
+//        btnSignAppointment.setText(isSignIn ? getString(R.string
+//                .order_detail_already_sign_in) : getString(R.string.order_detail_appoint_sign_in));
+//        btnSignAppointment.setEnabled(!isSignIn);
         btnSignAgain.setVisibility(isSignIn ? View.VISIBLE : View.GONE);
 
         if (isAllRepair) {
@@ -520,7 +522,6 @@ public class OrderDetailActivity extends BaseAty<BaseBean, OrderDetailBean.ListE
         BGABadgeTextView textView = (BGABadgeTextView) actionView.findViewById(R.id.textView);
         textView.showCirclePointBadge();
         textView.setOnClickListener(this);
-
         titleBarTools.getToolbar().setPadding(0, 0, 15, 0);
         return true;
     }

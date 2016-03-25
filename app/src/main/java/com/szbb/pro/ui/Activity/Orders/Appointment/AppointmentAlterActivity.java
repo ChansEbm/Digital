@@ -9,6 +9,7 @@ import android.widget.EditText;
 import com.szbb.pro.AppointmentAlterLayout;
 import com.szbb.pro.R;
 import com.szbb.pro.base.BaseAty;
+import com.szbb.pro.entity.Base.BaseBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.eum.WheelOptions;
 import com.szbb.pro.impl.OnWheelOptsSelectCallback;
@@ -20,7 +21,8 @@ import com.szbb.pro.widget.PopupWindow.WheelPopupWindow;
  * Created by ChanZeeBm on 2015/11/16.
  * 修改预约
  */
-public class AppointmentAlterActivity extends BaseAty implements OnWheelOptsSelectCallback {
+public class AppointmentAlterActivity extends BaseAty<BaseBean, BaseBean> implements
+        OnWheelOptsSelectCallback {
     private AppointmentAlterLayout appointmentAlterLayout;
     private WheelPopupWindow wheelPopupWindow;
     private EditText edtRemark;
@@ -104,8 +106,7 @@ public class AppointmentAlterActivity extends BaseAty implements OnWheelOptsSele
     }
 
     @Override
-    public void onJsonObjectSuccess(Object o, NetworkParams paramsCode) {
-        super.onJsonObjectSuccess(o, paramsCode);
+    public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {
         start(MainActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP, Intent.FLAG_ACTIVITY_SINGLE_TOP);
     }
 

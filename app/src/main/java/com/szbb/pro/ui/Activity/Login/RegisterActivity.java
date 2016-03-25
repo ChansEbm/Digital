@@ -23,7 +23,7 @@ import com.szbb.pro.tools.AppTools;
  * Created by ChanZeeBm on 2015/10/14.
  */
 //注册
-public class RegisterActivity extends BaseAty implements CompoundButton
+public class RegisterActivity extends BaseAty<BaseBean, BaseBean> implements CompoundButton
         .OnCheckedChangeListener {
 
     private RegisterLayout registerLayout;
@@ -170,18 +170,17 @@ public class RegisterActivity extends BaseAty implements CompoundButton
     }
 
     @Override
-    public void onJsonObjectSuccess(Object object, NetworkParams paramsCode) {
+    public void onJsonObjectSuccess(BaseBean bean, NetworkParams paramsCode) {
         switch (paramsCode) {
             case CUPCAKE:
-                BaseBean baseBean = (BaseBean) object;
-                if (baseBean.getErrorcode() != 0) {
+                if (bean.getErrorcode() != 0) {
                     btnVerification.setEnabled(true);
                     countDownTimer.cancel();
                 }
                 break;
             case DONUT:
                 Intent intent = new Intent();
-                AuthBean authBean = (AuthBean) object;
+                AuthBean authBean = (AuthBean) bean;
                 AppTools.putStringSharedPreferences(AppKeyMap.AUTH, authBean.getAuth());
                 intent.putExtra("isNeedSnackBar", true).setClass(this, CompleteInfoActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

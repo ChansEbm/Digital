@@ -14,12 +14,13 @@ import com.szbb.pro.adapters.CommonBinderAdapter;
 import com.szbb.pro.adapters.CommonBinderHolder;
 import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.dialog.MessageDialog;
+import com.szbb.pro.entity.Base.BaseBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.LogTools;
 
-public class ServiceObjActivity extends BaseAty {
-    private OrderDetailBean.ListEntity listEntity;
+public class ServiceObjActivity extends BaseAty<BaseBean, OrderDetailBean.ListEntity
+        .ServiceListEntity> {
     private String detailId = "";
     private RecyclerView recyclerView;
     private ServiceObjLayout serviceObjLayout;
@@ -33,7 +34,7 @@ public class ServiceObjActivity extends BaseAty {
         super.onCreate(savedInstanceState);
         serviceObjLayout = (ServiceObjLayout) viewDataBinding;
         if (getIntent() != null) {
-            listEntity = getIntent().getParcelableExtra("listEntity");
+            OrderDetailBean.ListEntity listEntity = getIntent().getParcelableExtra("listEntity");
             detailId = listEntity.getDetailid();
             LogTools.w("detailid:" + detailId);
             list.addAll(listEntity.getService_list());
@@ -92,17 +93,15 @@ public class ServiceObjActivity extends BaseAty {
     public void onBinderItemClick(View view, final int pos) {
         super.onBinderItemClick(view, pos);
 
-        final OrderDetailBean.ListEntity.ServiceListEntity serviceListEntity = (OrderDetailBean
-                .ListEntity.ServiceListEntity) list.get(pos);
+        final OrderDetailBean.ListEntity.ServiceListEntity serviceListEntity = list.get(pos);
         messageDialog = new MessageDialog(this);
         messageDialog.setTitle(getString(R.string.notice));
 
         String alter = getString(R.string.can_not_be_changed);
         String name = "\n" + "类型:" + " " + serviceListEntity
                 .getService_name();
-        String cost = "\n" + "费用:" + serviceListEntity.getService_cost();
         this.serviceName = serviceListEntity.getService_name();
-        messageDialog.setMessage(alter + name + cost);
+        messageDialog.setMessage(alter + name);
         messageDialog.setPositiveButton(getString(R.string.positive), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,8 +117,7 @@ public class ServiceObjActivity extends BaseAty {
     }
 
     @Override
-    public void onJsonObjectSuccess(Object o, NetworkParams paramsCode) {
-        super.onJsonObjectSuccess(o, paramsCode);
+    public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {
         setResult(RESULT_OK, new Intent().putExtra("serviceId", serviceId));
         setResult(RESULT_OK, new Intent().putExtra("serviceName", serviceName));
         AppTools.removeSingleActivity(ServiceObjActivity.this);

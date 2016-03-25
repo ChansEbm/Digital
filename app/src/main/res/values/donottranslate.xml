@@ -189,7 +189,7 @@
     <string name="wallet_translation_details">交易明细 ></string>
     <string name="wallet_security_deposit">质保金(元)</string>
     <string name="wallet_cumulative_revenue">累计收入(元)</string>
-    <string name="wallet_wait_confirm">待确认(元)</string>
+    <string name="wallet_wait_confirm">待结算(单)</string>
     <string name="wallet_withdrawing">提现中(元)</string>
     <string name="wallet_withdrawed">已提现(元)</string>
     <string name="wallet_bank_card">我的银行卡</string>
@@ -405,6 +405,9 @@
     <string name="please_re_input_pwd">请重新输入密码</string>
     <string name="invalid_account">无效的卡号</string>
     <string name="invalid_zip_code">无效的邮政编码</string>
+    <string name="please_upload_avatar">请上传头像</string>
+    <string name="please_upload_citizen_font">请上传身份证正面照</string>
+    <string name="please_upload_citizen_back">请上传身份证背面照</string>
     <!--用户协议-->
     <string name="user_agreement">神州联保用户协议</string>
     <string name="user_agreement_text">神州联保用户协议神州联保用户协议

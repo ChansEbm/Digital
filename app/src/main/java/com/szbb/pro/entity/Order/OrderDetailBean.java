@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.szbb.pro.BR;
@@ -25,7 +26,6 @@ import com.szbb.pro.ui.Activity.Orders.FittingOrders.FittingResendDetailActivity
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ScheduledExecutorService;
 
 /**
  * Created by ChanZeeBm on 2016/1/6.
@@ -90,6 +90,34 @@ public class OrderDetailBean extends BaseBean {
         public DataEntity() {
         }
 
+        @BindingAdapter(value = {"app:signInText"})
+        public static void setSignInText(Button button, String signIn) {
+            if (button == null || TextUtils.isEmpty(signIn))
+                return;
+            switch (signIn) {
+                case "0":
+                    button.setText("签到");
+                    break;
+                case "1":
+                    button.setText("签到成功");
+                    break;
+                case "2":
+                case "3":
+                    button.setText("签到失败");
+                    break;
+            }
+        }
+
+        @BindingAdapter(value = {"app:signInBackground"})
+        public static void setSignInBackground(Button button, String sign) {
+            if (button == null || TextUtils.isEmpty(sign))
+                return;
+            if (TextUtils.equals("0", sign))
+                button.setBackgroundResource(R.drawable.bg_cyan_frame);
+            else
+                button.setBackground(null);
+        }
+
         public String getOrderid() {
             return orderid;
         }
@@ -146,7 +174,7 @@ public class OrderDetailBean extends BaseBean {
         }
 
         public void setEst_miles(String est_miles) {
-            this.est_miles = est_miles;
+            this.est_miles = est_miles + "公里";
         }
 
         public String getAddress() {
@@ -306,20 +334,19 @@ public class OrderDetailBean extends BaseBean {
             String result = AppTools.convertMillions(at - ct);
             String isSignIn = getIs_sign_in();
             if (TextUtils.equals(isSignIn, "0")) {
-                if (TextUtils.equals("-1", result)) {
-                    this.sign_in_desc = Html.fromHtml("<font color=\"#ff9000\">签到已超时</font>");
-                } else {
-                    this.sign_in_desc = Html.fromHtml("<font " +
-                            "color=\"#a0a0a0\">距上门服务还有</font><font " +
-                            "color=\"#ff9000" +
-                            "\">" + result + "</font>");
-                }
+                this.sign_in_desc = Html.fromHtml("<font " +
+                        "color=\"#a0a0a0\">距上门服务还有</font><font " +
+                        "color=\"#ff9000" +
+                        "\">" + result + "</font>");
             } else if (TextUtils.equals(isSignIn, "1"))
                 this.sign_in_desc = Html.fromHtml("<font color=\"#a0a0a0\">已于" + getSign_in_time() +
                         "</font><font " +
                         "color=\"#ff9000\">签到成功</font>");
             else if (TextUtils.equals(isSignIn, "2"))
                 this.sign_in_desc = Html.fromHtml("<font color=\"#ff9000\">签到失败</font>");
+            else if (TextUtils.equals(isSignIn, "3")) {
+                this.sign_in_desc = Html.fromHtml("<font color=\"#ff9000\">签到已超时</font>");
+            }
             return sign_in_desc;
         }
 

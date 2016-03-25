@@ -1,5 +1,6 @@
 package com.szbb.pro.ui.Activity.Vip.SystemMsg;
 
+import android.content.Intent;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.entity.Vip.OrderHintBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.tools.AppTools;
+import com.szbb.pro.ui.Activity.Orders.Operating.OrderDetailActivity;
 
 import java.util.List;
 
@@ -63,6 +65,7 @@ public class OrderHintActivity extends BaseAty<OrderHintBean, OrderHintBean.List
     @Override
     protected void initEvents() {
         recyclerView.setAdapter(commonBinderAdapter);
+        commonBinderAdapter.setBinderOnItemClickListener(this);
         recyclerView.addItemDecoration(AppTools.defaultHorizontalDecoration());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -86,5 +89,13 @@ public class OrderHintActivity extends BaseAty<OrderHintBean, OrderHintBean.List
             hintLayout.include.emptyView.setVisibility(View.VISIBLE);
         this.list.addAll(list);
         commonBinderAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onBinderItemClick(View view, int pos) {
+        super.onBinderItemClick(view, pos);
+        final String orderid = list.get(pos).getOrderid();
+        startActivity(new Intent().putExtra("orderId", orderid).setClass(this,
+                OrderDetailActivity.class));
     }
 }

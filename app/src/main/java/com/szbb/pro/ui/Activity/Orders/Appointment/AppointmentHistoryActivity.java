@@ -13,15 +13,16 @@ import com.szbb.pro.adapters.CommonBinderAdapter;
 import com.szbb.pro.adapters.CommonBinderHolder;
 import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.entity.Appointment.AppointmentHistoryItemBean;
+import com.szbb.pro.entity.Base.BaseBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.tools.AppTools;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
-
 /**
  * 预约历史
  */
-public class AppointmentHistoryActivity extends BaseAty {
+public class AppointmentHistoryActivity extends BaseAty<BaseBean, AppointmentHistoryItemBean
+        .ListEntity> {
     private AppointmentHistoryLayout appointmentHistoryLayout;
     private RecyclerView recyclerView;
     private String orderId = "";
@@ -84,9 +85,9 @@ public class AppointmentHistoryActivity extends BaseAty {
 
 
     @Override
-    public void onJsonObjectSuccess(Object o, NetworkParams paramsCode) {
-        super.onJsonObjectSuccess(o, paramsCode);
-        AppointmentHistoryItemBean appointmentHistoryItemBean = (AppointmentHistoryItemBean) o;
+    public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {
+        AppointmentHistoryItemBean appointmentHistoryItemBean = (AppointmentHistoryItemBean)
+                baseBean;
         this.list.clear();
         this.list.addAll(appointmentHistoryItemBean.getList());
         commonBinderAdapter.notifyDataSetChanged();

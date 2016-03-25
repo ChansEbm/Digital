@@ -13,6 +13,9 @@ import com.szbb.pro.entity.Base.BaseBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.tools.AppTools;
 
+/**
+ * 设置提现密码
+ */
 public class PayPasswordActivity extends BaseAty<BaseBean, BaseBean> {
 
     private PayPasswordLayout payPasswordLayout;

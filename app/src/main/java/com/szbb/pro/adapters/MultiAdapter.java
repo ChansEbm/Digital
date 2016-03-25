@@ -6,6 +6,8 @@ import android.databinding.ViewDataBinding;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.szbb.pro.tools.LogTools;
+
 import java.util.List;
 
 /**
@@ -21,7 +23,7 @@ public abstract class MultiAdapter<T> extends CommonBinderAdapter<T> {
 
     @Override
     public CommonBinderHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ViewDataBinding viewDataBinding ;
+        ViewDataBinding viewDataBinding;
         switch (viewType) {
             case FIRST_LAYOUT:
                 viewDataBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()
@@ -32,6 +34,7 @@ public abstract class MultiAdapter<T> extends CommonBinderAdapter<T> {
                 ), layouts[1], parent, false);
                 break;
             default:
+                LogTools.e("you should retrun one of them --- \"FIRST_LAYOUT,SECOND_LAYOUT\"");
                 return null;
         }
         holder = new CommonBinderHolder(viewDataBinding, viewDataBinding.getRoot(), listener);

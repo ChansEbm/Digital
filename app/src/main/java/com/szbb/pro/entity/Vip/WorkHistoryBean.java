@@ -34,6 +34,7 @@ public class WorkHistoryBean extends BaseBean {
         private String order_cost;
         private String complete_time;
         private String status_desc;
+        private String orderid;
 
         @Bindable
         public String getSn() {
@@ -69,6 +70,14 @@ public class WorkHistoryBean extends BaseBean {
 
         public void setStatus_desc(String status_desc) {
             this.status_desc = status_desc;
+        }
+
+        public String getOrderid() {
+            return orderid;
+        }
+
+        public void setOrderid(String orderid) {
+            this.orderid = orderid;
         }
     }
 }

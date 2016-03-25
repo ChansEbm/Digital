@@ -27,6 +27,7 @@ public class WalletBean extends BaseBean {
         private String quality_money;
         private String income_money;
         private String unsettled_money;
+        private String unsettled_orders;
         private String withdrawing_money;
         private String withdrawials_money;
         private String is_bind_card;
@@ -108,6 +109,15 @@ public class WalletBean extends BaseBean {
 
         public void setWithdrawials_money(String withdrawials_money) {
             this.withdrawials_money = withdrawials_money;
+        }
+
+        @Bindable
+        public String getUnsettled_orders() {
+            return unsettled_orders;
+        }
+
+        public void setUnsettled_orders(String unsettled_orders) {
+            this.unsettled_orders = unsettled_orders;
         }
     }
 }

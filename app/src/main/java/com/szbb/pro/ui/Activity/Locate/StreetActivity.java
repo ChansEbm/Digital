@@ -13,6 +13,7 @@ import com.szbb.pro.R;
 import com.szbb.pro.adapters.CommonBinderAdapter;
 import com.szbb.pro.adapters.CommonBinderHolder;
 import com.szbb.pro.base.BaseAty;
+import com.szbb.pro.entity.Base.BaseBean;
 import com.szbb.pro.entity.EventBus.AreaEvent;
 import com.szbb.pro.entity.Login.AreaListBean;
 import com.szbb.pro.eum.NetworkParams;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 
 import de.greenrobot.event.EventBus;
 
-public class StreetActivity extends BaseAty {
+public class StreetActivity extends BaseAty<BaseBean, AreaListBean.ListEntity> {
 
     private RecyclerView recyclerView;
     private CityDistrictLayout cityDistrictLayout;
@@ -43,7 +44,8 @@ public class StreetActivity extends BaseAty {
     @Override
     protected void initViews() {
         defaultTitleBar(this).setTitle(R.string.street);
-        EventBus.getDefault().register(this);recyclerView = cityDistrictLayout.recyclerView;
+        EventBus.getDefault().register(this);
+        recyclerView = cityDistrictLayout.recyclerView;
         if (getIntent() != null) {
             provinceId = getIntent().getStringExtra("provinceId");
             province = getIntent().getStringExtra("province");
@@ -110,8 +112,8 @@ public class StreetActivity extends BaseAty {
     }
 
     @Override
-    public void onJsonObjectSuccess(Object o, NetworkParams paramsCode) {
-        AreaListBean areaListBean = (AreaListBean) o;
+    public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {
+        AreaListBean areaListBean = (AreaListBean) baseBean;
         this.list.addAll(areaListBean.getList());
         commonBinderAdapter.notifyDataSetChanged();
     }

@@ -2,10 +2,12 @@ package com.szbb.pro.ui.Fragment.Order;
 
 import android.content.Intent;
 import android.databinding.ViewDataBinding;
-import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewTreeObserver;
 
 import com.szbb.pro.AppKeyMap;
 import com.szbb.pro.ItemNewOrderLayout;
@@ -25,6 +27,9 @@ import com.szbb.pro.ui.Activity.Orders.Appointment.AppointmentClientActivity;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 
@@ -39,6 +44,7 @@ public class NewOrderFragment extends BaseFgm<BaseBean, MyOrderBean.ListEntity> 
     private BGARefreshLayout refreshLayout;
     private OrderBaseLayout orderBaseLayout;
     private MyOrderBean myOrderBean;
+    private org.solovyev.android.views.llm.LinearLayoutManager linearLayoutManager;
 
     private int page = 0;
     private int pageSize = 20;
@@ -58,6 +64,7 @@ public class NewOrderFragment extends BaseFgm<BaseBean, MyOrderBean.ListEntity> 
         orderBaseLayout = (OrderBaseLayout) viewDataBinding;
         recyclerView = orderBaseLayout.include.recyclerView;
         refreshLayout = orderBaseLayout.include.refreshLayout;
+        linearLayoutManager = new org.solovyev.android.views.llm.LinearLayoutManager(getActivity());
         commonBinderAdapter = new CommonBinderAdapter<MyOrderBean.ListEntity>(getActivity(), R
                 .layout.item_new_order, list) {
             @Override
@@ -75,8 +82,7 @@ public class NewOrderFragment extends BaseFgm<BaseBean, MyOrderBean.ListEntity> 
     protected void initEvents() {
         commonBinderAdapter.setBinderOnItemClickListener(this);
         recyclerView.setAdapter(commonBinderAdapter);
-        recyclerView.setLayoutManager(new org.solovyev.android.views.llm.LinearLayoutManager
-                (getActivity()));
+        recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity())
                 .sizeResId(R.dimen.large_margin_15dp).color(android.R.color.transparent)
                 .build());
@@ -98,7 +104,7 @@ public class NewOrderFragment extends BaseFgm<BaseBean, MyOrderBean.ListEntity> 
             case R.id.btn_call:
                 DialDialog dialDialog = new DialDialog(getActivity(), null);
                 String number = (String) view.getTag();
-                dialDialog.show(number);
+                dialDialog.call(number);
                 break;
         }
     }

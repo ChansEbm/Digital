@@ -5,7 +5,7 @@
 
         <variable
             name="info"
-            type="com.szbb.pro.entity.Vip.VipInfoBean.WorkerDataEntity"/>
+            type="com.szbb.pro.entity.Vip.VipInfoBean.WorkerDataEntity.AddressDataEntity"/>
     </data>
 
     <FrameLayout
@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:background="@color/theme_primary"
         android:onClick="onClick"
-        tools:context="com.szbb.pro.ui.Activity.Vip.PersonalInfo.PersonalInfoActivity">
+        tools:context="com.szbb.pro.ui.Activity.Vip.PersonalInfo.ReceiverInfoActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -41,7 +41,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:singleLine="true"
-                    android:text="@{info.nickname}"/>
+                    android:text="@{info.addressee}"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -58,7 +58,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:singleLine="true"
-                    android:text="@{info.telephone}"/>
+                    android:text="@{info.phone}"/>
             </android.support.design.widget.TextInputLayout>
 
             <LinearLayout
@@ -85,7 +85,7 @@
                     style="@style/textStyle"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:text="@{info.worker_area_ids_desc}"/>
+                    android:text="@{info.area_ids_desc}"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -107,7 +107,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:singleLine="true"
-                    android:text="@{info.worker_address}"/>
+                    android:text="@{info.detail_address}"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -125,7 +125,8 @@
                     android:layout_height="match_parent"
                     android:digits="1234567980"
                     android:maxLength="6"
-                    android:singleLine="true"/>
+                    android:singleLine="true"
+                    android:text="@{info.postcodes}"/>
             </android.support.design.widget.TextInputLayout>
 
             <Button

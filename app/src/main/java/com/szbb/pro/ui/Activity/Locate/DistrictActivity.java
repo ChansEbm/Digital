@@ -13,12 +13,12 @@ import com.szbb.pro.R;
 import com.szbb.pro.adapters.CommonBinderAdapter;
 import com.szbb.pro.adapters.CommonBinderHolder;
 import com.szbb.pro.base.BaseAty;
+import com.szbb.pro.entity.Base.BaseBean;
 import com.szbb.pro.entity.EventBus.AreaEvent;
 import com.szbb.pro.entity.Login.AreaListBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.impl.BinderOnItemClickListener;
 import com.szbb.pro.tools.AppTools;
-import com.szbb.pro.ui.Activity.Login.CompleteInfoActivity;
 
 import java.util.ArrayList;
 
@@ -27,7 +27,8 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by ChanZeeBm on 2015/10/17.
  */
-public class DistrictActivity extends BaseAty implements BinderOnItemClickListener {
+public class DistrictActivity extends BaseAty<BaseBean, AreaListBean.ListEntity> implements
+        BinderOnItemClickListener {
     private RecyclerView recyclerView;
     private CityDistrictLayout cityDistrictLayout;
 
@@ -79,9 +80,11 @@ public class DistrictActivity extends BaseAty implements BinderOnItemClickListen
     protected void noNetworkStatus() {
 
     }
+
     public void onEvent(AreaEvent areaEvent) {
         AppTools.removeSingleActivity(this);
     }
+
     @Override
     protected int getContentView() {
         return R.layout.aty_city_district;
@@ -111,11 +114,12 @@ public class DistrictActivity extends BaseAty implements BinderOnItemClickListen
     }
 
     @Override
-    public void onJsonObjectSuccess(Object o, NetworkParams paramsCode) {
-        AreaListBean areaListBean = (AreaListBean) o;
+    public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {
+        AreaListBean areaListBean = (AreaListBean) baseBean;
         this.list.addAll(areaListBean.getList());
         commonBinderAdapter.notifyDataSetChanged();
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

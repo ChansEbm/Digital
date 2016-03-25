@@ -9,11 +9,12 @@ import android.widget.EditText;
 import com.szbb.pro.ChangePasswordLayout;
 import com.szbb.pro.R;
 import com.szbb.pro.base.BaseAty;
+import com.szbb.pro.entity.Base.BaseBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.ui.Activity.Login.LoginActivity;
 
-public class ChangePasswordActivity extends BaseAty {
+public class ChangePasswordActivity extends BaseAty<BaseBean, BaseBean> {
     private ChangePasswordLayout changePasswordLayout;
 
     private TextInputLayout tInputOldPwd;
@@ -78,7 +79,7 @@ public class ChangePasswordActivity extends BaseAty {
     }
 
     @Override
-    public void onJsonObjectSuccess(Object o, NetworkParams paramsCode) {
+    public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {
         start(LoginActivity.class, Intent.FLAG_ACTIVITY_NEW_TASK, Intent.FLAG_ACTIVITY_CLEAR_TASK);
     }
 }

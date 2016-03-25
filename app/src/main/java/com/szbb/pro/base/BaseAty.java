@@ -15,6 +15,8 @@ import com.szbb.pro.R;
 import com.szbb.pro.adapters.CommonBinderAdapter;
 import com.szbb.pro.broadcast.UpdateUIBroadcast;
 import com.szbb.pro.entity.Base.BaseBean;
+import com.szbb.pro.entity.Order.OrderMsgBean;
+import com.szbb.pro.entity.Order.OrderMsgListBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.impl.BinderOnItemClickListener;
 import com.szbb.pro.impl.OkHttpResponseListener;
@@ -35,7 +37,8 @@ import cn.sharesdk.framework.ShareSDK;
 /**
  * Created by ChanZeeBm on 2015/9/7.
  */
-public abstract class BaseAty<E, T> extends AppCompatActivity implements View.OnClickListener,
+public abstract class BaseAty<E extends BaseBean, T> extends AppCompatActivity implements View
+        .OnClickListener,
         BinderOnItemClickListener, OkHttpResponseListener<E>, UpdateUIListener, GalleryFinal
                 .OnHanlderResultCallback {
 
@@ -66,14 +69,8 @@ public abstract class BaseAty<E, T> extends AppCompatActivity implements View.On
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);//状态栏
             viewDataBinding.getRoot().setFitsSystemWindows(true);
         }
-//        CustomPushNotificationBuilder customPushNotificationBuilder = new
-//                CustomPushNotificationBuilder(this, R.layout.customer_notitfication_layout, R.id
-//                .icon, R.id.title, R.id.text);
-//        customPushNotificationBuilder.statusBarDrawable = R.mipmap.a1;
-//        customPushNotificationBuilder.layoutIconDrawable = R.mipmap.stauts_icon;
-//        JPushInterface.setPushNotificationBuilder(1, customPushNotificationBuilder);
 
-        networkModel = new NetworkModel(this, viewDataBinding.getRoot());
+        networkModel = new NetworkModel(this);
         networkModel.setResultCallBack(this);
         AppTools.addActivity(this);
         uiBroadcast = new UpdateUIBroadcast();
@@ -210,7 +207,9 @@ public abstract class BaseAty<E, T> extends AppCompatActivity implements View.On
         if (errorCode == 1) {
             LogTools.e("参数错误");
         } else {
-            showMsgSnackBar(baseBean.getMsg());
+            if (!((baseBean instanceof OrderMsgListBean) || (baseBean instanceof OrderMsgBean)))
+                //唉 这样写非常不好 联系客服什么时候可以去掉
+                showMsgSnackBar(baseBean.getMsg());
             if (errorCode == 0) {
                 onJsonObjectSuccess(e, paramsCode);
             }

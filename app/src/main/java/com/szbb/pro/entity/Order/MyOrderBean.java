@@ -62,6 +62,7 @@ public class MyOrderBean extends BaseBean {
         private String complete_time;
         private Spanned sign_in_desc;//自己加的字段 用于描述签到状态
         private String order_handle_desc;
+        private Spanned order_handle_desc_in_color;
         private String order_type;
         private String service_type;
         private String nickname;
@@ -265,6 +266,7 @@ public class MyOrderBean extends BaseBean {
             return new_order_drop_time_desc;
         }
 
+        @Bindable
         public String getHas_handle_desc() {
             return has_handle_desc;
         }
@@ -273,7 +275,7 @@ public class MyOrderBean extends BaseBean {
             this.has_handle_desc = has_handle_desc;
         }
 
-
+        @Bindable
         public Spanned getAppoint_time_desc() {
             return appoint_time_desc;
         }
@@ -306,7 +308,7 @@ public class MyOrderBean extends BaseBean {
             return sign_in_desc;
         }
 
-
+        @Bindable
         public String getComplete_time() {
             return complete_time;
         }
@@ -316,5 +318,11 @@ public class MyOrderBean extends BaseBean {
         }
 
 
+        @Bindable
+        public Spanned getOrder_handle_desc_in_color() {
+            order_handle_desc_in_color = Html.fromHtml("<font color='#ff9000'>" + getOrder_handle_desc()
+                    + "</font>");
+            return order_handle_desc_in_color;
+        }
     }
 }

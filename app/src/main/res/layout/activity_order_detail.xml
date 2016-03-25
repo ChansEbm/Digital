@@ -28,7 +28,8 @@
             <ScrollView
                 android:id="@+id/scrollView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:background="@color/color_bg_gravy"
                 android:fillViewport="true"
                 android:scrollbars="none">
@@ -139,7 +140,7 @@
                             android:layout_below="@id/tv_t3"
                             android:layout_marginTop="@dimen/middle_margin_10dp"
                             android:orientation="horizontal"
-                            app:visibility="@{TextUtils.isEmpty(detail.subsidy)?View.GONE:View.VISIBLE}">
+                            app:visibility='@{detail.subsidy.equals("0")?View.GONE:View.VISIBLE}'>
 
                             <TextView
                                 style="@style/textStyle"
@@ -162,7 +163,9 @@
                             android:minWidth="85dp"
                             android:onClick="onClick"
                             android:text="@string/order_detail_sign_in"
-                            android:textColor="@color/theme_primary"/>
+                            android:textColor="@color/theme_primary"
+                            app:signInBackground="@{detail.is_sign_in}"
+                            app:signInText="@{detail.is_sign_in}"/>
 
                         <Button
                             android:id="@+id/btn_edit_appointment"
@@ -375,68 +378,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <LinearLayout
-                            android:id="@+id/llyt_evaluate"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/large_margin_15dp"
-                            android:background="@color/color_white"
-                            android:minHeight="130dp"
-                            android:orientation="vertical"
-                            android:paddingEnd="@dimen/large_margin_15dp"
-                            android:paddingStart="@dimen/large_margin_15dp"
-                            android:visibility="gone">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/large_margin_15dp"
-                                android:gravity="center_vertical"
-                                android:minHeight="@dimen/minHeight_50dp"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    style="@style/textStyle"
-                                    android:layout_width="0dp"
-                                    android:layout_weight="1"
-                                    android:text="@string/order_detail_service_code"/>
-
-                                <com.jungly.gridpasswordview.GridPasswordView
-                                    android:id="@+id/gridPasswordView"
-                                    android:layout_width="0dp"
-                                    android:layout_height="35dp"
-                                    android:layout_marginEnd="10dp"
-                                    android:layout_marginStart="10dp"
-                                    android:layout_weight="1"
-                                    app:gridColor="#ffffff"
-                                    app:lineColor="@color/color_bg_line"
-                                    app:lineWidth="1dp"
-                                    app:passwordLength="3"
-                                    app:passwordTransformation="●"
-                                    app:passwordType="numberPassword"
-                                    app:textColor="@color/theme_primary"
-                                    app:textSize="25sp"/>
-
-                                <Button
-                                    android:id="@+id/btn_resend_code"
-                                    style="@style/buttonStyle"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:onClick="onClick"
-                                    android:text="@string/resend"/>
-                            </LinearLayout>
-
-                            <Button
-                                android:id="@+id/btn_confirm_done"
-                                style="@style/buttonStyle"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/large_margin_15dp"
-                                android:layout_marginTop="@dimen/large_margin_15dp"
-                                android:onClick="onClick"
-                                android:text="@string/confirm_submit"/>
-                        </LinearLayout>
 
                         <LinearLayout
                             android:id="@+id/llyt_evaluation"
@@ -496,13 +437,76 @@
                                 android:layout_marginBottom="@dimen/large_margin_15dp"
                                 android:layout_marginTop="@dimen/large_margin_15dp"
                                 android:onClick="onClick"
-                                android:text="@string/title_expenses_apply"
+                                android:text="@string/title_expenses_apply_detail"
                                 />
                         </LinearLayout>
 
                     </FrameLayout>
                 </LinearLayout>
             </ScrollView>
+
+            <LinearLayout
+                android:id="@+id/llyt_evaluate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_white"
+                android:minHeight="130dp"
+                android:orientation="vertical"
+                android:paddingEnd="@dimen/large_margin_15dp"
+                android:paddingStart="@dimen/large_margin_15dp"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/large_margin_15dp"
+                    android:gravity="center_vertical"
+                    android:minHeight="@dimen/minHeight_50dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/textStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/order_detail_service_code"/>
+
+                    <com.jungly.gridpasswordview.GridPasswordView
+                        android:id="@+id/gridPasswordView"
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        app:gridColor="#ffffff"
+                        app:lineColor="@color/color_bg_line"
+                        app:lineWidth="1dp"
+                        app:passwordLength="3"
+                        app:passwordTransformation="●"
+                        app:passwordType="numberPassword"
+                        app:textColor="@color/theme_primary"
+                        app:textSize="25sp"/>
+
+                    <Button
+                        android:id="@+id/btn_resend_code"
+                        style="@style/buttonStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="onClick"
+                        android:text="@string/resend"/>
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_confirm_done"
+                    style="@style/buttonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/large_margin_15dp"
+                    android:layout_marginTop="@dimen/large_margin_15dp"
+                    android:onClick="onClick"
+                    android:text="@string/confirm_submit"/>
+            </LinearLayout>
+
         </LinearLayout>
     </FrameLayout>
 </layout>

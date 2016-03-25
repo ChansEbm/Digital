@@ -279,7 +279,8 @@
                     android:id="@+id/tv_report"
                     style="@style/textStyle"
                     android:layout_marginStart="@dimen/small_margin_5dp"
-                    android:text="@{TextUtils.isEmpty(detail.report)?detail.complete_report:detail.report}"/>
+                    android:text="@{TextUtils.isEmpty(detail.report)?detail.complete_report:detail.report}"
+                    android:textColor="@color/color_text_gravy"/>
             </LinearLayout>
 
             <Button

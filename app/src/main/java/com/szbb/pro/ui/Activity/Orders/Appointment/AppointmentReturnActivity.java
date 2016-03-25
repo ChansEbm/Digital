@@ -9,6 +9,7 @@ import com.szbb.pro.AppointmentCancelLayout;
 import com.szbb.pro.R;
 import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.dialog.InputDialog;
+import com.szbb.pro.entity.Base.BaseBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.impl.InputCallBack;
 import com.szbb.pro.tools.AppTools;
@@ -17,7 +18,8 @@ import com.szbb.pro.ui.Activity.Orders.Operating.OrderDetailActivity;
 /**
  * 退回工单
  */
-public class AppointmentReturnActivity extends BaseAty implements InputCallBack {
+public class AppointmentReturnActivity extends BaseAty<BaseBean, BaseBean> implements
+        InputCallBack {
     private AppointmentCancelLayout appointmentCancelLayout;
     private String operations = "";
     private String orderId = "";
@@ -92,7 +94,7 @@ public class AppointmentReturnActivity extends BaseAty implements InputCallBack 
     }
 
     @Override
-    public void onJsonObjectSuccess(Object o, NetworkParams paramsCode) {
+    public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {
         start(OrderDetailActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP, Intent
                 .FLAG_ACTIVITY_SINGLE_TOP);
     }

@@ -1,6 +1,8 @@
 package com.szbb.pro.tools;
 
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
+import android.widget.EditText;
 import android.widget.TextView;
 
 /**
@@ -39,7 +41,17 @@ public class ViewUtils {
             case BOTTOM:
                 textView.setCompoundDrawables(null, null, null, drawable);
                 break;
-
         }
+    }
+
+    public static boolean isEdtEmpty(EditText editText) {
+        if (editText == null)
+            return true;
+        final String string = editText.getText().toString();
+        return TextUtils.isEmpty(string);
+    }
+
+    public static void clearEdt(EditText editText) {
+        editText.setText("");
     }
 }

@@ -122,15 +122,15 @@ public class OrderModel implements View.OnClickListener {
      * @param listEntity entity
      * @return 是否可以点击
      */
-    public String[] operateServiceObj(OrderDetailBean.ListEntity listEntity) {
-        List<OrderDetailBean.ListEntity.ServiceListEntity> serviceListEntities = listEntity
-                .getService_list();
-        String[] serviceObs = new String[serviceListEntities.size()];
-        for (int i = 0; i < serviceListEntities.size(); i++) {
-            serviceObs[i] = serviceListEntities.get(i).getService_name();
-        }
-        return serviceObs;
-    }
+//    public String[] operateServiceObj(OrderDetailBean.ListEntity listEntity) {
+//        List<OrderDetailBean.ListEntity.ServiceListEntity> serviceListEntities = listEntity
+//                .getService_list();
+//        String[] serviceObs = new String[serviceListEntities.size()];
+//        for (int i = 0; i < serviceListEntities.size(); i++) {
+//            serviceObs[i] = serviceListEntities.get(i).getService_name();
+//        }
+//        return serviceObs;
+//    }
 
     /**
      * 服务项目滚轮

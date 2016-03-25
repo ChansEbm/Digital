@@ -40,7 +40,7 @@
                 style="@style/textStyle"
                 android:layout_below="@id/tv_t1"
                 android:layout_marginTop="@dimen/small_margin_5dp"
-                android:text="@{order.has_handle_desc.equals('1')?order.order_status_desc:order.sign_in_desc}"
+                app:text='@{order.has_handle_desc.equals("1")?order.order_handle_desc_in_color:order.sign_in_desc}'
                 android:textColor="@color/color_text_gravy"/>
 
             <TextView

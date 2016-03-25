@@ -1,5 +1,6 @@
 package com.szbb.pro.ui.Activity.Vip.Wallet;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.text.TextUtils;
@@ -142,6 +143,8 @@ public class AddCreditCardActivity extends BaseAty<BaseBean, BaseBean> implement
             initBankList();
         } else if (paramsCode == NetworkParams.DONUT) {
             EventBus.getDefault().post("ok");
+            startActivity(new Intent().setClass(this, WalletActivity.class).addFlags(Intent
+                    .FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP));
         }
     }
 

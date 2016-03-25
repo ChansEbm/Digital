@@ -2,6 +2,8 @@ package com.szbb.pro.ui.Fragment.Main;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.github.pwittchen.prefser.library.Prefser;
@@ -15,6 +17,7 @@ import com.szbb.pro.entity.Base.Events;
 import com.szbb.pro.entity.Vip.VipInfoBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.tools.AppTools;
+import com.szbb.pro.tools.LogTools;
 import com.szbb.pro.ui.Activity.Vip.PersonalInfo.PersonalInfoActivity;
 import com.szbb.pro.ui.Activity.Vip.SystemMsg.AccountCementActivity;
 import com.szbb.pro.ui.Activity.Vip.SystemMsg.FeedBackActivity;
@@ -24,12 +27,20 @@ import com.szbb.pro.ui.Activity.Vip.WebViewActivity;
 import com.szbb.pro.ui.Activity.Vip.WorkHistoryActivity;
 import com.szbb.pro.widget.PopupWindow.SharePopupWindow;
 
+import de.greenrobot.event.EventBus;
+
 /**
  * Created by ChanZeeBm on 2015/9/16.
  */
 public class VIPFragment extends BaseFgm<VipInfoBean, BaseBean> {
     private VipLayout vipLayout;
     private Events events = new Events();
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
 
     @Override
     protected void initViews() {
@@ -41,6 +52,18 @@ public class VIPFragment extends BaseFgm<VipInfoBean, BaseBean> {
         events.setOnClickListener(this);
         vipLayout.setEvent(events);
         networkModel.workerInfo(NetworkParams.CUPCAKE);
+//        VipInfoBean vipInfoBean = new Prefser(AppTools.getSharePreferences()).get("VipInfo",
+//                VipInfoBean.class, null);
+//        if (vipInfoBean == null) networkModel.workerInfo(NetworkParams.CUPCAKE);
+//        else {
+//            initInfoData(vipInfoBean);
+//        }
+    }
+
+    private void initInfoData(VipInfoBean vipInfoBean) {
+        final VipInfoBean.WorkerDataEntity worker_data = vipInfoBean.getWorker_data();
+        vipLayout.sdvVipAvatar.setImageURI(Uri.parse(worker_data.getThumb()));
+        vipLayout.setVip(worker_data);
     }
 
     @Override
@@ -79,7 +102,7 @@ public class VIPFragment extends BaseFgm<VipInfoBean, BaseBean> {
                 break;
             case R.id.rylt_customer_phone://客服电话
                 DialDialog dialDialog = new DialDialog(getContext(), null);
-                dialDialog.show("400-8565-656");
+                dialDialog.call("400-8565-656");
                 break;
             case R.id.rylt_warranty_price://联保价格
                 intent = new Intent().setClass(getActivity(), WebViewActivity.class);
@@ -110,10 +133,20 @@ public class VIPFragment extends BaseFgm<VipInfoBean, BaseBean> {
     public void onJsonObjectSuccess(VipInfoBean t, NetworkParams paramsCode) {
         Prefser prefser = new Prefser(AppTools.getSharePreferences());
         prefser.put("VipInfo", t);
-
-        final VipInfoBean.WorkerDataEntity worker_data = t.getWorker_data();
-        vipLayout.sdvVipAvatar.setImageURI(Uri.parse(worker_data.getThumb()));
-        vipLayout.setVip(worker_data);
+        initInfoData(t);
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+
+    public void onEvent(VipInfoBean vipInfoBean) {
+        LogTools.v("fffff");
+        networkModel.workerInfo(NetworkParams.CUPCAKE);
+    }
+
 
 }

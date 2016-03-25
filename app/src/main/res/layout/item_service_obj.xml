@@ -22,10 +22,10 @@
             android:layout_gravity="center_vertical"
             android:text="@{service.service_name}"/>
 
-        <TextView
-            style="@style/textStyle"
-            android:layout_gravity="center_vertical|end"
-            android:text="@{service.service_cost}"
-            android:textColor="@color/color_text_gravy"/>
+        <!--<TextView-->
+            <!--style="@style/textStyle"-->
+            <!--android:layout_gravity="center_vertical|end"-->
+            <!--android:text="@{service.service_cost}"-->
+            <!--android:textColor="@color/color_text_gravy"/>-->
     </FrameLayout>
 </layout>

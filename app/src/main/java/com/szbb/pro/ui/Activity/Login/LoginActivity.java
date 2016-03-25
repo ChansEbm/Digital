@@ -8,11 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.github.pwittchen.prefser.library.Prefser;
 import com.szbb.pro.AppKeyMap;
 import com.szbb.pro.R;
 import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.databinding.AtyLoginBinding;
 import com.szbb.pro.dialog.MessageDialog;
+import com.szbb.pro.entity.Base.BaseBean;
 import com.szbb.pro.entity.Login.AuthBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.tools.AppTools;
@@ -22,7 +24,7 @@ import com.szbb.pro.ui.Activity.Main.MainActivity;
 /**
  * Created by ChanZeeBm on 2015/9/9.
  */
-public class LoginActivity extends BaseAty<AuthBean, AuthBean> {
+public class LoginActivity extends BaseAty<BaseBean, AuthBean> {
     private AtyLoginBinding binding;
     private TextInputLayout textInputLayoutLoginUser;//账号名
     private TextInputLayout textInputLayoutLoginPwd;//密码
@@ -113,34 +115,48 @@ public class LoginActivity extends BaseAty<AuthBean, AuthBean> {
     }
 
     @Override
-    public void onJsonObjectSuccess(AuthBean authBean, NetworkParams paramsCode) {
-        AppTools.putStringSharedPreferences(AppKeyMap.AUTH, authBean.getAuth());
-        if (AppKeyMap.IS_DEBUG) {
-            start(MainActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TASK, Intent
-                    .FLAG_ACTIVITY_NEW_TASK);
-        } else {
-            if (authBean.getIs_complete_info() == 0) {
-                start(CompleteInfoActivity.class);
-            } else if (authBean.getIs_complete_info() == 1) {
-                if (authBean.getIs_check() == 0) {
-                    messageDialog = new MessageDialog(this);
-                    messageDialog.setTitle(getString(R.string.reviewing)).setMessage(getString(R
-                            .string.your_profile_is_reviewing)).setPositiveButton(getString(R
-                            .string.positive), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            AppTools.removeSingleActivity(LoginActivity.this);
-                        }
-                    }).show();
-                } else {
-                    start(MainActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TASK, Intent
-                            .FLAG_ACTIVITY_NEW_TASK);
-                    AppTools.putStringSharedPreferences("loginUser", textInputLayoutLoginUser
-                            .getEditText().getText().toString());
-                    AppTools.putStringSharedPreferences("loginPwd", textInputLayoutLoginPwd
-                            .getEditText().getText().toString());
-                }
+    public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {
+        if (paramsCode != NetworkParams.FROYO) {
+            AuthBean authBean = (AuthBean) baseBean;
+            AppTools.putStringSharedPreferences(AppKeyMap.AUTH, authBean.getAuth());
+            Prefser prefser = new Prefser(AppTools.getSharePreferences());
+            final String registrationId = prefser.get("registrationId", String.class, "");
+            if (!registrationId.isEmpty()) {
+                networkModel.setDevice(registrationId, NetworkParams.FROYO);
+            }
+            if (AppKeyMap.IS_DEBUG) {
+                start(MainActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TASK, Intent
+                        .FLAG_ACTIVITY_NEW_TASK);
+            } else {
+                loginLogic(authBean);//登录逻辑
             }
         }
     }
+
+    private void loginLogic(AuthBean authBean) {
+        if (authBean.getIs_complete_info() == 0) {
+            start(CompleteInfoActivity.class);
+        } else if (authBean.getIs_complete_info() == 1) {
+            if (authBean.getIs_check() == 0) {
+                messageDialog = new MessageDialog(this);
+                messageDialog.setTitle(getString(R.string.reviewing)).setMessage(getString(R
+                        .string.your_profile_is_reviewing)).setPositiveButton(getString(R
+                        .string.positive), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AppTools.removeSingleActivity(LoginActivity.this);
+                    }
+                }).show();
+            } else {
+                start(MainActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TASK, Intent
+                        .FLAG_ACTIVITY_NEW_TASK);
+                AppTools.putStringSharedPreferences("loginUser", textInputLayoutLoginUser
+                        .getEditText().getText().toString());
+                AppTools.putStringSharedPreferences("loginPwd", textInputLayoutLoginPwd
+                        .getEditText().getText().toString());
+            }
+        }
+    }
+
+
 }

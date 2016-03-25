@@ -54,8 +54,7 @@ public abstract class BaseFgm<E, T> extends Fragment implements View.OnClickList
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
         viewDataBinding = DataBindingUtil.inflate(inflater, getContentView(), null, false);
-        networkModel = new NetworkModel((AppCompatActivity) getActivity(), viewDataBinding
-                .getRoot());
+        networkModel = new NetworkModel((AppCompatActivity) getActivity());
         networkModel.setResultCallBack(this);
 
         parentView = viewDataBinding.getRoot();

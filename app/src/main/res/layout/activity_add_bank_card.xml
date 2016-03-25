@@ -117,7 +117,7 @@
                             android:layout_height="match_parent"
                             android:digits="1234567890"
                             android:inputType="number"
-                            android:maxLength="16"/>
+                            android:maxLength="20"/>
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
@@ -133,7 +133,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:inputType="number"
-                            android:maxLength="16"/>
+                            android:maxLength="20"/>
                     </android.support.design.widget.TextInputLayout>
 
                     <TextView

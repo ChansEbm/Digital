@@ -163,6 +163,8 @@ public class OkHttpBuilder {
 
         private AppCompatActivity appCompatActivity;
 
+        private boolean isNeedLoadingDialog = true;//是否需要加载框(临时的)
+
         public POST(@NonNull AppCompatActivity appCompatActivity) {
             this.appCompatActivity = appCompatActivity;
         }
@@ -208,7 +210,6 @@ public class OkHttpBuilder {
             this.fullUrl = AppKeyMap.HEAD_APIPUSH + pushUrl;
             return this;
         }
-
 
         /**
          * the params what we need to upload
@@ -364,15 +365,17 @@ public class OkHttpBuilder {
         public void enqueue(NetworkParams networkParams, OkHttpResponseListener
                 okHttpResponseListener) {
             if (!AppTools.isNetworkConnected()) {
-                AppTools.showSettingSnackBar(appCompatActivity.getWindow().getDecorView(),
-                        appCompatActivity.getString
-                                (R.string
-                                        .no_network_is_detected));
+                if (appCompatActivity != null)
+                    AppTools.showSettingSnackBar(appCompatActivity.getWindow().getDecorView(),
+                            appCompatActivity.getString
+                                    (R.string
+                                            .no_network_is_detected));
                 AppTools.sendBroadcast(null, AppKeyMap.NO_NETWORK_ACTION);
                 return;
             }
-            //show the dialog
-            AppTools.showLoadingDialog(appCompatActivity);
+            if (isNeedLoadingDialog && appCompatActivity != null)
+                //show the dialog
+                AppTools.showLoadingDialog(appCompatActivity);
             //fullUrl,requestBody and entityClass none even one of them will be null
             if (TextUtils.isEmpty(fullUrl) || requestBody == null || entityClass == null) {
                 throw new NullPointerException("url or map is unavailable, or not invoke entity");
@@ -392,6 +395,11 @@ public class OkHttpBuilder {
          */
         public POST mediaType(com.szbb.pro.eum.MediaType contentMediaType) {
             mediaType = getContentType(contentMediaType);
+            return this;
+        }
+
+        public POST setIsNeedLoadingDialog(boolean isNeedLoadingDialog) {
+            this.isNeedLoadingDialog = isNeedLoadingDialog;
             return this;
         }
     }

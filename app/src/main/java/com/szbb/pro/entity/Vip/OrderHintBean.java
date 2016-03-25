@@ -61,6 +61,7 @@ public class OrderHintBean extends BaseBean {
         private String sn;
         private String content;
         private String addtime;
+        private String orderid;
 
         @Bindable
         public String getTitle() {
@@ -105,6 +106,14 @@ public class OrderHintBean extends BaseBean {
 
         public void setAddtime(String addtime) {
             this.addtime = addtime;
+        }
+
+        public String getOrderid() {
+            return orderid;
+        }
+
+        public void setOrderid(String orderid) {
+            this.orderid = orderid;
         }
     }
 }

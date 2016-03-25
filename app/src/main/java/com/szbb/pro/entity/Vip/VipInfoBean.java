@@ -80,7 +80,7 @@ public class VipInfoBean extends BaseBean {
          * postcodes : 528000
          */
 
-        private AddresseeDataEntity addressee_data;
+        private AddressDataEntity address_data;
 
         @Bindable
         public String getNickname() {
@@ -226,15 +226,15 @@ public class VipInfoBean extends BaseBean {
         }
 
         @Bindable
-        public AddresseeDataEntity getAddressee_data() {
-            return addressee_data;
+        public AddressDataEntity getAddressee_data() {
+            return address_data;
         }
 
-        public void setAddressee_data(AddresseeDataEntity addressee_data) {
-            this.addressee_data = addressee_data;
+        public void setAddressee_data(AddressDataEntity address_data) {
+            this.address_data = address_data;
         }
 
-        public static class AddresseeDataEntity extends BaseObservable {
+        public static class AddressDataEntity extends BaseObservable {
             private String addressee;
             private String phone;
             private String area_ids;

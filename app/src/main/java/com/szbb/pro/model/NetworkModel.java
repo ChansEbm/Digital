@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.view.View;
 
 import com.szbb.pro.AppKeyMap;
 import com.szbb.pro.entity.Appointment.AppointmentHistoryItemBean;
@@ -21,10 +20,12 @@ import com.szbb.pro.entity.Login.AreaListBean;
 import com.szbb.pro.entity.Login.AuthBean;
 import com.szbb.pro.entity.Order.MyOrderBean;
 import com.szbb.pro.entity.Order.OrderDetailBean;
+import com.szbb.pro.entity.Order.OrderMsgBean;
+import com.szbb.pro.entity.Order.OrderMsgListBean;
 import com.szbb.pro.entity.Order.OrderTrackingBean;
 import com.szbb.pro.entity.Vip.AccountCementBean;
 import com.szbb.pro.entity.Vip.BankBean;
-import com.szbb.pro.entity.Vip.BankCardBean;
+import com.szbb.pro.entity.Vip.CreditCardBean;
 import com.szbb.pro.entity.Vip.IncomeBean;
 import com.szbb.pro.entity.Vip.OrderHintBean;
 import com.szbb.pro.entity.Vip.OtherCostBean;
@@ -49,7 +50,7 @@ import java.util.Map;
  */
 public class NetworkModel<E> {
     private AppCompatActivity appCompatActivity;
-    private View parentView;
+    private Context context;
     private OkHttpResponseListener<E> tOkHttpResponseListener;
     private Map<String, String> params = new HashMap<>();
 
@@ -58,11 +59,16 @@ public class NetworkModel<E> {
     private List<List<String>> fileLists = new ArrayList<>();// file params and each key could be
     // carry multi filePaths
 
-    public NetworkModel(@NonNull AppCompatActivity appCompatActivity, @NonNull View parentView) {
+    public NetworkModel(@NonNull AppCompatActivity appCompatActivity) {
         this.appCompatActivity = appCompatActivity;
-        this.parentView = parentView;
     }
 
+    public NetworkModel(@NonNull Context context) {
+        this.context = context;
+        if (context instanceof AppCompatActivity) {
+            this.appCompatActivity = (AppCompatActivity) context;
+        }
+    }
 
     public void setResultCallBack(OkHttpResponseListener<E> tOkHttpResponseListener) {
         this.tOkHttpResponseListener = tOkHttpResponseListener;
@@ -366,7 +372,7 @@ public class NetworkModel<E> {
      * @param networkParams networkParams
      */
     public void changeAppoint(@NonNull String orderId, @NonNull String appointTime, @NonNull String
-            updateReason,  String remarks, NetworkParams
+            updateReason, String remarks, NetworkParams
                                       networkParams) {
         clearAllParams();
         if (isNecessaryFieldEmpty(orderId, appointTime, updateReason))
@@ -845,7 +851,7 @@ public class NetworkModel<E> {
         clearAllParams();
         params.put("auth", getAuth());
         new OkHttpBuilder.POST(appCompatActivity).urlAPIMember("myCard").entityClass
-                (BankCardBean
+                (CreditCardBean
                         .class).params(params).enqueue(networkParams,
                 tOkHttpResponseListener);
     }
@@ -1075,7 +1081,49 @@ public class NetworkModel<E> {
                 (BaseBean
                         .class).params(params).enqueue(networkParams,
                 tOkHttpResponseListener);
+    }
 
+    public void orderMessageList(@NonNull String orderId, String messageId, NetworkParams
+            networkParams) {
+        clearAllParams();
+        if (isNecessaryFieldEmpty(orderId))
+            return;
+        params.put("auth", getAuth());
+        params.put("orderid", orderId);
+        if (!messageId.isEmpty()) {
+            params.put("message_id", messageId);
+        }
+        new OkHttpBuilder.POST(appCompatActivity).urlOrder("orderMessageList").entityClass
+                (OrderMsgListBean
+                        .class).params(params).setIsNeedLoadingDialog(false).enqueue(networkParams,
+                tOkHttpResponseListener);
+    }
+
+    public void addOrderMessage(@NonNull String orderId, String messageId, String content, String
+            type,
+                                String filePath, NetworkParams
+                                        networkParams) {
+        clearAllParams();
+        if (isNecessaryFieldEmpty(orderId))
+            return;
+        params.put("auth", getAuth());
+        params.put("orderid", orderId);
+        params.put("content", content);
+        if (!messageId.isEmpty()) {
+            params.put("message_id", messageId);
+        }
+        if (!type.isEmpty()) {
+            params.put("type", type);
+        }
+        Map<String, String> map = new HashMap<>();
+        if (!filePath.isEmpty()) {
+            map.put("thumb", filePath);
+        }
+        new OkHttpBuilder.POST(appCompatActivity).urlOrder("addOrderMessage").entityClass
+                (OrderMsgBean
+                        .class).setIsNeedLoadingDialog(false).params(params, map).enqueue
+                (networkParams,
+                        tOkHttpResponseListener);
     }
 
 

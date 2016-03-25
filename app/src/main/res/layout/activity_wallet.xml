@@ -108,6 +108,7 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
                         android:layout_gravity="start|center_vertical"
                         android:orientation="vertical">
 
@@ -119,7 +120,7 @@
 
                         <TextView
                             style="@style/textStyle"
-                            android:text="@{wallet.unsettled_money}"
+                            android:text="@{wallet.unsettled_orders}"
                             android:textColor="#004d9b"
                             android:textSize="24sp"/>
                     </LinearLayout>

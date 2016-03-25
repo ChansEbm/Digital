@@ -11,7 +11,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.common.ResizeOptions;
+import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.nineoldandroids.view.ViewPropertyAnimator;
 import com.szbb.pro.AppKeyMap;
 import com.szbb.pro.ItemAddPicLayout;
@@ -20,6 +25,7 @@ import com.szbb.pro.R;
 import com.szbb.pro.eum.Perform;
 import com.szbb.pro.impl.OnAddPictureDoneListener;
 import com.szbb.pro.tools.BitmapCompressTool;
+import com.szbb.pro.tools.FrescoTools;
 import com.szbb.pro.tools.ObjectAnimatorTools;
 
 import java.util.List;
@@ -89,7 +95,17 @@ public class MarkPictureModel implements View.OnClickListener {
         PictureItem pictureItem = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout
                 .item_pics, null, false);
         pictureItem.cancel.setVisibility(View.GONE);
-        pictureItem.simpleDraweeView.setImageURI(Uri.parse(link));
+        FrescoTools frescoTools = FrescoTools.getInstance();
+        frescoTools.displayImage(link,pictureItem.simpleDraweeView,null);
+//        ImageRequest imageRequest = ImageRequestBuilder.newBuilderWithSource(Uri.parse(link))
+//                .setResizeOptions(new
+//                        ResizeOptions(100, 100)).setProgressiveRenderingEnabled(true).build();
+//        PipelineDraweeController controller = (PipelineDraweeController) Fresco
+//                .newDraweeControllerBuilder()
+//                .setImageRequest(imageRequest).setTapToRetryEnabled
+//                        (true).setOldController(pictureItem.simpleDraweeView.getController())
+//                .build();
+//        pictureItem.simpleDraweeView.setController(controller);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout
                 .LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -172,7 +188,8 @@ public class MarkPictureModel implements View.OnClickListener {
         deletePictureByTagWithInterval(tag, pos, linearLayout.getChildCount() - 1, linearLayout);
     }
 
-    public void deletePictureByTagWithInterval(@NonNull String tag, int startPos, int endPos, LinearLayout linearLayout) {
+    public void deletePictureByTagWithInterval(@NonNull String tag, int startPos, int endPos,
+                                               LinearLayout linearLayout) {
         for (int i = startPos; i < endPos; i++) {
             View child = linearLayout.getChildAt(i);
             String childTag = (String) child.getTag();
@@ -186,7 +203,8 @@ public class MarkPictureModel implements View.OnClickListener {
     }
 
 
-    public void getSurplusTag(@NonNull List<String> currentListWithPicsTag, @NonNull LinearLayout needCheckLinearLayout) {
+    public void getSurplusTag(@NonNull List<String> currentListWithPicsTag, @NonNull LinearLayout
+            needCheckLinearLayout) {
         int childCount = needCheckLinearLayout.getChildCount();
         int size = currentListWithPicsTag.size();
 

@@ -13,13 +13,13 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
-import com.szbb.pro.AppKeyMap;
 import com.szbb.pro.R;
 import com.szbb.pro.ShopCarLayout;
 import com.szbb.pro.WareHouseLayout;
 import com.szbb.pro.adapters.CommonBinderAdapter;
 import com.szbb.pro.adapters.CommonBinderHolder;
 import com.szbb.pro.base.BaseAty;
+import com.szbb.pro.entity.Base.BaseBean;
 import com.szbb.pro.entity.Fittings.FittingWareHouseBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.eum.WheelOptions;
@@ -36,7 +36,8 @@ import java.util.List;
 /**
  * 配件库
  */
-public class FittingWareHouseActivity extends BaseAty implements MaterialSearchView
+public class FittingWareHouseActivity extends BaseAty<BaseBean, FittingWareHouseBean
+        .AcceListEntity> implements MaterialSearchView
         .OnQueryTextListener, OnWheelOptsSelectCallback, OnCountListener<FittingWareHouseBean
         .AcceListEntity>,
         CountChangeCallBack<FittingWareHouseBean.AcceListEntity> {
@@ -213,9 +214,9 @@ public class FittingWareHouseActivity extends BaseAty implements MaterialSearchV
     }
 
     @Override
-    public void onJsonObjectSuccess(Object o, NetworkParams paramsCode) {
+    public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {
         if (paramsCode == NetworkParams.CUPCAKE) {//首次获取数据
-            FittingWareHouseBean fittingWareHouseBean = (FittingWareHouseBean) o;
+            FittingWareHouseBean fittingWareHouseBean = (FittingWareHouseBean) baseBean;
             fillClassify(fittingWareHouseBean);
             fillMainBody(fittingWareHouseBean);
         }

@@ -1,5 +1,6 @@
 package com.szbb.pro.ui.Activity.Vip.PersonalInfo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.text.TextUtils;
@@ -17,6 +18,7 @@ import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.LogTools;
 import com.szbb.pro.ui.Activity.Locate.ProvinceActivity;
+import com.szbb.pro.ui.Activity.Main.MainActivity;
 
 import de.greenrobot.event.EventBus;
 
@@ -58,7 +60,8 @@ public class ReceiverInfoActivity extends BaseAty<BaseBean, BaseBean> {
 
         Prefser prefser = new Prefser(AppTools.getSharePreferences());
         vipInfoBean = prefser.get("VipInfo", VipInfoBean.class, vipInfoBean);
-        areaIds = vipInfoBean.getWorker_data().getWorker_area_ids();
+        LogTools.w(vipInfoBean.getWorker_data().getAddressee_data() == null);
+        areaIds = vipInfoBean.getWorker_data().getAddressee_data().getArea_ids();
     }
 
     @Override
@@ -68,7 +71,7 @@ public class ReceiverInfoActivity extends BaseAty<BaseBean, BaseBean> {
         tInputDetailAddr.setHint(getString(R.string.detail_address));
         tInputZipCode.setHint(getString(R.string.zip_code));
 
-        receiverInfoLayout.setInfo(vipInfoBean.getWorker_data());
+        receiverInfoLayout.setInfo(vipInfoBean.getWorker_data().getAddressee_data());
     }
 
     @Override
@@ -80,7 +83,6 @@ public class ReceiverInfoActivity extends BaseAty<BaseBean, BaseBean> {
     protected void onClick(int id, View view) {
         AppTools.hideSoftInputMethod(parentView);
         switch (id) {
-
             case R.id.btn_submit:
                 checkNecessaryAndProgress();
                 break;
@@ -144,5 +146,13 @@ public class ReceiverInfoActivity extends BaseAty<BaseBean, BaseBean> {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {
+        super.onJsonObjectSuccess(baseBean, paramsCode);
+        EventBus.getDefault().post(new VipInfoBean());
+        startActivity(new Intent().setClass(this, MainActivity.class).addFlags(Intent
+                .FLAG_ACTIVITY_SINGLE_TOP).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
 }

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data class=".RoleUserLayout">
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="user"
+            type="com.szbb.pro.entity.Order.OrderMsgListBean.ListEntity"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:orientation="horizontal"
+        android:paddingEnd="@dimen/small_margin_5dp">
+
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/role_user_text_bg"
+                android:orientation="vertical"
+                app:visibility='@{user.type.equals("1")?View.VISIBLE:View.GONE}'>
+
+                <TextView
+                    style="@style/textStyle"
+                    android:maxEms="12"
+                    android:text="@{user.content}"
+                    />
+
+                <TextView
+                    style="@style/textStyle"
+                    android:layout_marginTop="@dimen/middle_margin_10dp"
+                    android:text="@{user.addtime}"
+                    android:textColor="@color/color_white"
+                    android:textSize="11sp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/role_user_text_bg"
+                android:orientation="vertical"
+                app:visibility='@{user.type.equals("2")?View.VISIBLE:View.GONE}'>
+
+                <com.bm.library.PhotoView
+                    android:id="@+id/role_photoView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="@dimen/minHeight_50dp"
+                    android:maxWidth="@dimen/minHeight_50dp"
+                    android:onClick="onClick"
+                    android:scaleType="centerCrop"
+                    android:tag="@{user.img}"
+                    app:photoSrc="@{user.img}"/>
+
+                <TextView
+                    style="@style/textStyle"
+                    android:layout_marginTop="@dimen/middle_margin_10dp"
+                    android:text="@{user.addtime}"
+                    android:textColor="@color/color_white"
+                    android:textSize="11sp"
+                    />
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/small_margin_5dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sdv_avatar"
+                style="@style/DefaultSimpleDraweeView"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                app:roundAsCircle="true"/>
+
+            <TextView
+                style="@style/textStyle"
+                android:text="@{user.nickname}"
+                android:textColor="@color/color_text_gravy"
+                android:textSize="9sp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

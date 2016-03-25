@@ -100,7 +100,11 @@
         <activity android:name=".ui.Activity.Expenses.ExpensesApplyActivity"/>
         <activity android:name=".ui.Activity.Expenses.ExpensesResultActivity"/>
         <activity android:name=".ui.Activity.Locate.LocationActivity"/>
-        <activity android:name=".ui.Activity.Orders.Operating.OrderDetailActivity"/>
+        <activity android:name=".ui.Activity.Orders.Operating.OrderDetailActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.Activity.Main.MainActivity"/>
+        </activity>
         <activity android:name=".ui.Activity.Locate.StreetActivity"/>
         <activity android:name=".entity.Order.ServiceObjActivity"/>
         <activity android:name=".ui.Activity.Orders.Operating.FittingWareHouseActivity"/>
@@ -129,8 +133,16 @@
         <activity android:name=".ui.Activity.Vip.Wallet.AddCreditCardActivity"/>
         <activity android:name=".ui.Activity.Vip.WorkHistoryActivity"/>
         <activity android:name=".ui.Activity.Vip.SystemMsg.SystemMsgActivity"/>
-        <activity android:name=".ui.Activity.Vip.SystemMsg.OrderHintActivity"/>
-        <activity android:name=".ui.Activity.Vip.SystemMsg.AccountCementActivity"/>
+        <activity android:name=".ui.Activity.Vip.SystemMsg.OrderHintActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.Activity.Main.MainActivity"/>
+        </activity>
+        <activity android:name=".ui.Activity.Vip.SystemMsg.AccountCementActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.Activity.Main.MainActivity"/>
+        </activity>
         <activity android:name=".ui.Activity.Vip.Wallet.PayPasswordActivity"/>
         <activity android:name=".ui.Activity.Vip.Wallet.DelCreditCardActivity"/>
         <activity android:name=".ui.Activity.Vip.Wallet.FindCreditPasswordActivity"/>

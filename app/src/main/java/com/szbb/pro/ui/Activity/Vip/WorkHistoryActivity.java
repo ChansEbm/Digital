@@ -1,5 +1,6 @@
 package com.szbb.pro.ui.Activity.Vip;
 
+import android.content.Intent;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,9 +16,13 @@ import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.entity.Vip.WorkHistoryBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.tools.AppTools;
+import com.szbb.pro.ui.Activity.Orders.Operating.OrderDetailActivity;
 
 import java.util.List;
 
+/**
+ * 历史工单
+ */
 public class WorkHistoryActivity extends BaseAty<WorkHistoryBean, WorkHistoryBean.ListEntity> {
 
     private WorkHistoryLayout workHistoryLayout;
@@ -46,6 +51,7 @@ public class WorkHistoryActivity extends BaseAty<WorkHistoryBean, WorkHistoryBea
 
     @Override
     protected void initEvents() {
+        commonBinderAdapter.setBinderOnItemClickListener(this);
         recyclerView.setAdapter(commonBinderAdapter);
         recyclerView.addItemDecoration(AppTools.defaultHorizontalDecoration());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -69,5 +75,13 @@ public class WorkHistoryActivity extends BaseAty<WorkHistoryBean, WorkHistoryBea
         commonBinderAdapter.notifyDataSetChanged();
         if (list.isEmpty())
             workHistoryLayout.imageView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onBinderItemClick(View view, int pos) {
+        super.onBinderItemClick(view, pos);
+        final String orderid = list.get(pos).getOrderid();
+        startActivity(new Intent().putExtra("orderId", orderid).setClass(this,
+                OrderDetailActivity.class));
     }
 }

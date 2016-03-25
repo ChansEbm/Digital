@@ -5,7 +5,7 @@
 
         <variable
             name="card"
-            type="com.szbb.pro.entity.Vip.BankCardBean.DataEntity" />
+            type="com.szbb.pro.entity.Vip.CreditCardBean.DataEntity" />
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -69,7 +69,7 @@
                         <TextView
                             style="@style/textStyle"
                             android:layout_below="@id/tv_t2"
-                            android:layout_marginTop="25dp"
+                            android:layout_marginTop="@dimen/small_margin_5dp"
                             android:text="@{card.credit_card}"
                             android:textSize="@dimen/text_large_size" />
                     </RelativeLayout>

@@ -25,14 +25,14 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/llyt_order_msg"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/bg_white_gravy_selector"
                     android:gravity="center"
                     android:onClick="onClick"
-                    android:orientation="vertical"
-                    android:id="@+id/llyt_order_msg">
+                    android:orientation="vertical">
 
                     <TextView
                         style="@style/textStyle"
@@ -48,14 +48,14 @@
                     android:background="@color/color_bg_line"/>
 
                 <LinearLayout
+                    android:id="@+id/llyt_acce_msg"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/bg_white_gravy_selector"
                     android:gravity="center"
                     android:onClick="onClick"
-                    android:orientation="vertical"
-                    android:id="@+id/llyt_acce_msg">
+                    android:orientation="vertical">
 
                     <TextView
                         style="@style/textStyle"
@@ -71,14 +71,14 @@
                     android:background="@color/color_bg_line"/>
 
                 <LinearLayout
+                    android:id="@+id/llyt_trade_msg"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/bg_white_gravy_selector"
                     android:gravity="center"
                     android:onClick="onClick"
-                    android:orientation="vertical"
-                    android:id="@+id/llyt_trade_msg">
+                    android:orientation="vertical">
 
                     <TextView
                         style="@style/textStyle"
@@ -99,14 +99,14 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/llyt_business_msg"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/bg_white_gravy_selector"
                     android:gravity="center"
                     android:onClick="onClick"
-                    android:orientation="vertical"
-                    android:id="@+id/llyt_business_msg">
+                    android:orientation="vertical">
 
                     <TextView
                         style="@style/textStyle"
@@ -122,14 +122,14 @@
                     android:background="@color/color_bg_line"/>
 
                 <LinearLayout
+                    android:id="@+id/llyt_guide"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/bg_white_gravy_selector"
                     android:gravity="center"
                     android:onClick="onClick"
-                    android:orientation="vertical"
-                    android:id="@+id/llyt_guide">
+                    android:orientation="vertical">
 
                     <TextView
                         style="@style/textStyle"
@@ -145,14 +145,14 @@
                     android:background="@color/color_bg_line"/>
 
                 <LinearLayout
+                    android:id="@+id/llyt_act_msg"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/bg_white_gravy_selector"
                     android:gravity="center"
                     android:onClick="onClick"
-                    android:orientation="vertical"
-                    android:id="@+id/llyt_act_msg">
+                    android:orientation="vertical">
 
                     <TextView
                         style="@style/textStyle"

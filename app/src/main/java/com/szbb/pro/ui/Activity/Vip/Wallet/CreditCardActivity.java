@@ -11,13 +11,16 @@ import com.szbb.pro.BankCardLayout;
 import com.szbb.pro.R;
 import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.entity.Base.BaseBean;
-import com.szbb.pro.entity.Vip.BankCardBean;
+import com.szbb.pro.entity.Vip.CreditCardBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.impl.InputCallBack;
 import com.szbb.pro.tools.AppTools;
 
 import de.greenrobot.event.EventBus;
 
+/**
+ * 我的银行卡
+ */
 public class CreditCardActivity extends BaseAty<BaseBean, BaseBean> implements InputCallBack {
     private BankCardLayout bankCardLayout;
     private String password = "";
@@ -50,7 +53,7 @@ public class CreditCardActivity extends BaseAty<BaseBean, BaseBean> implements I
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == R.id.add) {
-            final BankCardBean.DataEntity card = bankCardLayout.getCard();
+            final CreditCardBean.DataEntity card = bankCardLayout.getCard();
             final boolean hasPayPassword = card.hasPayPassword();
             boolean bindCard = card.isBindCard();
             if (!hasPayPassword) {
@@ -91,15 +94,15 @@ public class CreditCardActivity extends BaseAty<BaseBean, BaseBean> implements I
     @Override
     public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {
         if (paramsCode == NetworkParams.CUPCAKE) {
-            setCardData((BankCardBean) baseBean);
+            setCardData((CreditCardBean) baseBean);
         } else if (paramsCode == NetworkParams.DONUT) {
             startActivity(new Intent().setClass(this, AddCreditCardActivity.class).putExtra
                     ("payPassword", password));
         }
     }
 
-    private void setCardData(BankCardBean bankCardBean) {
-        BankCardBean.DataEntity data = bankCardBean.getData();
+    private void setCardData(CreditCardBean creditCardBean) {
+        CreditCardBean.DataEntity data = creditCardBean.getData();
         if (!data.isBindCard()) {
             bankCardLayout.swipeLayout.setVisibility(View.GONE);
             bankCardLayout.imageView.setVisibility(View.VISIBLE);

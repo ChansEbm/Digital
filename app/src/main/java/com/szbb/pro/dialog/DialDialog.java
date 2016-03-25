@@ -26,7 +26,7 @@ public class DialDialog {
         dialog.setCanceledOnTouchOutside(true);
     }
 
-    public void show(@NonNull final String phoneNum) {
+    public void call(@NonNull final String phoneNum) {
         dialog.setTitle(R.string.title_dial_dialog).setMessage(context.getResources().getString(R
                 .string.dialog_content) + phoneNum +
                 "吗?").setPositiveButton(R.string.positive, new View.OnClickListener() {
