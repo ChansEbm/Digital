@@ -3,6 +3,7 @@ package com.szbb.pro.dialog;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.method.DigitsKeyListener;
 import android.text.method.PasswordTransformationMethod;
@@ -72,7 +73,7 @@ public class InputDialog implements View.OnClickListener {
         if (isCitizenId) {
             String digital = "1234657890xX";
             editText.setKeyListener(DigitsKeyListener.getInstance(digital));
-            editText.setMaxEms(18);
+            editText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(18)});
         }
     }
 

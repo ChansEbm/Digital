@@ -138,19 +138,24 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
                         0, 0);
                 break;
             case R.id.rylt_real_name:
+                inputDialog = new InputDialog(this, false);
+                inputDialog.setInputCallBack(this);
                 inputDialog.setTitle(getResources().getString(R.string.organizing_real_name));
                 inputDialog.setInputType(InputType.TYPE_TEXT_VARIATION_PHONETIC);
                 inputDialog.setParams(NetworkParams.CUPCAKE);//callback means real name
                 inputDialog.show();
                 break;
             case R.id.rylt_address:
+                inputDialog = new InputDialog(this, false);
                 inputDialog.setTitle(getResources().getString(R.string.organizing__real_address));
+                inputDialog.setInputCallBack(this);
                 inputDialog.setParams(NetworkParams.DONUT);//callback means address
                 inputDialog.setInputType(InputType.TYPE_TEXT_VARIATION_PHONETIC);
                 inputDialog.show();
                 break;
             case R.id.rylt_citizen_id:
                 inputDialog = new InputDialog(this, true);
+                inputDialog.setInputCallBack(this);
                 inputDialog.setTitle(getResources().getString(R.string.organizing_citizen_ID));
                 inputDialog.setParams(NetworkParams.FROYO);//callback means citizenId
                 inputDialog.show();
@@ -254,8 +259,8 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
         switch (networkParams) {
             case CUPCAKE://means real name
                 if (AppTools.verifyChineseName(completeInfoLayout.getRoot(), word)) {
-                    edtCompleteInfoRealName.setText(word);
-                }
+                edtCompleteInfoRealName.setText(word);
+            }
                 break;
             case DONUT://means address
                 edtCompleteInfoDetailAddress.setText(word);
@@ -263,8 +268,6 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
             case FROYO://means citizen id
                 if (AppTools.verifyCitizenId(completeInfoLayout.getRoot(), word))
                     edtCompleteInfoCitizenID.setText(word);
-                else
-                    AppTools.showNormalSnackBar(parentView, "请校检身份证格式");
                 break;
         }
     }

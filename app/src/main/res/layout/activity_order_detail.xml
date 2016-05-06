@@ -433,7 +433,7 @@
                                 android:layout_marginBottom="@dimen/large_margin_15dp"
                                 android:layout_marginTop="@dimen/large_margin_15dp"
                                 android:onClick="onClick"
-                                android:text="@string/title_expenses_apply_detail" />
+                                android:text="@string/title_expenses_detail" />
                         </LinearLayout>
 
                     </FrameLayout>

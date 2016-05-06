@@ -167,9 +167,6 @@
     <string name="fitting_apply_order_no">配件申请单号: </string>
     <string name="fitting_subsidy">工单补贴 :</string>
 
-    <!--购物车-->
-    <string name="shop_car_confirm_order">确认下单</string>
-    <string name="shop_car_msg">给厂家留言 : </string>
     <!--电话dialog-->
     <string name="dialog_content">确定拨打</string>
     <!--Dialog共用-->
