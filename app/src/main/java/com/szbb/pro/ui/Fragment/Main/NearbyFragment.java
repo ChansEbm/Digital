@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Fragment.Main;
+package com.szbb.pro.ui.fragment.main;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;

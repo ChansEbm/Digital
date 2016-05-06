@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Activity.Expenses;
+package com.szbb.pro.ui.activity.expenses;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +10,11 @@ import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.entity.Base.BaseBean;
 import com.szbb.pro.entity.Expenses.ExpensesResultBean;
 import com.szbb.pro.eum.NetworkParams;
-import com.szbb.pro.ui.Activity.Main.MainActivity;
+import com.szbb.pro.model.MarkPictureModel;
+import com.szbb.pro.ui.activity.main.MainActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 费用申请详情页面
@@ -72,10 +74,21 @@ public class ExpensesResultActivity extends BaseAty<BaseBean, BaseBean> {
     public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams
             paramsCode) {
         ExpensesResultBean resultBean = (ExpensesResultBean) baseBean;
-        if (paramsCode == NetworkParams.CUPCAKE)
+        if (paramsCode == NetworkParams.CUPCAKE) {
+            addPic(resultBean);
             resultLayout.setResult(resultBean.getData());
-        else if (paramsCode == NetworkParams.DONUT)
+        } else if (paramsCode == NetworkParams.DONUT)
             startActivity(new Intent().setClass(this, MainActivity.class).addFlags(Intent
                     .FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP));
+    }
+
+    private void addPic(ExpensesResultBean resultBean) {
+        final List<ExpensesResultBean.DataEntity.CostImgEntity> cost_img = resultBean.getData
+                ().getCost_img();
+        MarkPictureModel markPictureModel = new MarkPictureModel();
+        for (ExpensesResultBean.DataEntity.CostImgEntity costImgEntity : cost_img) {
+            markPictureModel.savePicturePath(costImgEntity.getUrl());
+        }
+        markPictureModel.addSinglePictureInLinearLayout(this, resultLayout.llytUploadPic, true);
     }
 }

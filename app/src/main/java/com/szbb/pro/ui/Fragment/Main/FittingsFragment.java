@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Fragment.Main;
+package com.szbb.pro.ui.fragment.main;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -10,8 +10,8 @@ import com.szbb.pro.adapters.TabFragmentAdapter;
 import com.szbb.pro.base.BaseFgm;
 import com.szbb.pro.databinding.FgmFittingOrderBinding;
 import com.szbb.pro.entity.EventBus.FittingNavEvent;
-import com.szbb.pro.ui.Fragment.Fittings.ExpensesApplyFragment;
-import com.szbb.pro.ui.Fragment.Fittings.FittingApplyFragment;
+import com.szbb.pro.ui.fragment.fittings.ExpensesApplyFragment;
+import com.szbb.pro.ui.fragment.fittings.FittingApplyFragment;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -38,7 +38,7 @@ public class BitmapCompressTool {
         FileOutputStream fileOutputStream = null;
         try {
             fileOutputStream = new FileOutputStream(new File(path));
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, fileOutputStream);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } finally {

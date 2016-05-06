@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Activity.Vip.Wallet;
+package com.szbb.pro.ui.activity.vip.Wallet;
 
 import android.os.Bundle;
 import android.text.TextUtils;

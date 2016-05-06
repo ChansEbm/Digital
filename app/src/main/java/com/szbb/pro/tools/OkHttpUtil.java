@@ -4,9 +4,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 
-import com.szbb.pro.eum.JsonType;
-import com.szbb.pro.eum.NetworkParams;
-import com.szbb.pro.impl.OkHttpResponseListener;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
@@ -15,6 +12,9 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
+import com.szbb.pro.eum.JsonType;
+import com.szbb.pro.eum.NetworkParams;
+import com.szbb.pro.impl.OkHttpResponseListener;
 
 import java.io.IOException;
 import java.util.List;
@@ -91,11 +91,10 @@ public class OkHttpUtil<T> implements Callback {
         //如果数据获取成功
         if (response.isSuccessful()) {
             //获取返回的字符串
-
             String jsonStr = response.body().string();
             LogTools.w(jsonStr);
             LogTools.json(jsonStr);
-            if (TextUtils.equals("</html>", jsonStr)) {
+            if (TextUtils.equals("<\\/html>", jsonStr)) {
                 sendErrorMessage(response.toString());
                 return;
             }

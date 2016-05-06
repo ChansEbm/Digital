@@ -13,7 +13,7 @@
                  android:layout_width="match_parent"
                  android:layout_height="match_parent"
                  android:background="@color/theme_primary"
-                 tools:context="com.szbb.pro.ui.Activity.Vip.Wallet.WithdrawActivity">
+                 tools:context="com.szbb.pro.ui.activity.vip.Wallet.WithdrawActivity">
 
         <LinearLayout
             android:layout_width="match_parent"

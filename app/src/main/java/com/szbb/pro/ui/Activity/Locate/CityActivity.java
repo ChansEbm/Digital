@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Activity.Locate;
+package com.szbb.pro.ui.activity.locate;
 
 import android.content.Intent;
 import android.databinding.ViewDataBinding;

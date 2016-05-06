@@ -9,19 +9,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 
 import com.github.pwittchen.prefser.library.Prefser;
 import com.google.gson.Gson;
 import com.szbb.pro.R;
+import com.szbb.pro.base.BaseApplication;
 import com.szbb.pro.entity.JpushInfo.JpushBean;
+import com.szbb.pro.entity.Vip.VipInfoBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.model.NetworkModel;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.LogTools;
-import com.szbb.pro.ui.Activity.Main.MainActivity;
-import com.szbb.pro.ui.Activity.Vip.SystemMsg.AccountCementActivity;
-import com.szbb.pro.ui.Activity.Vip.SystemMsg.OrderHintActivity;
+import com.szbb.pro.ui.activity.login.LoginActivity;
+import com.szbb.pro.ui.activity.main.MainActivity;
+import com.szbb.pro.ui.activity.vip.SystemMsg.AccountCementActivity;
+import com.szbb.pro.ui.activity.vip.SystemMsg.OrderHintActivity;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -55,7 +59,7 @@ public class JpushReceiver extends BroadcastReceiver {
         final String extra = bundle.getString(JPushInterface.EXTRA_EXTRA);
         LogTools.w(extra);
         Intent intent = new Intent();
-        TaskStackBuilder taskStackBuilder = null;
+        TaskStackBuilder taskStackBuilder;
         if (!TextUtils.isEmpty(extra)) {
             JpushBean bean = new Gson().fromJson(extra, JpushBean.class);
             final String id = bean.getId();
@@ -94,6 +98,16 @@ public class JpushReceiver extends BroadcastReceiver {
                     intent.setClass(context, MainActivity.class);
                     taskStackBuilder.addParentStack(MainActivity.class);
                 }
+            } else if (type.equals("99")) {
+                final AppCompatActivity currentActivity = BaseApplication.getCurrentActivity();
+                if (!(currentActivity instanceof LoginActivity)) {
+                    context.startActivity(intent.setClass(context, LoginActivity.class).setFlags
+                            (Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("isBeenKick", true));
+                    Prefser prefser = new Prefser(AppTools.getSharePreferences());
+                    prefser.put("VipInfo", new VipInfoBean());
+                    prefser.put("loginPwd", "");
+                }
+                return null;
             }
             taskStackBuilder.addNextIntent(intent);
             return taskStackBuilder.getPendingIntent(0, PendingIntent
@@ -119,6 +133,4 @@ public class JpushReceiver extends BroadcastReceiver {
         builder.setContentIntent(pendingIntent);
         managerCompat.notify(1, builder.build());
     }
-
-
 }

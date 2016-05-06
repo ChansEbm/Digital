@@ -13,6 +13,9 @@
         <!--<item name="android:fitsSystemWindows">true</item>-->
     </style>
 
+    <style name="textButtom" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">@color/theme_primary</item>
+    </style>
 
     <!--TextView默认属性-->
     <style name="textStyle" parent="android:Widget.TextView">

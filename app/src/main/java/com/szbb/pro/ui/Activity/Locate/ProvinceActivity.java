@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Activity.Locate;
+package com.szbb.pro.ui.activity.locate;
 
 import android.content.Intent;
 import android.databinding.ViewDataBinding;
@@ -86,7 +86,7 @@ public class ProvinceActivity extends BaseAty<BaseBean, AreaListBean.ListEntity>
 
     @Override
     public void onBinderItemClick(View view, int pos) {
-        AreaListBean.ListEntity listEntity = (AreaListBean.ListEntity) list.get(pos);
+        AreaListBean.ListEntity listEntity = list.get(pos);
         if (listEntity.isHasChild()) {
             Intent intent = new Intent().putExtra("provinceId", listEntity.getId()).putExtra
                     ("province", listEntity.getName()).setClass(this, CityActivity.class);

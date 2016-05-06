@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/theme_primary"
-        tools:context="com.szbb.pro.ui.Activity.Orders.Operating.CustomerServiceActivity">
+        tools:context="com.szbb.pro.ui.activity.orders.operating.CustomerServiceActivity"
+        tools:ignore="RtlCompat">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,6 +44,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/bg_chat_frame"/>
 
+                <requestFocus/>
+
                 <ImageButton
                     android:id="@+id/ibtn_pic"
                     android:layout_width="wrap_content"
@@ -50,7 +53,7 @@
                     android:layout_marginStart="@dimen/small_margin_5dp"
                     android:background="@null"
                     android:onClick="onClick"
-                    android:src="@mipmap/ic_send_pic"/>
+                    android:src="@android:drawable/ic_menu_camera"/>
 
                 <ImageButton
                     android:id="@+id/ibtn_send"

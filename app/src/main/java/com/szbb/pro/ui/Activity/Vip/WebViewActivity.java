@@ -1,6 +1,7 @@
-package com.szbb.pro.ui.Activity.Vip;
+package com.szbb.pro.ui.activity.vip;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -10,6 +11,7 @@ import android.widget.ProgressBar;
 import com.szbb.pro.R;
 import com.szbb.pro.WebViewLayout;
 import com.szbb.pro.base.BaseAty;
+import com.szbb.pro.tools.AppTools;
 
 
 public class WebViewActivity extends BaseAty {
@@ -27,6 +29,8 @@ public class WebViewActivity extends BaseAty {
         detailLayout = (WebViewLayout) viewDataBinding;
         url = getIntent().getStringExtra("url");
         title = getIntent().getStringExtra("title");
+        if (TextUtils.isEmpty(url) || TextUtils.isEmpty(title))
+            AppTools.removeSingleActivity(this);
     }
 
     @Override

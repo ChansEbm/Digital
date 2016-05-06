@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Fragment.Fittings;
+package com.szbb.pro.ui.fragment.fittings;
 
 import android.content.Intent;
 import android.databinding.ViewDataBinding;
@@ -24,8 +24,8 @@ import com.szbb.pro.entity.EventBus.FittingNavEvent;
 import com.szbb.pro.entity.Fittings.MyFittingOrderBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.tools.AppTools;
-import com.szbb.pro.ui.Activity.Orders.FittingOrders.FittingApplyDetailActivity;
-import com.szbb.pro.ui.Activity.Orders.FittingOrders.FittingResendDetailActivity;
+import com.szbb.pro.ui.activity.orders.operating.a_mode.FittingApplyDetailActivity;
+import com.szbb.pro.ui.activity.orders.operating.b_mode.FittingResendDetailActivity;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;

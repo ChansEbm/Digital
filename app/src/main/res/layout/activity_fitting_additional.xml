@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="RtlCompat">
 
-    <data class=".FittingAdditionalLayout"/>
+    <data class=".FittingAdditionalLayout" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -15,9 +16,9 @@
             android:layout_height="match_parent"
             android:background="@color/color_bg_gravy"
             android:orientation="vertical"
-            tools:context=".ui.Activity.Orders.Operating.FittingAdditionalActivity">
+            tools:context=".ui.activity.orders.operating.FittingAdditionalActivity">
 
-            <include layout="@layout/title_bar"/>
+            <include layout="@layout/title_bar" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -45,7 +46,7 @@
                         <TextView
                             style="@style/textStyle"
                             android:layout_gravity="center_vertical"
-                            android:text="@string/label_name"/>
+                            android:text="@string/label_name" />
 
                         <TextView
                             android:id="@+id/tv_name"
@@ -53,7 +54,7 @@
                             android:layout_gravity="center_vertical|end"
                             android:tag="NaN"
                             android:text="@string/label_please_input_name"
-                            android:textColor="@color/color_text_gravy"/>
+                            android:textColor="@color/color_text_gravy" />
                     </FrameLayout>
 
                     <FrameLayout
@@ -67,13 +68,13 @@
                         <TextView
                             style="@style/textStyle"
                             android:layout_gravity="center_vertical"
-                            android:text="@string/label_num"/>
+                            android:text="@string/label_num" />
 
                         <com.szbb.pro.widget.CountView
                             android:id="@+id/countView"
                             android:layout_width="110dp"
                             android:layout_height="45dp"
-                            android:layout_gravity="center_vertical|end"/>
+                            android:layout_gravity="center_vertical|end" />
                     </FrameLayout>
 
                     <FrameLayout
@@ -89,7 +90,7 @@
                         <TextView
                             style="@style/textStyle"
                             android:layout_gravity="center_vertical"
-                            android:text="@string/label_code"/>
+                            android:text="@string/label_code" />
 
                         <TextView
                             android:id="@+id/tv_code"
@@ -98,7 +99,7 @@
                             android:tag="NaN"
                             android:text="@string/label_please_input_code"
 
-                            android:textColor="@color/color_text_gravy"/>
+                            android:textColor="@color/color_text_gravy" />
                     </FrameLayout>
 
                     <RelativeLayout
@@ -116,7 +117,7 @@
                             android:id="@+id/tv_t1"
                             style="@style/textStyle"
                             android:layout_centerVertical="true"
-                            android:text="@string/label_description"/>
+                            android:text="@string/label_description" />
 
                         <TextView
                             android:id="@+id/tv_description"
@@ -126,10 +127,10 @@
                             android:layout_marginStart="@dimen/middle_margin_10dp"
                             android:layout_toEndOf="@id/tv_t1"
                             android:gravity="end"
-                            android:singleLine="true"
+                            android:hint="@string/label_please_input_description"
                             android:tag="NaN"
-                            android:text="@string/label_please_input_description"
-                            android:textColor="@color/color_text_gravy"/>
+                            android:textColor="@color/color_text_gravy"
+                            android:textColorHint="@color/color_text_gravy" />
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -144,11 +145,12 @@
                     android:minHeight="102dp"
                     android:orientation="horizontal"
                     android:paddingEnd="@dimen/large_margin_15dp"
-                    android:paddingStart="@dimen/large_margin_15dp">
+                    android:paddingStart="@dimen/large_margin_15dp"
+                    android:visibility="gone">
 
                     <TextView
                         style="@style/textStyle"
-                        android:text="@string/photo"/>
+                        android:text="@string/photo" />
 
                     <HorizontalScrollView
                         android:layout_width="match_parent"
@@ -165,19 +167,19 @@
 
                             <include
                                 android:id="@+id/font"
-                                layout="@layout/item_pics"/>
+                                layout="@layout/item_pics" />
 
                             <include
                                 android:id="@+id/back"
-                                layout="@layout/item_pics"/>
+                                layout="@layout/item_pics" />
 
                             <include
                                 android:id="@+id/model"
-                                layout="@layout/item_pics"/>
+                                layout="@layout/item_pics" />
 
                             <include
                                 android:id="@+id/add"
-                                layout="@layout/item_pics"/>
+                                layout="@layout/item_pics" />
                         </LinearLayout>
                     </HorizontalScrollView>
                 </LinearLayout>
@@ -188,7 +190,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="@dimen/large_margin_15dp"
                     android:onClick="onClick"
-                    android:text="@string/submit"/>
+                    android:text="@string/submit" />
             </RelativeLayout>
         </LinearLayout>
     </FrameLayout>

@@ -13,6 +13,7 @@ public class FittingResendBean extends BaseBean {
     private String remarks = "";
     private String shippingType = "";
     private String shippingNum = "";
+    private String shippingTypeCom = "";
     private String shippingPayType = "";
     private String shippingCost = "";
     private String totalCount = "";
@@ -75,5 +76,13 @@ public class FittingResendBean extends BaseBean {
 
     public void setTotalCount(String totalCount) {
         this.totalCount = totalCount;
+    }
+
+    public String getShippingTypeCom() {
+        return shippingTypeCom;
+    }
+
+    public void setShippingTypeCom(String shippingTypeCom) {
+        this.shippingTypeCom = shippingTypeCom;
     }
 }

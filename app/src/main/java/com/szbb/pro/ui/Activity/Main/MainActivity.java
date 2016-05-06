@@ -1,8 +1,11 @@
-package com.szbb.pro.ui.Activity.Main;
+package com.szbb.pro.ui.activity.main;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -11,15 +14,18 @@ import com.github.pwittchen.prefser.library.Prefser;
 import com.szbb.pro.R;
 import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.databinding.AtyMainBinding;
+import com.szbb.pro.dialog.MessageDialog;
 import com.szbb.pro.entity.Base.BaseBean;
+import com.szbb.pro.entity.Vip.CheckUpdateBean;
 import com.szbb.pro.entity.Vip.VipInfoBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.impl.OnPopUpSelectListener;
 import com.szbb.pro.tools.AppTools;
-import com.szbb.pro.ui.Fragment.Main.FittingsFragment;
-import com.szbb.pro.ui.Fragment.Main.NearbyFragment;
-import com.szbb.pro.ui.Fragment.Main.OrderFragment;
-import com.szbb.pro.ui.Fragment.Main.VIPFragment;
+import com.szbb.pro.tools.MiscUtils;
+import com.szbb.pro.ui.fragment.main.FittingsFragment;
+import com.szbb.pro.ui.fragment.main.NearbyFragment;
+import com.szbb.pro.ui.fragment.main.OrderFragment;
+import com.szbb.pro.ui.fragment.main.VIPFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,11 +58,9 @@ public class MainActivity extends BaseAty<BaseBean, BaseBean> implements OnPopUp
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
     }
 
-
     @Override
     protected void initViews() {
         titleBarTools(this).setTitle(titles[0]);
-
         ivMainBottomOrder = mainBinding.ivMainBottomOrder;//带数字Badge
         ivMainBottomNearby = mainBinding.ivMainBottomNearby;//带点Badge
         ivMainBottomVip = mainBinding.ivMainBottomVip;//带点Badge
@@ -77,9 +81,8 @@ public class MainActivity extends BaseAty<BaseBean, BaseBean> implements OnPopUp
 
     @Override
     protected void initEvents() {
-
-
         networkModel.workerInfo(NetworkParams.DONUT);
+        networkModel.versions(MiscUtils.getAppVersion(this), NetworkParams.FROYO);
     }
 
     @Override
@@ -172,12 +175,45 @@ public class MainActivity extends BaseAty<BaseBean, BaseBean> implements OnPopUp
 //        }
 //    }
 
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            moveTaskToBack(false);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
     @Override
     public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {
         if (paramsCode == NetworkParams.DONUT) {
             VipInfoBean vipInfoBean = (VipInfoBean) baseBean;
             Prefser prefser = new Prefser(AppTools.getSharePreferences());
             prefser.put("VipInfo", vipInfoBean);
+        } else if (paramsCode == NetworkParams.FROYO) {
+            final CheckUpdateBean checkUpdateBean = (CheckUpdateBean) baseBean;
+            boolean isNeedUpdate = checkUpdateBean.getVersion_code().equals("1");
+            if (isNeedUpdate) {
+                final MessageDialog messageDialog = new MessageDialog(this);
+                messageDialog.setTitle("发现新版本").setPositiveButton("下载", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent it = new Intent();
+                        it.setAction("android.intent.action.VIEW");
+                        Uri uri = Uri.parse(checkUpdateBean.getUrl());
+                        it.setData(uri);
+                        startActivity(it);
+                        messageDialog.dismiss();
+                    }
+                }).setNegativeButton("取消", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        messageDialog.dismiss();
+                    }
+                }).setMessage("发现了新版本,需要下载吗").show();
+            }
         }
+
     }
 }

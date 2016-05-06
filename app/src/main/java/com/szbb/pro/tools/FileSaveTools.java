@@ -29,48 +29,6 @@ public class FileSaveTools {
         FileSaveTools.context = context;
     }
 
-    /**
-     * 保存图片到手机
-     *
-     * @param bitmap 要保存的位图
-     */
-    public FileSaveTools savePicture(@NonNull Bitmap bitmap) {
-        String filePath = getPictureCacheDir() + stringToMD5(AppTools.formatTime(new Date())) + "" +
-                ".png";
-        file = new File(filePath);
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(file);//新建输出流
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);//压缩写入
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (fos != null) {
-                try {
-                    fos.flush();//刷新流
-                    fos.close();//关闭流
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return this;
-    }
-
-    /**
-     * 通过Uri保存图片
-     *
-     * @param uri
-     */
-    public FileSaveTools savePicture(Uri uri) {
-        try {
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
-            savePicture(bitmap);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return this;
-    }
 
     public String getFilePath() {
         if (file != null)

@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Activity.Login;
+package com.szbb.pro.ui.activity.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,7 +19,7 @@ import com.szbb.pro.entity.Login.AuthBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.LogTools;
-import com.szbb.pro.ui.Activity.Main.MainActivity;
+import com.szbb.pro.ui.activity.main.MainActivity;
 
 /**
  * Created by ChanZeeBm on 2015/9/9.
@@ -33,10 +33,13 @@ public class LoginActivity extends BaseAty<BaseBean, AuthBean> {
 
     private MessageDialog messageDialog;
 
+    private boolean isBeenKick = false;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = (AtyLoginBinding) viewDataBinding;
+        isBeenKick = getIntent().getBooleanExtra("isBeenKick", false);
     }
 
     @Override
@@ -58,15 +61,33 @@ public class LoginActivity extends BaseAty<BaseBean, AuthBean> {
         tvLoginReg.setOnClickListener(this);
         tvLoginFindPwd.setOnClickListener(this);
         btnLoginLog.setOnClickListener(this);
-
         String userName = AppTools.getStringSharedPreferences("loginUser", null);
         String pwd = AppTools.getStringSharedPreferences("loginPwd", null);
-        if (!TextUtils.isEmpty(userName) &&
-                !TextUtils.isEmpty(pwd)) {
-            if (textInputLayoutLoginUser != null && textInputLayoutLoginUser.getEditText() != null)
-                textInputLayoutLoginUser.getEditText().setText(userName);
-            textInputLayoutLoginPwd.getEditText().setText(pwd);
-
+        if (!isBeenKick) {
+            if (!TextUtils.isEmpty(userName) && !TextUtils.isEmpty(pwd)) {
+                if (textInputLayoutLoginUser != null && textInputLayoutLoginUser.getEditText() !=
+                        null)
+                    textInputLayoutLoginUser.getEditText().setText(userName);
+                if (textInputLayoutLoginPwd != null && textInputLayoutLoginPwd.getEditText() !=
+                        null)
+                    textInputLayoutLoginPwd.getEditText().setText(pwd);
+                networkModel.login(userName, pwd, null);
+            }
+        } else {
+            if (!TextUtils.isEmpty(userName)) {
+                if (textInputLayoutLoginUser != null && textInputLayoutLoginUser.getEditText() !=
+                        null)
+                    textInputLayoutLoginUser.getEditText().setText(userName);
+                textInputLayoutLoginPwd.getEditText().requestFocus();
+            }
+            final MessageDialog messageDialog = new MessageDialog(this);
+            messageDialog.setMessage("您的账号在另外一台设备上登录,请注意密码是否泄露!").setPositiveButton(getString(R
+                    .string.positive), new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    messageDialog.dismiss();
+                }
+            }).setTitle(getString(R.string.notice)).show();
         }
     }
 
@@ -87,10 +108,12 @@ public class LoginActivity extends BaseAty<BaseBean, AuthBean> {
                 AppTools.hideSoftInputMethod(textInputLayoutLoginUser);
                 if (checkUser() && checkPwd()) {
                     //验证登录
-                    String userName = textInputLayoutLoginUser.getEditText().getText().toString();
+                    String userName = textInputLayoutLoginUser.getEditText().getText()
+                            .toString();
                     String pwd = textInputLayoutLoginPwd.getEditText().getText().toString();
                     networkModel.login(userName, pwd, null);
                 }
+//                startActivity(new Intent(this, OrderDetailActivity.class).putExtra("orderId", "185"));
                 break;
             case R.id.tv_login_reg:
                 start(RegisterActivity.class);
@@ -98,6 +121,7 @@ public class LoginActivity extends BaseAty<BaseBean, AuthBean> {
             case R.id.tv_login_find_pwd:
                 start(FindPwdActivity.class);
                 break;
+
         }
     }
 
@@ -134,28 +158,56 @@ public class LoginActivity extends BaseAty<BaseBean, AuthBean> {
     }
 
     private void loginLogic(AuthBean authBean) {
+        messageDialog = new MessageDialog(this);
         if (authBean.getIs_complete_info() == 0) {
             start(CompleteInfoActivity.class);
+        } else if (authBean.getIs_complete_info() == 2) {
+            messageDialog.setTitle(getString(R.string.reviewing)).setMessage(getString(R
+                    .string.your_profile_is_reviewing)).setPositiveButton(getString(R
+                    .string.positive), new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    messageDialog.dismiss();
+                }
+            }).show();
         } else if (authBean.getIs_complete_info() == 1) {
-            if (authBean.getIs_check() == 0) {
-                messageDialog = new MessageDialog(this);
-                messageDialog.setTitle(getString(R.string.reviewing)).setMessage(getString(R
-                        .string.your_profile_is_reviewing)).setPositiveButton(getString(R
-                        .string.positive), new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        AppTools.removeSingleActivity(LoginActivity.this);
-                    }
-                }).show();
-            } else {
+            if (authBean.getIs_check() == 1) {
                 start(MainActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TASK, Intent
                         .FLAG_ACTIVITY_NEW_TASK);
                 AppTools.putStringSharedPreferences("loginUser", textInputLayoutLoginUser
                         .getEditText().getText().toString());
                 AppTools.putStringSharedPreferences("loginPwd", textInputLayoutLoginPwd
                         .getEditText().getText().toString());
+            } else if (authBean.getIs_check() == 0) {
+                messageDialog.setTitle(getString(R.string.notice)).setMessage(getString(R
+                        .string.your_profile_is_disable)).setPositiveButton(getString(R
+                        .string.positive), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        messageDialog.dismiss();
+                    }
+                }).show();
             }
         }
+
+//            if (authBean.getIs_check() == 0) {
+//                messageDialog = new MessageDialog(this);
+//                messageDialog.setTitle(getString(R.string.reviewing)).setMessage(getString(R
+//                        .string.your_profile_is_reviewing)).setPositiveButton(getString(R
+//                        .string.positive), new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        AppTools.removeSingleActivity(LoginActivity.this);
+//                    }
+//                }).show();
+//            } else {
+//                start(MainActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TASK, Intent
+//                        .FLAG_ACTIVITY_NEW_TASK);
+//                AppTools.putStringSharedPreferences("loginUser", textInputLayoutLoginUser
+//                        .getEditText().getText().toString());
+//                AppTools.putStringSharedPreferences("loginPwd", textInputLayoutLoginPwd
+//                        .getEditText().getText().toString());
+//            }
     }
 
 

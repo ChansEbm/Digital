@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Fragment.Order;
+package com.szbb.pro.ui.fragment.order;
 
 import android.content.Intent;
 import android.databinding.ViewDataBinding;
@@ -18,7 +18,8 @@ import com.szbb.pro.entity.Order.MyOrderBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.impl.UpdateUIListener;
 import com.szbb.pro.tools.AppTools;
-import com.szbb.pro.ui.Activity.Orders.Operating.OrderDetailActivity;
+import com.szbb.pro.tools.LogTools;
+import com.szbb.pro.ui.activity.orders.operating.OrderDetailActivity;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import java.util.List;
@@ -88,14 +89,7 @@ public class ServicedFragment extends BaseFgm<MyOrderBean, MyOrderBean.ListEntit
 
     @Override
     protected void onClick(int id, View view) {
-        switch (id) {
-//            case R.id.btn_pending_operation_order:
-//                int pos = (int) view.getTag();
-//                MyOrderBean.ListEntity listEntity = list.get(pos);
-//                startActivity(new Intent().putExtra("orderId", listEntity.getOrderid()).setClass
-//                        (getActivity(), OrderDetailActivity.class));
-//                break;
-        }
+
     }
 
     @Override
@@ -120,6 +114,7 @@ public class ServicedFragment extends BaseFgm<MyOrderBean, MyOrderBean.ListEntit
         final String action = intent.getAction();
         if (action.equals(AppKeyMap.APPOINTMENT_CLIENT_ACTION) || action.equals(AppKeyMap
                 .WAITING_COST_ACTION)) {
+            LogTools.v(action);
             //重新访问后台执行刷新操作
             networkModel.myOrderList("2", "", "", NetworkParams.CUPCAKE);
         }
@@ -141,7 +136,6 @@ public class ServicedFragment extends BaseFgm<MyOrderBean, MyOrderBean.ListEntit
     @Override
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout bgaRefreshLayout) {
         if (myOrderBean.getIsNext() == 1) {
-            page++;
             pageSize += 10;
             networkModel.myOrderList("2", page + "", pageSize + "", NetworkParams.FROYO);
         } else {
@@ -158,16 +152,15 @@ public class ServicedFragment extends BaseFgm<MyOrderBean, MyOrderBean.ListEntit
         switch (paramsCode) {
             case CUPCAKE://the first time load
             case DONUT://the refresh action
-                this.list.clear();
-                break;
             case FROYO://load more action
+                this.list.clear();
                 break;
         }
         final List<MyOrderBean.ListEntity> list = myOrderBean.getList();
         if (list.isEmpty() && this.list.isEmpty())
-            orderBaseLayout.include.emptyView.setVisibility(View.VISIBLE);
+            orderBaseLayout.include.emptyView2.setVisibility(View.VISIBLE);
         else
-            orderBaseLayout.include.emptyView.setVisibility(View.GONE);
+            orderBaseLayout.include.emptyView2.setVisibility(View.GONE);
         this.list.addAll(list);
         commonBinderAdapter.notifyDataSetChanged();
         refreshLayout.endLoadingMore();

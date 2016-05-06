@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Activity.Orders.Appointment;
+package com.szbb.pro.ui.activity.orders.appointment;
 
 import android.content.Intent;
 import android.databinding.ViewDataBinding;
@@ -7,11 +7,14 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.szbb.pro.AppKeyMap;
 import com.szbb.pro.AppointmentClientLayout;
@@ -22,6 +25,7 @@ import com.szbb.pro.adapters.CommonBinderHolder;
 import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.dialog.DialDialog;
 import com.szbb.pro.dialog.InputDialog;
+import com.szbb.pro.dialog.MessageDialog;
 import com.szbb.pro.entity.Base.BaseBean;
 import com.szbb.pro.entity.Order.OrderDetailBean;
 import com.szbb.pro.eum.NetworkParams;
@@ -30,10 +34,14 @@ import com.szbb.pro.impl.InputCallBack;
 import com.szbb.pro.impl.OnWheelOptsSelectCallback;
 import com.szbb.pro.model.OrderModel;
 import com.szbb.pro.tools.AppTools;
-import com.szbb.pro.ui.Activity.Main.MainActivity;
+import com.szbb.pro.ui.activity.locate.TagLocationActivity;
+import com.szbb.pro.ui.activity.main.MainActivity;
+import com.szbb.pro.ui.activity.orders.operating.CustomerServiceActivity;
 import com.szbb.pro.widget.PopupWindow.WheelPopupWindow;
 
 import org.solovyev.android.views.llm.LinearLayoutManager;
+
+import cn.bingoogolapple.badgeview.BGABadgeTextView;
 
 /**
  * Created by ChanZeeBm on 2015/10/26.
@@ -52,7 +60,6 @@ public class AppointmentClientActivity extends BaseAty<BaseBean, OrderDetailBean
     private TextView tvRemark;
     private TextView tvAppointmentTime;
     private TextView tvAppointmentResult;
-    private InputDialog inputDialog;
 
     private String result = "";
     private String appointmentTime = "";
@@ -62,6 +69,31 @@ public class AppointmentClientActivity extends BaseAty<BaseBean, OrderDetailBean
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         appointmentClientLayout = (AppointmentClientLayout) viewDataBinding;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_custom_service, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        final View actionView = menu.findItem(R.id.custom_service).getActionView();
+        BGABadgeTextView textView = (BGABadgeTextView) actionView.findViewById(R.id.textView);
+        textView.showCirclePointBadge();
+        textView.setOnClickListener(this);
+        titleBarTools.getToolbar().setPadding(0, 0, 15, 0);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        String servicePhone = appointmentClientLayout.getAppointment()
+                .getCustomer_service_phone();
+        startActivity(new Intent(this, CustomerServiceActivity.class).putExtra("orderId",
+                orderId).putExtra("servicePhone", servicePhone));
+        return true;
     }
 
     @Override
@@ -147,8 +179,27 @@ public class AppointmentClientActivity extends BaseAty<BaseBean, OrderDetailBean
                 break;
             case R.id.btn_client_appointment_submit:
                 if (checkParams()) {
-                    networkModel.appointOrder(orderId, result, appointmentTime, reMark,
-                            NetworkParams.DONUT);
+                    if (!result.equals("3"))
+                        networkModel.appointOrder(orderId, result, appointmentTime, reMark,
+                                NetworkParams.DONUT);
+                    else {
+                        final MessageDialog dialog = new MessageDialog(this);
+                        dialog.setMessage("工单将被退回，是否确认?").setPositiveButton(getString(R.string
+                                .positive), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                networkModel.appointOrder(orderId, result, appointmentTime, reMark,
+                                        NetworkParams.DONUT);
+                            }
+                        }).setNegativeButton(getString(R.string.negative), new View
+                                .OnClickListener() {
+
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        }).show();
+                    }
                 }
                 break;
             case R.id.flyt_appointment_time:
@@ -158,7 +209,7 @@ public class AppointmentClientActivity extends BaseAty<BaseBean, OrderDetailBean
                         .BOTTOM, 0, 0);
                 break;
             case R.id.rylt_appointment_remark:
-                inputDialog = new InputDialog(this);
+                InputDialog inputDialog = new InputDialog(this);
                 inputDialog.setInputCallBack(this);
                 inputDialog.setTitle(getString(R.string.note));
                 inputDialog.setParams(NetworkParams.CUPCAKE);
@@ -174,8 +225,18 @@ public class AppointmentClientActivity extends BaseAty<BaseBean, OrderDetailBean
                 dialDialog.call(tel);
                 break;
             case R.id.tv_location:
+                final double lng = Double.parseDouble(appointment.getLng());
+                final double lat = Double.parseDouble(appointment.getLat());
+                String address = appointment.getAddress();
+                startActivity(new Intent().putExtra("lat", lat).putExtra("lng", lng).putExtra("address", address).setClass(this,
+                        TagLocationActivity.class));
                 break;
-
+            case R.id.textView://联系客服
+                String servicePhone = appointmentClientLayout.getAppointment()
+                        .getCustomer_service_phone();
+                startActivity(new Intent().putExtra("orderId", orderId).setClass(this,
+                        CustomerServiceActivity.class).putExtra("servicePhone", servicePhone));
+                break;
         }
     }
 
@@ -191,10 +252,24 @@ public class AppointmentClientActivity extends BaseAty<BaseBean, OrderDetailBean
             list.addAll(orderDetailBean.getList());
             commonBinderAdapter.notifyDataSetChanged();
         } else if (paramsCode == NetworkParams.DONUT) {//means submit
-            // the data to server
+            switch (result) {
+                case "1":
+                    Toast.makeText(AppointmentClientActivity.this, "预约记录提交中，请按时上门为用户服务", Toast
+                            .LENGTH_SHORT).show();
+                    AppTools.sendBroadcast(new Bundle(), AppKeyMap.APPOINTMENT_CLIENT_ACTION);
+                    break;
+                case "2":
+                    Toast.makeText(AppointmentClientActivity.this, "工单延时3小时收回，请尽快与用户联系，及时填写预约记录",
+                            Toast.LENGTH_SHORT).show();
+                case "3":
+                case "4":
+                    AppTools.sendBroadcast(new Bundle(), AppKeyMap
+                            .APPOINTMENT_CAN_NOT_CONTENT_CLIENT);
+                    break;
+            }
             start(MainActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP, Intent
                     .FLAG_ACTIVITY_SINGLE_TOP);
-            AppTools.sendBroadcast(new Bundle(), AppKeyMap.APPOINTMENT_CLIENT_ACTION);
+
         }
     }
 
@@ -225,6 +300,13 @@ public class AppointmentClientActivity extends BaseAty<BaseBean, OrderDetailBean
                 if (index == 0) {
                     flytAppointmentTime.setVisibility(View.VISIBLE);
                     ryltAppointmentRemark.setVisibility(View.VISIBLE);
+                    //预约成功弹出时间选择
+                    WheelPopupWindow wheelPopupWindow = new WheelPopupWindow(this);
+                    wheelPopupWindow.setOnWheelOptsSelectCallback(this);
+                    wheelPopupWindow.setOptions(WheelOptions.DATE_WITH_TIME);
+                    wheelPopupWindow.setPopupTitle(getString(R.string.choose_time));
+                    wheelPopupWindow.showAtLocation(appointmentClientLayout.getRoot(), Gravity
+                            .BOTTOM, 0, 0);
                 } else {
                     flytAppointmentTime.setVisibility(View.GONE);
                     ryltAppointmentRemark.setVisibility(View.VISIBLE);

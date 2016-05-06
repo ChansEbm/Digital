@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Activity.Expenses;
+package com.szbb.pro.ui.activity.expenses;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,8 +24,8 @@ import com.szbb.pro.impl.OnPhotoOptsSelectListener;
 import com.szbb.pro.impl.OnWheelOptsSelectCallback;
 import com.szbb.pro.model.MarkPictureModel;
 import com.szbb.pro.tools.AppTools;
-import com.szbb.pro.ui.Activity.Orders.Operating.OrderDetailActivity;
-import com.szbb.pro.widget.PopupWindow.TakePhotoPopupWindow;
+import com.szbb.pro.ui.activity.main.MainActivity;
+import com.szbb.pro.widget.PopupWindow.PhotoPopupWindow;
 import com.szbb.pro.widget.PopupWindow.WheelPopupWindow;
 
 import java.util.ArrayList;
@@ -45,19 +45,16 @@ public class ExpensesApplyActivity extends BaseAty<BaseBean, BaseBean> implement
     private EditText editText;
     private LinearLayout llytUploadPic;
     private TextView tvType;
-    private TextView tvName;
     private TextView tvExpenses;
 
-    private TakePhotoPopupWindow photoPopupWindow;
+    private PhotoPopupWindow photoPopupWindow;
     private MarkPictureModel markPictureModel = new MarkPictureModel();//添加照片动作实现类
 
     private ArrayList<String> alreadyAddPics = new ArrayList<>();
     private WheelPopupWindow wheelPopupWindow;
-    private InputDialog inputDialog;
 
     private String costType = "";
     private String money = "";
-    private String costUse = "";
     private String remarks = "";
 
     private String detailId = "";
@@ -78,20 +75,18 @@ public class ExpensesApplyActivity extends BaseAty<BaseBean, BaseBean> implement
         defaultTitleBar(this).setTitle(R.string.title_expenses_apply);
 
         tvType = expensesApplyLayout.tvType;
-        tvName = expensesApplyLayout.tvName;
         tvExpenses = expensesApplyLayout.tvExpenses;
 
         editText = expensesApplyLayout.editText;
         llytUploadPic = expensesApplyLayout.llytUploadPic;
 
-        photoPopupWindow = new TakePhotoPopupWindow(this);
+        photoPopupWindow = new PhotoPopupWindow(this);
         wheelPopupWindow = new WheelPopupWindow(this);
     }
 
     @Override
     protected void initEvents() {
         expensesApplyLayout.ryltMoney.setOnClickListener(this);
-        expensesApplyLayout.ryltName.setOnClickListener(this);
         expensesApplyLayout.ryltType.setOnClickListener(this);
         expensesApplyLayout.btnAddPic.setOnClickListener(this);
         expensesApplyLayout.btnSubmit.setOnClickListener(this);
@@ -121,15 +116,8 @@ public class ExpensesApplyActivity extends BaseAty<BaseBean, BaseBean> implement
                 wheelPopupWindow.setOnWheelOptsSelectCallback(this);
                 wheelPopupWindow.showAtLocation(parentView, Gravity.BOTTOM, 0, 0);
                 break;
-            case R.id.rylt_name:
-                inputDialog = new InputDialog(this);
-                inputDialog.setParams(NetworkParams.CUPCAKE);
-                inputDialog.setTitle(getString(R.string.expenses_apply_name));
-                inputDialog.setInputCallBack(this);
-                inputDialog.show();
-                break;
             case R.id.rylt_money:
-                inputDialog = new InputDialog(this, true);
+                InputDialog inputDialog = new InputDialog(this, true);
                 inputDialog.setParams(NetworkParams.DONUT);
                 inputDialog.setTitle(getString(R.string.expenses_apply_price));
                 inputDialog.setInputCallBack(this);
@@ -145,6 +133,9 @@ public class ExpensesApplyActivity extends BaseAty<BaseBean, BaseBean> implement
                             NetworkParams.CUPCAKE);
                 }
                 break;
+            case R.id.frameLayout:
+                AppTools.hideSoftInputMethod(view);
+                break;
         }
     }
 
@@ -153,10 +144,6 @@ public class ExpensesApplyActivity extends BaseAty<BaseBean, BaseBean> implement
         if (TextUtils.isEmpty(costType)) {
             AppTools.showNormalSnackBar(parentView, getString(R.string
                     .expenses_please_choose_type));
-            return false;
-        }
-        if (TextUtils.isEmpty(costUse)) {
-            AppTools.showNormalSnackBar(parentView, getString(R.string.expenses_please_input_name));
             return false;
         }
         if (TextUtils.isEmpty(money)) {
@@ -171,7 +158,9 @@ public class ExpensesApplyActivity extends BaseAty<BaseBean, BaseBean> implement
     public void onOptsSelect(PhotoPopupOpts opts) {
         switch (opts) {
             case TAKE_PHOTO:
-                GalleryFinal.openCamera(AppKeyMap.CUPCAKE, this);
+                FunctionConfig functionConfig = new FunctionConfig.Builder().setCropWidth(300)
+                        .setCropHeight(300).build();
+                GalleryFinal.openCamera(AppKeyMap.CUPCAKE, functionConfig, this);
                 break;
             case ALBUM:
                 FunctionConfig config = new FunctionConfig.Builder().setMutiSelectMaxSize(8)
@@ -194,22 +183,21 @@ public class ExpensesApplyActivity extends BaseAty<BaseBean, BaseBean> implement
     }
 
     @Override
-    public void onHanlderSuccess(int requestCode, List resultList) {
-        List<PhotoInfo> photoInfos = new ArrayList<>();
-        photoInfos.addAll(resultList);
-        for (PhotoInfo info : photoInfos) {
+    public void onHanlderSuccess(int requestCode, List<PhotoInfo> resultList) {
+        super.onHanlderSuccess(requestCode, resultList);
+        for (PhotoInfo info : resultList) {
             String path = info.getPhotoPath();
             if (!alreadyAddPics.contains(path)) {
                 alreadyAddPics.add(path);
-                markPictureModel.addSinglePictureInLinearLayoutByLocal(this, llytUploadPic, info
-                        .getPhotoPath());
+                markPictureModel.savePicturePath(info.getPhotoPath());
             }
         }
+        markPictureModel.addSinglePictureInLinearLayout(this, llytUploadPic, false);
     }
 
     @Override
     public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {
-        start(OrderDetailActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP, Intent
+        start(MainActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP, Intent
                 .FLAG_ACTIVITY_SINGLE_TOP);
     }
 
@@ -222,13 +210,9 @@ public class ExpensesApplyActivity extends BaseAty<BaseBean, BaseBean> implement
     @Override
     public void inputWord(String word, NetworkParams networkParams) {
         switch (networkParams) {
-            case CUPCAKE://expenses name
-                costUse = word;
-                tvName.setText(costUse);
-                break;
             case DONUT:
                 money = word;
-                tvExpenses.setText(money);
+                tvExpenses.setText("¥" + money + "元");
                 break;
         }
     }

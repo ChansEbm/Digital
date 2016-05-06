@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Activity.Vip.SystemMsg;
+package com.szbb.pro.ui.activity.vip.SystemMsg;
 
 import android.content.Intent;
 import android.databinding.ViewDataBinding;
@@ -15,7 +15,7 @@ import com.szbb.pro.adapters.CommonBinderHolder;
 import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.entity.Vip.AccountCementBean;
 import com.szbb.pro.eum.NetworkParams;
-import com.szbb.pro.ui.Activity.Vip.WebViewActivity;
+import com.szbb.pro.ui.activity.vip.WebViewActivity;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import java.util.List;

@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="RtlCompat">
 
     <data class=".PersonalInfoLayout">
 
         <variable
             name="info"
-            type="com.szbb.pro.entity.Vip.VipInfoBean.WorkerDataEntity"/>
+            type="com.szbb.pro.entity.Vip.VipInfoBean.WorkerDataEntity" />
     </data>
 
-    <FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/theme_primary"
-        tools:context="com.szbb.pro.ui.Activity.Vip.PersonalInfo.PersonalInfoActivity">
+        tools:context="com.szbb.pro.ui.activity.vip.PersonalInfo.PersonalInfoActivity">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -27,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <include layout="@layout/title_bar"/>
+                <include layout="@layout/title_bar" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -43,19 +42,17 @@
                         style="@style/textStyle"
                         android:layout_width="0dp"
                         android:layout_weight="0.35"
-                        android:text="@string/info_nickname"
-                        />
+                        android:text="@string/info_nickname" />
 
                     <TextView
                         style="@style/textStyle"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:text="@{info.nickname}"
-                        />
+                        android:text="@{info.nickname}" />
 
                 </LinearLayout>
 
-                <include layout="@layout/line"/>
+                <include layout="@layout/line" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -71,48 +68,18 @@
                         style="@style/textStyle"
                         android:layout_width="0dp"
                         android:layout_weight="0.35"
-                        android:text="@string/info_bind_phone"
-                        />
+                        android:text="@string/info_bind_phone" />
 
                     <TextView
                         style="@style/textStyle"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:text="@{info.telephone}"
-                        android:textColor="@color/color_text_gravy"/>
+                        android:textColor="@color/color_text_gravy" />
 
                 </LinearLayout>
 
-                <include layout="@layout/line"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/color_white"
-                    android:gravity="center_vertical"
-                    android:minHeight="@dimen/minHeight_50dp"
-                    android:orientation="horizontal"
-                    android:paddingEnd="@dimen/large_margin_15dp"
-                    android:paddingStart="@dimen/large_margin_15dp"
-                    >
-
-                    <TextView
-                        style="@style/textStyle"
-                        android:layout_width="0dp"
-                        android:layout_weight="0.35"
-                        android:text="@string/real_location"
-                        />
-
-                    <TextView
-                        style="@style/textStyle"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="@{info.worker_area_ids_desc}"
-                        android:textColor="@color/color_text_gravy"/>
-
-                </LinearLayout>
-
-                <include layout="@layout/line"/>
+                <include layout="@layout/line" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -128,8 +95,34 @@
                         style="@style/textStyle"
                         android:layout_width="0dp"
                         android:layout_weight="0.35"
-                        android:text="@string/detail_address"
-                        />
+                        android:text="@string/real_location" />
+
+                    <TextView
+                        style="@style/textStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@{info.worker_area_ids_desc}"
+                        android:textColor="@color/color_text_gravy" />
+
+                </LinearLayout>
+
+                <include layout="@layout/line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_white"
+                    android:gravity="center_vertical"
+                    android:minHeight="@dimen/minHeight_50dp"
+                    android:orientation="horizontal"
+                    android:paddingEnd="@dimen/large_margin_15dp"
+                    android:paddingStart="@dimen/large_margin_15dp">
+
+                    <TextView
+                        style="@style/textStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.35"
+                        android:text="@string/detail_address" />
 
                     <TextView
                         style="@style/textStyle"
@@ -138,7 +131,7 @@
                         android:ellipsize="middle"
                         android:maxLines="2"
                         android:text="@{info.worker_address}"
-                        android:textColor="@color/color_text_gravy"/>
+                        android:textColor="@color/color_text_gravy" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -156,8 +149,7 @@
                         style="@style/textStyle"
                         android:layout_width="0dp"
                         android:layout_weight="0.35"
-                        android:text="@string/organizing_citizen_ID"
-                        />
+                        android:text="@string/organizing_citizen_ID" />
 
                     <TextView
                         style="@style/textStyle"
@@ -166,10 +158,10 @@
                         android:ellipsize="middle"
                         android:maxLines="2"
                         android:text="@{info.card_no}"
-                        android:textColor="@color/color_text_gravy"/>
+                        android:textColor="@color/color_text_gravy" />
                 </LinearLayout>
 
-                <include layout="@layout/line"/>
+                <include layout="@layout/line" />
 
                 <LinearLayout
                     android:id="@+id/llyt_citizen_pic"
@@ -187,8 +179,7 @@
                         style="@style/textStyle"
                         android:layout_width="0dp"
                         android:layout_weight="0.35"
-                        android:text="@string/info_citizen_pic"
-                        />
+                        android:text="@string/info_citizen_pic" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -200,7 +191,7 @@
                             style="@style/DefaultSimpleDraweeView"
                             android:layout_width="75dp"
                             android:layout_height="75dp"
-                            android:onClick="onClick"/>
+                            android:onClick="onClick" />
 
                         <com.facebook.drawee.view.SimpleDraweeView
                             android:id="@+id/sdv_back"
@@ -208,7 +199,7 @@
                             android:layout_width="75dp"
                             android:layout_height="75dp"
                             android:layout_marginStart="@dimen/large_margin_15dp"
-                            android:onClick="onClick"/>
+                            android:onClick="onClick" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -228,7 +219,7 @@
                         style="@style/textStyle"
                         android:layout_width="0dp"
                         android:layout_weight="0.35"
-                        android:text="@string/info_my_skill"/>
+                        android:text="@string/info_my_skill" />
 
                     <TextView
                         style="@style/textStyle"
@@ -236,7 +227,7 @@
                         android:layout_weight="1"
                         android:ellipsize="middle"
                         android:maxLines="2"
-                        android:textColor="@color/color_text_gravy"/>
+                        android:textColor="@color/color_text_gravy" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -256,13 +247,12 @@
                         style="@style/textStyle"
                         android:layout_width="0dp"
                         android:layout_weight="0.35"
-                        android:text="@string/receiver_info"
-                        />
+                        android:text="@string/receiver_info" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_arrow_right"/>
+                        android:src="@mipmap/ic_arrow_right" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -282,16 +272,20 @@
                         style="@style/textStyle"
                         android:layout_width="0dp"
                         android:layout_weight="0.35"
-                        android:text="@string/info_change_pwd"
-                        />
+                        android:text="@string/info_change_pwd" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_arrow_right"/>
-
+                        android:src="@mipmap/ic_arrow_right" />
                 </LinearLayout>
 
+                <Button
+                    android:id="@+id/btn_logout"
+                    style="@style/buttonStyle"
+                    android:layout_marginTop="@dimen/large_margin_15dp"
+                    android:onClick="onClick"
+                    android:text="@string/info_logout" />
             </LinearLayout>
         </ScrollView>
     </FrameLayout>

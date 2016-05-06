@@ -123,6 +123,7 @@ public class MyOrderBean extends BaseBean {
 
         @Bindable
         public String getOrder_status_desc() {
+
             return order_status_desc;
         }
 
@@ -305,6 +306,9 @@ public class MyOrderBean extends BaseBean {
                         "color=\"#ff9000\">签到成功</font>");
             else if (TextUtils.equals(isSignIn, "2"))
                 this.sign_in_desc = Html.fromHtml("<font color=\"#ff9000\">签到失败</font>");
+            else  if(TextUtils.equals(isSignIn, "3")){
+                this.sign_in_desc = Html.fromHtml("<font color=\"#ff9000\">签到已超时</font>");
+            }
             return sign_in_desc;
         }
 
@@ -320,7 +324,8 @@ public class MyOrderBean extends BaseBean {
 
         @Bindable
         public Spanned getOrder_handle_desc_in_color() {
-            order_handle_desc_in_color = Html.fromHtml("<font color='#ff9000'>" + getOrder_handle_desc()
+            order_handle_desc_in_color = Html.fromHtml("<font color='#ff9000'>" +
+                    getOrder_handle_desc()
                     + "</font>");
             return order_handle_desc_in_color;
         }

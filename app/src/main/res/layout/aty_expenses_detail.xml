@@ -90,7 +90,7 @@
                         android:id="@+id/expandableListView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                       />
+                        />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -116,9 +116,22 @@
                             android:layout_marginEnd="@dimen/small_margin_5dp"
                             android:layout_toStartOf="@id/tv_t1"
                             android:text="@string/total_pay"
-                            android:textSize="@dimen/text_large_size"
-                            />
+                            android:textSize="@dimen/text_large_size"/>
                     </RelativeLayout>
+
+                    <TextView
+                        style="@style/textStyle"
+                        android:layout_width="match_parent"
+                        android:background="@color/color_white"
+                        android:gravity="center_vertical"
+                        android:minHeight="@dimen/labelHeight_35dp"
+                        android:paddingStart="@dimen/large_margin_15dp"
+                        android:text="@string/note"/>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
                 </LinearLayout>
             </ScrollView>
         </LinearLayout>

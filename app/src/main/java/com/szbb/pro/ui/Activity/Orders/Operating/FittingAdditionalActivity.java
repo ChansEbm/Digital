@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Activity.Orders.Operating;
+package com.szbb.pro.ui.activity.orders.operating;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -24,8 +24,10 @@ import com.szbb.pro.impl.OnAddPictureDoneListener;
 import com.szbb.pro.impl.OnPhotoOptsSelectListener;
 import com.szbb.pro.model.MarkPictureModel;
 import com.szbb.pro.tools.AppTools;
+import com.szbb.pro.ui.activity.orders.operating.a_mode.FittingApplyActivity;
+import com.szbb.pro.ui.activity.orders.operating.b_mode.FittingResendBModeActivity;
 import com.szbb.pro.widget.CountView;
-import com.szbb.pro.widget.PopupWindow.TakePhotoPopupWindow;
+import com.szbb.pro.widget.PopupWindow.PhotoPopupWindow;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +43,7 @@ public class FittingAdditionalActivity extends BaseAty<OtherFittingBean, Object>
         OnPhotoOptsSelectListener,
         OnAddPictureDoneListener, InputCallBack {
     private FittingAdditionalLayout fittingAdditionalLayout;
-    private TakePhotoPopupWindow takePhotoPopupWindow;
-    private InputDialog inputDialog;
+    private PhotoPopupWindow photoPopupWindow;
     private CountView countView;
     private ArrayList<String> alreadyAdd = new ArrayList<>();
     private SparseArray<String> picsPath = new SparseArray<>();
@@ -73,10 +74,10 @@ public class FittingAdditionalActivity extends BaseAty<OtherFittingBean, Object>
 
     @Override
     protected void initViews() {
-        defaultTitleBar(this).setTitle(R.string.title_other_fitting);
+        defaultTitleBar(this).setTitle(R.string.title_fitting_apply);
         initAllSimpleDraweeView();
-        takePhotoPopupWindow = new TakePhotoPopupWindow(this);
-        takePhotoPopupWindow.setOnPhotoOptsSelectListener(this);
+        photoPopupWindow = new PhotoPopupWindow(this);
+        photoPopupWindow.setOnPhotoOptsSelectListener(this);
         countView = fittingAdditionalLayout.countView;
     }
 
@@ -106,7 +107,7 @@ public class FittingAdditionalActivity extends BaseAty<OtherFittingBean, Object>
 
     @Override
     protected void onClick(int id, View view) {
-        inputDialog = new InputDialog(this);
+        InputDialog inputDialog = new InputDialog(this);
         inputDialog.setInputCallBack(this);
         switch (id) {
             case R.id.simpleDraweeView:
@@ -120,7 +121,7 @@ public class FittingAdditionalActivity extends BaseAty<OtherFittingBean, Object>
                 inputDialog.show();
                 break;
             case R.id.flyt_code:
-                inputDialog.setInputType(InputType.TYPE_CLASS_NUMBER, false);
+                inputDialog.setInputType(InputType.TYPE_CLASS_TEXT);
                 inputDialog.setTitle(getString(R.string.label_code));
                 inputDialog.setParams(NetworkParams.FROYO);//citizen reg
                 inputDialog.show();
@@ -137,7 +138,6 @@ public class FittingAdditionalActivity extends BaseAty<OtherFittingBean, Object>
                 }
                 break;
         }
-
     }
 
     private void caseByTag(String tag) {
@@ -157,7 +157,7 @@ public class FittingAdditionalActivity extends BaseAty<OtherFittingBean, Object>
             default:
                 return;
         }
-        takePhotoPopupWindow.showAtDefaultLocation();
+        photoPopupWindow.showAtDefaultLocation();
     }
 
     @Override
@@ -197,8 +197,8 @@ public class FittingAdditionalActivity extends BaseAty<OtherFittingBean, Object>
 
     @Override
     public void onHanlderSuccess(int requestCode, List<PhotoInfo> resultList) {
+        super.onHanlderSuccess(requestCode, resultList);
         String filePath = resultList.get(0).getPhotoPath();
-
         switch (requestCode) {
             case AppKeyMap.CUPCAKE://means  font side from album
                 fittingAdditionalLayout.font.simpleDraweeView.setImageURI(Uri.parse("file://" +
@@ -220,13 +220,14 @@ public class FittingAdditionalActivity extends BaseAty<OtherFittingBean, Object>
                 markPictureModel.setIsNeedDeleteIcon(true);
                 markPictureModel.setOnAddPictureDoneListener(this);
                 for (PhotoInfo photoInfo : resultList) {
-                    markPictureModel.addSinglePictureInLinearLayoutByLocal(this,
-                            fittingAdditionalLayout.llytUploadPic, photoInfo.getPhotoPath());
+                    markPictureModel.savePicturePath(photoInfo.getPhotoPath());
                     if (!alreadyAdd.contains(photoInfo.getPhotoPath())) {
                         alreadyAdd.add(photoInfo.getPhotoPath());
                         picsPath.put(photoInfo.getPhotoId(), photoInfo.getPhotoPath());
                     }
                 }
+                markPictureModel.addSinglePictureInLinearLayout(this, fittingAdditionalLayout
+                        .llytUploadPic, false);
                 break;
         }
     }
@@ -274,14 +275,6 @@ public class FittingAdditionalActivity extends BaseAty<OtherFittingBean, Object>
         }
         name = fittingAdditionalLayout.tvName.getText().toString();
 
-        tag = (String) fittingAdditionalLayout.tvCode.getTag();
-        if (TextUtils.equals(tag, "NaN")) {
-            AppTools.showNormalSnackBar(parentView, getString(R.string
-                    .label_please_input_code));
-            return false;
-        }
-        code = fittingAdditionalLayout.tvCode.getText().toString();
-
         tag = (String) fittingAdditionalLayout.tvDescription.getTag();
         if (TextUtils.equals(tag, "NaN")) {
             AppTools.showNormalSnackBar(parentView, getString(R.string
@@ -296,16 +289,8 @@ public class FittingAdditionalActivity extends BaseAty<OtherFittingBean, Object>
             return false;
         }
         number = countView.getCount();
+        code = fittingAdditionalLayout.tvCode.getText().toString();
 
-        if (picsPath.size() == 0) {
-            AppTools.showNormalSnackBar(parentView, getString(R.string.label_please_choose_pics));
-            return false;
-        }
-        for (int i = 0; i < picsPath.size(); i++) {
-            if (!alreadyAdd.contains(picsPath.valueAt(i))) {
-                alreadyAdd.add(picsPath.valueAt(i));
-            }
-        }
         return true;
     }
 
@@ -320,6 +305,7 @@ public class FittingAdditionalActivity extends BaseAty<OtherFittingBean, Object>
         acceListEntity.setCount(Integer.valueOf(data.getOther_acce_nums()));
         acceListEntity.setAcce_model(data.getOther_acce_remarks());
         acceListEntity.setAcce_thumb(data.getOther_acce_thumb());
+        acceListEntity.setIsExtra(true);
 
         startActivityByAccType(acceListEntity);
     }
@@ -333,10 +319,10 @@ public class FittingAdditionalActivity extends BaseAty<OtherFittingBean, Object>
         intent.putExtras(bundle);
         switch (accId) {
             case "1":
-                intent.setClass(this, FittingApplyActivity.class);
+                intent.setClass(this, FittingApplyActivity.class);//A模式
                 break;
             case "2":
-                intent.setClass(this, FittingResendActivity.class);
+                intent.setClass(this, FittingResendBModeActivity.class);//B模式
                 break;
             default:
                 return;

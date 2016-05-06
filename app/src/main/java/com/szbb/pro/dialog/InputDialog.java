@@ -3,7 +3,6 @@ package com.szbb.pro.dialog;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.text.method.DigitsKeyListener;
 import android.text.method.PasswordTransformationMethod;
@@ -71,9 +70,9 @@ public class InputDialog implements View.OnClickListener {
 
     private void setEditTextInputType(boolean isCitizenId) {
         if (isCitizenId) {
-            String digital = "1234657890x";
+            String digital = "1234657890xX";
             editText.setKeyListener(DigitsKeyListener.getInstance(digital));
-            editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+            editText.setMaxEms(18);
         }
     }
 
@@ -89,8 +88,8 @@ public class InputDialog implements View.OnClickListener {
         }
     }
 
-    public void setInputType(int inputType, boolean isPassword) {
-        setEditTextInputType(inputType, isPassword);
+    public void setInputType(int inputType) {
+        setEditTextInputType(inputType, false);
     }
 
     public void setEditTextInputType(int inputType, boolean isPassword) {

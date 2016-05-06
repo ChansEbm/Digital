@@ -22,8 +22,6 @@ import cn.sharesdk.wechat.moments.WechatMoments;
  */
 public class SharePopupWindow extends BasePopupWindow implements PlatformActionListener {
     private ShareLayout shareLayout;
-    private Platform.ShareParams shareParams;
-    private Platform platform;
 
     public SharePopupWindow(Context context) {
         super(context);
@@ -43,13 +41,13 @@ public class SharePopupWindow extends BasePopupWindow implements PlatformActionL
         final int id = v.getId();
         switch (id) {
             case R.id.wechat:
-                shareParams = new Wechat.ShareParams();
+                Platform.ShareParams shareParams = new Wechat.ShareParams();
                 shareParams.setTitle("ShareTitle");
                 shareParams.setText("This is text");
                 shareParams.setImageUrl("http://www.aimis.com.cn/upload/2015031133975205.png");
                 shareParams.setUrl("http://www.baidu.com");
                 shareParams.setShareType(Platform.SHARE_WEBPAGE);
-                platform = ShareSDK.getPlatform(Wechat.NAME);
+                Platform platform = ShareSDK.getPlatform(Wechat.NAME);
                 platform.setPlatformActionListener(this);
                 platform.share(shareParams);
                 break;

@@ -1,5 +1,6 @@
-package com.szbb.pro.ui.Fragment.Wallet;
+package com.szbb.pro.ui.fragment.wallet;
 
+import android.content.Intent;
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import com.szbb.pro.adapters.CommonBinderHolder;
 import com.szbb.pro.base.BaseFgm;
 import com.szbb.pro.entity.Vip.IncomeBean;
 import com.szbb.pro.eum.NetworkParams;
+import com.szbb.pro.ui.activity.orders.operating.OrderDetailActivity;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import java.util.List;
@@ -28,9 +30,11 @@ public class IncomeFragment extends BaseFgm<IncomeBean, IncomeBean.ListEntity> {
     protected void initViews() {
         mainRecyclerLayout = (MainRecyclerNoneLayout) viewDataBinding;
         recyclerView = mainRecyclerLayout.recyclerView;
-        commonBinderAdapter = new CommonBinderAdapter<IncomeBean.ListEntity>(getActivity(), R.layout.item_income, list) {
+        commonBinderAdapter = new CommonBinderAdapter<IncomeBean.ListEntity>(getActivity(), R
+                .layout.item_income, list) {
             @Override
-            public void onBind(ViewDataBinding viewDataBinding, CommonBinderHolder holder, int position, IncomeBean.ListEntity listEntity) {
+            public void onBind(ViewDataBinding viewDataBinding, CommonBinderHolder holder, int
+                    position, IncomeBean.ListEntity listEntity) {
                 ((ItemIncomeLayout) viewDataBinding).setIncome(listEntity);
             }
         };
@@ -39,9 +43,11 @@ public class IncomeFragment extends BaseFgm<IncomeBean, IncomeBean.ListEntity> {
     @Override
     protected void initEvents() {
         recyclerView.setAdapter(commonBinderAdapter);
-        recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).sizeResId(R.dimen.large_margin_15dp).colorResId(R.color.color_transparent).build());
+        recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity())
+                .sizeResId(R.dimen.large_margin_15dp).colorResId(R.color.color_transparent).build
+                        ());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
+        commonBinderAdapter.setBinderOnItemClickListener(this);
         networkModel.incomeList(NetworkParams.CUPCAKE);
     }
 
@@ -68,5 +74,11 @@ public class IncomeFragment extends BaseFgm<IncomeBean, IncomeBean.ListEntity> {
         this.list.clear();
         this.list.addAll(list);
         commonBinderAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onBinderItemClick(View view, int pos) {
+        final String orderId = list.get(pos).getOrderId();
+        startActivity(new Intent(getActivity(), OrderDetailActivity.class).putExtra("orderId", orderId));
     }
 }

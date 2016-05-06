@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="RtlCompat">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -21,7 +23,7 @@
                 android:layout_marginBottom="46dp"
                 android:layout_marginTop="51dp"
                 android:contentDescription="@string/action_settings"
-                android:src="@mipmap/ic_login"/>
+                android:src="@mipmap/ic_login" />
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/textInputLayout_login_user"
@@ -38,7 +40,7 @@
                     android:inputType="phone"
                     android:maxLength="11"
                     android:textColor="@color/color_text_dark"
-                    android:textSize="15sp"/>
+                    android:textSize="15sp" />
             </android.support.design.widget.TextInputLayout>
 
 
@@ -58,7 +60,7 @@
                     android:inputType="textPassword"
                     android:maxLength="16"
                     android:textColor="@color/color_text_dark"
-                    android:textSize="13sp"/>
+                    android:textSize="13sp" />
             </android.support.design.widget.TextInputLayout>
 
             <Button
@@ -72,7 +74,7 @@
                 android:background="@drawable/bg_round_normal_blue_dark_selector"
                 android:text="@string/login_log"
                 android:textColor="@color/color_white"
-                android:textSize="15sp"/>
+                android:textSize="15sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -90,7 +92,7 @@
                     android:text="@string/login_reg"
                     android:textColor="@color/theme_primary"
                     android:textSize="@dimen/text_large_size"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_login_find_pwd"
@@ -101,7 +103,7 @@
                     android:text="@string/login_find_pwd"
                     android:textColor="@color/theme_primary"
                     android:textSize="@dimen/text_large_size"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
             </LinearLayout>
 
 

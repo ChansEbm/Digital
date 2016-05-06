@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Fragment.Wallet;
+package com.szbb.pro.ui.fragment.wallet;
 
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.LinearLayoutManager;

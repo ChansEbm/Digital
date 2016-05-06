@@ -24,7 +24,6 @@ public class UITools {
         fragmentActivity.finish();
         for (FragmentActivity activity : activities) {
             if (activities.contains(fragmentActivity)) {
-                LogTools.w("finishedActivity:" + activity.getClass().getSimpleName());
                 activities.remove(activity);
                 break;
             }

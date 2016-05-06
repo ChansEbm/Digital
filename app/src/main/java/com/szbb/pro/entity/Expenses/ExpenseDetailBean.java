@@ -32,6 +32,8 @@ public class ExpenseDetailBean extends BaseBean {
 
     private List<ListEntity> list;
 
+    private List<RemarkListEntity> remark_list;
+
     @Bindable
     public String getTotal_money() {
         return "￥" + total_money;
@@ -47,6 +49,14 @@ public class ExpenseDetailBean extends BaseBean {
 
     public void setList(List<ListEntity> list) {
         this.list = list;
+    }
+
+    public List<RemarkListEntity> getRemark_list() {
+        return remark_list;
+    }
+
+    public void setRemark_list(List<RemarkListEntity> remark_list) {
+        this.remark_list = remark_list;
     }
 
     public static class ListEntity extends BaseObservable implements Parcelable {
@@ -160,6 +170,19 @@ public class ExpenseDetailBean extends BaseBean {
                 dest.writeString(this.cost_name);
                 dest.writeString(this.cost_money);
             }
+        }
+    }
+
+    public static class RemarkListEntity extends BaseObservable {
+        private String remark;
+
+        @Bindable
+        public String getRemark() {
+            return remark;
+        }
+
+        public void setRemark(String remark) {
+            this.remark = remark;
         }
     }
 }

@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="RtlCompat">
 
     <data class=".ItemOrderDetailLayout">
 
         <variable
             name="detail"
-            type="com.szbb.pro.entity.Order.OrderDetailBean.ListEntity"/>
+            type="com.szbb.pro.entity.Order.OrderDetailBean.ListEntity" />
 
-        <import type="android.text.TextUtils"/>
+        <import type="android.text.TextUtils" />
     </data>
 
     <FrameLayout
@@ -38,7 +40,7 @@
                     android:layout_height="75dp"
                     android:layout_centerVertical="true"
                     app:actualImageScaleType="fitCenter"
-                    app:placeholderImageScaleType="centerInside"/>
+                    app:placeholderImageScaleType="centerInside" />
 
                 <TextView
                     android:id="@+id/tv_contact_client_product_name"
@@ -47,7 +49,7 @@
                     android:layout_marginTop="@dimen/small_margin_5dp"
                     android:layout_toEndOf="@id/sdv_contact_item_image"
                     android:text="@{detail.brand}"
-                    android:textColor="@color/color_text_dark"/>
+                    android:textColor="@color/color_text_dark" />
 
                 <TextView
                     android:id="@+id/tv_t3"
@@ -55,7 +57,7 @@
                     android:layout_alignTop="@id/tv_contact_client_product_name"
                     android:layout_marginStart="@dimen/large_margin_15dp"
                     android:layout_toEndOf="@id/tv_contact_client_product_name"
-                    android:text="@{detail.name}"/>
+                    android:text="@{detail.name}" />
 
 
                 <TextView
@@ -66,8 +68,7 @@
                     android:layout_marginTop="@dimen/small_margin_5dp"
                     android:layout_toEndOf="@id/sdv_contact_item_image"
                     android:text="@string/product_model"
-                    android:textColor="@color/color_gravy"
-                    />
+                    android:textColor="@color/color_gravy" />
 
                 <TextView
                     android:id="@+id/tv_contact_produce_type"
@@ -75,8 +76,7 @@
                     android:layout_alignBaseline="@id/tv_t1"
                     android:layout_toEndOf="@id/tv_t1"
                     android:text="@{detail.model}"
-                    android:textColor="@color/color_gravy"
-                    />
+                    android:textColor="@color/color_gravy" />
 
                 <TextView
                     android:id="@+id/tv_t2"
@@ -86,8 +86,7 @@
                     android:layout_marginTop="@dimen/small_margin_5dp"
                     android:layout_toEndOf="@id/sdv_contact_item_image"
                     android:text="@string/product_spec"
-                    android:textColor="@color/color_gravy"
-                    />
+                    android:textColor="@color/color_gravy" />
 
                 <TextView
                     android:id="@+id/tv_contact_produce_spec"
@@ -95,10 +94,31 @@
                     android:layout_alignBaseline="@id/tv_t2"
                     android:layout_toEndOf="@id/tv_t1"
                     android:text="@{detail.stantard}"
-                    android:textColor="@color/color_gravy"
-                    />
+                    android:textColor="@color/color_gravy" />
 
             </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/small_margin_5dp"
+                android:layout_marginTop="@dimen/middle_margin_10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingEnd="@dimen/large_margin_15dp"
+                android:paddingStart="@dimen/large_margin_15dp">
+
+                <TextView
+                    style="@style/textStyle"
+                    android:layout_marginEnd="@dimen/small_margin_5dp"
+                    android:text="@string/order_detail_service_request" />
+
+                <TextView
+                    style="@style/textStyle"
+                    android:text="@{detail.fault_desc}"
+                    android:textColor="@color/color_text_gravy" />
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/llyt_fault_type"
@@ -111,39 +131,14 @@
                 android:paddingEnd="@dimen/large_margin_15dp"
                 android:paddingStart="@dimen/large_margin_15dp">
 
-                <TextView
-                    style="@style/textStyle"
-                    android:layout_marginEnd="@dimen/small_margin_5dp"
-                    android:text="@string/order_detail_fault_label"/>
-
                 <LinearLayout
                     android:id="@+id/llyt_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"/>
+                    android:orientation="horizontal" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/small_margin_5dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingEnd="@dimen/large_margin_15dp"
-                android:paddingStart="@dimen/large_margin_15dp">
-
-                <TextView
-                    style="@style/textStyle"
-                    android:layout_marginEnd="@dimen/small_margin_5dp"
-                    android:text="@string/order_detail_fault_description"/>
-
-                <TextView
-                    style="@style/textStyle"
-                    android:text="@{detail.fault_desc}"
-                    android:textColor="@color/color_text_gravy"/>
-            </LinearLayout>
-
-            <include layout="@layout/line"/>
+            <include layout="@layout/line" />
 
             <FrameLayout
                 android:id="@+id/flyt_service_obj"
@@ -158,7 +153,7 @@
                     style="@style/textStyle"
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="@dimen/small_margin_5dp"
-                    android:text="@string/title_service_item"/>
+                    android:text="@string/title_service_item" />
 
                 <TextView
                     android:id="@+id/tv_obj"
@@ -167,10 +162,10 @@
                     android:drawablePadding="@dimen/small_margin_5dp"
                     android:text="@{detail.service_name}"
                     android:textColor="@color/color_text_red"
-                    app:compoundDrawable="@{detail.last_handle_type}"/>
+                    app:compoundDrawable="@{detail.last_handle_type}" />
             </FrameLayout>
 
-            <include layout="@layout/line"/>
+            <include layout="@layout/line" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -183,7 +178,7 @@
                     style="@style/textStyle"
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="@dimen/small_margin_5dp"
-                    android:text="@string/order_detail_last_service_result"/>
+                    android:text="@string/order_detail_last_service_result" />
 
                 <TextView
                     android:id="@+id/tv_last_result"
@@ -192,10 +187,10 @@
                     android:drawablePadding="@dimen/small_margin_5dp"
                     android:text="@{detail.last_handle_desc}"
                     android:textColor="@color/color_text_red"
-                    app:compoundDrawable="@{detail.last_handle_type}"/>
+                    app:compoundDrawable="@{detail.last_handle_type}" />
             </FrameLayout>
 
-            <include layout="@layout/line"/>
+            <include layout="@layout/line" />
 
             <FrameLayout
                 android:id="@+id/flyt_service_result"
@@ -209,7 +204,7 @@
                     style="@style/textStyle"
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="@dimen/small_margin_5dp"
-                    android:text="@string/order_detail_service_result"/>
+                    android:text="@string/order_detail_service_result" />
 
                 <TextView
                     android:id="@+id/tv_handle_result"
@@ -217,11 +212,11 @@
                     android:layout_gravity="center_vertical|end"
                     android:drawablePadding="@dimen/small_margin_5dp"
                     android:text="@{detail.this_service_name}"
-                    android:textColor="@color/color_text_gravy"
-                    app:compoundDrawable="@{detail.last_handle_type}"/>
+                    android:textColor="@color/color_text_red"
+                    app:compoundDrawable="@{detail.last_handle_type}" />
             </FrameLayout>
 
-            <include layout="@layout/line"/>
+            <include layout="@layout/line" />
 
             <LinearLayout
                 android:id="@+id/llyt_upload_pic_parent"
@@ -236,7 +231,7 @@
 
                 <TextView
                     style="@style/textStyle"
-                    android:text="@string/order_detail_upload_pic"/>
+                    android:text="@string/order_detail_upload_pic" />
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"
@@ -253,12 +248,12 @@
 
                         <include
                             android:id="@+id/include"
-                            layout="@layout/item_add_pic"/>
+                            layout="@layout/item_add_pic" />
                     </LinearLayout>
                 </HorizontalScrollView>
             </LinearLayout>
 
-            <include layout="@layout/line"/>
+            <include layout="@layout/line" />
 
             <LinearLayout
                 android:id="@+id/llyt_report"
@@ -273,14 +268,14 @@
 
                 <TextView
                     style="@style/textStyle"
-                    android:text="@string/order_detail_order_report_description"/>
+                    android:text="@string/order_detail_order_report_description" />
 
                 <TextView
                     android:id="@+id/tv_report"
                     style="@style/textStyle"
                     android:layout_marginStart="@dimen/small_margin_5dp"
                     android:text="@{TextUtils.isEmpty(detail.report)?detail.complete_report:detail.report}"
-                    android:textColor="@color/color_text_gravy"/>
+                    android:textColor="@color/color_text_gravy" />
             </LinearLayout>
 
             <Button
@@ -289,7 +284,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/large_margin_15dp"
-                android:visibility="gone"/>
+                android:visibility="gone" />
         </LinearLayout>
 
         <ImageView
@@ -298,7 +293,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_margin="@dimen/large_margin_15dp"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -315,7 +310,7 @@
                 android:minWidth="37dp"
                 android:text="@{detail.productNum}"
                 android:textColor="@color/color_white"
-                android:textSize="10sp"/>
+                android:textSize="10sp" />
 
             <TextView
                 style="@style/textStyle"
@@ -326,8 +321,7 @@
                 android:minWidth="29dp"
                 android:text="@{detail.service_type}"
                 android:textColor="@color/theme_primary"
-                android:textSize="11sp"
-                />
+                android:textSize="11sp" />
 
         </LinearLayout>
 
@@ -351,7 +345,7 @@
                 android:text="？"
                 android:textColor="@color/color_white"
                 android:textSize="10sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_error_product"
@@ -359,7 +353,7 @@
                 android:layout_marginStart="@dimen/small_margin_5dp"
                 android:text="@string/order_detail_wrong_cargo"
                 android:textColor="@color/color_text_red"
-                android:textSize="12sp"/>
+                android:textSize="12sp" />
         </LinearLayout>
 
     </FrameLayout>

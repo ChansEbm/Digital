@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="RtlCompat">
 
     <data class=".FittingResendDetailLayout">
 
         <variable
             name="detail"
-            type="com.szbb.pro.entity.Fittings.FittingDetailBean.DataEntity"/>
+            type="com.szbb.pro.entity.Fittings.FittingDetailBean.DataEntity" />
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:background="@color/theme_primary"
-                 android:orientation="vertical">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/theme_primary"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,7 +22,7 @@
             android:background="@color/color_bg_gravy"
             android:orientation="vertical">
 
-            <include layout="@layout/title_bar"/>
+            <include layout="@layout/title_bar" />
 
             <com.szbb.pro.widget.StatusBar
                 android:id="@+id/statusBar"
@@ -31,7 +32,7 @@
                 app:emptyColor="@color/color_text_sliver"
                 app:fillColor="@color/theme_primary"
                 app:lineThickness="@dimen/small_margin_5dp"
-                app:statusTextSize="@dimen/text_small_size"/>
+                app:statusTextSize="@dimen/text_small_size" />
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -54,21 +55,21 @@
                         <TextView
                             android:id="@+id/tv_t1"
                             style="@style/textStyle"
-                            android:text="@string/fitting_post_back_order_no"/>
+                            android:text="@string/fitting_post_back_order_no" />
 
                         <TextView
                             style="@style/textStyle"
                             android:layout_marginStart="@dimen/small_margin_5dp"
                             android:layout_toEndOf="@id/tv_t1"
                             android:text="@{detail.sn}"
-                            android:textColor="@color/color_orange_normal"/>
+                            android:textColor="@color/color_orange_normal" />
 
                         <TextView
                             android:id="@+id/tv_t2"
                             style="@style/textStyle"
                             android:layout_below="@id/tv_t1"
                             android:layout_marginTop="@dimen/middle_margin_10dp"
-                            android:text="@string/create_time"/>
+                            android:text="@string/create_time" />
 
                         <TextView
                             style="@style/textStyle"
@@ -76,14 +77,14 @@
                             android:layout_marginStart="@dimen/small_margin_5dp"
                             android:layout_toEndOf="@id/tv_t2"
                             android:text="@{detail.addtime}"
-                            android:textColor="@color/color_orange_normal"/>
+                            android:textColor="@color/color_orange_normal" />
 
                         <TextView
                             android:id="@+id/tv_t3"
                             style="@style/textStyle"
                             android:layout_below="@id/tv_t2"
                             android:layout_marginTop="@dimen/middle_margin_10dp"
-                            android:text="@string/orderState"/>
+                            android:text="@string/orderState" />
 
                         <TextView
                             style="@style/textStyle"
@@ -91,14 +92,14 @@
                             android:layout_marginStart="@dimen/small_margin_5dp"
                             android:layout_toEndOf="@id/tv_t3"
                             android:text="@{detail.exe_desc}"
-                            android:textColor="@color/color_orange_normal"/>
+                            android:textColor="@color/color_orange_normal" />
 
                         <TextView
                             android:id="@+id/tv_t4"
                             style="@style/textStyle"
                             android:layout_below="@id/tv_t3"
                             android:layout_marginTop="@dimen/middle_margin_10dp"
-                            android:text="@string/delivery_way"/>
+                            android:text="@string/delivery_way" />
 
                         <TextView
                             style="@style/textStyle"
@@ -106,14 +107,14 @@
                             android:layout_marginStart="@dimen/small_margin_5dp"
                             android:layout_toEndOf="@id/tv_t4"
                             android:text="@{detail.fact_shipping_type}"
-                            android:textColor="@color/color_orange_normal"/>
+                            android:textColor="@color/color_orange_normal" />
 
                         <TextView
                             android:id="@+id/tv_t5"
                             style="@style/textStyle"
                             android:layout_below="@id/tv_t4"
                             android:layout_marginTop="@dimen/middle_margin_10dp"
-                            android:text="@string/delivery_odd_number"/>
+                            android:text="@string/delivery_odd_number" />
 
                         <TextView
                             style="@style/textStyle"
@@ -121,14 +122,14 @@
                             android:layout_marginStart="@dimen/small_margin_5dp"
                             android:layout_toEndOf="@id/tv_t5"
                             android:text="@{detail.fact_shipping_num}"
-                            android:textColor="@color/color_orange_normal"/>
+                            android:textColor="@color/color_orange_normal" />
 
                         <TextView
                             android:id="@+id/tv_t6"
                             style="@style/textStyle"
                             android:layout_below="@id/tv_t5"
                             android:layout_marginTop="@dimen/middle_margin_10dp"
-                            android:text="@string/send_time"/>
+                            android:text="@string/send_time" />
 
                         <TextView
                             style="@style/textStyle"
@@ -136,7 +137,7 @@
                             android:layout_marginStart="@dimen/small_margin_5dp"
                             android:layout_toEndOf="@id/tv_t6"
                             android:text="@{detail.fact_shipping_time}"
-                            android:textColor="@color/color_orange_normal"/>
+                            android:textColor="@color/color_orange_normal" />
 
                         <Button
                             android:id="@+id/btn_logistics_top"
@@ -150,8 +151,7 @@
                             android:minWidth="85dp"
                             android:onClick="onClick"
                             android:text="@string/logistics_info"
-                            android:textColor="@color/color_white"
-                            />
+                            android:textColor="@color/color_white" />
                     </RelativeLayout>
 
                     <TextView
@@ -159,8 +159,8 @@
                         android:layout_height="@dimen/labelHeight_35dp"
                         android:layout_marginStart="@dimen/large_margin_15dp"
                         android:gravity="center"
-                        android:text="@string/fitting_worker_message_info"
-                        android:textColor="@color/color_text_gravy"/>
+                        android:text="@string/fitting_post_info"
+                        android:textColor="@color/color_text_gravy" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -173,7 +173,7 @@
                             style="@style/textStyle"
                             android:layout_marginTop="@dimen/middle_margin_10dp"
                             android:text="@{detail.applicant}"
-                            android:textColor="@color/color_text_gravy"/>
+                            android:textColor="@color/color_text_gravy" />
 
                         <TextView
                             style="@style/textStyle"
@@ -181,7 +181,7 @@
                             android:layout_marginStart="@dimen/middle_margin_10dp"
                             android:layout_toEndOf="@id/tv_t8"
                             android:text="@{detail.applicant_tell}"
-                            android:textColor="@color/color_text_gravy"/>
+                            android:textColor="@color/color_text_gravy" />
 
                         <TextView
                             android:id="@+id/tv_t9"
@@ -189,7 +189,7 @@
                             android:layout_below="@id/tv_t8"
                             android:layout_marginTop="@dimen/middle_margin_10dp"
                             android:text="@string/address"
-                            android:textColor="@color/color_text_gravy"/>
+                            android:textColor="@color/color_text_gravy" />
 
                         <TextView
                             style="@style/textStyle"
@@ -197,10 +197,10 @@
                             android:layout_marginStart="@dimen/middle_margin_10dp"
                             android:layout_toEndOf="@id/tv_t9"
                             android:text="@{detail.address}"
-                            android:textColor="@color/color_text_gravy"/>
+                            android:textColor="@color/color_text_gravy" />
 
                     </RelativeLayout>
-
+                    <!--here-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -217,19 +217,19 @@
                             style="@style/DefaultSimpleDraweeView"
                             android:layout_width="34dp"
                             android:layout_height="13dp"
-                            app:placeholderImage="@null"/>
+                            app:placeholderImage="@null" />
 
                         <TextView
                             style="@style/textStyle"
                             android:layout_marginStart="@dimen/small_margin_5dp"
-                            android:text="@{detail.factory}"/>
+                            android:text="@{detail.factory}" />
 
                     </LinearLayout>
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recyclerView"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -241,7 +241,7 @@
                             style="@style/textStyle"
                             android:gravity="center"
                             android:text="@string/total_count"
-                            android:textColor="@color/color_text_gravy"/>
+                            android:textColor="@color/color_text_gravy" />
 
                         <TextView
                             android:id="@+id/tv_num"
@@ -249,14 +249,54 @@
                             android:layout_marginEnd="@dimen/small_margin_5dp"
                             android:gravity="center"
                             android:text="@{String.valueOf(detail.totalCount)}"
-                            android:textColor="@color/color_text_gravy"/>
+                            android:textColor="@color/color_text_gravy" />
 
                         <TextView
                             style="@style/textStyle"
                             android:gravity="center"
                             android:text="件"
-                            android:textColor="@color/color_text_gravy"/>
+                            android:textColor="@color/color_text_gravy" />
 
+                    </LinearLayout>
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="90dp"
+                        android:background="@color/color_white"
+                        android:paddingEnd="@dimen/large_margin_15dp"
+                        android:paddingStart="@dimen/large_margin_15dp">
+
+                        <LinearLayout
+                            android:id="@+id/llyt_worker_pic"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal" />
+                    </HorizontalScrollView>
+
+                    <include layout="@layout/line" />
+
+                    <LinearLayout
+                        android:id="@+id/llyt_worker_report"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_white_gravy_selector"
+                        android:gravity="center_vertical"
+                        android:minHeight="@dimen/minHeight_50dp"
+                        android:onClick="onClick"
+                        android:orientation="horizontal"
+                        android:paddingEnd="@dimen/large_margin_15dp"
+                        android:paddingStart="@dimen/large_margin_15dp">
+
+                        <TextView
+                            style="@style/textStyle"
+                            android:text="@string/fitting_worker_message" />
+
+                        <TextView
+                            android:id="@+id/tv_worker_message"
+                            style="@style/textStyle"
+                            android:layout_marginStart="@dimen/small_margin_5dp"
+                            android:text="@{detail.remarks}" />
                     </LinearLayout>
 
                     <TextView
@@ -264,8 +304,8 @@
                         android:layout_height="@dimen/labelHeight_35dp"
                         android:layout_marginStart="@dimen/large_margin_15dp"
                         android:gravity="center"
-                        android:text="@string/fitting_worker_message_info"
-                        android:textColor="@color/color_text_gravy"/>
+                        android:text="@string/fitting_worker_resend_info"
+                        android:textColor="@color/color_text_gravy" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -283,7 +323,7 @@
                             <TextView
                                 style="@style/textStyle"
                                 android:layout_centerVertical="true"
-                                android:text="@string/delivery_way"/>
+                                android:text="@string/delivery_way" />
 
                             <Button
                                 android:id="@+id/btn_logistics_bottom"
@@ -293,15 +333,14 @@
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
                                 android:layout_marginEnd="0dp"
-                                android:text="@string/logistics_info"
-                                />
+                                android:onClick="onClick"
+                                android:text="@string/logistics_info" />
 
                             <TextView
                                 style="@style/textStyle"
                                 android:layout_centerVertical="true"
                                 android:layout_toStartOf="@id/btn_logistics_bottom"
-                                android:text="@{detail.shipping_type}"
-                                />
+                                android:text="@{detail.shipping_type}" />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -315,15 +354,14 @@
                             <TextView
                                 style="@style/textStyle"
                                 android:layout_centerVertical="true"
-                                android:text="@string/fitting_post_back_no"/>
+                                android:text="@string/fitting_post_back_no" />
 
 
                             <TextView
                                 style="@style/textStyle"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:text="@{detail.shipping_num}"
-                                />
+                                android:text="@{detail.shipping_num}" />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -337,15 +375,14 @@
                             <TextView
                                 style="@style/textStyle"
                                 android:layout_centerVertical="true"
-                                android:text="@string/expenses_payment_method"/>
+                                android:text="@string/expenses_payment_method" />
 
 
                             <TextView
                                 style="@style/textStyle"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:text="@{detail.shipping_paytype}"
-                                />
+                                android:text="@{detail.shipping_paytype}" />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -359,56 +396,17 @@
                             <TextView
                                 style="@style/textStyle"
                                 android:layout_centerVertical="true"
-                                android:text="@string/shipment"/>
+                                android:text="@string/shipment" />
 
 
                             <TextView
                                 style="@style/textStyle"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:text="@{detail.shipping_money}"
-                                />
+                                android:text="@{detail.shipping_money}" />
                         </RelativeLayout>
                     </LinearLayout>
 
-                    <HorizontalScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="90dp"
-                        android:background="@color/color_white"
-                        android:paddingEnd="@dimen/large_margin_15dp"
-                        android:paddingStart="@dimen/large_margin_15dp">
-
-                        <LinearLayout
-                            android:id="@+id/llyt_worker_pic"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal"/>
-                    </HorizontalScrollView>
-
-                    <LinearLayout
-                        android:id="@+id/llyt_worker_report"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_white_gravy_selector"
-                        android:gravity="center_vertical"
-                        android:minHeight="@dimen/minHeight_50dp"
-                        android:onClick="onClick"
-                        android:orientation="horizontal"
-                        android:paddingEnd="@dimen/large_margin_15dp"
-                        android:paddingStart="@dimen/large_margin_15dp"
-                        >
-
-                        <TextView
-                            style="@style/textStyle"
-                            android:text="@string/fitting_worker_message"/>
-
-                        <TextView
-                            android:id="@+id/tv_worker_message"
-                            style="@style/textStyle"
-                            android:layout_marginStart="@dimen/small_margin_5dp"
-                            android:text="@{detail.remarks}"/>
-                    </LinearLayout>
 
                     <Button
                         android:id="@+id/btn_submit"
@@ -417,8 +415,7 @@
                         android:layout_marginTop="@dimen/minHeight_50dp"
                         android:background="@drawable/bg_round_orange_dark_disable_sliver"
                         android:onClick="onClick"
-                        android:text="@string/submit"
-                        />
+                        android:text="@string/submit" />
 
                 </LinearLayout>
             </ScrollView>

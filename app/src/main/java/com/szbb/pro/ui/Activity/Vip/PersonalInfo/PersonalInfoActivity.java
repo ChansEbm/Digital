@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Activity.Vip.PersonalInfo;
+package com.szbb.pro.ui.activity.vip.PersonalInfo;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -11,6 +11,7 @@ import com.szbb.pro.R;
 import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.entity.Vip.VipInfoBean;
 import com.szbb.pro.tools.AppTools;
+import com.szbb.pro.ui.activity.login.LoginActivity;
 
 import java.util.ArrayList;
 
@@ -71,6 +72,15 @@ public class PersonalInfoActivity extends BaseAty {
                 break;
             case R.id.llyt_change_pwd:
                 start(ChangePasswordActivity.class);
+                break;
+            case R.id.btn_logout:
+                AppTools.putStringSharedPreferences("loginUser", "");
+                AppTools.putStringSharedPreferences("loginPwd", "");
+
+                Intent intent = new Intent(this, LoginActivity.class).setFlags(Intent
+                        .FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK).putExtra
+                        ("isBeenKick", false);
+                startActivity(intent);
                 break;
         }
     }

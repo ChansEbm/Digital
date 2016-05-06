@@ -1,11 +1,13 @@
-package com.szbb.pro.ui.Activity.Orders.Appointment;
+package com.szbb.pro.ui.activity.orders.appointment;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.szbb.pro.AppKeyMap;
 import com.szbb.pro.AppointmentAlterLayout;
 import com.szbb.pro.R;
 import com.szbb.pro.base.BaseAty;
@@ -14,7 +16,7 @@ import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.eum.WheelOptions;
 import com.szbb.pro.impl.OnWheelOptsSelectCallback;
 import com.szbb.pro.tools.AppTools;
-import com.szbb.pro.ui.Activity.Main.MainActivity;
+import com.szbb.pro.ui.activity.main.MainActivity;
 import com.szbb.pro.widget.PopupWindow.WheelPopupWindow;
 
 /**
@@ -29,7 +31,6 @@ public class AppointmentAlterActivity extends BaseAty<BaseBean, BaseBean> implem
 
     private String appointTime = "";
     private String updateReason = "";
-    private String remarks = "";
     private String orderId = "";
 
     @Override
@@ -82,7 +83,7 @@ public class AppointmentAlterActivity extends BaseAty<BaseBean, BaseBean> implem
                 wheelPopupWindow.showAtLocation(parentView, Gravity.BOTTOM, 0, 0);
                 break;
             case R.id.button:
-                remarks = edtRemark.getText().toString();
+                String remarks = edtRemark.getText().toString();
                 if (checkNecessary())
                     networkModel.changeAppoint(orderId, appointTime, updateReason, remarks, null
                     );
@@ -107,6 +108,8 @@ public class AppointmentAlterActivity extends BaseAty<BaseBean, BaseBean> implem
 
     @Override
     public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {
+        Toast.makeText(AppointmentAlterActivity.this, "修改预约成功!", Toast.LENGTH_SHORT).show();
+        AppTools.sendBroadcast(new Bundle(), AppKeyMap.APPOINTMENT_CLIENT_ACTION);
         start(MainActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP, Intent.FLAG_ACTIVITY_SINGLE_TOP);
     }
 

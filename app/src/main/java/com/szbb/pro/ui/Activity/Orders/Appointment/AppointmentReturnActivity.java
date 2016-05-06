@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Activity.Orders.Appointment;
+package com.szbb.pro.ui.activity.orders.appointment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +13,7 @@ import com.szbb.pro.entity.Base.BaseBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.impl.InputCallBack;
 import com.szbb.pro.tools.AppTools;
-import com.szbb.pro.ui.Activity.Orders.Operating.OrderDetailActivity;
+import com.szbb.pro.ui.activity.orders.operating.OrderDetailActivity;
 
 /**
  * 退回工单

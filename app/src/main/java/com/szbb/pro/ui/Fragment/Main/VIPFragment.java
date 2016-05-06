@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Fragment.Main;
+package com.szbb.pro.ui.fragment.main;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -12,29 +12,42 @@ import com.szbb.pro.R;
 import com.szbb.pro.VipLayout;
 import com.szbb.pro.base.BaseFgm;
 import com.szbb.pro.dialog.DialDialog;
+import com.szbb.pro.dialog.MessageDialog;
 import com.szbb.pro.entity.Base.BaseBean;
 import com.szbb.pro.entity.Base.Events;
+import com.szbb.pro.entity.Vip.CheckUpdateBean;
 import com.szbb.pro.entity.Vip.VipInfoBean;
 import com.szbb.pro.eum.NetworkParams;
+import com.szbb.pro.eum.PhotoPopupOpts;
+import com.szbb.pro.impl.OnPhotoOptsSelectListener;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.LogTools;
-import com.szbb.pro.ui.Activity.Vip.PersonalInfo.PersonalInfoActivity;
-import com.szbb.pro.ui.Activity.Vip.SystemMsg.AccountCementActivity;
-import com.szbb.pro.ui.Activity.Vip.SystemMsg.FeedBackActivity;
-import com.szbb.pro.ui.Activity.Vip.SystemMsg.SystemMsgActivity;
-import com.szbb.pro.ui.Activity.Vip.Wallet.WalletActivity;
-import com.szbb.pro.ui.Activity.Vip.WebViewActivity;
-import com.szbb.pro.ui.Activity.Vip.WorkHistoryActivity;
+import com.szbb.pro.tools.MiscUtils;
+import com.szbb.pro.ui.activity.vip.PersonalInfo.PersonalInfoActivity;
+import com.szbb.pro.ui.activity.vip.SystemMsg.AccountCementActivity;
+import com.szbb.pro.ui.activity.vip.SystemMsg.FeedBackActivity;
+import com.szbb.pro.ui.activity.vip.SystemMsg.SystemMsgActivity;
+import com.szbb.pro.ui.activity.vip.Wallet.WalletActivity;
+import com.szbb.pro.ui.activity.vip.WebViewActivity;
+import com.szbb.pro.ui.activity.vip.WorkHistoryActivity;
+import com.szbb.pro.widget.PopupWindow.PhotoPopupWindow;
 import com.szbb.pro.widget.PopupWindow.SharePopupWindow;
 
+import java.util.List;
+
+import cn.finalteam.galleryfinal.GalleryFinal;
+import cn.finalteam.galleryfinal.model.PhotoInfo;
 import de.greenrobot.event.EventBus;
 
 /**
  * Created by ChanZeeBm on 2015/9/16.
  */
-public class VIPFragment extends BaseFgm<VipInfoBean, BaseBean> {
+public class VIPFragment extends BaseFgm<BaseBean, BaseBean> implements
+        OnPhotoOptsSelectListener {
     private VipLayout vipLayout;
     private Events events = new Events();
+
+    private PhotoPopupWindow window;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,6 +58,7 @@ public class VIPFragment extends BaseFgm<VipInfoBean, BaseBean> {
     @Override
     protected void initViews() {
         vipLayout = (VipLayout) viewDataBinding;
+        window = new PhotoPopupWindow(getActivity());
     }
 
     @Override
@@ -52,12 +66,10 @@ public class VIPFragment extends BaseFgm<VipInfoBean, BaseBean> {
         events.setOnClickListener(this);
         vipLayout.setEvent(events);
         networkModel.workerInfo(NetworkParams.CUPCAKE);
-//        VipInfoBean vipInfoBean = new Prefser(AppTools.getSharePreferences()).get("VipInfo",
-//                VipInfoBean.class, null);
-//        if (vipInfoBean == null) networkModel.workerInfo(NetworkParams.CUPCAKE);
-//        else {
-//            initInfoData(vipInfoBean);
-//        }
+        vipLayout.sdvVipAvatar.setOnClickListener(this);
+        window.setOnPhotoOptsSelectListener(this);
+
+        vipLayout.versionInfo.setText(MiscUtils.getAppVersion(getContext()));
     }
 
     private void initInfoData(VipInfoBean vipInfoBean) {
@@ -87,10 +99,6 @@ public class VIPFragment extends BaseFgm<VipInfoBean, BaseBean> {
             case R.id.rylt_personal_info://个人信息
                 start(PersonalInfoActivity.class);
                 break;
-//            case R.id.rylt_mechanism_auth://机构认证
-//                break;
-//            case R.id.rylt_service_group://我的维修群
-//                break;
             case R.id.rylt_wechat_phone://微信电话
                 break;
             case R.id.rylt_tell_firend://告诉朋友
@@ -102,7 +110,7 @@ public class VIPFragment extends BaseFgm<VipInfoBean, BaseBean> {
                 break;
             case R.id.rylt_customer_phone://客服电话
                 DialDialog dialDialog = new DialDialog(getContext(), null);
-                dialDialog.call("400-8565-656");
+                dialDialog.call("4008309995");
                 break;
             case R.id.rylt_warranty_price://联保价格
                 intent = new Intent().setClass(getActivity(), WebViewActivity.class);
@@ -114,10 +122,16 @@ public class VIPFragment extends BaseFgm<VipInfoBean, BaseBean> {
                         AccountCementActivity
                                 .class));
                 break;
+            case R.id.rylt_check_update:
+                networkModel.versions(MiscUtils.getAppVersion(getContext()), NetworkParams.FROYO);//检查版本
+                break;
             case R.id.rylt_about://关于
                 intent = new Intent().setClass(getActivity(), WebViewActivity.class);
                 intent.putExtra("url", AppKeyMap.HEAD_ABOUT_US).putExtra("title", getString(R
                         .string.vip_about));
+                break;
+            case R.id.sdv_vip_avatar:
+                window.showAtDefaultLocation();
                 break;
         }
         if (intent != null)
@@ -130,10 +144,39 @@ public class VIPFragment extends BaseFgm<VipInfoBean, BaseBean> {
     }
 
     @Override
-    public void onJsonObjectSuccess(VipInfoBean t, NetworkParams paramsCode) {
-        Prefser prefser = new Prefser(AppTools.getSharePreferences());
-        prefser.put("VipInfo", t);
-        initInfoData(t);
+    public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {
+        if (paramsCode == NetworkParams.CUPCAKE) {
+            VipInfoBean vipInfoBean = (VipInfoBean) baseBean;
+            Prefser prefser = new Prefser(AppTools.getSharePreferences());
+            prefser.put("VipInfo", vipInfoBean);
+            initInfoData(vipInfoBean);
+        } else if (paramsCode == NetworkParams.DONUT) {
+            networkModel.workerInfo(NetworkParams.CUPCAKE);
+        } else if (paramsCode == NetworkParams.FROYO) {
+            final CheckUpdateBean checkUpdateBean = (CheckUpdateBean) baseBean;
+            boolean isNeedUpdate = checkUpdateBean.getVersion_code().equals("1");
+            if (isNeedUpdate) {
+                final MessageDialog messageDialog = new MessageDialog(getContext());
+                messageDialog.setTitle("发现新版本").setPositiveButton("下载", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent it = new Intent();
+                        it.setAction("android.intent.action.VIEW");
+                        Uri uri = Uri.parse(checkUpdateBean.getUrl());
+                        it.setData(uri);
+                        startActivity(it);
+                        messageDialog.dismiss();
+                    }
+                }).setNegativeButton("取消", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        messageDialog.dismiss();
+                    }
+                }).setMessage("发现了新版本,需要下载吗").show();
+            } else {
+                AppTools.showNormalSnackBar(parentView, "当前为最新版本!");
+            }
+        }
     }
 
     @Override
@@ -142,11 +185,28 @@ public class VIPFragment extends BaseFgm<VipInfoBean, BaseBean> {
         EventBus.getDefault().unregister(this);
     }
 
-
     public void onEvent(VipInfoBean vipInfoBean) {
         LogTools.v("fffff");
         networkModel.workerInfo(NetworkParams.CUPCAKE);
     }
 
 
+    @Override
+    public void onOptsSelect(PhotoPopupOpts opts) {
+        switch (opts) {
+            case ALBUM:
+                GalleryFinal.openGallerySingle(AppKeyMap.DONUT, this);
+                break;
+            case TAKE_PHOTO:
+                GalleryFinal.openCamera(AppKeyMap.CUPCAKE, this);
+                break;
+        }
+    }
+
+    @Override
+    public void onHanlderSuccess(int reqeustCode, List<PhotoInfo> resultList) {
+        super.onHanlderSuccess(reqeustCode, resultList);
+        final String photoPath = resultList.get(0).getPhotoPath();
+        networkModel.editAvatar(photoPath, NetworkParams.DONUT);
+    }
 }

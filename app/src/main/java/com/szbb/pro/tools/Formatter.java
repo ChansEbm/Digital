@@ -19,12 +19,12 @@ public class Formatter {
         long minute = seconds / 60;
         long hour;
         if (minute < 60) {
-            return "00:" + unitFormat(minute) + ":" + unitFormat(seconds % 60);
+            return "00时" + unitFormat(minute) + "分";
         } else {
             hour = minute / 60;
             minute = minute % 60;
-            seconds = seconds - hour * 3600 - minute * 60;
-            return unitFormat(hour) + ":" + unitFormat(minute) + ":" + unitFormat(seconds);
+//            seconds = seconds - hour * 3600 - minute * 60;
+            return unitFormat(hour) + "时" + unitFormat(minute) + "分";
         }
     }
 

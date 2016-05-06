@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="RtlCompat">
 
     <data class=".ItemNewOrderLayout">
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
 
-        <import type="android.text.TextUtils"/>
+        <import type="android.text.TextUtils" />
 
         <variable
             name="order"
-            type="com.szbb.pro.entity.Order.MyOrderBean.ListEntity"/>
+            type="com.szbb.pro.entity.Order.MyOrderBean.ListEntity" />
     </data>
 
     <LinearLayout
@@ -33,14 +35,14 @@
                 android:id="@+id/tv_t1"
                 style="@style/textStyle"
                 android:text="@{order.sn}"
-                android:textColor="@color/color_text_gravy"/>
+                android:textColor="@color/color_text_gravy" />
 
             <TextView
                 style="@style/textStyle"
                 android:layout_below="@id/tv_t1"
                 android:layout_marginTop="@dimen/small_margin_5dp"
                 android:text="@{order.new_order_drop_time_desc}"
-                android:textColor="@color/color_text_gravy"/>
+                android:textColor="@color/color_text_gravy" />
 
             <Button
                 android:id="@+id/btn_call"
@@ -53,11 +55,10 @@
                 android:minWidth="90dp"
                 android:paddingStart="@dimen/small_margin_5dp"
                 android:text="@string/label_contact_client"
-                android:textSize="12sp"
-                />
+                android:textSize="12sp" />
         </RelativeLayout>
 
-        <include layout="@layout/line"/>
+        <include layout="@layout/line" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -74,7 +75,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/small_margin_5dp"
-                android:src="@mipmap/ic_arrow_right"/>
+                android:src="@mipmap/ic_arrow_right" />
 
             <LinearLayout
                 android:id="@+id/llyt"
@@ -91,7 +92,7 @@
                     android:gravity="center"
                     android:text="@string/label_fac"
                     android:textColor="@color/color_white"
-                    android:textSize="10sp"/>
+                    android:textSize="10sp" />
 
                 <TextView
                     android:layout_width="26dp"
@@ -101,7 +102,7 @@
                     android:gravity="center"
                     android:text="@{order.service_type}"
                     android:textColor="@color/color_bg_blue"
-                    android:textSize="11sp"/>
+                    android:textSize="11sp" />
 
                 <TextView
                     style="@style/textStyle"
@@ -110,7 +111,7 @@
                     android:layout_toEndOf="@id/tv_t3"
                     android:layout_weight="1"
                     android:singleLine="true"
-                    android:text="@{order.service_pro_brand+order.service_pro+order.service_pro_stantard}"/>
+                    android:text="@{order.service_pro_brand+order.service_pro+order.service_pro_stantard}" />
 
                 <Button
                     android:layout_width="41dp"
@@ -120,7 +121,7 @@
                     android:text="@string/label_more_pro"
                     android:textColor="@color/color_white"
                     android:textSize="10sp"
-                    app:visibility='@{order.is_more_pro.equals("1") ? View.VISIBLE : View.GONE}'/>
+                    app:visibility='@{order.is_more_pro.equals("1") ? View.VISIBLE : View.GONE}' />
             </LinearLayout>
 
             <TextView
@@ -131,7 +132,7 @@
                 android:layout_toStartOf="@id/iv_i1"
                 android:singleLine="true"
                 android:text="@{order.nickname+order.tel+order.address}"
-                android:textColor="@color/color_text_gravy"/>
+                android:textColor="@color/color_text_gravy" />
         </RelativeLayout>
     </LinearLayout>
 </layout>

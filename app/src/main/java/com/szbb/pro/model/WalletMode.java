@@ -8,8 +8,8 @@ import com.szbb.pro.AppKeyMap;
 import com.szbb.pro.R;
 import com.szbb.pro.dialog.MessageDialog;
 import com.szbb.pro.entity.Vip.WalletBean;
-import com.szbb.pro.ui.Activity.Vip.Wallet.InputPayPasswordActivity;
-import com.szbb.pro.ui.Activity.Vip.Wallet.PayPasswordActivity;
+import com.szbb.pro.ui.activity.vip.Wallet.InputPayPasswordActivity;
+import com.szbb.pro.ui.activity.vip.Wallet.PayPasswordActivity;
 
 /**
  * Created by ChanZeeBm on 2016/3/21.

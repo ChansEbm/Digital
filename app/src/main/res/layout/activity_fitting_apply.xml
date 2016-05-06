@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/theme_primary"
-        tools:context=".ui.Activity.Orders.Operating.FittingApplyActivity">
+        tools:context=".ui.activity.orders.operating.a_mode.FittingApplyActivity"
+        tools:ignore="RtlCompat">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -86,7 +87,7 @@
 
                         <TextView
                             style="@style/textStyle"
-                            android:text="@string/photo"/>
+                            android:text="@string/old_photo"/>
 
                         <HorizontalScrollView
                             android:layout_width="match_parent"
@@ -151,7 +152,7 @@
                         android:layout_height="@dimen/labelHeight_35dp"
                         android:layout_marginStart="@dimen/large_margin_15dp"
                         android:gravity="center"
-                        android:text="@string/receiver_info"
+                        android:text="@string/fitting_worker_new_address"
                         android:textColor="@color/color_text_gravy"/>
 
                     <RelativeLayout

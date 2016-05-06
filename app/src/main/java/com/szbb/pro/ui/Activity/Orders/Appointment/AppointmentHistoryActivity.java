@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Activity.Orders.Appointment;
+package com.szbb.pro.ui.activity.orders.appointment;
 
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;

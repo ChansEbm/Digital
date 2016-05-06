@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="RtlCompat">
 
     <data class=".OrderDetailLayout">
 
         <variable
             name="detail"
-            type="com.szbb.pro.entity.Order.OrderDetailBean.DataEntity"/>
+            type="com.szbb.pro.entity.Order.OrderDetailBean.DataEntity" />
 
-        <import type="android.text.TextUtils"/>
+        <import type="android.text.TextUtils" />
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
     </data>
 
     <FrameLayout
@@ -23,7 +25,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include layout="@layout/title_bar"/>
+            <include layout="@layout/title_bar" />
 
             <ScrollView
                 android:id="@+id/scrollView"
@@ -50,14 +52,14 @@
                         <TextView
                             android:id="@+id/tv_t4"
                             style="@style/textStyle"
-                            android:text="@{detail.sign_in_desc}"/>
+                            android:text="@{detail.sign_in_desc}" />
 
                         <TextView
                             android:id="@+id/tv_t5"
                             style="@style/textStyle"
                             android:layout_below="@id/tv_t4"
                             android:layout_marginTop="@dimen/middle_margin_10dp"
-                            android:text="@string/order_detail_no"/>
+                            android:text="@string/order_detail_no" />
 
                         <TextView
                             style="@style/textStyle"
@@ -65,7 +67,8 @@
                             android:layout_marginStart="@dimen/small_margin_5dp"
                             android:layout_toEndOf="@id/tv_t5"
                             android:text="@{detail.sn}"
-                            android:textColor="@color/color_orange_normal"/>
+                            android:textColor="@color/color_orange_normal"
+                            tools:ignore="RtlCompat" />
 
                         <Button
                             android:id="@+id/btn_track"
@@ -77,7 +80,7 @@
                             android:layout_marginEnd="0dp"
                             android:onClick="onClick"
                             android:text="@string/title_order_tracking"
-                            android:textSize="@dimen/text_normal_size"/>
+                            android:textSize="@dimen/text_normal_size" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -92,7 +95,7 @@
                         <TextView
                             android:id="@+id/tv_t1"
                             style="@style/textStyle"
-                            android:text="@string/order_detail_state"/>
+                            android:text="@string/order_detail_state" />
 
                         <TextView
                             style="@style/textStyle"
@@ -100,7 +103,7 @@
                             android:layout_marginStart="@dimen/small_margin_5dp"
                             android:layout_toEndOf="@id/tv_t1"
                             android:text="@{detail.order_status_desc}"
-                            android:textColor="@color/color_orange_normal"/>
+                            android:textColor="@color/color_orange_normal" />
 
 
                         <TextView
@@ -108,7 +111,7 @@
                             style="@style/textStyle"
                             android:layout_below="@id/tv_t1"
                             android:layout_marginTop="@dimen/middle_margin_10dp"
-                            android:text="@string/order_detail_take_time"/>
+                            android:text="@string/order_detail_take_time" />
 
                         <TextView
                             style="@style/textStyle"
@@ -116,14 +119,14 @@
                             android:layout_marginStart="@dimen/small_margin_5dp"
                             android:layout_toEndOf="@id/tv_t2"
                             android:text="@{detail.distribute_time}"
-                            android:textColor="@color/color_orange_normal"/>
+                            android:textColor="@color/color_orange_normal" />
 
                         <TextView
                             android:id="@+id/tv_t3"
                             style="@style/textStyle"
                             android:layout_below="@id/tv_t2"
                             android:layout_marginTop="@dimen/middle_margin_10dp"
-                            android:text="@string/appointment_time"/>
+                            android:text="@string/appointment_time" />
 
                         <TextView
                             style="@style/textStyle"
@@ -131,7 +134,7 @@
                             android:layout_marginStart="@dimen/small_margin_5dp"
                             android:layout_toEndOf="@id/tv_t3"
                             android:text="@{detail.formatAppointTime}"
-                            android:textColor="@color/color_orange_normal"/>
+                            android:textColor="@color/color_orange_normal" />
 
                         <LinearLayout
                             android:id="@+id/subsidy"
@@ -144,13 +147,12 @@
 
                             <TextView
                                 style="@style/textStyle"
-                                android:text="@string/fitting_subsidy"/>
+                                android:text="@string/fitting_subsidy" />
 
                             <TextView
                                 style="@style/textStyle"
                                 android:layout_marginStart="@dimen/small_margin_5dp"
-                                android:text="@{detail.subsidy}"
-                                />
+                                android:text="@{detail.subsidy_desc}" />
                         </LinearLayout>
 
                         <Button
@@ -165,7 +167,7 @@
                             android:text="@string/order_detail_sign_in"
                             android:textColor="@color/theme_primary"
                             app:signInBackground="@{detail.is_sign_in}"
-                            app:signInText="@{detail.is_sign_in}"/>
+                            app:signInText="@{detail.is_sign_in}" />
 
                         <Button
                             android:id="@+id/btn_edit_appointment"
@@ -179,7 +181,7 @@
                             android:minWidth="85dp"
                             android:onClick="onClick"
                             android:text="@string/order_detail_edit_appointment"
-                            android:textColor="@color/theme_primary"/>
+                            android:textColor="@color/theme_primary" />
 
                         <Button
                             android:id="@+id/btn_appointment_again"
@@ -194,7 +196,7 @@
                             android:onClick="onClick"
                             android:text="@string/order_detail_sign_again"
                             android:textColor="@color/theme_primary"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
 
                     </RelativeLayout>
@@ -211,8 +213,7 @@
                         <TextView
                             style="@style/textStyle"
                             android:layout_gravity="center_vertical"
-                            android:text="@string/label_make_order_people"
-                            />
+                            android:text="@string/label_make_order_people" />
 
                         <Button
                             android:id="@+id/btn_engineer"
@@ -225,10 +226,10 @@
                             android:paddingStart="@dimen/small_margin_5dp"
                             android:text="@string/label_engineer"
                             android:textColor="@color/theme_primary"
-                            android:textSize="11sp"/>
+                            android:textSize="11sp" />
                     </FrameLayout>
 
-                    <include layout="@layout/line"/>
+                    <include layout="@layout/line" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -241,8 +242,7 @@
                             style="@style/textStyle"
                             android:layout_centerVertical="true"
                             android:text="@{detail.factory_desc}"
-                            android:textColor="@color/color_text_gravy"
-                            />
+                            android:textColor="@color/color_text_gravy" />
                     </RelativeLayout>
 
                     <FrameLayout
@@ -257,8 +257,7 @@
                         <TextView
                             style="@style/textStyle"
                             android:layout_gravity="center_vertical"
-                            android:text="@string/user_information"
-                            />
+                            android:text="@string/user_information" />
 
                         <Button
                             android:id="@+id/btn_user"
@@ -271,10 +270,10 @@
                             android:paddingStart="@dimen/small_margin_5dp"
                             android:text="@string/user"
                             android:textColor="@color/theme_primary"
-                            android:textSize="11sp"/>
+                            android:textSize="11sp" />
                     </FrameLayout>
 
-                    <include layout="@layout/line"/>
+                    <include layout="@layout/line" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -294,21 +293,20 @@
                             android:drawableTop="@mipmap/ic_location_blue"
                             android:onClick="onClick"
                             android:text="@string/locate"
-                            android:textColor="@color/theme_primary"
-                            />
+                            android:textColor="@color/theme_primary" />
 
                         <TextView
                             android:id="@+id/tv_t7"
                             style="@style/textStyle"
                             android:text="@{detail.nickname}"
-                            android:textColor="@color/color_text_gravy"/>
+                            android:textColor="@color/color_text_gravy" />
 
                         <TextView
                             style="@style/textStyle"
                             android:layout_marginStart="@dimen/middle_margin_10dp"
                             android:layout_toEndOf="@id/tv_t7"
                             android:text="@{detail.tel}"
-                            android:textColor="@color/color_text_gravy"/>
+                            android:textColor="@color/color_text_gravy" />
 
                         <TextView
                             android:id="@+id/tv_t8"
@@ -316,7 +314,7 @@
                             android:layout_below="@id/tv_t7"
                             android:layout_marginTop="@dimen/middle_margin_10dp"
                             android:text="@string/address"
-                            android:textColor="@color/color_text_gravy"/>
+                            android:textColor="@color/color_text_gravy" />
 
                         <TextView
                             android:id="@+id/tv_t9"
@@ -326,7 +324,7 @@
                             android:layout_toEndOf="@id/tv_t8"
                             android:layout_toStartOf="@id/tv_location"
                             android:text="@{detail.address}"
-                            android:textColor="@color/color_text_gravy"/>
+                            android:textColor="@color/color_text_gravy" />
 
                         <TextView
                             android:id="@+id/tv_t10"
@@ -334,7 +332,7 @@
                             android:layout_below="@id/tv_t9"
                             android:layout_marginTop="@dimen/middle_margin_10dp"
                             android:text="@string/order_detail_way"
-                            android:textColor="@color/color_text_gravy"/>
+                            android:textColor="@color/color_text_gravy" />
 
                         <TextView
                             style="@style/textStyle"
@@ -342,7 +340,7 @@
                             android:layout_marginStart="@dimen/small_margin_5dp"
                             android:layout_toEndOf="@id/tv_t10"
                             android:text="@{detail.est_miles}"
-                            android:textColor="@color/color_text_red"/>
+                            android:textColor="@color/color_text_red" />
 
 
                     </RelativeLayout>
@@ -354,25 +352,25 @@
                         android:background="@color/color_white"
                         android:minHeight="@dimen/labelHeight_35dp"
                         android:paddingEnd="@dimen/large_margin_15dp"
-                        android:paddingStart="@dimen/large_margin_15dp">
+                        android:paddingStart="@dimen/large_margin_15dp"
+                        app:visibility="@{detail.acce_cost_list.size==0?View.GONE:View.VISIBLE}">
 
                         <TextView
                             style="@style/textStyle"
                             android:layout_gravity="center_vertical"
-                            android:text="@{detail.acce_cost_title}"
-                            />
+                            android:text="@{detail.acce_cost_title}" />
                     </FrameLayout>
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recyclerView_guide"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/large_margin_15dp"/>
+                        android:layout_marginTop="@dimen/large_margin_15dp" />
 
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -398,14 +396,13 @@
                                 <TextView
                                     style="@style/textStyle"
                                     android:layout_gravity="center_vertical"
-                                    android:text="@string/order_service_evaluation"
-                                    />
+                                    android:text="@string/order_service_evaluation" />
 
                                 <TextView
                                     style="@style/textStyle"
                                     android:layout_gravity="center_vertical|end"
                                     android:text="@{detail.service_evaluation}"
-                                    android:textColor="@color/color_text_org"/>
+                                    android:textColor="@color/color_text_org" />
 
                             </FrameLayout>
 
@@ -419,14 +416,13 @@
                                 <TextView
                                     style="@style/textStyle"
                                     android:layout_gravity="center_vertical"
-                                    android:text="@string/order_total_account"
-                                    />
+                                    android:text="@string/order_total_account" />
 
                                 <TextView
                                     style="@style/textStyle"
                                     android:layout_gravity="center_vertical|end"
                                     android:text="@{detail.order_settlement}"
-                                    android:textColor="@color/color_text_org"/>
+                                    android:textColor="@color/color_text_org" />
 
                             </FrameLayout>
 
@@ -437,8 +433,7 @@
                                 android:layout_marginBottom="@dimen/large_margin_15dp"
                                 android:layout_marginTop="@dimen/large_margin_15dp"
                                 android:onClick="onClick"
-                                android:text="@string/title_expenses_apply_detail"
-                                />
+                                android:text="@string/title_expenses_apply_detail" />
                         </LinearLayout>
 
                     </FrameLayout>
@@ -468,7 +463,7 @@
                         style="@style/textStyle"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:text="@string/order_detail_service_code"/>
+                        android:text="@string/order_detail_service_code" />
 
                     <com.jungly.gridpasswordview.GridPasswordView
                         android:id="@+id/gridPasswordView"
@@ -484,7 +479,7 @@
                         app:passwordTransformation="●"
                         app:passwordType="numberPassword"
                         app:textColor="@color/theme_primary"
-                        app:textSize="25sp"/>
+                        app:textSize="25sp" />
 
                     <Button
                         android:id="@+id/btn_resend_code"
@@ -493,7 +488,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:onClick="onClick"
-                        android:text="@string/resend"/>
+                        android:text="@string/resend" />
                 </LinearLayout>
 
                 <Button
@@ -504,7 +499,7 @@
                     android:layout_marginBottom="@dimen/large_margin_15dp"
                     android:layout_marginTop="@dimen/large_margin_15dp"
                     android:onClick="onClick"
-                    android:text="@string/confirm_submit"/>
+                    android:text="@string/confirm_submit" />
             </LinearLayout>
 
         </LinearLayout>

@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:background="@color/theme_primary"
         android:onClick="onClick"
-        tools:context="com.szbb.pro.ui.Activity.Vip.PersonalInfo.ReceiverInfoActivity">
+        tools:context="com.szbb.pro.ui.activity.vip.PersonalInfo.ReceiverInfoActivity">
 
         <LinearLayout
             android:layout_width="match_parent"

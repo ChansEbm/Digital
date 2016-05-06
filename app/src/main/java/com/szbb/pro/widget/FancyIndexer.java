@@ -20,14 +20,12 @@ import com.szbb.pro.R;
 
 public class FancyIndexer extends View {
 
-    public interface OnTouchLetterChangedListener {
-        public void onTouchLetterChanged(String s);
-    }
-
     private static final String TAG = "FancyIndexer";
+    private final String[] ConstChar = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
+            "K", "L"
+            , "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "#"};
 
     /////////////////////////////////////////////////////////////////////////
-
     //Properties
     // 向右偏移多少画字符， default 30
     float mWidthOffset = 30.0f;
@@ -61,30 +59,18 @@ public class FancyIndexer extends View {
     int mTipFontColor = 0xffd33e48;
 
     /////////////////////////////////////////////////////////////////////////
-
-    private OnTouchLetterChangedListener mListener;
-
-    private final String[] ConstChar = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
-            "K", "L"
-            , "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "#"};
-
     int mChooseIndex = -1;
     Paint mPaint = new Paint();
     PointF mTouch = new PointF();
-
     PointF[] mBezier1;
     PointF[] mBezier2;
-
     float mLastOffset[] = new float[ConstChar.length]; // 记录每一个字母的x方向偏移量, 数字<=0
     PointF mLastFucusPostion = new PointF();
-
     Scroller mScroller;
     boolean mAnimating = false;
     float mAnimationOffset;
-
     boolean mHideAnimation = false;
     int mAlpha = 255;
-
     Handler mHideWaitingHandler = new Handler() {
 
         @Override
@@ -99,6 +85,7 @@ public class FancyIndexer extends View {
             super.handleMessage(msg);
         }
     };
+    private OnTouchLetterChangedListener mListener;
 
     public FancyIndexer(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -252,10 +239,8 @@ public class FancyIndexer extends View {
         // 根据水平方向偏移量计算出一个放大的字号
         float adjustX = Math.abs(ajustXPosAnimation(i, yPos));
 
-        int adjustSize = (int) ((mMaxFontSize - mMinFontSize) * adjustX / (float)
+        return (int) ((mMaxFontSize - mMinFontSize) * adjustX /
                 mMaxBezierHeight) + mMinFontSize;
-
-        return adjustSize;
     }
 
     /**
@@ -427,7 +412,7 @@ public class FancyIndexer extends View {
                 float x = mScroller.getCurrX();
                 mAnimationOffset = x;
             } else if (mHideAnimation) {
-                mAlpha = 255 - (int) mScroller.getCurrX();
+                mAlpha = 255 - mScroller.getCurrX();
             }
             invalidate();
         } else if (mScroller.isFinished()) {
@@ -532,5 +517,9 @@ public class FancyIndexer extends View {
         float ret = start * s * s + 2 * control * s * t + end * t * t;
 
         return ret;
+    }
+
+    public interface OnTouchLetterChangedListener {
+        public void onTouchLetterChanged(String s);
     }
 }

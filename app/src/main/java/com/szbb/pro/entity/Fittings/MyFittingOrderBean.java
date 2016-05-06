@@ -79,6 +79,7 @@ public class MyFittingOrderBean extends BaseBean {
         private String acce_name;
         private String acce_brand;
         private String acce_type;
+        private String acce_model;
         private String name;
         private String brand;
         private String stantard;
@@ -193,6 +194,15 @@ public class MyFittingOrderBean extends BaseBean {
 
         public void setModel(String model) {
             this.model = model;
+        }
+
+        @Bindable
+        public String getAcce_model() {
+            return acce_model;
+        }
+
+        public void setAcce_model(String acce_model) {
+            this.acce_model = acce_model;
         }
     }
 }

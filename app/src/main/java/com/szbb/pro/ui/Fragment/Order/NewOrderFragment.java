@@ -1,13 +1,10 @@
-package com.szbb.pro.ui.Fragment.Order;
+package com.szbb.pro.ui.fragment.order;
 
 import android.content.Intent;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewTreeObserver;
 
 import com.szbb.pro.AppKeyMap;
 import com.szbb.pro.ItemNewOrderLayout;
@@ -23,13 +20,10 @@ import com.szbb.pro.entity.Order.MyOrderBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.LogTools;
-import com.szbb.pro.ui.Activity.Orders.Appointment.AppointmentClientActivity;
+import com.szbb.pro.ui.activity.orders.appointment.AppointmentClientActivity;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 
@@ -55,7 +49,8 @@ public class NewOrderFragment extends BaseFgm<BaseBean, MyOrderBean.ListEntity> 
 
         UpdateUIBroadcast broadcast = new UpdateUIBroadcast();
         broadcast.setListener(this);
-        AppTools.registerBroadcast(broadcast, AppKeyMap.APPOINTMENT_CLIENT_ACTION);
+        AppTools.registerBroadcast(broadcast, AppKeyMap.APPOINTMENT_CLIENT_ACTION, AppKeyMap
+                .APPOINTMENT_CAN_NOT_CONTENT_CLIENT);
 
     }
 
@@ -117,8 +112,10 @@ public class NewOrderFragment extends BaseFgm<BaseBean, MyOrderBean.ListEntity> 
 
     @Override
     public void uiUpData(Intent intent) {
-        super.uiUpData(intent);
-        if (intent.getAction().equals(AppKeyMap.APPOINTMENT_CLIENT_ACTION)) {
+        String action = intent.getAction();
+        if (action.equals(AppKeyMap.APPOINTMENT_CLIENT_ACTION) || action.equals(AppKeyMap
+                .APPOINTMENT_CAN_NOT_CONTENT_CLIENT)) {
+            LogTools.w("updata new order fragment");
             //重新执行访问后台刷新数据操作
             networkModel.myOrderList("1", "1", "20", NetworkParams.CUPCAKE);
         }
@@ -144,7 +141,6 @@ public class NewOrderFragment extends BaseFgm<BaseBean, MyOrderBean.ListEntity> 
     @Override
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout bgaRefreshLayout) {
         if (myOrderBean.getIsNext() == 1) {
-            page++;
             pageSize += 10;
             networkModel.myOrderList("1", page + "", pageSize + "", NetworkParams.FROYO);
         } else {
@@ -160,16 +156,15 @@ public class NewOrderFragment extends BaseFgm<BaseBean, MyOrderBean.ListEntity> 
         switch (paramsCode) {
             case CUPCAKE://the first time load
             case DONUT://the refresh action
-                this.list.clear();
-                break;
             case FROYO://load more action
+                this.list.clear();
                 break;
         }
         final List<MyOrderBean.ListEntity> list = myOrderBean.getList();
-        if (list.isEmpty())
-            orderBaseLayout.include.emptyView.setVisibility(View.VISIBLE);
+        if (list.isEmpty() && this.list.isEmpty())
+            orderBaseLayout.include.emptyView2.setVisibility(View.VISIBLE);
         else
-            orderBaseLayout.include.emptyView.setVisibility(View.GONE);
+            orderBaseLayout.include.emptyView2.setVisibility(View.GONE);
         this.list.addAll(list);
         commonBinderAdapter.notifyDataSetChanged();
         refreshLayout.endLoadingMore();

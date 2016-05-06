@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Activity.Vip.SystemMsg;
+package com.szbb.pro.ui.activity.vip.SystemMsg;
 
 import android.os.Bundle;
 import android.view.View;

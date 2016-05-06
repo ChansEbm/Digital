@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Activity.Orders.Operating;
+package com.szbb.pro.ui.activity.orders.operating;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,26 +16,24 @@ import com.szbb.pro.entity.Fittings.CustomerAddressBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.LogTools;
-import com.szbb.pro.ui.Activity.Locate.ProvinceActivity;
+import com.szbb.pro.ui.activity.locate.ProvinceActivity;
 
 import de.greenrobot.event.EventBus;
 
+/**
+ * 收件人
+ */
 public class FittingReceiverActivity extends BaseAty<CustomerAddressBean, Object> {
+    private final int toUser = AppKeyMap.CUPCAKE;
+    private final int toMechanic = AppKeyMap.DONUT;
     private FittingReceiverLayout fittingReceiverLayout;
     private AppCompatEditText edtReceiver;
     private AppCompatEditText edtPhone;
     private AppCompatEditText edtDetailAddress;
     private TextView tvLocation;
-
-    private final int toUser = AppKeyMap.CUPCAKE;
-    private final int toMechanic = AppKeyMap.DONUT;
     private int toggleFlag = toUser;
 
     private String orderId = "";
-    private String provinceId;
-    private String cityId;
-    private String districtId;
-    private String streetId;
     private String areaId;
 
     private CustomerAddressBean.DataEntity dataEntity = new CustomerAddressBean.DataEntity();
@@ -58,6 +56,7 @@ public class FittingReceiverActivity extends BaseAty<CustomerAddressBean, Object
         edtDetailAddress = (AppCompatEditText) fittingReceiverLayout.tInputDetailAddress
                 .getEditText();
         tvLocation = fittingReceiverLayout.tvLocation;
+        getInfoByToggleFlag();
     }
 
     @Override
@@ -74,7 +73,6 @@ public class FittingReceiverActivity extends BaseAty<CustomerAddressBean, Object
 
     @Override
     protected void onClick(int id, View view) {
-        AppTools.hideSoftInputMethod(view);//隐藏键盘
         switch (id) {
             case R.id.btn_toggle:
                 getInfoByToggleFlag();
@@ -111,13 +109,13 @@ public class FittingReceiverActivity extends BaseAty<CustomerAddressBean, Object
 
     public void onEvent(AreaEvent areaEvent) {
         Bundle bundle = areaEvent.getIntent().getExtras();
-        provinceId = bundle.getString("provinceId", "");
+        String provinceId = bundle.getString("provinceId", "");
         String province = bundle.getString("province", "");
-        cityId = bundle.getString("cityId", "");
+        String cityId = bundle.getString("cityId", "");
         String city = bundle.getString("city", "");
-        districtId = bundle.getString("districtId", "");
+        String districtId = bundle.getString("districtId", "");
         String district = bundle.getString("district", "");
-        streetId = bundle.getString("streetId", "");
+        String streetId = bundle.getString("streetId", "");
         String street = bundle.getString("street", "");
         this.areaId = provinceId;
         if (!cityId.isEmpty()) {

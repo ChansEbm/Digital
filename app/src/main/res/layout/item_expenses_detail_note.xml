@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data class=".ItemExpensesDetailNoteLayout">
+
+        <variable
+            name="note"
+            type="com.szbb.pro.entity.Expenses.ExpenseDetailBean.RemarkListEntity"/>
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="@color/color_white"
+                  android:gravity="center_vertical"
+                  android:minHeight="@dimen/labelHeight_35dp"
+                  android:orientation="vertical"
+                  android:paddingStart="@dimen/large_margin_15dp">
+
+        <TextView
+            style="@style/textStyle"
+            android:text="@{note.remark}"/>
+    </LinearLayout>
+</layout>

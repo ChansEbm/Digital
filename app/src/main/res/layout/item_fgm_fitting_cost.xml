@@ -25,21 +25,13 @@
             <TextView
                 android:id="@+id/tv_t1"
                 style="@style/textStyle"
-                android:text="@{cost.brand}"/>
-
-            <TextView
-                android:id="@+id/tv_t2"
-                style="@style/textStyle"
-                android:layout_marginStart="@dimen/small_margin_5dp"
-                android:layout_toEndOf="@id/tv_t1"
-                android:text="@{cost.model}"
-                android:textColor="@color/color_orange_light"/>
+                android:text="@{cost.cost_type_desc+cost.money}"/>
 
             <TextView
                 style="@style/textStyle"
                 android:layout_below="@id/tv_t1"
                 android:layout_marginTop="@dimen/small_margin_5dp"
-                android:text="@{cost.name}"
+                android:text="@{cost.brand+'-'+cost.stantard+'\b'+cost.name}"
                 android:textColor="@color/color_text_gravy"/>
         </RelativeLayout>
 
@@ -55,7 +47,7 @@
             <TextView
                 android:id="@+id/tv_t3"
                 style="@style/textStyle"
-                android:text="@{cost.cost_type_desc + cost.money}"/>
+                android:text="@{cost.address}"/>
 
             <TextView
                 style="@style/textStyle"

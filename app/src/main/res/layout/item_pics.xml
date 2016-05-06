@@ -17,7 +17,7 @@
             android:layout_height="76dp"
             android:layout_gravity="start|bottom"
             android:onClick="onClick"
-            app:actualImageScaleType="centerCrop"
+            app:actualImageScaleType="centerInside"
             app:placeholderImage="@mipmap/ic_add_default"
             app:placeholderImageScaleType="centerCrop"/>
 

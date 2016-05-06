@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:background="@color/color_black"
         android:orientation="vertical"
-        tools:context="com.szbb.pro.ui.Activity.Vip.PersonalInfo.PreviewActivity">
+        tools:context="com.szbb.pro.ui.activity.vip.PersonalInfo.PreviewActivity">
 
         <include layout="@layout/title_bar"/>
 

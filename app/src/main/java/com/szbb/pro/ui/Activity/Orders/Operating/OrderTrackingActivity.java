@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Activity.Orders.Operating;
+package com.szbb.pro.ui.activity.orders.operating;
 
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;

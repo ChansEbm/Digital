@@ -14,7 +14,7 @@
             android:layout_height="match_parent"
             android:background="@color/color_bg_gravy"
             android:orientation="vertical"
-            tools:context="com.szbb.pro.ui.Activity.Vip.Wallet.DelCreditCardActivity">
+            tools:context="com.szbb.pro.ui.activity.vip.Wallet.DelCreditCardActivity">
 
             <include layout="@layout/title_bar" />
 

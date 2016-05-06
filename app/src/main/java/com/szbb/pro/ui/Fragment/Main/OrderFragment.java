@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Fragment.Main;
+package com.szbb.pro.ui.fragment.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,14 +15,12 @@ import com.szbb.pro.broadcast.UpdateUIBroadcast;
 import com.szbb.pro.databinding.FgmOrderBinding;
 import com.szbb.pro.impl.UpdateUIListener;
 import com.szbb.pro.tools.AppTools;
-import com.szbb.pro.ui.Fragment.Order.NewOrderFragment;
-import com.szbb.pro.ui.Fragment.Order.ServicedFragment;
-import com.szbb.pro.ui.Fragment.Order.WaitAccountFragment;
+import com.szbb.pro.ui.fragment.order.NewOrderFragment;
+import com.szbb.pro.ui.fragment.order.ServicedFragment;
+import com.szbb.pro.ui.fragment.order.WaitAccountFragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import cn.jpush.android.api.BasicPushNotificationBuilder;
 
 /**
  * Created by ChanZeeBm on 2015/9/16.
@@ -41,7 +39,8 @@ public class OrderFragment extends BaseFgm implements UpdateUIListener {
         super.onCreate(savedInstanceState);
         broadcast = new UpdateUIBroadcast();
         broadcast.setListener(this);
-        AppTools.registerBroadcast(broadcast, AppKeyMap.APPOINTMENT_CLIENT_ACTION);
+        AppTools.registerBroadcast(broadcast, AppKeyMap.APPOINTMENT_CLIENT_ACTION, AppKeyMap
+                .APPOINTMENT_CAN_NOT_CONTENT_CLIENT);
     }
 
     @Override
@@ -101,6 +100,8 @@ public class OrderFragment extends BaseFgm implements UpdateUIListener {
             viewPager.setCurrentItem(1);
         } else if (action.equals(AppKeyMap.WAITING_COST_ACTION)) {
             viewPager.setCurrentItem(2);
+        } else if (action.equals(AppKeyMap.APPOINTMENT_CAN_NOT_CONTENT_CLIENT)) {
+            viewPager.setCurrentItem(0);
         }
     }
 

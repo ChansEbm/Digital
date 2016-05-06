@@ -1,7 +1,9 @@
 package com.szbb.pro.model;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -15,12 +17,12 @@ import com.szbb.pro.ItemOrderDetailLayout;
 import com.szbb.pro.R;
 import com.szbb.pro.dialog.MessageDialog;
 import com.szbb.pro.entity.Order.OrderDetailBean;
-import com.szbb.pro.entity.Order.ServiceObjActivity;
 import com.szbb.pro.eum.WheelOptions;
 import com.szbb.pro.impl.OnAddPictureDoneListener;
 import com.szbb.pro.impl.OnWheelMultiOptsCallback;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.LogTools;
+import com.szbb.pro.ui.activity.orders.operating.ServiceObjActivity;
 import com.szbb.pro.widget.PopupWindow.WheelPopupWindow;
 
 import java.util.List;
@@ -31,7 +33,6 @@ import java.util.List;
 public class OrderModel implements View.OnClickListener {
 
     private MessageDialog messageDialog;
-    private String[] labels;
     private AppCompatActivity appCompatActivity;
 
     public OrderModel(AppCompatActivity appCompatActivity) {
@@ -43,7 +44,7 @@ public class OrderModel implements View.OnClickListener {
         if (label.isEmpty())
             return;
 
-        labels = label.split(",");
+        String[] labels = label.split(",");
 
         linearLayout.removeAllViews();
         if (labels.length == 1) {
@@ -72,6 +73,7 @@ public class OrderModel implements View.OnClickListener {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private TextView getLabelTextView(Context context) {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(AppTools.dip2px
                 (56), AppTools.dip2px(22));
@@ -117,22 +119,6 @@ public class OrderModel implements View.OnClickListener {
     }
 
     /**
-     * 点击工单详情的服务项目
-     *
-     * @param listEntity entity
-     * @return 是否可以点击
-     */
-//    public String[] operateServiceObj(OrderDetailBean.ListEntity listEntity) {
-//        List<OrderDetailBean.ListEntity.ServiceListEntity> serviceListEntities = listEntity
-//                .getService_list();
-//        String[] serviceObs = new String[serviceListEntities.size()];
-//        for (int i = 0; i < serviceListEntities.size(); i++) {
-//            serviceObs[i] = serviceListEntities.get(i).getService_name();
-//        }
-//        return serviceObs;
-//    }
-
-    /**
      * 服务项目滚轮
      *
      * @param appCompatActivity 上下文
@@ -142,7 +128,7 @@ public class OrderModel implements View.OnClickListener {
             listEntity) {
         String last_handle_type = listEntity.getLast_handle_type();
         String last_handle_status = listEntity.getLast_handle_status();
-
+        if (isReporting(appCompatActivity, last_handle_type, last_handle_status)) return true;
         if ((TextUtils.equals(last_handle_type, "0")) || (TextUtils.equals(last_handle_type, "5")
                 && TextUtils.equals(last_handle_status, "1")) || TextUtils.equals
                 (last_handle_type, "5") && (TextUtils.equals
@@ -153,8 +139,18 @@ public class OrderModel implements View.OnClickListener {
             return true;
         }
         return false;
-
     }
+
+    public boolean isReporting(AppCompatActivity appCompatActivity, String last_handle_type,
+                               String last_handle_status) {
+        if (TextUtils.equals(last_handle_type, "5") && TextUtils.equals(last_handle_status, "0")) {
+            AppTools.showNormalSnackBar(appCompatActivity.getWindow().getDecorView(),
+                    "工单产品信息修改中，请稍后操作工单");
+            return true;
+        }
+        return false;
+    }
+
 
     /**
      * 本次服务结果的滚轮
@@ -206,6 +202,8 @@ public class OrderModel implements View.OnClickListener {
                 (listEntity.getLast_handle_type(), "4")) {
             itemOrderDetail.flytServiceResult.setVisibility(View.GONE);
             itemOrderDetail.button.setVisibility(View.GONE);
+            itemOrderDetail.tvIcon.setVisibility(View.GONE);
+            itemOrderDetail.tvErrorProduct.setVisibility(View.GONE);
             itemOrderDetail.llytReport.setVisibility(View.VISIBLE);
             itemOrderDetail.llytReport.setEnabled(false);
 
@@ -216,9 +214,6 @@ public class OrderModel implements View.OnClickListener {
                 itemOrderDetail.ivResult.setImageResource(R.mipmap.ic_cannt_be_done);
             }
 
-//            AppTools.deleteDrawable(itemOrderDetail.tvHandleResult);//删除本次服务结果右侧箭头
-//            AppTools.deleteDrawable(itemOrderDetail.tvLastResult);//删除上次服务结果右侧箭头
-//            AppTools.deleteDrawable(itemOrderDetail.tvObj);//删除服务项目结果右侧箭头
             return true;
         }
         return false;
@@ -275,10 +270,11 @@ public class OrderModel implements View.OnClickListener {
         markPictureModel.setIsNeedDeleteAnimation(false);
         markPictureModel.setIsNeedDeleteIcon(false);
         picLayout.removeAllViews();
+
         for (OrderDetailBean.ListEntity.CompletePhotosEntity entity : picPaths) {
-            markPictureModel.addSinglePictureInLinearLayoutByNetwork(picLayout.getContext(),
-                    picLayout, entity.getUrl());
+            markPictureModel.savePicturePath(entity.getUrl());
         }
+        markPictureModel.addSinglePictureInLinearLayout(picLayout.getContext(), picLayout, true);
         for (int i = 0; i < picLayout.getChildCount(); i++) {
             picLayout.getChildAt(i).setClickable(false);
         }
@@ -296,11 +292,13 @@ public class OrderModel implements View.OnClickListener {
         markPictureModel.setIsNeedDeleteAnimation(false);
         markPictureModel.setIsNeedDeleteIcon(true);
         markPictureModel.setTagPos(position);
+        markPictureModel.setAutoAddPics(false);
         markPictureModel.setOnAddPictureDoneListener(onAddPictureDoneListener);
         for (String path : picPaths) {
-            markPictureModel.addSinglePictureInLinearLayoutByLocal(linearLayout.getContext(),
-                    linearLayout, path);
+            markPictureModel.savePicturePath(path);
         }
+        markPictureModel.addSinglePictureInLinearLayout(linearLayout.getContext(),
+                linearLayout, false);
     }
 
     /**

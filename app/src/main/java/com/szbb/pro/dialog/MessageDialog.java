@@ -15,16 +15,10 @@ import me.drakeet.materialdialog.MaterialDialog;
  */
 public class MessageDialog {
     private MaterialDialog materialDialog;
-    private View.OnClickListener onClickListener;
-    private String positive = "";
-    private String negative = "";
 
     public MessageDialog(Context context) {
-        materialDialog = new MaterialDialog(context).setCanceledOnTouchOutside(true)
-                .setPositiveButton(positive, onClickListener).setNegativeButton(negative,
-                        onClickListener);
-        setPositiveId();
-        setNegativeId();
+        materialDialog = new MaterialDialog(context).setCanceledOnTouchOutside(true);
+        materialDialog.setTitle(R.string.notice);
     }
 
     public MessageDialog setTitle(String title) {
@@ -48,6 +42,11 @@ public class MessageDialog {
             onClickListener) {
         materialDialog.setNegativeButton(negativeButton, onClickListener);
         setNegativeId();
+        return this;
+    }
+
+    public MessageDialog setTouchOutside(boolean touchOutside) {
+        materialDialog.setCanceledOnTouchOutside(touchOutside);
         return this;
     }
 

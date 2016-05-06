@@ -15,8 +15,8 @@
     <string name="find_user">请输入手机号</string>
     <string name="reg_phone_msg">短信验证码</string>
     <string name="reg_verification_code">获取短信验证码</string>
-    <string name="reg_verification_code_again">秒后重新获取验证码</string>
-    <string name="reg_reCode">重新获取验证码</string>
+    <string name="reg_verification_code_again">秒后重新获取</string>
+    <string name="reg_reCode">重新发送</string>
     <string name="reg_pwd">新密码</string>
     <string name="invalid_code">无效验证码,请输入6位数验证码</string>
     <string name="reg_confirm_pwd">确认密码</string>
@@ -33,12 +33,14 @@
     <string name="organizing__real_address">真实地址</string>
     <string name="organizing_please_input_correct_citizen_ID">请填写真实身份证号码</string>
     <string name="organizing_choose_location">选择地区</string>
-    <string name="organizing_please_choose_lat_lng">请选择你所在的经纬度以便我们确认您的真实位置(点击详细地址旁边的坐标图标进行选择)</string>
+    <string name="organizing_please_choose_lat_lng">请选择你所在的经纬度以便我们确认您的真实位置</string>
     <string name="organizing_upload_citizen_picture">上传身份证照片 :</string>
     <string name="organizing_citizen_ID">身份证号码 :</string>
     <string name="organizing_skill">技能选择</string>
     <string name="organizing_organization">所属机构</string>
+    <string name="organizing_shop_address">店铺地址</string>
     <string name="organizing_choose">选择</string>
+    <string name="organizing_hint">详细地址用于向您派发附近的工单和寄发配件</string>
     <string name="organizing_please_complete_your_profile_first">请先完善好你的信息并且提交</string>
     <!--地区页-->
     <string name="district_location">当前位置</string>
@@ -59,6 +61,8 @@
     <string name="organization_input_name">请输入机构名称</string>
     <string name="organization_input_location">请选择所在地区</string>
     <string name="organization_input_detail_location">请输入详细地址</string>
+    <string name="organization_input_not_chosen">未选择</string>
+    <string name="organization_input_chosen">已选择</string>
     <string name="organization_input_contact_phone">请输入联系电话</string>
 
     <!--确认订单-购物列表-->
@@ -83,10 +87,12 @@
     <string name="vip_create_maintain">创建维修群</string>
     <string name="vip_join_maintain">加入维修群</string>
     <string name="vip_tell_fri">告诉朋友</string>
+    <string name="vip_authenticated">已认证</string>
     <string name="vip_feedback">意见反馈</string>
     <string name="vip_service_phone">客服电话</string>
     <string name="vip_repairing_price">联保价格</string>
     <string name="vip_read_me">接单必读</string>
+    <string name="vip_check_update">检查更新</string>
     <string name="vip_about">关于</string>
     <!--新工单-->
     <string name="new_order_contact_client">预约客户</string>
@@ -107,6 +113,7 @@
     <string name="order_detail_ticktock">距预约签到时间还有 :</string>
     <string name="order_detail_contact">联系方式</string>
     <string name="order_detail_fault_description">故障描述 : </string>
+    <string name="order_detail_service_request">要求备注 : </string>
     <string name="order_detail_fault_label">故障标签 : </string>
     <string name="order_detail_service_result">本次服务结果</string>
     <string name="order_detail_please_enter_service_result">请选择本次服务结果</string>
@@ -134,7 +141,7 @@
 
     <string name="fitting_other">其他配件</string>
     <string name="fitting_shop_car">购物车</string>
-    <string name="fitting_post_back_applied_add">新增配件回寄申请</string>
+    <string name="fitting_post_back_applied_add">配件寄回申请</string>
     <string name="fitting_detail_delivery_state">配送状态:</string>
     <string name="fitting_detail_delivery_time">配送时间 :</string>
     <string name="fitting_detail_phone">电话:</string>
@@ -142,18 +149,21 @@
     <string name="fitting_post_back_no">配送单号:</string>
     <string name="fitting_post_company_info">厂家信息</string>
     <string name="fitting_post_back_order_no">配件寄回单 :</string>
-    <string name="fitting_post_msg">邮寄信息</string>
+    <string name="fitting_post_info">邮寄信息</string>
+    <string name="fitting_old_fitting_post_address">旧配件请寄回以下地址</string>
     <string name="fitting_item_count">数量 :</string>
     <string name="fitting_supplier_message">厂家留言 :</string>
     <string name="fitting_supplier_message_info">厂家留言信息</string>
     <string name="fitting_worker_message">技工留言 :</string>
     <string name="fitting_worker_message_info">技工留言信息</string>
+    <string name="fitting_worker_resend_info">旧件返厂邮寄信息</string>
+    <string name="fitting_worker_new_address">新配件将寄到以下地址</string>
     <string name="fitting_leave_supplier_message">给厂家留言 :</string>
     <string name="fitting_lists">配件清单</string>
     <string name="fitting_please_enter_classify">请选择分类</string>
     <string name="fitting_please_enter_product">请选择产品</string>
-    <string name="fitting_sent_to_user">配件发到用户处</string>
-    <string name="fitting_sent_to_mechanic">配件发到技工处</string>
+    <string name="fitting_sent_to_user">发到用户地址</string>
+    <string name="fitting_sent_to_mechanic">发到我的店铺</string>
     <string name="fitting_apply_order_no">配件申请单号: </string>
     <string name="fitting_subsidy">工单补贴 :</string>
 
@@ -211,6 +221,7 @@
     <string name="info_my_skill">我的技能 :</string>
     <string name="info_change_pwd">修改密码</string>
     <string name="info_citizen_pic">身份证照片 :</string>
+    <string name="info_logout">退出当前账号</string>
 
     <!--标题-->
     <string name="title_appointment_history">预约历史</string>
@@ -223,8 +234,9 @@
     <string name="title_district">地区</string>
     <string name="title_organizing">完善资料</string>
     <string name="title_expenses_apply">费用申请</string>
-    <string name="title_expenses_apply_detail">费用申请详情</string>
+    <string name="title_expenses_apply_detail">费用申请单详情</string>
     <string name="title_fitting_order">配件订单</string>
+    <string name="title_fitting_resend">配件寄回</string>
     <string name="title_fitting_apply">配件申请</string>
     <string name="title_other_fitting">其他配件申请</string>
     <string name="title_receiver">收件人</string>
@@ -248,7 +260,7 @@
     <string name="label_description">描述</string>
     <string name="label_please_input_name">请输入名称</string>
     <string name="label_please_input_code">请填写配件条码</string>
-    <string name="label_please_input_description">描述一下</string>
+    <string name="label_please_input_description">请详细填写旧配件其它信息</string>
     <string name="label_please_input_num">请选择数量</string>
     <string name="label_please_choose_pics">请选择图片</string>
     <string name="label_acce_counting">工单结算中</string>
@@ -274,7 +286,7 @@
     <!--费用申请-->
     <string name="expenses_apply_type">费用类型 :</string>
     <string name="expenses_apply_name">费用名称 :</string>
-    <string name="expenses_apply_price">费用金额 :</string>
+    <string name="expenses_apply_price">申请金额 :</string>
     <string name="expenses_apply_reason">原因 :</string>
     <string name="expenses_apply_add_item"> + 添加费用项</string>
     <string name="expenses_please_choose_type">请选择费用类型</string>
@@ -297,6 +309,7 @@
     <string name="main_located_failure">定位失败,请重新定位!</string>
     <!--共用-->
     <string name="detail_address">详细地址 :</string>
+    <string name="pick_location">选择坐标 :</string>
     <string name="post_code">邮政编号 :</string>
     <string name="real_location">所在地区 :</string>
     <string name="submit">提交</string>
@@ -312,6 +325,7 @@
     <string name="choose_result">选择结果</string>
     <string name="please_choose_result">请选择预约结果</string>
     <string name="delivery_way">配送方式 :</string>
+    <string name="delivery_company_name">请选择快递公司名称</string>
     <string name="delivery_odd_number">快递单号 :</string>
     <string name="send_time">发出时间 :</string>
     <string name="remind_send">提醒发货</string>
@@ -325,14 +339,14 @@
     <string name="contact_phone">联系电话:</string>
     <string name="contact">联系人 :</string>
     <string name="receiver">收件人 :</string>
-    <string name="order_no">订单编号:</string>
+    <string name="order_no">订单编号 :</string>
     <string name="done">完成</string>
     <string name="complete_time">完成时间:</string>
     <string name="equal">=</string>
     <string name="appointment_result">预约结果 :</string>
     <string name="appointment_note">预约备注 :</string>
     <string name="search">搜索</string>
-    <string name="resend">重新发送</string>
+    <string name="resend">发给用户</string>
     <string name="product_model">产品型号 :</string>
     <string name="product_spec">产品规格 :</string>
     <string name="spec">规格 :</string>
@@ -348,10 +362,12 @@
     <string name="negative">取消</string>
     <string name="choose_time">选择时间</string>
     <string name="reviewing">审核中...</string>
-    <string name="your_profile_is_reviewing">您已经登录成功并且您的资料正在审核中...审核完毕将收到信息,届时方可进入系统.(程序即将退出)</string>
+    <string name="your_profile_is_reviewing">您已经登录成功并且您的资料正在审核中...审核完毕将收到信息,届时方可进入系统.</string>
+    <string name="your_profile_is_disable">你的账号已被管理员停用,请联系管理员</string>
     <string name="reapply">重新申请</string>
     <string name="create_time">创建时间 :</string>
     <string name="orderState">订单状态 :</string>
+    <string name="apply_state">申请状态 :</string>
     <string name="delivery_price">配送费用 :</string>
     <string name="phone_num">手机号 :</string>
     <string name="sign_for">确认签收</string>
@@ -368,13 +384,15 @@
     <string name="submit_report">提交报告</string>
     <string name="upload_pic">上传图片</string>
     <string name="enter_right_info">输入正确的产品信息</string>
-    <string name="enter_right_info_detail">产品名称+型号+数量</string>
+    <string name="enter_right_info_detail">请将正确的产品名称、型号和数量信息告诉我们，以便准确为您结算维修费用</string>
     <string name="make_call">拨打电话</string>
     <string name="classify">分类</string>
     <string name="other">其他</string>
     <string name="photo">图片</string>
+    <string name="old_photo">旧件照</string>
     <string name="edit">编辑</string>
     <string name="receiver_info">收件人信息</string>
+    <string name="leave_msg">留言信息</string>
     <string name="logistics_info">物流查询</string>
     <string name="delete">删除</string>
     <string name="zip_code">邮政编码</string>
@@ -410,21 +428,6 @@
     <string name="please_upload_citizen_back">请上传身份证背面照</string>
     <!--用户协议-->
     <string name="user_agreement">神州联保用户协议</string>
-    <string name="user_agreement_text">神州联保用户协议神州联保用户协议
-        神州联保用户协议神州联保用户协议神州联保用户协议神州联保用户协议
-        神州联保用户协议神州联保用户协议神州联保用户协议神州联保用户协议神
-        州联保用户协议神州联保用户协议神州联保用户协议神州联保用户协议神州联保
-        用户协议神州联保用户协议神州联保用户协议神州联保用户协议神州联保用户协议
-        神州联保用户协议神州联保用户协议神州联保用户协议神州联保用户协议神州联保用
-        户协议神州联保用户协议神州联保用户协议神州联保用户协议神州联保用户协议神州
-        联保用户协议神州联保用户协议神州联保用户协议神州联保用户协议神州联保用户协议神州联保用
-        户协议神州联保用户协议神州联保用户协议神州联保用户协议神州联保用户协议神州联保用
-        户协议神州联保用户协议神州联保用户协议神州联保用户协议神州联保用户协议神州联保用户协议
-        神州联保用户协议神州联保用户协议神州联保用户协议神州联保用户协议神州联保用户协议神州联保用户协
-        议神州联保用户协议神州联保用户协议神州联保用户协议神州联保用户协议神州联保用户协议神州联保用户协议
-        神州联保用户协议神州联保用户协议神州联保用户协议神州联保用户协议神州联保用户协议神州联保用户协议神州联
-        保用户协议神州联保用户协议神州联保用户协议神州联保用户协议神州联保用户协议神州联保用户协议神州联保用
-        户协议神州联保用户协议神州联保用户协议神州联保用户协议</string>
     <string name="bank_card_rule">提示：\n1. 开户人姓名必须为技工真实姓名 ,开户行、卡号必须准确无误，否则 <b> 无法提现</b>；\n2. 银行卡仅支持储蓄卡，请勿绑定信用卡。</string>
     <string name="cancel">取消</string>
     <string name="year">年</string>
@@ -439,7 +442,6 @@
     <string name="thursday">周四</string>
     <string name="friday">周五</string>
     <string name="saturday">周六</string>
-
 
     <string-array name="nearby">
         <item>500 m</item>
@@ -501,10 +503,10 @@
     </string-array>
 
     <string-array name="appointment_results">
-        <item>预约成功</item>
-        <item>联系不上客户</item>
-        <item>无法满足客户要求</item>
-        <item>不会维修该产品</item>
+        <item>已和用户预约好上门时间</item>
+        <item>暂时联系不上用户,申请延时</item>
+        <item>无法满足用户要求,我要退单</item>
+        <item>不会维修产品,我要退单</item>
     </string-array>
     <string-array name="edit_appointment_reasons">
         <item>用户不在家</item>
@@ -512,6 +514,7 @@
         <item>用户没收到产品</item>
         <item>收到的产品有问题</item>
         <item>收到的配件有问题</item>
+        <item>其他</item>
     </string-array>
     <string-array name="service_result">
         <item>现场完成</item>

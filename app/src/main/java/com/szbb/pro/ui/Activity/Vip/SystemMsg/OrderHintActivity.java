@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Activity.Vip.SystemMsg;
+package com.szbb.pro.ui.activity.vip.SystemMsg;
 
 import android.content.Intent;
 import android.databinding.ViewDataBinding;
@@ -16,7 +16,9 @@ import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.entity.Vip.OrderHintBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.tools.AppTools;
-import com.szbb.pro.ui.Activity.Orders.Operating.OrderDetailActivity;
+import com.szbb.pro.ui.activity.orders.appointment.AppointmentClientActivity;
+import com.szbb.pro.ui.activity.orders.operating.OrderDetailActivity;
+import com.szbb.pro.ui.activity.vip.Wallet.TransactionDetailActivity;
 
 import java.util.List;
 
@@ -94,8 +96,20 @@ public class OrderHintActivity extends BaseAty<OrderHintBean, OrderHintBean.List
     @Override
     public void onBinderItemClick(View view, int pos) {
         super.onBinderItemClick(view, pos);
-        final String orderid = list.get(pos).getOrderid();
-        startActivity(new Intent().putExtra("orderId", orderid).setClass(this,
-                OrderDetailActivity.class));
+        OrderHintBean.ListEntity listEntity = list.get(pos);
+        final String orderId = listEntity.getOrderid();
+        String isOrder = listEntity.getIs_order();
+        switch (isOrder) {
+            case "0":
+                startActivity(new Intent(this, TransactionDetailActivity.class).putExtra("index", 1));
+                break;
+            case "1":
+                startActivity(new Intent(this, OrderDetailActivity.class).putExtra("orderId", orderId));
+                break;
+            case "2":
+                startActivity(new Intent(this, AppointmentClientActivity.class).putExtra("orderId", orderId));
+                break;
+        }
+
     }
 }

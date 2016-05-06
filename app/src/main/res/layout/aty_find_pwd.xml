@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data class=".FindPwdLayout"/>
+    <data class=".FindPwdLayout" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
             android:background="@color/color_bg_gravy"
             android:orientation="vertical">
 
-            <include layout="@layout/title_bar"/>
+            <include layout="@layout/title_bar" />
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -34,16 +34,16 @@
                         android:layout_height="wrap_content"
                         android:background="@color/color_white"
                         android:minHeight="50dp"
-                        android:paddingTop="@dimen/small_margin_5dp"
                         android:paddingEnd="@dimen/large_margin_15dp"
-                        android:paddingStart="@dimen/large_margin_15dp">
+                        android:paddingStart="@dimen/large_margin_15dp"
+                        android:paddingTop="@dimen/small_margin_5dp">
 
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:digits="1234567890"
                             android:inputType="phone"
-                            android:maxLength="11"/>
+                            android:maxLength="11" />
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -70,8 +70,7 @@
                                 android:layout_height="wrap_content"
                                 android:digits="1234567890"
                                 android:inputType="number"
-                                android:maxLength="6"
-                                />
+                                android:maxLength="6" />
 
                         </android.support.design.widget.TextInputLayout>
 
@@ -79,11 +78,11 @@
                             android:id="@+id/btn_verification_code"
                             android:layout_width="wrap_content"
                             android:layout_height="37dp"
-                            android:background="@drawable/bg_cyan_frame"
+                            android:background="@drawable/bg_blue_dark_selector"
                             android:paddingEnd="@dimen/large_margin_15dp"
                             android:paddingStart="@dimen/large_margin_15dp"
                             android:text="@string/reg_verification_code"
-                            android:textColor="@color/theme_primary"/>
+                            android:textColor="@color/color_white" />
                     </LinearLayout>
 
 
@@ -94,16 +93,15 @@
                         android:layout_marginTop="@dimen/large_margin_15dp"
                         android:background="@color/color_white"
                         android:minHeight="50dp"
-                        android:paddingTop="@dimen/small_margin_5dp"
                         android:paddingEnd="@dimen/large_margin_15dp"
-                        android:paddingStart="@dimen/large_margin_15dp">
+                        android:paddingStart="@dimen/large_margin_15dp"
+                        android:paddingTop="@dimen/small_margin_5dp">
 
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textPassword"
-                            android:maxLength="16"
-                            />
+                            android:maxLength="16" />
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -114,15 +112,15 @@
                         android:layout_marginTop="@dimen/large_margin_15dp"
                         android:background="@color/color_white"
                         android:minHeight="50dp"
-                        android:paddingTop="@dimen/small_margin_5dp"
                         android:paddingEnd="@dimen/large_margin_15dp"
-                        android:paddingStart="@dimen/large_margin_15dp">
+                        android:paddingStart="@dimen/large_margin_15dp"
+                        android:paddingTop="@dimen/small_margin_5dp">
 
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textPassword"
-                            android:maxLength="16"/>
+                            android:maxLength="16" />
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -136,7 +134,7 @@
                         android:text="@string/submit"
                         android:textColor="@color/color_white"
                         android:textSize="16sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
                 </LinearLayout>
             </ScrollView>
         </LinearLayout>

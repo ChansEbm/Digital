@@ -1,9 +1,13 @@
 package com.szbb.pro.tools;
 
 import android.graphics.drawable.Drawable;
+import android.os.CountDownTimer;
 import android.text.TextUtils;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.szbb.pro.R;
 
 /**
  * Created by ChanZeeBm on 2016/3/16.
@@ -53,5 +57,42 @@ public class ViewUtils {
 
     public static void clearEdt(EditText editText) {
         editText.setText("");
+    }
+
+    private static CountDownTimer countDownTimer;//计时器
+
+    //验证码倒计时
+    public static void startCountDown(final Button button) {
+        if (button == null)
+            return;
+        if (countDownTimer == null) {
+            countDownTimer = new CountDownTimer(60000, 10) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    button.setEnabled(false);
+                    button.setTextColor(button.getResources().getColor(R.color
+                            .color_text_light_gravy));
+                    button.setText((millisUntilFinished / 1000) + button.getResources()
+                            .getString(R.string.reg_verification_code_again));
+                }
+
+                @Override
+                public void onFinish() {
+                    button.setEnabled(true);
+                    button.setTextColor(button.getResources().getColor(R.color
+                            .color_white));
+                    button.setText(button.getResources().getString(R.string
+                            .reg_reCode));
+                }
+            };
+        }
+        countDownTimer.start();
+    }
+
+    public static void endCountDown() {
+        if (countDownTimer != null) {
+            countDownTimer.onFinish();
+            countDownTimer = null;
+        }
     }
 }

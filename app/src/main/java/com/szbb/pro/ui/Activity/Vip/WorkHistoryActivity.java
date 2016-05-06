@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Activity.Vip;
+package com.szbb.pro.ui.activity.vip;
 
 import android.content.Intent;
 import android.databinding.ViewDataBinding;
@@ -16,7 +16,7 @@ import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.entity.Vip.WorkHistoryBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.tools.AppTools;
-import com.szbb.pro.ui.Activity.Orders.Operating.OrderDetailActivity;
+import com.szbb.pro.ui.activity.orders.operating.OrderDetailActivity;
 
 import java.util.List;
 

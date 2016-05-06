@@ -1,5 +1,6 @@
 package com.szbb.pro.test;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -9,12 +10,15 @@ import com.szbb.pro.R;
 import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.tools.AppTools;
+import com.szbb.pro.tools.LogTools;
 
 public class SecondActivity extends BaseAty implements BDLocationListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LogTools.w(getIntent().getFlags() == (Intent.FLAG_ACTIVITY_NEW_TASK | Intent
+                .FLAG_ACTIVITY_CLEAR_TASK));
     }
 
     @Override
@@ -41,8 +45,8 @@ public class SecondActivity extends BaseAty implements BDLocationListener {
     public void onReceiveLocation(BDLocation bdLocation) {
         //定位成功后,执行预约签到
         if (bdLocation != null) {
-            networkModel.signAppoint("193", 24d, 25d
-                    , NetworkParams.DONUT);
+//            networkModel.signAppoint("193", 24d, 25d
+//                    , NetworkParams.DONUT);
         }
     }
 

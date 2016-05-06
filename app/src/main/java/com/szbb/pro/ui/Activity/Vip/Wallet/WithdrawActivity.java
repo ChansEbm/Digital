@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Activity.Vip.Wallet;
+package com.szbb.pro.ui.activity.vip.Wallet;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -57,8 +57,7 @@ public class WithdrawActivity extends BaseAty<BaseBean, BaseBean> {
                 networkModel.withdrawals(outMoney, payPassword, NetworkParams.DONUT);
                 break;
             case R.id.positive:
-                startActivity(new Intent().setClass(this, WalletActivity.class).addFlags(Intent
-                        .FLAG_ACTIVITY_SINGLE_TOP).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                ;
                 break;
         }
     }
@@ -69,9 +68,18 @@ public class WithdrawActivity extends BaseAty<BaseBean, BaseBean> {
             CreditCardBean creditCardBean = (CreditCardBean) baseBean;
             withdrawLayout.setBank(creditCardBean.getData());
         } else if (paramsCode == NetworkParams.DONUT) {
-            MessageDialog dialog = new MessageDialog(this);
+            final MessageDialog dialog = new MessageDialog(this);
             dialog.setTitle("提现成功").setMessage("提现成功,详情可留意,钱包-交易明细-提现").setNegativeButton
-                    (getString(R.string.confirm), this).show();
+                    (getString(R.string.confirm), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(new Intent().setClass(WithdrawActivity.this,
+                                    WalletActivity.class).addFlags(Intent
+                                    .FLAG_ACTIVITY_SINGLE_TOP).addFlags(Intent
+                                    .FLAG_ACTIVITY_CLEAR_TOP));
+                            dialog.dismiss();
+                        }
+                    }).show();
         }
     }
 }

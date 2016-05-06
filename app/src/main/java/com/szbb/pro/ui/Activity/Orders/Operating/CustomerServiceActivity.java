@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Activity.Orders.Operating;
+package com.szbb.pro.ui.activity.orders.operating;
 
 import android.databinding.ViewDataBinding;
 import android.net.Uri;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -24,6 +26,7 @@ import com.szbb.pro.RoleUserLayout;
 import com.szbb.pro.adapters.CommonBinderHolder;
 import com.szbb.pro.adapters.MultiAdapter;
 import com.szbb.pro.base.BaseAty;
+import com.szbb.pro.dialog.DialDialog;
 import com.szbb.pro.entity.Base.BaseBean;
 import com.szbb.pro.entity.Order.OrderMsgListBean;
 import com.szbb.pro.entity.Vip.VipInfoBean;
@@ -32,7 +35,7 @@ import com.szbb.pro.eum.PhotoPopupOpts;
 import com.szbb.pro.impl.OnPhotoOptsSelectListener;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.ViewUtils;
-import com.szbb.pro.widget.PopupWindow.TakePhotoPopupWindow;
+import com.szbb.pro.widget.PopupWindow.PhotoPopupWindow;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import java.util.List;
@@ -46,8 +49,7 @@ import cn.finalteam.galleryfinal.model.PhotoInfo;
  */
 public class CustomerServiceActivity extends BaseAty<BaseBean, OrderMsgListBean.ListEntity>
         implements
-        BGARefreshLayout
-                .BGARefreshLayoutDelegate, OnPhotoOptsSelectListener {
+        BGARefreshLayout.BGARefreshLayoutDelegate, OnPhotoOptsSelectListener {
 
     private CustomerServiceLayout customerServiceLayout;
     private RecyclerView recyclerView;
@@ -63,13 +65,28 @@ public class CustomerServiceActivity extends BaseAty<BaseBean, OrderMsgListBean.
     private View parent;
     private String orderId = "";
 
-    private TakePhotoPopupWindow takePhotoPopupWindow;
+    private PhotoPopupWindow photoPopupWindow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         customerServiceLayout = (CustomerServiceLayout) viewDataBinding;
         orderId = getIntent().getStringExtra("orderId");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_call, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menu_call) {
+            String servicePhone = getIntent().getStringExtra("servicePhone");
+            new DialDialog(this, null).call(servicePhone);
+        }
+        return true;
     }
 
     @Override
@@ -84,7 +101,7 @@ public class CustomerServiceActivity extends BaseAty<BaseBean, OrderMsgListBean.
         in = new AlphaAnimation(0.0f, 1.0f);
         out = new AlphaAnimation(1.0f, 0.0f);
 
-        takePhotoPopupWindow = new TakePhotoPopupWindow(this);
+        photoPopupWindow = new PhotoPopupWindow(this);
 
         VipInfoBean vipInfoBean = new Prefser(AppTools.getSharePreferences()).get("VipInfo",
                 VipInfoBean
@@ -139,7 +156,7 @@ public class CustomerServiceActivity extends BaseAty<BaseBean, OrderMsgListBean.
                 .sizeResId(R.dimen.large_margin_15dp).colorResId(R.color.color_transparent).build
                         ());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        takePhotoPopupWindow.setOnPhotoOptsSelectListener(this);
+        photoPopupWindow.setOnPhotoOptsSelectListener(this);
         networkModel.orderMessageList(orderId, "", NetworkParams.CUPCAKE);
     }
 
@@ -168,7 +185,7 @@ public class CustomerServiceActivity extends BaseAty<BaseBean, OrderMsgListBean.
                 }
                 break;
             case R.id.ibtn_pic:
-                takePhotoPopupWindow.showAtDefaultLocation();
+                photoPopupWindow.showAtDefaultLocation();
                 break;
         }
     }
@@ -247,6 +264,7 @@ public class CustomerServiceActivity extends BaseAty<BaseBean, OrderMsgListBean.
 
     @Override
     public void onHanlderSuccess(int requestCode, List<PhotoInfo> resultList) {
+        super.onHanlderSuccess(requestCode, resultList);
         final PhotoInfo photoInfo = resultList.get(0);
         final String photoPath = photoInfo.getPhotoPath();
         networkModel.addOrderMessage(orderId, "", "", "2", photoPath, NetworkParams

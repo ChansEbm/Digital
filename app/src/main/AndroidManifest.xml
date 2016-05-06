@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
-    package="com.szbb.pro"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.szbb.pro">
 
     <!-- shareSDK 所需 -->
     <uses-permission android:name="android.permission.GET_TASKS"/>
@@ -63,15 +63,18 @@
             android:process=":remote"/>
 
         <activity
-            android:name=".ui.Activity.Main.WelcomeActivity"
+            android:name=".ui.activity.main.WelcomeActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.Activity.Main.MainActivity">
+        <activity
+            android:name=".ui.activity.main.MainActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.REGISTRATION"/>
                 <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED"/>
@@ -81,87 +84,87 @@
                 <category android:name="com.szbb.pro"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.Activity.Login.LoginActivity"/>
-        <activity android:name=".ui.Activity.Login.FindPwdActivity"/>
-        <activity android:name=".ui.Activity.Login.RegisterActivity"/>
-        <activity android:name=".ui.Activity.Login.SkillActivity"/>
-        <activity android:name=".ui.Activity.Login.CompleteInfoActivity"/>
-        <activity android:name=".ui.Activity.Locate.ProvinceActivity"/>
-        <activity android:name=".ui.Activity.Locate.CityActivity"/>
+        <activity android:name=".ui.activity.login.LoginActivity"/>
+        <activity android:name=".ui.activity.login.FindPwdActivity"/>
+        <activity android:name=".ui.activity.login.RegisterActivity"/>
+        <activity android:name=".ui.activity.login.SkillActivity"/>
+        <activity android:name=".ui.activity.login.CompleteInfoActivity"/>
+        <activity android:name=".ui.activity.locate.ProvinceActivity"/>
+        <activity android:name=".ui.activity.locate.CityActivity"/>
         <activity
-            android:name=".ui.Activity.Locate.DistrictActivity"
+            android:name=".ui.activity.locate.DistrictActivity"
             android:noHistory="true"/>
-        <activity android:name=".ui.Activity.Orders.Appointment.AppointmentClientActivity"/>
-        <activity android:name=".ui.Activity.Expenses.ExpensesDetailActivity"/>
-        <activity android:name=".ui.Activity.Orders.Appointment.AppointmentReturnActivity"/>
-        <activity android:name=".ui.Activity.Orders.Appointment.AppointmentAlterActivity"/>
+        <activity android:name=".ui.activity.orders.appointment.AppointmentClientActivity"/>
+        <activity android:name=".ui.activity.expenses.ExpensesDetailActivity"/>
+        <activity android:name=".ui.activity.orders.appointment.AppointmentReturnActivity"/>
+        <activity android:name=".ui.activity.orders.appointment.AppointmentAlterActivity"/>
         <activity android:name=".test.TestAty"/>
-        <activity android:name=".ui.Activity.Orders.Appointment.AppointmentHistoryActivity"/>
-        <activity android:name=".ui.Activity.Expenses.ExpensesApplyActivity"/>
-        <activity android:name=".ui.Activity.Expenses.ExpensesResultActivity"/>
-        <activity android:name=".ui.Activity.Locate.LocationActivity"/>
-        <activity android:name=".ui.Activity.Orders.Operating.OrderDetailActivity">
+        <activity android:name=".ui.activity.orders.appointment.AppointmentHistoryActivity"/>
+        <activity android:name=".ui.activity.expenses.ExpensesApplyActivity" android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <activity android:name=".ui.activity.expenses.ExpensesResultActivity"/>
+        <activity android:name=".ui.activity.locate.LocationActivity"/>
+        <activity android:name=".ui.activity.orders.operating.OrderDetailActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.Activity.Main.MainActivity"/>
+                android:value=".ui.activity.main.MainActivity"/>
         </activity>
-        <activity android:name=".ui.Activity.Locate.StreetActivity"/>
-        <activity android:name=".entity.Order.ServiceObjActivity"/>
-        <activity android:name=".ui.Activity.Orders.Operating.FittingWareHouseActivity"/>
-        <activity android:name=".ui.Activity.Orders.Operating.FittingApplyActivity"/>
-        <activity android:name=".ui.Activity.Orders.Operating.FittingResendActivity"/>
-        <activity android:name=".ui.Activity.Orders.Operating.FittingAdditionalActivity"/>
-        <activity android:name=".ui.Activity.Orders.Operating.FittingReceiverActivity"/>
-        <activity android:name=".test.SecondActivity"/>
+        <activity android:name=".ui.activity.locate.StreetActivity"/>
+        <activity android:name=".ui.activity.orders.operating.ServiceObjActivity"/>
+        <activity android:name=".ui.activity.orders.operating.FittingWareHouseActivity"/>
+        <activity android:name=".ui.activity.orders.operating.a_mode.FittingApplyActivity"/>
+        <activity android:name=".ui.activity.orders.operating.b_mode.FittingResendBModeActivity"/>
+        <activity android:name=".ui.activity.orders.operating.FittingAdditionalActivity"/>
+        <activity android:name=".ui.activity.orders.operating.FittingReceiverActivity"/>
+        <activity android:name="com.szbb.pro.test.SecondActivity"/>
         <activity
             android:name=".CaptureActivityAnyOrientation"
             android:screenOrientation="fullSensor"
             android:stateNotNeeded="true"
             android:theme="@style/zxing_CaptureTheme"
             android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity android:name=".ui.Activity.Orders.FittingOrders.FittingApplyDetailActivity"/>
-        <activity android:name=".ui.Activity.Orders.FittingOrders.FittingResendDetailActivity"/>
-        <activity android:name=".ui.Activity.Orders.FittingOrders.FittingResendByWorkerActivity"/>
+        <activity android:name=".ui.activity.orders.operating.a_mode.FittingApplyDetailActivity"/>
+        <activity android:name=".ui.activity.orders.operating.b_mode.FittingResendDetailActivity"/>
+        <activity android:name=".ui.activity.orders.operating.a_mode.FittingResendByWorkerActivity"/>
         <activity
-            android:name=".ui.Activity.Vip.Wallet.WalletActivity"
-            android:parentActivityName=".ui.Activity.Main.MainActivity">
+            android:name=".ui.activity.vip.Wallet.WalletActivity"
+            android:parentActivityName=".ui.activity.main.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.Activity.Main.MainActivity"/>
+                android:value=".ui.activity.main.MainActivity"/>
         </activity>
-        <activity android:name=".ui.Activity.Vip.Wallet.CreditCardActivity"/>
-        <activity android:name=".ui.Activity.Vip.Wallet.AddCreditCardActivity"/>
-        <activity android:name=".ui.Activity.Vip.WorkHistoryActivity"/>
-        <activity android:name=".ui.Activity.Vip.SystemMsg.SystemMsgActivity"/>
-        <activity android:name=".ui.Activity.Vip.SystemMsg.OrderHintActivity">
+        <activity android:name=".ui.activity.vip.Wallet.CreditCardActivity"/>
+        <activity android:name=".ui.activity.vip.Wallet.AddCreditCardActivity"/>
+        <activity android:name=".ui.activity.vip.WorkHistoryActivity"/>
+        <activity android:name=".ui.activity.vip.SystemMsg.SystemMsgActivity"/>
+        <activity android:name=".ui.activity.vip.SystemMsg.OrderHintActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.Activity.Main.MainActivity"/>
+                android:value=".ui.activity.main.MainActivity"/>
         </activity>
-        <activity android:name=".ui.Activity.Vip.SystemMsg.AccountCementActivity">
+        <activity android:name=".ui.activity.vip.SystemMsg.AccountCementActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.Activity.Main.MainActivity"/>
+                android:value=".ui.activity.main.MainActivity"/>
         </activity>
-        <activity android:name=".ui.Activity.Vip.Wallet.PayPasswordActivity"/>
-        <activity android:name=".ui.Activity.Vip.Wallet.DelCreditCardActivity"/>
-        <activity android:name=".ui.Activity.Vip.Wallet.FindCreditPasswordActivity"/>
-        <activity android:name=".ui.Activity.Vip.Wallet.TransactionDetailActivity"/>
-        <activity android:name=".ui.Activity.Vip.Wallet.WithdrawActivity"/>
-        <activity android:name=".ui.Activity.Vip.PersonalInfo.PersonalInfoActivity">
+        <activity android:name=".ui.activity.vip.Wallet.PayPasswordActivity"/>
+        <activity android:name=".ui.activity.vip.Wallet.DelCreditCardActivity"/>
+        <activity android:name=".ui.activity.vip.Wallet.FindCreditPasswordActivity"/>
+        <activity android:name=".ui.activity.vip.Wallet.TransactionDetailActivity"/>
+        <activity android:name=".ui.activity.vip.Wallet.WithdrawActivity"/>
+        <activity android:name=".ui.activity.vip.PersonalInfo.PersonalInfoActivity">
         </activity>
-        <activity android:name=".ui.Activity.Vip.PersonalInfo.ReceiverInfoActivity">
+        <activity android:name=".ui.activity.vip.PersonalInfo.ReceiverInfoActivity">
         </activity>
-        <activity android:name=".ui.Activity.Vip.PersonalInfo.ChangePasswordActivity">
+        <activity android:name=".ui.activity.vip.PersonalInfo.ChangePasswordActivity">
         </activity>
-        <activity android:name=".ui.Activity.Vip.Wallet.InputPayPasswordActivity">
+        <activity android:name=".ui.activity.vip.Wallet.InputPayPasswordActivity">
         </activity>
-        <activity android:name=".ui.Activity.Vip.PersonalInfo.PreviewActivity">
+        <activity android:name=".ui.activity.vip.PersonalInfo.PreviewActivity">
         </activity>
-        <activity android:name=".ui.Activity.Vip.WebViewActivity">
+        <activity android:name=".ui.activity.vip.WebViewActivity">
         </activity>
-        <activity android:name=".ui.Activity.Vip.SystemMsg.FeedBackActivity">
-        </activity>
+        <activity android:name=".ui.activity.vip.SystemMsg.FeedBackActivity"/>
+        <activity android:name=".ui.activity.main.LaunchActivity"/>
 
         <!-- start ShareSDK -->
         <activity
@@ -272,9 +275,11 @@
             android:name="JPUSH_APPKEY"
             android:value="60a4226f105341c38181e4ca"/>
 
-        <activity android:name=".ui.Activity.Orders.Operating.CustomerServiceActivity">
+        <activity android:name=".ui.activity.orders.operating.CustomerServiceActivity">
         </activity>
-        <activity android:name=".ui.Activity.Orders.Operating.OrderTrackingActivity">
+        <activity android:name=".ui.activity.orders.operating.OrderTrackingActivity">
+        </activity>
+        <activity android:name=".ui.activity.locate.TagLocationActivity">
         </activity>
     </application>
 

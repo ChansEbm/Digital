@@ -3,11 +3,11 @@ package com.szbb.pro.entity.Order;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
-import android.databinding.ObservableBoolean;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CoordinatorLayout;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -19,9 +19,9 @@ import com.szbb.pro.R;
 import com.szbb.pro.entity.Base.BaseBean;
 import com.szbb.pro.eum.ButtonType;
 import com.szbb.pro.tools.AppTools;
-import com.szbb.pro.ui.Activity.Expenses.ExpensesResultActivity;
-import com.szbb.pro.ui.Activity.Orders.FittingOrders.FittingApplyDetailActivity;
-import com.szbb.pro.ui.Activity.Orders.FittingOrders.FittingResendDetailActivity;
+import com.szbb.pro.ui.activity.expenses.ExpensesResultActivity;
+import com.szbb.pro.ui.activity.orders.operating.a_mode.FittingApplyDetailActivity;
+import com.szbb.pro.ui.activity.orders.operating.b_mode.FittingResendDetailActivity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -55,6 +55,7 @@ public class OrderDetailBean extends BaseBean {
     public static class DataEntity extends BaseObservable {
 
         private String orderid;
+        private String customer_service_phone;
         private String sn;
         private String order_status_desc;
         private String appoint_time = "";
@@ -65,7 +66,6 @@ public class OrderDetailBean extends BaseBean {
         private String is_sign_in;
         private String sign_in_time;
         private Spanned sign_in_desc;
-        private ObservableBoolean observableBoolean = new ObservableBoolean();
         private String distribute_time;
         private String nickname;
         private String tel;
@@ -82,30 +82,34 @@ public class OrderDetailBean extends BaseBean {
         private String acce_exe_type;
         private List<AcceCostListEntity> acce_cost_list;
         private String subsidy;
+        private Spanned subsidy_desc;
         private String acce_cost_title;
 
         private String service_evaluation;
         private String order_settlement;
 
         public DataEntity() {
+
         }
 
         @BindingAdapter(value = {"app:signInText"})
         public static void setSignInText(Button button, String signIn) {
-            if (button == null || TextUtils.isEmpty(signIn))
-                return;
-            switch (signIn) {
-                case "0":
-                    button.setText("签到");
-                    break;
-                case "1":
-                    button.setText("签到成功");
-                    break;
-                case "2":
-                case "3":
-                    button.setText("签到失败");
-                    break;
-            }
+                if (button == null || TextUtils.isEmpty(signIn))
+                    return;
+                switch (signIn) {
+                    case "0":
+                        button.setText("签到");
+                        break;
+                    case "1":
+                        button.setText("签到成功");
+                        button.setEnabled(false);
+                        break;
+                    case "2":
+                    case "3":
+                        button.setText("签到失败");
+                        button.setEnabled(false);
+                        break;
+                }
         }
 
         @BindingAdapter(value = {"app:signInBackground"})
@@ -114,8 +118,11 @@ public class OrderDetailBean extends BaseBean {
                 return;
             if (TextUtils.equals("0", sign))
                 button.setBackgroundResource(R.drawable.bg_cyan_frame);
-            else
+            else {
                 button.setBackground(null);
+                button.setEnabled(false);
+            }
+
         }
 
         public String getOrderid() {
@@ -170,11 +177,11 @@ public class OrderDetailBean extends BaseBean {
 
         @Bindable
         public String getEst_miles() {
-            return est_miles;
+            return est_miles + "公里";
         }
 
         public void setEst_miles(String est_miles) {
-            this.est_miles = est_miles + "公里";
+            this.est_miles = est_miles;
         }
 
         public String getAddress() {
@@ -316,6 +323,7 @@ public class OrderDetailBean extends BaseBean {
             this.is_submit_complete = is_submit_complete;
         }
 
+        @Bindable
         public List<AcceCostListEntity> getAcce_cost_list() {
             return acce_cost_list;
         }
@@ -334,10 +342,16 @@ public class OrderDetailBean extends BaseBean {
             String result = AppTools.convertMillions(at - ct);
             String isSignIn = getIs_sign_in();
             if (TextUtils.equals(isSignIn, "0")) {
-                this.sign_in_desc = Html.fromHtml("<font " +
-                        "color=\"#a0a0a0\">距上门服务还有</font><font " +
-                        "color=\"#ff9000" +
-                        "\">" + result + "</font>");
+                if (!TextUtils.equals("-1", result))
+                    this.sign_in_desc = Html.fromHtml("<font " +
+                            "color=\"#a0a0a0\">距上门服务还有</font><font " +
+                            "color=\"#ff9000" +
+                            "\">" + result + "</font>");
+                else
+                    this.sign_in_desc = Html.fromHtml("<font " +
+                            "color=\"#a0a0a0\">距上门服务还有</font><font " +
+                            "color=\"#ff9000" +
+                            "\">" + "0个小时" + "</font>");
             } else if (TextUtils.equals(isSignIn, "1"))
                 this.sign_in_desc = Html.fromHtml("<font color=\"#a0a0a0\">已于" + getSign_in_time() +
                         "</font><font " +
@@ -392,6 +406,21 @@ public class OrderDetailBean extends BaseBean {
 
         public void setOrder_settlement(String order_settlement) {
             this.order_settlement = order_settlement;
+        }
+
+        @Bindable
+        public Spanned getSubsidy_desc() {
+            subsidy_desc = Html.fromHtml("完单可获补贴<font color=\"#f74c31\">" + getSubsidy() +
+                    "</font>元");
+            return subsidy_desc;
+        }
+
+        public String getCustomer_service_phone() {
+            return customer_service_phone;
+        }
+
+        public void setCustomer_service_phone(String customer_service_phone) {
+            this.customer_service_phone = customer_service_phone;
         }
 
 
@@ -503,6 +532,7 @@ public class OrderDetailBean extends BaseBean {
         private String last_handle_status;
         private String last_handle_desc;
         private String last_handle_statue_chinese = "";
+        private String service_desc = "";
         private String acce_exe_type = "";
         private ButtonType buttonType = ButtonType.NAN;
         private String report = "";
@@ -817,29 +847,23 @@ public class OrderDetailBean extends BaseBean {
             this.productNum = productNum;
         }
 
+        public String getService_desc() {
+            return service_desc;
+        }
+
+        public void setService_desc(String service_desc) {
+            this.service_desc = service_desc;
+        }
+
         public static class ServiceListEntity extends BaseObservable implements Parcelable {
 
-            public static final Creator<ServiceListEntity> CREATOR = new
-                    Creator<ServiceListEntity>() {
-                        public ServiceListEntity createFromParcel(Parcel source) {
-                            return new ServiceListEntity(source);
-                        }
-
-                        public ServiceListEntity[] newArray(int size) {
-                            return new ServiceListEntity[size];
-                        }
-                    };
             private String service_id;
             private String service_name;
             private String service_cost;
+            private String service_desc;
+
 
             public ServiceListEntity() {
-            }
-
-            protected ServiceListEntity(Parcel in) {
-                this.service_id = in.readString();
-                this.service_name = in.readString();
-                this.service_cost = in.readString();
             }
 
             public String getService_id() {
@@ -868,6 +892,14 @@ public class OrderDetailBean extends BaseBean {
                 this.service_cost = service_cost;
             }
 
+            public String getService_desc() {
+                return service_desc;
+            }
+
+            public void setService_desc(String service_desc) {
+                this.service_desc = service_desc;
+            }
+
             @Override
             public int describeContents() {
                 return 0;
@@ -878,7 +910,27 @@ public class OrderDetailBean extends BaseBean {
                 dest.writeString(this.service_id);
                 dest.writeString(this.service_name);
                 dest.writeString(this.service_cost);
+                dest.writeString(this.service_desc);
             }
+
+            protected ServiceListEntity(Parcel in) {
+                this.service_id = in.readString();
+                this.service_name = in.readString();
+                this.service_cost = in.readString();
+                this.service_desc = in.readString();
+            }
+
+            public static final Creator<ServiceListEntity> CREATOR = new Creator<ServiceListEntity>() {
+                @Override
+                public ServiceListEntity createFromParcel(Parcel source) {
+                    return new ServiceListEntity(source);
+                }
+
+                @Override
+                public ServiceListEntity[] newArray(int size) {
+                    return new ServiceListEntity[size];
+                }
+            };
         }
 
         public static class CompletePhotosEntity {

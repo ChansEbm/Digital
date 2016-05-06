@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Activity.Vip.PersonalInfo;
+package com.szbb.pro.ui.activity.vip.PersonalInfo;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,8 +17,8 @@ import com.szbb.pro.entity.Vip.VipInfoBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.LogTools;
-import com.szbb.pro.ui.Activity.Locate.ProvinceActivity;
-import com.szbb.pro.ui.Activity.Main.MainActivity;
+import com.szbb.pro.ui.activity.locate.ProvinceActivity;
+import com.szbb.pro.ui.activity.main.MainActivity;
 
 import de.greenrobot.event.EventBus;
 
@@ -59,7 +59,7 @@ public class ReceiverInfoActivity extends BaseAty<BaseBean, BaseBean> {
         edtZipCode = tInputZipCode.getEditText();
 
         Prefser prefser = new Prefser(AppTools.getSharePreferences());
-        vipInfoBean = prefser.get("VipInfo", VipInfoBean.class, vipInfoBean);
+        vipInfoBean = prefser.get("VipInfo", VipInfoBean.class, new VipInfoBean());
         LogTools.w(vipInfoBean.getWorker_data().getAddressee_data() == null);
         areaIds = vipInfoBean.getWorker_data().getAddressee_data().getArea_ids();
     }

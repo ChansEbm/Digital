@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Activity.Login;
+package com.szbb.pro.ui.activity.login;
 
 import android.content.Intent;
 import android.databinding.ViewDataBinding;

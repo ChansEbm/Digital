@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Activity.Vip.Wallet;
+package com.szbb.pro.ui.activity.vip.Wallet;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -10,9 +10,9 @@ import com.szbb.pro.R;
 import com.szbb.pro.TransactionDetailLayout;
 import com.szbb.pro.adapters.TabFragmentAdapter;
 import com.szbb.pro.base.BaseAty;
-import com.szbb.pro.ui.Fragment.Wallet.IncomeFragment;
-import com.szbb.pro.ui.Fragment.Wallet.OtherCostFragment;
-import com.szbb.pro.ui.Fragment.Wallet.WithdrawFragment;
+import com.szbb.pro.ui.fragment.wallet.IncomeFragment;
+import com.szbb.pro.ui.fragment.wallet.OtherCostFragment;
+import com.szbb.pro.ui.fragment.wallet.WithdrawFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +29,14 @@ public class TransactionDetailActivity extends BaseAty {
     private List<Fragment> fragments = new ArrayList<>();
     private String[] tabs;
 
+    private int index = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         detailLayout = (TransactionDetailLayout) viewDataBinding;
+        index = getIntent().getIntExtra("index", 0);
     }
 
     @Override
@@ -54,6 +57,7 @@ public class TransactionDetailActivity extends BaseAty {
         viewPager.setOffscreenPageLimit(3);
         tabLayout.setTabsFromPagerAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+        viewPager.setCurrentItem(index, true);
     }
 
     private void initFragments() {

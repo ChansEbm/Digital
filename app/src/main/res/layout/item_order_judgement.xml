@@ -276,7 +276,6 @@
             <TextView
                 style="@style/textStyle"
                 android:layout_gravity="center_vertical"
-
                 android:text="@string/order_detail_fitting_sent_back"
                 />
 

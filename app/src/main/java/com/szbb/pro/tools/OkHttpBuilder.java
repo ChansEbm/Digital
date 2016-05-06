@@ -211,6 +211,12 @@ public class OkHttpBuilder {
             return this;
         }
 
+
+        public POST urlPages(String pagesUrl) {
+            this.fullUrl = AppKeyMap.HEAD_APIPAGES + pagesUrl;
+            return this;
+        }
+
         /**
          * the params what we need to upload
          *
@@ -243,26 +249,6 @@ public class OkHttpBuilder {
             List<List<String>> lists = new ArrayList<>();
             lists.add(files);
             params(params, lists, fileKey);
-            //multiBuilder
-//            MultipartBuilder builder = new MultipartBuilder().type(MultipartBuilder.FORM);
-//            //the string params what we need to upload
-//            Set<String> keys = params.keySet();//把参数添加到构建体
-//            //ergodic standard keys into builder
-//            for (String key : keys) {
-//                builder.addFormDataPart(key, params.get(key));
-//            }
-//
-//            for (String filePath : files) {
-//                int suffixIndex = filePath.lastIndexOf(".");
-//                //get the suffix
-//                String fileSuffix = filePath.substring(suffixIndex, filePath.length());
-//
-//                builder.addFormDataPart(fileKey, "file_" + fileSuffix, RequestBody
-//                        .create(mediaType,
-//                                new File(filePath)));//以添加的key为后台key,批量添加文件到后台
-//            }
-//            //build a builder
-//            requestBody = builder.build();
             return this;
         }
 

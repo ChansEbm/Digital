@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Activity.Orders.Operating;
+package com.szbb.pro.ui.activity.orders.operating;
 
 import android.content.Intent;
 import android.databinding.ViewDataBinding;
@@ -27,6 +27,8 @@ import com.szbb.pro.impl.CountChangeCallBack;
 import com.szbb.pro.impl.OnCountListener;
 import com.szbb.pro.impl.OnWheelOptsSelectCallback;
 import com.szbb.pro.tools.AppTools;
+import com.szbb.pro.ui.activity.orders.operating.a_mode.FittingApplyActivity;
+import com.szbb.pro.ui.activity.orders.operating.b_mode.FittingResendBModeActivity;
 import com.szbb.pro.widget.PopupWindow.ShopCarPopupWindow;
 import com.szbb.pro.widget.PopupWindow.WheelPopupWindow;
 
@@ -48,7 +50,6 @@ public class FittingWareHouseActivity extends BaseAty<BaseBean, FittingWareHouse
     private String detailId = "";
 
     private WheelPopupWindow wheelPopupWindow;
-    private String[] wheelData = new String[10];
     private WareHouseLayout fittingWareHouseLayout;
     private MaterialSearchView materialSearchView;
 
@@ -162,18 +163,6 @@ public class FittingWareHouseActivity extends BaseAty<BaseBean, FittingWareHouse
         }
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if (requestCode == AppKeyMap.CUPCAKE && resultCode == RESULT_OK) {
-//            FittingWareHouseBean.AcceListEntity acceListEntity = data.getParcelableExtra
-//                    ("acceList");
-//            acceListEntitySparseArray.put(Integer.valueOf(acceListEntity.getAcce_id()),
-//                    acceListEntity);
-//            shopCarPopupWindow.addItem(Integer.valueOf(acceListEntity.getAcce_id()),
-//                    acceListEntity);
-//            notifyShopCarCount();
-//        }
-//    }
 
     private void startActivityByAccType() {
         Intent intent = new Intent();
@@ -187,7 +176,7 @@ public class FittingWareHouseActivity extends BaseAty<BaseBean, FittingWareHouse
                 intent.setClass(this, FittingApplyActivity.class);
                 break;
             case "2":
-                intent.setClass(this, FittingResendActivity.class);
+                intent.setClass(this, FittingResendBModeActivity.class);
                 break;
             default:
                 return;
@@ -198,7 +187,6 @@ public class FittingWareHouseActivity extends BaseAty<BaseBean, FittingWareHouse
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-
         return true;
     }
 
@@ -230,7 +218,7 @@ public class FittingWareHouseActivity extends BaseAty<BaseBean, FittingWareHouse
     private void fillClassify(FittingWareHouseBean fittingWareHouseBean) {
         partsListEntities = fittingWareHouseBean.getParts_list();
         int partSize = partsListEntities.size();
-        wheelData = new String[partSize];
+        String[] wheelData = new String[partSize];
         for (int i = 0; i < partSize; i++) {
             //填充wheel数据源
             wheelData[i] = fittingWareHouseBean.getParts_list().get(i).getParts_name();
@@ -275,8 +263,7 @@ public class FittingWareHouseActivity extends BaseAty<BaseBean, FittingWareHouse
 
     @Override
     public void onCount(int position, int count) {
-        FittingWareHouseBean.AcceListEntity acceListEntity = (FittingWareHouseBean
-                .AcceListEntity) list.get(position);
+        FittingWareHouseBean.AcceListEntity acceListEntity = list.get(position);
         acceListEntity.setCount(count);
         commonBinderAdapter.notifyItemChanged(position);
         shopCarPopupWindow.addItem(position, acceListEntity);
@@ -291,8 +278,7 @@ public class FittingWareHouseActivity extends BaseAty<BaseBean, FittingWareHouse
         shopCarPopupWindow.removeItem(position);
         acceListEntitySparseArray.remove(position);
 
-        FittingWareHouseBean.AcceListEntity acceListEntity = (FittingWareHouseBean
-                .AcceListEntity) list.get(position);
+        FittingWareHouseBean.AcceListEntity acceListEntity = list.get(position);
         acceListEntity.setCount(0);
         commonBinderAdapter.notifyDataSetChanged();
         notifyShopCarCount();
@@ -320,8 +306,7 @@ public class FittingWareHouseActivity extends BaseAty<BaseBean, FittingWareHouse
         //重置所有item的数量为0
         for (int i = 0; i < acceListEntitySparseArray.size(); i++) {
             int key = acceListEntitySparseArray.keyAt(i);
-            final FittingWareHouseBean.AcceListEntity entity = (FittingWareHouseBean
-                    .AcceListEntity) list.get(key);
+            final FittingWareHouseBean.AcceListEntity entity = list.get(key);
             entity.setCount(0);
         }
         commonBinderAdapter.notifyDataSetChanged();

@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Activity.Vip.PersonalInfo;
+package com.szbb.pro.ui.activity.vip.PersonalInfo;
 
 import android.net.Uri;
 import android.os.Bundle;

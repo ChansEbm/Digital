@@ -13,6 +13,7 @@ import android.os.Environment;
 import android.os.StatFs;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -72,9 +73,8 @@ public class MiscUtils {
 
 
     /**
-     *
-     * @param dir  目标文件
-     * @param fileName  文件名
+     * @param dir      目标文件
+     * @param fileName 文件名
      */
     public static void updateFileTime(String dir, String fileName) {
 
@@ -85,9 +85,8 @@ public class MiscUtils {
 
 
     /**
-     *
-     * @param context  上下文
-     * @return  是否有网络
+     * @param context 上下文
+     * @return 是否有网络
      */
     public static boolean checkNet(Context context) {
 
@@ -103,9 +102,8 @@ public class MiscUtils {
 
 
     /**
-     *
-     * @param context  上下文
-     * @return  apn
+     * @param context 上下文
+     * @return apn
      */
     public static String getAPN(Context context) {
 
@@ -121,8 +119,7 @@ public class MiscUtils {
                 if (apn == null) {
                     apn = "wifi";
                 }
-            }
-            else {
+            } else {
                 apn = info.getExtraInfo().toLowerCase();
                 if (apn == null) {
                     apn = "mobile";
@@ -134,9 +131,8 @@ public class MiscUtils {
 
 
     /**
-     *
-     * @param context  上下文
-     * @return  model
+     * @param context 上下文
+     * @return model
      */
     public static String getModel(Context context) {
         return Build.MODEL;
@@ -154,9 +150,8 @@ public class MiscUtils {
 
 
     /**
-     *
-     * @param context  context
-     * @return  MANUFACTURER
+     * @param context context
+     * @return MANUFACTURER
      */
     public static String getManufacturer(Context context) {
 
@@ -165,9 +160,8 @@ public class MiscUtils {
 
 
     /**
-     *
-     * @param context  context
-     * @return  RELEASE
+     * @param context context
+     * @return RELEASE
      */
     public static String getFirmware(Context context) {
 
@@ -176,8 +170,7 @@ public class MiscUtils {
 
 
     /**
-     *
-     * @return  sdkversion
+     * @return sdkversion
      */
     public static String getSDKVer() {
 
@@ -186,8 +179,7 @@ public class MiscUtils {
 
 
     /**
-     *
-     * @return  获取语言
+     * @return 获取语言
      */
     public static String getLanguage() {
 
@@ -201,8 +193,7 @@ public class MiscUtils {
 
 
     /**
-     *
-     * @return  获取国家
+     * @return 获取国家
      */
     public static String getCountry() {
 
@@ -216,9 +207,8 @@ public class MiscUtils {
 
 
     /**
-     *
-     * @param context   context
-     * @return  imei
+     * @param context context
+     * @return imei
      */
     public static String getIMEI(Context context) {
 
@@ -235,9 +225,8 @@ public class MiscUtils {
 
 
     /**
-     *
-     * @param context  context
-     * @return  imsi
+     * @param context context
+     * @return imsi
      */
     public static String getIMSI(Context context) {
 
@@ -247,8 +236,7 @@ public class MiscUtils {
         String imsi = mTelephonyMgr.getSubscriberId();
         if (TextUtils.isEmpty(imsi)) {
             return "0";
-        }
-        else {
+        } else {
             return imsi;
         }
     }
@@ -267,9 +255,8 @@ public class MiscUtils {
 
 
     /**
-     *
-     * @param context  context
-     * @return  mcnc
+     * @param context context
+     * @return mcnc
      */
     public static String getMcnc(Context context) {
 
@@ -278,8 +265,7 @@ public class MiscUtils {
         String mcnc = tm.getNetworkOperator();
         if (TextUtils.isEmpty(mcnc)) {
             return "0";
-        }
-        else {
+        } else {
             return mcnc;
         }
     }
@@ -287,8 +273,9 @@ public class MiscUtils {
 
     /**
      * Get phone SDK version
-     * @param mContext      mContext
-     * @return  SDK version
+     *
+     * @param mContext mContext
+     * @return SDK version
      */
     public static int getPhoneSDK(Context mContext) {
 
@@ -297,7 +284,7 @@ public class MiscUtils {
                 Context.TELEPHONY_SERVICE);
         int sdk = 7;
         try {
-            sdk = Integer.parseInt(Build.VERSION.SDK);
+            sdk = Build.VERSION.SDK_INT;
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
@@ -307,10 +294,9 @@ public class MiscUtils {
 
 
     /**
-     *
-     * @param context  context
-     * @param keyName  keyName
-     * @return  data
+     * @param context context
+     * @param keyName keyName
+     * @return data
      */
     public static Object getMetaData(Context context, String keyName) {
 
@@ -332,9 +318,8 @@ public class MiscUtils {
 
 
     /**
-     *
      * @param context context
-     * @return  AppVersion
+     * @return AppVersion
      */
     public static String getAppVersion(Context context) {
 
@@ -353,9 +338,8 @@ public class MiscUtils {
 
 
     /**
-     *
-     * @param context  context
-     * @return  SerialNumber
+     * @param context context
+     * @return SerialNumber
      */
     public static String getSerialNumber(Context context) {
 
@@ -379,7 +363,8 @@ public class MiscUtils {
 
     /**
      * SDCard
-     * @return    SDCard
+     *
+     * @return SDCard
      */
     public boolean isSDCardSizeOverflow() {
 

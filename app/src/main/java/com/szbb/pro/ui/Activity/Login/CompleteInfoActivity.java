@@ -1,13 +1,17 @@
-package com.szbb.pro.ui.Activity.Login;
+package com.szbb.pro.ui.activity.login;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.szbb.pro.AppKeyMap;
@@ -16,7 +20,6 @@ import com.szbb.pro.R;
 import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.broadcast.UpdateUIBroadcast;
 import com.szbb.pro.dialog.InputDialog;
-import com.szbb.pro.dialog.MessageDialog;
 import com.szbb.pro.entity.Base.BaseBean;
 import com.szbb.pro.entity.EventBus.AreaEvent;
 import com.szbb.pro.eum.NetworkParams;
@@ -25,10 +28,11 @@ import com.szbb.pro.impl.InputCallBack;
 import com.szbb.pro.impl.OnPhotoOptsSelectListener;
 import com.szbb.pro.impl.UpdateUIListener;
 import com.szbb.pro.tools.AppTools;
+import com.szbb.pro.tools.BitmapCompressTool;
 import com.szbb.pro.tools.LogTools;
-import com.szbb.pro.ui.Activity.Locate.LocationActivity;
-import com.szbb.pro.ui.Activity.Locate.ProvinceActivity;
-import com.szbb.pro.widget.PopupWindow.TakePhotoPopupWindow;
+import com.szbb.pro.ui.activity.locate.LocationActivity;
+import com.szbb.pro.ui.activity.locate.ProvinceActivity;
+import com.szbb.pro.widget.PopupWindow.PhotoPopupWindow;
 
 import java.util.List;
 
@@ -51,13 +55,13 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
     private SimpleDraweeView citizenIdFrontSimpleDraweeView;//身份证正面
     private SimpleDraweeView citizenIdBackSimpleDraweeView;//身份证背面
     private EditText edtCompleteInfoRealName;//真实姓名
-    private EditText edtCompleteInfoLocation;//所在地区
+    private TextView tvCompleteInfoLocation;//所在地区
     private EditText edtCompleteInfoDetailAddress;//详细地址
+    private EditText edtCompleteInfoPickLocation;//选取坐标
     private EditText edtCompleteInfoCitizenID;//身份证号码
-    private EditText edtCompleteInfoSkill;//技能选择
     private InputDialog inputDialog;
     private UpdateUIBroadcast broadcast;
-    private TakePhotoPopupWindow takePhotoPopupWindow;
+    private PhotoPopupWindow photoPopupWindow;
     private Intent intent;
     private String avatarPath = "";
     private String idFontPath = "";
@@ -71,7 +75,6 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
 
     private int photoFlag = 0;
 
-    private MessageDialog messageDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -85,7 +88,7 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
     protected void initViews() {
         titleBarTools(this).setTitle(R.string.title_organizing);
         inputDialog = new InputDialog(this);
-        takePhotoPopupWindow = new TakePhotoPopupWindow(this);
+        photoPopupWindow = new PhotoPopupWindow(this);
 
         if (intent != null)
             if (intent.getBooleanExtra("isNeedSnackBar", false)) {
@@ -98,32 +101,22 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
         citizenIdFrontSimpleDraweeView = completeInfoLayout.sdvCitizenIdFontSide;
         citizenIdBackSimpleDraweeView = completeInfoLayout.sdvCitizenIdBackSide;
         edtCompleteInfoRealName = completeInfoLayout.edtRealName;
-        edtCompleteInfoLocation = completeInfoLayout.edtLocation;
+        tvCompleteInfoLocation = completeInfoLayout.tvLocation;
         edtCompleteInfoDetailAddress = completeInfoLayout.edtDetailAddress;
+        edtCompleteInfoPickLocation = completeInfoLayout.edtPickLocation;
         edtCompleteInfoCitizenID = completeInfoLayout.tvRealCitizenId;
-        edtCompleteInfoSkill = completeInfoLayout.edtSkill;
 
         broadcast = new UpdateUIBroadcast();
         broadcast.setListener(this);
         AppTools.registerBroadcast(broadcast, AppKeyMap.LOCATION_ACTION);
 
-        messageDialog = new MessageDialog(this);
     }
 
     @Override
     protected void initEvents() {
-        completeInfoLayout.ryltUploadAvatar.setOnClickListener(this);
-        completeInfoLayout.ryltRealName.setOnClickListener(this);
-        completeInfoLayout.ryltRegion.setOnClickListener(this);
-        completeInfoLayout.ryltAddress.setOnClickListener(this);
-        completeInfoLayout.tvRealCitizenId.setOnClickListener(this);
-        completeInfoLayout.sdvCitizenIdFontSide.setOnClickListener(this);
-        completeInfoLayout.sdvCitizenIdBackSide.setOnClickListener(this);
-        completeInfoLayout.ryltSkill.setOnClickListener(this);
-        completeInfoLayout.button.setOnClickListener(this);
-        completeInfoLayout.ivLocation.setOnClickListener(this);
+
         inputDialog.setInputCallBack(this);
-        takePhotoPopupWindow.setOnPhotoOptsSelectListener(this);
+        photoPopupWindow.setOnPhotoOptsSelectListener(this);
     }
 
     @Override
@@ -141,32 +134,37 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
         switch (id) {
             case R.id.rylt_upload_avatar:
                 photoFlag = AVATAR;
-                takePhotoPopupWindow.showAtLocation(completeInfoLayout.getRoot(), Gravity.BOTTOM,
+                photoPopupWindow.showAtLocation(completeInfoLayout.getRoot(), Gravity.BOTTOM,
                         0, 0);
                 break;
             case R.id.rylt_real_name:
                 inputDialog.setTitle(getResources().getString(R.string.organizing_real_name));
+                inputDialog.setInputType(InputType.TYPE_TEXT_VARIATION_PHONETIC);
                 inputDialog.setParams(NetworkParams.CUPCAKE);//callback means real name
                 inputDialog.show();
                 break;
             case R.id.rylt_address:
                 inputDialog.setTitle(getResources().getString(R.string.organizing__real_address));
                 inputDialog.setParams(NetworkParams.DONUT);//callback means address
+                inputDialog.setInputType(InputType.TYPE_TEXT_VARIATION_PHONETIC);
                 inputDialog.show();
                 break;
             case R.id.rylt_citizen_id:
+                inputDialog = new InputDialog(this, true);
                 inputDialog.setTitle(getResources().getString(R.string.organizing_citizen_ID));
                 inputDialog.setParams(NetworkParams.FROYO);//callback means citizenId
                 inputDialog.show();
                 break;
             case R.id.rylt_skill:
-                Intent intent = new Intent().setClass(this, SkillActivity.class);
+//                Intent intent = new Intent().setClass(this, SkillActivity.class);
 //                startActivityForResult(intent, AppKeyMap.KITKAT);
                 break;
             case R.id.rylt_region:
+                Toast.makeText(CompleteInfoActivity.this, "为方便系统给您派发附近工单，请准确设置您所在地区", Toast
+                        .LENGTH_SHORT).show();
                 start(ProvinceActivity.class);
                 break;
-            case R.id.iv_location:
+            case R.id.rylt_location:
                 startActivityForResult(new Intent().putExtra("flag", AppKeyMap.CUPCAKE).putExtra
                                 ("title", getString(R.string.now_position)).setClass
                                 (this, LocationActivity.class),
@@ -174,12 +172,12 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
                 break;
             case R.id.sdv_citizen_id_font_side:
                 photoFlag = ID_FONT;
-                takePhotoPopupWindow.showAtLocation(completeInfoLayout.getRoot(), Gravity.BOTTOM,
+                photoPopupWindow.showAtLocation(completeInfoLayout.getRoot(), Gravity.BOTTOM,
                         0, 0);
                 break;
             case R.id.sdv_citizen_id_back_side:
                 photoFlag = ID_BACK;
-                takePhotoPopupWindow.showAtLocation(completeInfoLayout.getRoot(), Gravity.BOTTOM,
+                photoPopupWindow.showAtLocation(completeInfoLayout.getRoot(), Gravity.BOTTOM,
                         0, 0);
                 break;
             case R.id.button:
@@ -213,7 +211,7 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
         if (!streetId.isEmpty()) {
             areaId += "," + streetId;
         }
-        edtCompleteInfoLocation.setText(province + "" + city + "" + district + "" + street + "");
+        tvCompleteInfoLocation.setText(province + "" + city + "" + district + "" + street + "");
     }
 
     @Override
@@ -228,6 +226,9 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
             if (resultCode == RESULT_OK) {
                 this.lat = data.getDoubleExtra("lat", 0d);
                 this.lng = data.getDoubleExtra("lng", 0d);
+                if (lat != 0d && lng != 0d)
+                    this.edtCompleteInfoPickLocation.setText(R.string
+                            .organization_input_chosen);
             }
         }
     }
@@ -236,7 +237,7 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
     public void uiUpData(Intent intent) {
         if (intent.getExtras().getInt("flag") == AppKeyMap.GINGERBREAD) {//如果广播是选择地址
             Bundle bundle = intent.getExtras();
-            edtCompleteInfoLocation.setText(bundle.getString("province") + "-" + bundle.getString
+            tvCompleteInfoLocation.setText(bundle.getString("province") + "-" + bundle.getString
                     ("city") + "-" + bundle.getString("district"));
         }
     }
@@ -262,6 +263,8 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
             case FROYO://means citizen id
                 if (AppTools.verifyCitizenId(completeInfoLayout.getRoot(), word))
                     edtCompleteInfoCitizenID.setText(word);
+                else
+                    AppTools.showNormalSnackBar(parentView, "请校检身份证格式");
                 break;
         }
     }
@@ -269,7 +272,7 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
     @Override
     public void onOptsSelect(PhotoPopupOpts opts) {
         FunctionConfig functionConfig = new FunctionConfig.Builder().setEnablePreview(true)
-                .setEnableCrop(true).build();
+                .setEnableCrop(true).setCropHeight(500).setCropWidth(500).build();
         switch (opts) {
             case TAKE_PHOTO:
                 if (photoFlag == AVATAR) {
@@ -298,7 +301,7 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
     private boolean checkNecessary() {
 
         this.realName = edtCompleteInfoRealName.getText().toString();
-        String location = edtCompleteInfoLocation.getText().toString();
+        String location = tvCompleteInfoLocation.getText().toString();
         this.detailAddress = edtCompleteInfoDetailAddress.getText().toString();
         this.citizenID = edtCompleteInfoCitizenID.getText().toString();
         if (TextUtils.isEmpty(avatarPath)) {
@@ -337,6 +340,12 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
             return false;
         }
 
+        if (!citizenID.matches(AppKeyMap.CITIZEN_ID_REGEX)) {
+            AppTools.showNormalSnackBar(parentView, getString(R.string
+                    .invalid_citizenID));
+            return false;
+        }
+
         if (lat == 0d || lng == 0d) {
             AppTools.showNormalSnackBar(parentView, getString(R.string
                     .organizing_please_choose_lat_lng));
@@ -360,8 +369,15 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
         super.onJsonObjectSuccess(baseBean, paramsCode);
         switch (paramsCode) {
             case CUPCAKE://submit success
-                start(LoginActivity.class, Intent.FLAG_ACTIVITY_SINGLE_TOP, Intent
-                        .FLAG_ACTIVITY_CLEAR_TOP);
+                Toast.makeText(CompleteInfoActivity.this, "注册成功，请等待审核通过", Toast
+                        .LENGTH_SHORT).show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        start(LoginActivity.class, Intent.FLAG_ACTIVITY_SINGLE_TOP, Intent
+                                .FLAG_ACTIVITY_CLEAR_TOP);
+                    }
+                }, 1000);
                 break;
         }
     }
@@ -370,6 +386,8 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
     public void onHanlderSuccess(int requestCode, List<PhotoInfo> resultList) {
         super.onHanlderSuccess(requestCode, resultList);
         PhotoInfo photoInfo = resultList.get(0);
+        String photoPath = photoInfo.getPhotoPath();
+        BitmapCompressTool.getRadioBitmap(photoPath, 500, 500);
         switch (requestCode) {
             case AppKeyMap.CUPCAKE://avatar
                 avatarPath = photoInfo.getPhotoPath();

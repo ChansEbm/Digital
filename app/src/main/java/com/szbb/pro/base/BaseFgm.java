@@ -28,11 +28,15 @@ import com.szbb.pro.tools.LogTools;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.finalteam.galleryfinal.GalleryFinal;
+import cn.finalteam.galleryfinal.model.PhotoInfo;
+
 /**
  * Created by ChanZeeBm on 2015/9/7.
  */
 public abstract class BaseFgm<E, T> extends Fragment implements View.OnClickListener,
-        BinderOnItemClickListener, OkHttpResponseListener<E>, UpdateUIListener {
+        BinderOnItemClickListener, OkHttpResponseListener<E>, UpdateUIListener, GalleryFinal
+                .OnHanlderResultCallback {
     protected CommonBinderAdapter<T> commonBinderAdapter;
     protected MultiAdapter<T> multiAdapter;
     protected List<T> list = new ArrayList<>();
@@ -170,5 +174,15 @@ public abstract class BaseFgm<E, T> extends Fragment implements View.OnClickList
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public void onHanlderSuccess(int reqeustCode, List<PhotoInfo> resultList) {
+
+    }
+
+    @Override
+    public void onHanlderFailure(int requestCode, String errorMsg) {
+
     }
 }

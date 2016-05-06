@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="RtlCompat">
 
     <data class=".AppointmentClientLayout">
 
         <variable
             name="appointment"
-            type="com.szbb.pro.entity.Order.OrderDetailBean.DataEntity"/>
+            type="com.szbb.pro.entity.Order.OrderDetailBean.DataEntity" />
     </data>
 
     <FrameLayout
@@ -20,7 +21,7 @@
             android:background="@color/color_bg_gravy"
             android:orientation="vertical">
 
-            <include layout="@layout/title_bar"/>
+            <include layout="@layout/title_bar" />
 
             <ScrollView
                 android:id="@+id/scrollView"
@@ -46,8 +47,7 @@
                         <TextView
                             style="@style/textStyle"
                             android:layout_gravity="center_vertical"
-                            android:text="@string/label_make_order_people"
-                            />
+                            android:text="@string/label_make_order_people" />
 
                         <Button
                             android:id="@+id/btn_engineer"
@@ -60,7 +60,7 @@
                             android:paddingStart="@dimen/small_margin_5dp"
                             android:text="@string/label_engineer"
                             android:textColor="@color/theme_primary"
-                            android:textSize="11sp"/>
+                            android:textSize="11sp" />
                     </FrameLayout>
 
                     <RelativeLayout
@@ -74,8 +74,7 @@
                             style="@style/textStyle"
                             android:layout_centerVertical="true"
                             android:text="@{appointment.factory_desc}"
-                            android:textColor="@color/color_text_gravy"
-                            />
+                            android:textColor="@color/color_text_gravy" />
                     </RelativeLayout>
 
                     <FrameLayout
@@ -90,8 +89,7 @@
                         <TextView
                             style="@style/textStyle"
                             android:layout_gravity="center_vertical"
-                            android:text="@string/user_information"
-                            />
+                            android:text="@string/user_information" />
 
                         <Button
                             android:id="@+id/btn_user"
@@ -104,10 +102,10 @@
                             android:paddingStart="@dimen/small_margin_5dp"
                             android:text="@string/user"
                             android:textColor="@color/theme_primary"
-                            android:textSize="11sp"/>
+                            android:textSize="11sp" />
                     </FrameLayout>
 
-                    <include layout="@layout/line"/>
+                    <include layout="@layout/line" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -127,21 +125,20 @@
                             android:drawableTop="@mipmap/ic_location_blue"
                             android:onClick="onClick"
                             android:text="@string/locate"
-                            android:textColor="@color/theme_primary"
-                            />
+                            android:textColor="@color/theme_primary" />
 
                         <TextView
                             android:id="@+id/tv_t7"
                             style="@style/textStyle"
                             android:text="@{appointment.nickname}"
-                            android:textColor="@color/color_text_gravy"/>
+                            android:textColor="@color/color_text_gravy" />
 
                         <TextView
                             style="@style/textStyle"
                             android:layout_marginStart="@dimen/middle_margin_10dp"
                             android:layout_toEndOf="@id/tv_t7"
                             android:text="@{appointment.tel}"
-                            android:textColor="@color/color_text_gravy"/>
+                            android:textColor="@color/color_text_gravy" />
 
                         <TextView
                             android:id="@+id/tv_t8"
@@ -149,7 +146,7 @@
                             android:layout_below="@id/tv_t7"
                             android:layout_marginTop="@dimen/middle_margin_10dp"
                             android:text="@string/address"
-                            android:textColor="@color/color_text_gravy"/>
+                            android:textColor="@color/color_text_gravy" />
 
                         <TextView
                             android:id="@+id/tv_t9"
@@ -159,7 +156,7 @@
                             android:layout_toEndOf="@id/tv_t8"
                             android:layout_toStartOf="@id/tv_location"
                             android:text="@{appointment.address}"
-                            android:textColor="@color/color_text_gravy"/>
+                            android:textColor="@color/color_text_gravy" />
 
                         <TextView
                             android:id="@+id/tv_t10"
@@ -167,7 +164,7 @@
                             android:layout_below="@id/tv_t9"
                             android:layout_marginTop="@dimen/middle_margin_10dp"
                             android:text="@string/order_detail_way"
-                            android:textColor="@color/color_text_gravy"/>
+                            android:textColor="@color/color_text_gravy" />
 
                         <TextView
                             style="@style/textStyle"
@@ -175,20 +172,20 @@
                             android:layout_marginStart="@dimen/small_margin_5dp"
                             android:layout_toEndOf="@id/tv_t10"
                             android:text="@{appointment.est_miles}"
-                            android:textColor="@color/color_text_red"/>
+                            android:textColor="@color/color_text_red" />
 
                     </RelativeLayout>
 
 
-                    <include layout="@layout/line"/>
+                    <include layout="@layout/line" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
                         android:layout_marginTop="@dimen/large_margin_15dp"
-                        android:background="@color/color_bg_line"/>
+                        android:background="@color/color_bg_line" />
 
-                    <include layout="@layout/line"/>
+                    <include layout="@layout/line" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recyclerView"
@@ -196,14 +193,14 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:background="@color/color_white"
-                        android:listSelector="@drawable/bg_white_gravy_selector"/>
+                        android:listSelector="@drawable/bg_white_gravy_selector" />
 
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
                         android:layout_marginTop="@dimen/large_margin_15dp"
-                        android:background="@color/color_bg_line"/>
+                        android:background="@color/color_bg_line" />
 
                     <FrameLayout
                         android:id="@+id/flyt_client_appointment_choose_result"
@@ -219,14 +216,14 @@
                             android:layout_gravity="center_vertical"
                             android:drawablePadding="10dp"
                             android:drawableStart="@mipmap/ic_smile"
-                            android:text="@string/appointment_result_this_time"/>
+                            android:text="@string/appointment_result_this_time" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:textColor="@color/color_text_dark"
-                            android:textSize="13sp"/>
+                            android:textSize="13sp" />
 
                         <TextView
                             android:id="@+id/tv_appointment_result"
@@ -236,13 +233,13 @@
                             android:drawableEnd="@mipmap/ic_arrow_right"
                             android:drawablePadding="@dimen/small_margin_5dp"
                             android:text="@string/choose_result"
-                            android:textColor="@color/color_text_gravy"/>
+                            android:textColor="@color/color_text_gravy" />
                     </FrameLayout>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
-                        android:background="@color/color_bg_line"/>
+                        android:background="@color/color_bg_line" />
 
                     <FrameLayout
                         android:id="@+id/flyt_appointment_time"
@@ -259,14 +256,14 @@
                             android:layout_gravity="center_vertical"
                             android:drawablePadding="10dp"
                             android:drawableStart="@mipmap/ic_clock"
-                            android:text="@string/appointment_time"/>
+                            android:text="@string/appointment_time" />
 
                         <TextView
                             android:id="@+id/tv_appointment_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:textColor="@color/color_text_dark"/>
+                            android:textColor="@color/color_text_dark" />
 
                         <ImageView
                             android:id="@+id/image"
@@ -274,13 +271,13 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="end|center_vertical"
                             android:contentDescription="@string/app_name"
-                            android:src="@mipmap/ic_arrow_right"/>
+                            android:src="@mipmap/ic_arrow_right" />
                     </FrameLayout>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
-                        android:background="@color/color_bg_line"/>
+                        android:background="@color/color_bg_line" />
 
                     <RelativeLayout
                         android:id="@+id/rylt_appointment_remark"
@@ -300,7 +297,7 @@
                             android:layout_gravity="center_vertical"
                             android:drawablePadding="10dp"
                             android:drawableStart="@mipmap/ic_mesaage"
-                            android:text="@string/note"/>
+                            android:text="@string/note" />
 
                         <TextView
                             android:id="@+id/tv_appointment_remark"
@@ -312,14 +309,14 @@
                             android:ellipsize="middle"
                             android:singleLine="true"
                             android:textColor="@color/color_text_dark"
-                            android:textSize="13sp"/>
+                            android:textSize="13sp" />
 
                     </RelativeLayout>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
-                        android:background="@color/color_bg_line"/>
+                        android:background="@color/color_bg_line" />
 
 
                     <LinearLayout
@@ -337,9 +334,9 @@
                             android:layout_marginStart="@dimen/large_margin_15dp"
                             android:layout_marginTop="@dimen/large_margin_15dp"
                             android:background="@drawable/bg_round_normal_blue_dark_selector"
-                            android:text="@string/submit"
+                            android:text="接单"
                             android:textColor="@color/color_white"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
             </ScrollView>

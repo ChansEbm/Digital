@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Activity.Vip.PersonalInfo;
+package com.szbb.pro.ui.activity.vip.PersonalInfo;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +12,7 @@ import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.entity.Base.BaseBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.tools.AppTools;
-import com.szbb.pro.ui.Activity.Login.LoginActivity;
+import com.szbb.pro.ui.activity.login.LoginActivity;
 
 public class ChangePasswordActivity extends BaseAty<BaseBean, BaseBean> {
     private ChangePasswordLayout changePasswordLayout;

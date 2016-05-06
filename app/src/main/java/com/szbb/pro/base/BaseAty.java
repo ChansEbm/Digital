@@ -17,12 +17,14 @@ import com.szbb.pro.broadcast.UpdateUIBroadcast;
 import com.szbb.pro.entity.Base.BaseBean;
 import com.szbb.pro.entity.Order.OrderMsgBean;
 import com.szbb.pro.entity.Order.OrderMsgListBean;
+import com.szbb.pro.entity.Vip.CheckUpdateBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.impl.BinderOnItemClickListener;
 import com.szbb.pro.impl.OkHttpResponseListener;
 import com.szbb.pro.impl.UpdateUIListener;
 import com.szbb.pro.model.NetworkModel;
 import com.szbb.pro.tools.AppTools;
+import com.szbb.pro.tools.BitmapCompressTool;
 import com.szbb.pro.tools.LogTools;
 import com.szbb.pro.tools.TitleBarTools;
 
@@ -50,10 +52,12 @@ public abstract class BaseAty<E extends BaseBean, T> extends AppCompatActivity i
     protected NetworkModel networkModel;
     protected UpdateUIBroadcast uiBroadcast;
     private boolean isFirstRunnable = true;
+    public boolean isNeedBackground = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LogTools.v(getClass().getSimpleName());
         if (savedInstanceState != null) {
             isFirstRunnable = savedInstanceState.getBoolean("isFirstRunnable");
         }
@@ -68,6 +72,8 @@ public abstract class BaseAty<E extends BaseBean, T> extends AppCompatActivity i
             // .FLAG_TRANSLUCENT_NAVIGATION);//虚拟底部
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);//状态栏
             viewDataBinding.getRoot().setFitsSystemWindows(true);
+            if (isNeedBackground)
+                viewDataBinding.getRoot().setBackgroundResource(R.color.theme_primary);
         }
 
         networkModel = new NetworkModel(this);
@@ -96,6 +102,7 @@ public abstract class BaseAty<E extends BaseBean, T> extends AppCompatActivity i
     protected void onResume() {
         super.onResume();
         JPushInterface.onResume(getApplicationContext());
+        BaseApplication.setCurrentActivity(this);
     }
 
     @Override
@@ -114,7 +121,6 @@ public abstract class BaseAty<E extends BaseBean, T> extends AppCompatActivity i
         return titleBarTools.defaultToolBar(this);
     }
 
-
     protected void start(Bundle bundle, Class<?> targetClz) {
         start(new Intent().setClass(this, targetClz).putExtras(bundle));
     }
@@ -127,7 +133,7 @@ public abstract class BaseAty<E extends BaseBean, T> extends AppCompatActivity i
         start(intent);
     }
 
-    protected void start(Class<?> cls) {
+    protected void start(Class cls) {
         start(new Intent().setClass(this, cls));
     }
 
@@ -185,6 +191,9 @@ public abstract class BaseAty<E extends BaseBean, T> extends AppCompatActivity i
 
     @Override
     public void onHanlderSuccess(int requestCode, List<PhotoInfo> resultList) {
+        for (PhotoInfo photoInfo : resultList) {
+            BitmapCompressTool.getRadioBitmap(photoInfo.getPhotoPath(), 1000, 1000);
+        }
     }
 
 
@@ -195,6 +204,10 @@ public abstract class BaseAty<E extends BaseBean, T> extends AppCompatActivity i
                 .connect_server_error));
     }
 
+    public void onError(BaseBean baseBean) {
+
+    }
+
     @Override
     public void onJsonArrayResponse(List<E> t, NetworkParams paramsCode) {
 
@@ -202,16 +215,18 @@ public abstract class BaseAty<E extends BaseBean, T> extends AppCompatActivity i
 
     @Override
     public void onJsonObjectResponse(E e, NetworkParams paramsCode) {
-        BaseBean baseBean = (BaseBean) e;
+        BaseBean baseBean = e;
         final int errorCode = baseBean.getErrorcode();
         if (errorCode == 1) {
             LogTools.e("参数错误");
         } else {
-            if (!((baseBean instanceof OrderMsgListBean) || (baseBean instanceof OrderMsgBean)))
+            if (!((baseBean instanceof OrderMsgListBean) || (baseBean instanceof OrderMsgBean) || (baseBean instanceof CheckUpdateBean)))
                 //唉 这样写非常不好 联系客服什么时候可以去掉
                 showMsgSnackBar(baseBean.getMsg());
             if (errorCode == 0) {
                 onJsonObjectSuccess(e, paramsCode);
+            } else {
+                onError(baseBean);
             }
         }
     }
@@ -230,7 +245,6 @@ public abstract class BaseAty<E extends BaseBean, T> extends AppCompatActivity i
         if (intent.getAction().equals(AppKeyMap.NO_NETWORK_ACTION))
             noNetworkStatus();
     }
-
 
 }
 

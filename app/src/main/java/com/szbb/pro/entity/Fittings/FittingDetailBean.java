@@ -57,7 +57,8 @@ public class FittingDetailBean extends BaseBean {
         this.data = data;
     }
 
-    public static class DataEntity extends BaseObservable {
+    public static class DataEntity extends BaseObservable implements Parcelable {
+
         private String orderid;
         private String detailid;
         private String serviceid;
@@ -524,5 +525,87 @@ public class FittingDetailBean extends BaseBean {
                 this.url = url;
             }
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(this.orderid);
+            dest.writeString(this.detailid);
+            dest.writeString(this.serviceid);
+            dest.writeString(this.acceid);
+            dest.writeString(this.sn);
+            dest.writeString(this.addtime);
+            dest.writeString(this.fact_shipping_type);
+            dest.writeString(this.fact_shipping_num);
+            dest.writeString(this.fact_shipping_time);
+            dest.writeString(this.applicant);
+            dest.writeString(this.applicant_tell);
+            dest.writeString(this.address);
+            dest.writeString(this.factory);
+            dest.writeString(this.factory_logo);
+            dest.writeString(this.exe_type);
+            dest.writeString(this.exe_status);
+            dest.writeString(this.exe_desc);
+            dest.writeString(this.acce_count);
+            dest.writeString(this.shipping_type);
+            dest.writeString(this.shipping_num);
+            dest.writeString(this.shipping_paytype);
+            dest.writeString(this.shipping_money);
+            dest.writeString(this.remarks);
+            dest.writeString(this.fact_reply_desc);
+            dest.writeInt(this.totalCount);
+            dest.writeTypedList(acce_list);
+            dest.writeList(this.acce_photos);
+        }
+
+        public DataEntity() {
+        }
+
+        protected DataEntity(Parcel in) {
+            this.orderid = in.readString();
+            this.detailid = in.readString();
+            this.serviceid = in.readString();
+            this.acceid = in.readString();
+            this.sn = in.readString();
+            this.addtime = in.readString();
+            this.fact_shipping_type = in.readString();
+            this.fact_shipping_num = in.readString();
+            this.fact_shipping_time = in.readString();
+            this.applicant = in.readString();
+            this.applicant_tell = in.readString();
+            this.address = in.readString();
+            this.factory = in.readString();
+            this.factory_logo = in.readString();
+            this.exe_type = in.readString();
+            this.exe_status = in.readString();
+            this.exe_desc = in.readString();
+            this.acce_count = in.readString();
+            this.shipping_type = in.readString();
+            this.shipping_num = in.readString();
+            this.shipping_paytype = in.readString();
+            this.shipping_money = in.readString();
+            this.remarks = in.readString();
+            this.fact_reply_desc = in.readString();
+            this.totalCount = in.readInt();
+            this.acce_list = in.createTypedArrayList(AcceListEntity.CREATOR);
+            this.acce_photos = new ArrayList<AccePhotosEntity>();
+            in.readList(this.acce_photos, AccePhotosEntity.class.getClassLoader());
+        }
+
+        public static final Parcelable.Creator<DataEntity> CREATOR = new Parcelable.Creator<DataEntity>() {
+            @Override
+            public DataEntity createFromParcel(Parcel source) {
+                return new DataEntity(source);
+            }
+
+            @Override
+            public DataEntity[] newArray(int size) {
+                return new DataEntity[size];
+            }
+        };
     }
 }

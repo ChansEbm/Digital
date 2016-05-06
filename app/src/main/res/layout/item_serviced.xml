@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:ignore="RtlCompat">
 
     <data class=".ItemServicedLayout">
 
         <import type="android.text.TextUtils"/>
 
         <import type="android.view.View"/>
-
 
         <variable
             name="order"
@@ -40,8 +41,8 @@
                 style="@style/textStyle"
                 android:layout_below="@id/tv_t1"
                 android:layout_marginTop="@dimen/small_margin_5dp"
-                app:text='@{order.has_handle_desc.equals("1")?order.order_handle_desc_in_color:order.sign_in_desc}'
-                android:textColor="@color/color_text_gravy"/>
+                android:textColor="@color/color_text_gravy"
+                app:text='@{order.has_handle_desc.equals("1")?order.order_handle_desc_in_color:order.sign_in_desc}'/>
 
             <TextView
                 style="@style/textStyle"

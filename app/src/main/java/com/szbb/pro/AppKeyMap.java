@@ -9,7 +9,7 @@ public class AppKeyMap {
     //手机正则
     public final static String PHONE_REGEX = "[1][3578]\\d{9}";
     //身份证正则
-    public final static String CITIZEN_ID_REGEX = "(\\d{14}[0-9a-zA-Z])|(\\d{17}[0-9a-zA-Z])";
+    public final static String CITIZEN_ID_REGEX = "^(\\d{6})(\\d{4})(\\d{2})(\\d{2})(\\d{3})([0-9]|X||x)$";
     //中国人名正则
     public final static String CHINESE_PEOPLE_REGEX = "(([\\u4E00-\\u9FA5]|[·]){2,15})";
     //密码正则(只能输入数字字母)
@@ -20,8 +20,13 @@ public class AppKeyMap {
     public final static String ACTION_KEY = "ACTION_KEY";
     //定位Action
     public final static String LOCATION_ACTION = "android.intent.action.LOCATION";
-    //预约客户Action
-    public final static String APPOINTMENT_CLIENT_ACTION = "android.intent.action.APPOINTMENT";
+    //预约客户成功Action
+    public final static String APPOINTMENT_CLIENT_ACTION = "android.intent.action" +
+            ".APPOINTMENT_CLIENT_ACTION";
+    //联系不上客户
+    public final static String APPOINTMENT_CAN_NOT_CONTENT_CLIENT = "android.intent.action" +
+            ".APPOINTMENT_CAN_NOT_CONTENT_CLIENT";
+
     //待结算Action
     public final static String WAITING_COST_ACTION = "android.intent.action.COST";
     //检测无网络action
@@ -41,8 +46,10 @@ public class AppKeyMap {
     public final static int KITKAT = 0x07f;
     public final static int LOLLIPOP = 0x08f;
     public final static int MARSHMALLOW = 0x09f;
-
-    public final static String HEAD = "http://appbaba.jios.org:8081/";
+    //http://appbaba.jios.org:8081/
+    //http://kf.szlb.cc/
+    //http://fu.szlb.cc/
+    public final static String HEAD = "http://kf.szlb.cc/";
     public final static String HEAD_API_LOGIN = HEAD + "ApiLogin/";
     public final static String HEAD_API_WORKER = HEAD + "ApiWorker/";
     public final static String HEAD_API_ORDER = HEAD + "ApiOrder/";
@@ -56,6 +63,8 @@ public class AppKeyMap {
     public final static String HEAD_JOINTPRICE = HEAD_APIPAGES + "jointPrice";
     public final static String HEAD_REGISTERAGREEMENT = HEAD_APIPAGES + "registerAgreement";
     public final static String HEAD_QUERYLOGISTICS = HEAD_APIPAGES + "queryLogistics";
+    public final static String REGISTERAGREEMENT = HEAD_APIPAGES + "registerAgreement";
+
 
     public final static String CONTENT_JPG = "image/jpg";
     public final static String CONTENT_PNG = "image/png";

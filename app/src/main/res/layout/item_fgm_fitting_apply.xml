@@ -25,22 +25,21 @@
             <TextView
                 android:id="@+id/tv_t1"
                 style="@style/textStyle"
-                android:text="@{fitting.brand}"/>
-
-            <TextView
-                android:id="@+id/tv_t2"
-                style="@style/textStyle"
-                android:layout_marginStart="@dimen/small_margin_5dp"
-                android:layout_toEndOf="@id/tv_t1"
-                android:text="@{fitting.model}"
-                android:textColor="@color/color_orange_light"/>
+                android:text="@{fitting.acce_brand+'-'+fitting.acce_model}"/>
 
             <TextView
                 style="@style/textStyle"
                 android:layout_below="@id/tv_t1"
                 android:layout_marginTop="@dimen/small_margin_5dp"
-                android:text="@{fitting.name}"
+                android:text="@{fitting.brand+'-'+fitting.stantard+'\b'+fitting.model}"
                 android:textColor="@color/color_text_gravy"/>
+
+            <TextView
+                style="@style/textStyle"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@id/tv_t1"
+                android:text="@{fitting.exe_desc}"
+                android:textColor="@color/color_text_org"/>
         </RelativeLayout>
 
         <include layout="@layout/line"/>

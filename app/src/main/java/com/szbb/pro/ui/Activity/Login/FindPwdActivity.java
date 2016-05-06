@@ -1,8 +1,7 @@
-package com.szbb.pro.ui.Activity.Login;
+package com.szbb.pro.ui.activity.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,11 +12,13 @@ import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.entity.Base.BaseBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.tools.AppTools;
+import com.szbb.pro.tools.ViewUtils;
 
 /**
  * Created by ChanZeeBm on 2015/10/15.
+ * 找回密码
  */
-public class FindPwdActivity extends BaseAty<BaseBean,BaseBean> {
+public class FindPwdActivity extends BaseAty<BaseBean, BaseBean> {
     private FindPwdLayout findPwdLayout;
     private EditText edtFindPwdUser;
     private EditText edtFindPwdVerificationCode;
@@ -25,7 +26,6 @@ public class FindPwdActivity extends BaseAty<BaseBean,BaseBean> {
     private EditText edtFindPwdConfirmPwd;
     private Button btnGetVerificationCode;
     private Button btnSubmit;
-    private CountDownTimer countDownTimer;
 
     private String phone = "";
     private String verificationCode = "";
@@ -75,7 +75,7 @@ public class FindPwdActivity extends BaseAty<BaseBean,BaseBean> {
             case R.id.btn_verification_code:
                 if (checkUser()) {
                     networkModel.phoneCode(phone, null);
-                    startCountDown();
+                    ViewUtils.startCountDown((Button) view);
                 }
                 break;
             case R.id.btn_submit:
@@ -100,30 +100,6 @@ public class FindPwdActivity extends BaseAty<BaseBean,BaseBean> {
                 (edtFindPwdVerificationCode, verificationCode);
     }
 
-    private void startCountDown() {
-        if (countDownTimer == null) {
-            countDownTimer = new CountDownTimer(60000, 10) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-                    btnGetVerificationCode.setEnabled(false);
-                    btnGetVerificationCode.setTextColor(getResources().getColor(R.color
-                            .color_text_light_gravy));
-                    btnGetVerificationCode.setText((millisUntilFinished / 1000) + getResources()
-                            .getString(R.string.reg_verification_code_again));
-                }
-
-                @Override
-                public void onFinish() {
-                    btnGetVerificationCode.setEnabled(true);
-                    btnGetVerificationCode.setTextColor(getResources().getColor(R.color
-                            .theme_primary));
-                    btnGetVerificationCode.setText(getResources().getString(R.string
-                            .reg_reCode));
-                }
-            };
-        }
-        countDownTimer.start();
-    }
 
     @Override
     public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {
@@ -138,9 +114,7 @@ public class FindPwdActivity extends BaseAty<BaseBean,BaseBean> {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (countDownTimer != null)
-            countDownTimer.cancel();
-        countDownTimer = null;
+        ViewUtils.endCountDown();
     }
 
 }

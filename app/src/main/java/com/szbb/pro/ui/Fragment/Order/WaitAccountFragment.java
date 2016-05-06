@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.Fragment.Order;
+package com.szbb.pro.ui.fragment.order;
 
 import android.content.Intent;
 import android.databinding.ViewDataBinding;
@@ -19,7 +19,7 @@ import com.szbb.pro.broadcast.UpdateUIBroadcast;
 import com.szbb.pro.entity.Order.MyOrderBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.tools.AppTools;
-import com.szbb.pro.ui.Activity.Orders.Operating.OrderDetailActivity;
+import com.szbb.pro.ui.activity.orders.operating.OrderDetailActivity;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import java.util.List;
@@ -58,7 +58,8 @@ public class WaitAccountFragment extends BaseFgm<MyOrderBean, MyOrderBean.ListEn
             @Override
             public void onBind(ViewDataBinding viewDataBinding, CommonBinderHolder holder, int
                     position, MyOrderBean.ListEntity listEntity) {
-                ItemWaitingAccountLayout waitingAccountLayout = (ItemWaitingAccountLayout) viewDataBinding;
+                ItemWaitingAccountLayout waitingAccountLayout = (ItemWaitingAccountLayout)
+                        viewDataBinding;
                 waitingAccountLayout.setOrder(listEntity);
             }
         };
@@ -127,16 +128,15 @@ public class WaitAccountFragment extends BaseFgm<MyOrderBean, MyOrderBean.ListEn
         switch (paramsCode) {
             case CUPCAKE://the first time load
             case DONUT://the refresh action
-                this.list.clear();
-                break;
             case FROYO://load more action
+                this.list.clear();
                 break;
         }
         final List<MyOrderBean.ListEntity> list = myOrderBean.getList();
-        if (list.isEmpty())
-            orderBaseLayout.include.emptyView.setVisibility(View.VISIBLE);
+        if (list.isEmpty() && this.list.isEmpty())
+            orderBaseLayout.include.emptyView2.setVisibility(View.VISIBLE);
         else
-            orderBaseLayout.include.emptyView.setVisibility(View.GONE);
+            orderBaseLayout.include.emptyView2.setVisibility(View.GONE);
         this.list.addAll(list);
         commonBinderAdapter.notifyDataSetChanged();
         refreshLayout.endLoadingMore();

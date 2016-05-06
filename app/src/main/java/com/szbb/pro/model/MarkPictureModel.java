@@ -6,17 +6,13 @@ import android.net.Uri;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.facebook.imagepipeline.common.ResizeOptions;
-import com.facebook.imagepipeline.request.ImageRequest;
-import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.nineoldandroids.view.ViewPropertyAnimator;
 import com.szbb.pro.AppKeyMap;
 import com.szbb.pro.ItemAddPicLayout;
@@ -24,10 +20,12 @@ import com.szbb.pro.PictureItem;
 import com.szbb.pro.R;
 import com.szbb.pro.eum.Perform;
 import com.szbb.pro.impl.OnAddPictureDoneListener;
+import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.BitmapCompressTool;
 import com.szbb.pro.tools.FrescoTools;
 import com.szbb.pro.tools.ObjectAnimatorTools;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,9 +40,12 @@ public class MarkPictureModel implements View.OnClickListener {
 
     private boolean isNeedDeleteAnimation = true;
     private boolean isNeedDeleteIcon = true;
+    private boolean isNeedAuto = true;
 
-    public void addSinglePictureInLinearLayoutByLocal(Context context, LinearLayout linearLayout,
-                                                      @NonNull String filePath) {
+    private List<String> pathCache = new ArrayList<>();
+
+    private void addSinglePictureInLinearLayoutByLocal(Context context, LinearLayout linearLayout,
+                                                       @NonNull String filePath) {
         if (TextUtils.isEmpty(filePath)) {//如果路径为默认值,则返回不执行任何操作
             return;
         }
@@ -62,7 +63,7 @@ public class MarkPictureModel implements View.OnClickListener {
         pictureItem.cancel.setOnClickListener(this);
 
         pictureItem.getRoot().setTag(filePath);
-        BitmapCompressTool.getRadioBitmap(filePath, 300, 300);//压缩图片宽高为300*300
+        BitmapCompressTool.getRadioBitmap(filePath, 500, 500);//压缩图片宽高为500*500
         simpleDraweeView.setTag(filePath);//设置标识为图片路径
         simpleDraweeView.setImageURI(Uri.parse("file://" + filePath));//加载图片并显示
 
@@ -90,28 +91,50 @@ public class MarkPictureModel implements View.OnClickListener {
         }
     }
 
-    public void addSinglePictureInLinearLayoutByNetwork(Context context, LinearLayout linearLayout,
-                                                        @NonNull String link) {
+    private void addSinglePictureInLinearLayoutByNetwork(Context context, LinearLayout linearLayout,
+                                                         @NonNull String link) {
         PictureItem pictureItem = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout
                 .item_pics, null, false);
         pictureItem.cancel.setVisibility(View.GONE);
         FrescoTools frescoTools = FrescoTools.getInstance();
-        frescoTools.displayImage(link,pictureItem.simpleDraweeView,null);
-//        ImageRequest imageRequest = ImageRequestBuilder.newBuilderWithSource(Uri.parse(link))
-//                .setResizeOptions(new
-//                        ResizeOptions(100, 100)).setProgressiveRenderingEnabled(true).build();
-//        PipelineDraweeController controller = (PipelineDraweeController) Fresco
-//                .newDraweeControllerBuilder()
-//                .setImageRequest(imageRequest).setTapToRetryEnabled
-//                        (true).setOldController(pictureItem.simpleDraweeView.getController())
-//                .build();
-//        pictureItem.simpleDraweeView.setController(controller);
+        frescoTools.displayImage(link, pictureItem.simpleDraweeView, null);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout
                 .LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(10, 0, 10, 0);
         linearLayout.addView(pictureItem.getRoot(), params);
     }
+
+    public void savePicturePath(@NonNull String path) {
+        if (!TextUtils.isEmpty(path))
+            this.pathCache.add(path);
+    }
+
+
+    public void addSinglePictureInLinearLayout(Context context, LinearLayout linearLayout,
+                                               boolean isFromNetwork) {
+        if (context == null || linearLayout == null)
+            return;
+        if (this.pathCache.size() == 0 && isNeedAuto) {
+            linearLayout.removeAllViews();
+            ImageView imageView = new ImageView(context);
+            imageView.setImageResource(R.mipmap.empty_item);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(AppTools.dip2px(76),
+                    AppTools.dip2px(76));
+            linearLayout.addView(imageView, params);
+            linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+            linearLayout.setGravity(Gravity.CENTER_VERTICAL);
+            return;
+        }
+        for (String s : pathCache) {
+            if (isFromNetwork) {
+                addSinglePictureInLinearLayoutByNetwork(context, linearLayout, s);
+            } else {
+                addSinglePictureInLinearLayoutByLocal(context, linearLayout, s);
+            }
+        }
+    }
+
 
     public void removeAllPicture(LinearLayout linearLayout, int pos, View.OnClickListener
             onClickListener) {
@@ -123,7 +146,6 @@ public class MarkPictureModel implements View.OnClickListener {
         itemAddPicLayout.btnAddPic.setOnClickListener(onClickListener);
         itemAddPicLayout.btnAddPic.setTag(pos);
         linearLayout.addView(itemAddPicLayout.getRoot());
-
     }
 
     public void setOnAddPictureDoneListener(OnAddPictureDoneListener onAddPictureDoneListener) {
@@ -138,17 +160,27 @@ public class MarkPictureModel implements View.OnClickListener {
                     View parentView = linearLayout.getChildAt(i);//获得要删除的对象
                     if (isNeedDeleteAnimation) {
                         removePicture(parentView, i);//进行动画删除
+                        removeDeletedPath(parentView);
                         break;
                     } else {
-
                         if (onAddPictureDoneListener != null)
                             onAddPictureDoneListener.onDeletePictureDone(parentView, linearLayout
                                     .getChildCount(), i, tagPos);
                         this.linearLayout.removeView(parentView);
+                        removeDeletedPath(parentView);
                         break;
                     }
+
+
                 }
             }
+        }
+    }
+
+    private void removeDeletedPath(View parentView) {
+        String path = (String) parentView.findViewById(R.id.simpleDraweeView).getTag();
+        if (pathCache.contains(path)) {
+            pathCache.remove(path);
         }
     }
 
@@ -203,19 +235,16 @@ public class MarkPictureModel implements View.OnClickListener {
     }
 
 
-    public void getSurplusTag(@NonNull List<String> currentListWithPicsTag, @NonNull LinearLayout
-            needCheckLinearLayout) {
-        int childCount = needCheckLinearLayout.getChildCount();
-        int size = currentListWithPicsTag.size();
-
-    }
-
     public void setIsNeedDeleteAnimation(boolean isNeedDeleteAnimation) {
         this.isNeedDeleteAnimation = isNeedDeleteAnimation;
     }
 
     public void setIsNeedDeleteIcon(boolean isNeedDeleteIcon) {
         this.isNeedDeleteIcon = isNeedDeleteIcon;
+    }
+
+    public void setAutoAddPics(boolean isNeedAuto) {
+        this.isNeedAuto = isNeedAuto;
     }
 
     public void setTagPos(int tagPos) {

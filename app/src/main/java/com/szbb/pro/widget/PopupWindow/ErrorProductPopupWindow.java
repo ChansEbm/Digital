@@ -29,8 +29,7 @@ import cn.finalteam.galleryfinal.model.PhotoInfo;
  */
 public class ErrorProductPopupWindow extends BasePopupWindow implements GalleryFinal
         .OnHanlderResultCallback, OnPhotoOptsSelectListener {
-    private PopupErrorProductLayout popupErrorProductLayout;
-    private TakePhotoPopupWindow takePhotoPopupWindow;
+    private PhotoPopupWindow photoPopupWindow;
     private OnErrorProductCallback onErrorProductCallback;
     private ArrayList<String> filePaths = new ArrayList<>();
     private String detailId = "";
@@ -42,15 +41,15 @@ public class ErrorProductPopupWindow extends BasePopupWindow implements GalleryF
 
     public ErrorProductPopupWindow(Context context) {
         super(context);
-        popupErrorProductLayout = (PopupErrorProductLayout) viewDataBinding;
-        takePhotoPopupWindow = new TakePhotoPopupWindow(context);
+        PopupErrorProductLayout popupErrorProductLayout = (PopupErrorProductLayout) viewDataBinding;
+        photoPopupWindow = new PhotoPopupWindow(context);
         markPictureModel = new MarkPictureModel();
         edtError = popupErrorProductLayout.edtError;
         llytUploadPic = popupErrorProductLayout.llytUploadPic;
         popupErrorProductLayout.cancel.setOnClickListener(this);
         popupErrorProductLayout.submit.setOnClickListener(this);
         popupErrorProductLayout.btnAdd.setOnClickListener(this);
-        takePhotoPopupWindow.setOnPhotoOptsSelectListener(this);
+        photoPopupWindow.setOnPhotoOptsSelectListener(this);
         setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
         setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         setFocusable(true);
@@ -73,10 +72,9 @@ public class ErrorProductPopupWindow extends BasePopupWindow implements GalleryF
                         onErrorProductCallback.onSubmit(detailId, info, filePaths);
                     }
                 }
-                dismiss();
                 break;
             case R.id.btn_add:
-                takePhotoPopupWindow.showAtLocation(appCompatActivity.getWindow().getDecorView(),
+                photoPopupWindow.showAtLocation(appCompatActivity.getWindow().getDecorView(),
                         Gravity.BOTTOM, 0, 0);
                 break;
         }
@@ -119,10 +117,11 @@ public class ErrorProductPopupWindow extends BasePopupWindow implements GalleryF
             String singleFilePath = photoInfo.getPhotoPath();
             if (!filePaths.contains(singleFilePath)) {
                 filePaths.add(singleFilePath);
-                markPictureModel.addSinglePictureInLinearLayoutByLocal(context, llytUploadPic,
-                        singleFilePath);
+                markPictureModel.savePicturePath(singleFilePath);
             }
         }
+        markPictureModel.addSinglePictureInLinearLayout(context, llytUploadPic,
+                false);
     }
 
     @Override
