@@ -1,11 +1,11 @@
-package com.szbb.pro.entity.Vip;
+package com.szbb.pro.entity.vip;
 
 import android.databinding.BaseObservable;
 import android.databinding.BindingAdapter;
 import android.widget.TextView;
 
 import com.szbb.pro.R;
-import com.szbb.pro.entity.Base.BaseBean;
+import com.szbb.pro.entity.base.BaseBean;
 
 import java.util.List;
 

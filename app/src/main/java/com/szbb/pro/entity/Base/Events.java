@@ -1,4 +1,4 @@
-package com.szbb.pro.entity.Base;
+package com.szbb.pro.entity.base;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;

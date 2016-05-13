@@ -21,11 +21,11 @@ import com.szbb.pro.adapters.CommonBinderAdapter;
 import com.szbb.pro.adapters.CommonBinderHolder;
 import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.dialog.InputDialog;
-import com.szbb.pro.entity.Base.BaseBean;
-import com.szbb.pro.entity.Fittings.CustomerAddressBean;
-import com.szbb.pro.entity.Fittings.ExpressComBean;
-import com.szbb.pro.entity.Fittings.FittingDetailBean;
-import com.szbb.pro.entity.Fittings.FittingResendBean;
+import com.szbb.pro.entity.base.BaseBean;
+import com.szbb.pro.entity.fittings.CustomerAddressBean;
+import com.szbb.pro.entity.fittings.ExpressComBean;
+import com.szbb.pro.entity.fittings.FittingDetailBean;
+import com.szbb.pro.entity.fittings.FittingResendBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.eum.PhotoPopupOpts;
 import com.szbb.pro.eum.WheelOptions;
@@ -36,6 +36,7 @@ import com.szbb.pro.impl.OnWheelOptsSelectCallback;
 import com.szbb.pro.model.MarkPictureModel;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.ui.activity.main.MainActivity;
+import com.szbb.pro.ui.activity.orders.operating.OrderDetailActivity;
 import com.szbb.pro.widget.PopupWindow.PhotoPopupWindow;
 import com.szbb.pro.widget.PopupWindow.WheelPopupWindow;
 
@@ -204,7 +205,6 @@ public class FittingResendByWorkerActivity extends BaseAty<BaseBean, FittingDeta
                 shippingType, shippingCost, NetworkParams.CUPCAKE);
     }
 
-
     @Override
     public void onWheelSelect(String selectData, WheelOptions wheelOptions, int index) {
         String comCode = expressComBean.getList().get(index).getComCode();
@@ -299,7 +299,18 @@ public class FittingResendByWorkerActivity extends BaseAty<BaseBean, FittingDeta
         super.onJsonObjectSuccess(baseBean, paramsCode);
         if (paramsCode == NetworkParams.CUPCAKE) {
             final Intent intent = new Intent().setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent
-                    .FLAG_ACTIVITY_CLEAR_TASK).setClass(this, MainActivity.class);
+                    .FLAG_ACTIVITY_CLEAR_TOP);
+            Class clz;
+            int flag = getIntent().getIntExtra("flag", AppKeyMap.DONUT);
+            switch (flag) {
+                case AppKeyMap.CUPCAKE://代表回去工单详情
+                    clz = OrderDetailActivity.class;
+                    break;
+                default://其他标识代表回去MainActivity
+                    clz = MainActivity.class;
+                    break;
+            }
+            intent.setClass(this, clz);
             startActivity(intent);
         } else if (paramsCode == NetworkParams.DONUT) {
             CustomerAddressBean customerAddressBean = (CustomerAddressBean) baseBean;

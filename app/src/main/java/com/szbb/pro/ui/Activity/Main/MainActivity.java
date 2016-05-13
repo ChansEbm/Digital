@@ -15,9 +15,9 @@ import com.szbb.pro.R;
 import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.databinding.AtyMainBinding;
 import com.szbb.pro.dialog.MessageDialog;
-import com.szbb.pro.entity.Base.BaseBean;
-import com.szbb.pro.entity.Vip.CheckUpdateBean;
-import com.szbb.pro.entity.Vip.VipInfoBean;
+import com.szbb.pro.entity.base.BaseBean;
+import com.szbb.pro.entity.vip.CheckUpdateBean;
+import com.szbb.pro.entity.vip.VipInfoBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.impl.OnPopUpSelectListener;
 import com.szbb.pro.tools.AppTools;
@@ -25,6 +25,7 @@ import com.szbb.pro.tools.MiscUtils;
 import com.szbb.pro.ui.fragment.main.FittingsFragment;
 import com.szbb.pro.ui.fragment.main.NearbyFragment;
 import com.szbb.pro.ui.fragment.main.OrderFragment;
+import com.szbb.pro.ui.fragment.main.SystemMsgFragment;
 import com.szbb.pro.ui.fragment.main.VIPFragment;
 
 import java.util.ArrayList;
@@ -35,13 +36,14 @@ import cn.bingoogolapple.badgeview.BGABadgeImageView;
 public class MainActivity extends BaseAty<BaseBean, BaseBean> implements OnPopUpSelectListener {
 
     private int[] titles = {R.string.main_bottom_order, R.string.main_bottom_nearby, R.string
-            .main_bottom_fittings, R.string.main_bottom_vip};
+            .main_bottom_fittings, R.string.main_bottom_system_msg, R.string.main_bottom_vip};
     private int[] bottoms = {R.id.llyt_main_bottom_order, R.id.llyt_main_bottom_nearby, R.id
-            .llyt_main_bottom_fittings, R.id.llyt_main_bottom_vip};
+            .llyt_main_bottom_fittings, R.id.llyt_main_bottom_sys_msg, R.id.llyt_main_bottom_vip};
     private int[] bottomImageNormal = {R.mipmap.ic_order_nor, R.mipmap.ic_nearby_nor, R.mipmap
-            .ic_fittings_nor, R.mipmap.ic_vip_nor};
+            .ic_fittings_nor, R.mipmap.ic_sys_msg_nor, R.mipmap.ic_vip_nor};
     private int[] bottomImagePress = {R.mipmap.ic_order_press, R.mipmap.ic_nearby_press, R.mipmap
-            .ic_fittings_press, R.mipmap.ic_vip_press};
+            .ic_fittings_press, R.mipmap.ic_sys_msg_press, R.mipmap.ic_vip_press};
+
     private List<Fragment> fragments = new ArrayList<>();
     private Fragment fragment;
     private FragmentTransaction fragmentTransaction;
@@ -69,6 +71,7 @@ public class MainActivity extends BaseAty<BaseBean, BaseBean> implements OnPopUp
             fragments.add(new OrderFragment());
             fragments.add(new NearbyFragment());
             fragments.add(new FittingsFragment());
+            fragments.add(new SystemMsgFragment());
             fragments.add(new VIPFragment());
             fragment = fragments.get(0);
         }
@@ -113,10 +116,15 @@ public class MainActivity extends BaseAty<BaseBean, BaseBean> implements OnPopUp
                 titleBarTools.hideTitleBar();
                 titleBarTools.setTitle(titles[2]);
                 break;
-            case R.id.llyt_main_bottom_vip:
+            case R.id.llyt_main_bottom_sys_msg:
                 changeFragment(3);
                 titleBarTools.showTitleBar();
                 titleBarTools.setTitle(titles[3]);
+                break;
+            case R.id.llyt_main_bottom_vip:
+                changeFragment(4);
+                titleBarTools.showTitleBar();
+                titleBarTools.setTitle(titles[4]);
                 break;
 
         }

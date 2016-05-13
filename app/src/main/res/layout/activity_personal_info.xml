@@ -6,14 +6,14 @@
 
         <variable
             name="info"
-            type="com.szbb.pro.entity.Vip.VipInfoBean.WorkerDataEntity" />
+            type="com.szbb.pro.entity.vip.VipInfoBean.WorkerDataEntity" />
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/theme_primary"
-        tools:context="com.szbb.pro.ui.activity.vip.PersonalInfo.PersonalInfoActivity">
+        tools:context="com.szbb.pro.ui.activity.vip.personal_info.PersonalInfoActivity">
 
         <ScrollView
             android:layout_width="match_parent"

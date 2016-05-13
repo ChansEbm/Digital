@@ -14,7 +14,7 @@ import com.szbb.pro.ExpensesApplyLayout;
 import com.szbb.pro.R;
 import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.dialog.InputDialog;
-import com.szbb.pro.entity.Base.BaseBean;
+import com.szbb.pro.entity.base.BaseBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.eum.PhotoPopupOpts;
 import com.szbb.pro.eum.WheelOptions;

@@ -1,4 +1,4 @@
-package com.szbb.pro.entity.Order;
+package com.szbb.pro.entity.order;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
@@ -7,7 +7,7 @@ import android.net.Uri;
 
 import com.bm.library.PhotoView;
 import com.squareup.picasso.Picasso;
-import com.szbb.pro.entity.Base.BaseBean;
+import com.szbb.pro.entity.base.BaseBean;
 
 import java.util.List;
 

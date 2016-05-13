@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.activity.vip.Wallet;
+package com.szbb.pro.ui.activity.vip.wallet;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,8 +9,8 @@ import com.szbb.pro.R;
 import com.szbb.pro.WithdrawLayout;
 import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.dialog.MessageDialog;
-import com.szbb.pro.entity.Base.BaseBean;
-import com.szbb.pro.entity.Vip.CreditCardBean;
+import com.szbb.pro.entity.base.BaseBean;
+import com.szbb.pro.entity.vip.CreditCardBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.tools.AppTools;
 
@@ -69,7 +69,7 @@ public class WithdrawActivity extends BaseAty<BaseBean, BaseBean> {
             withdrawLayout.setBank(creditCardBean.getData());
         } else if (paramsCode == NetworkParams.DONUT) {
             final MessageDialog dialog = new MessageDialog(this);
-            dialog.setTitle("提现成功").setMessage("提现成功,详情可留意,钱包-交易明细-提现").setNegativeButton
+            dialog.setTitle("提交成功").setMessage("您的提现申请已成功提交，提现资金将根据不同银行的情况，在2小时-48小时到帐").setNegativeButton
                     (getString(R.string.confirm), new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

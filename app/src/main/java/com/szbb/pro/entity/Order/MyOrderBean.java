@@ -1,4 +1,4 @@
-package com.szbb.pro.entity.Order;
+package com.szbb.pro.entity.order;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
@@ -6,7 +6,7 @@ import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
 
-import com.szbb.pro.entity.Base.BaseBean;
+import com.szbb.pro.entity.base.BaseBean;
 import com.szbb.pro.tools.AppTools;
 
 import java.util.List;

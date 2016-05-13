@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.activity.vip.Wallet;
+package com.szbb.pro.ui.activity.vip.wallet;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,9 +11,9 @@ import com.github.pwittchen.prefser.library.Prefser;
 import com.szbb.pro.AddBankCardLayout;
 import com.szbb.pro.R;
 import com.szbb.pro.base.BaseAty;
-import com.szbb.pro.entity.Base.BaseBean;
-import com.szbb.pro.entity.Vip.BankBean;
-import com.szbb.pro.entity.Vip.VipInfoBean;
+import com.szbb.pro.entity.base.BaseBean;
+import com.szbb.pro.entity.vip.BankBean;
+import com.szbb.pro.entity.vip.VipInfoBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.library.dialog.OnTextSetListener;
 import com.szbb.pro.library.dialog.WheelViewDialog;

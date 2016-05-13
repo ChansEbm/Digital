@@ -5,7 +5,7 @@
 
         <variable
             name="content"
-            type="com.szbb.pro.entity.Lending.LendingMainClassBean"/>
+            type="com.szbb.pro.entity.lending.LendingMainClassBean"/>
     </data>
 
     <LinearLayout

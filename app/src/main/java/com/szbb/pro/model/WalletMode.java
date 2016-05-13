@@ -7,9 +7,9 @@ import android.view.View;
 import com.szbb.pro.AppKeyMap;
 import com.szbb.pro.R;
 import com.szbb.pro.dialog.MessageDialog;
-import com.szbb.pro.entity.Vip.WalletBean;
-import com.szbb.pro.ui.activity.vip.Wallet.InputPayPasswordActivity;
-import com.szbb.pro.ui.activity.vip.Wallet.PayPasswordActivity;
+import com.szbb.pro.entity.vip.WalletBean;
+import com.szbb.pro.ui.activity.vip.wallet.InputPayPasswordActivity;
+import com.szbb.pro.ui.activity.vip.wallet.PayPasswordActivity;
 
 /**
  * Created by ChanZeeBm on 2016/3/21.

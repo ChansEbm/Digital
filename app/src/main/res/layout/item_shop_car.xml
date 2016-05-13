@@ -7,7 +7,7 @@
 
         <variable
             name="shopCar"
-            type="com.szbb.pro.entity.Fittings.FittingWareHouseBean.AcceListEntity"/>
+            type="com.szbb.pro.entity.fittings.FittingWareHouseBean.AcceListEntity"/>
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"

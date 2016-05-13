@@ -5,7 +5,7 @@
 
         <variable
             name="fitting"
-            type="com.szbb.pro.entity.Fittings.MyFittingOrderBean.ListEntity"/>
+            type="com.szbb.pro.entity.fittings.MyFittingOrderBean.ListEntity"/>
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

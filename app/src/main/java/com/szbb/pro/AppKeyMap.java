@@ -48,7 +48,6 @@ public class AppKeyMap {
     public final static int MARSHMALLOW = 0x09f;
     //http://appbaba.jios.org:8081/
     //http://kf.szlb.cc/
-    //http://fu.szlb.cc/
     public final static String HEAD = "http://kf.szlb.cc/";
     public final static String HEAD_API_LOGIN = HEAD + "ApiLogin/";
     public final static String HEAD_API_WORKER = HEAD + "ApiWorker/";

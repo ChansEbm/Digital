@@ -13,21 +13,20 @@ import com.szbb.pro.VipLayout;
 import com.szbb.pro.base.BaseFgm;
 import com.szbb.pro.dialog.DialDialog;
 import com.szbb.pro.dialog.MessageDialog;
-import com.szbb.pro.entity.Base.BaseBean;
-import com.szbb.pro.entity.Base.Events;
-import com.szbb.pro.entity.Vip.CheckUpdateBean;
-import com.szbb.pro.entity.Vip.VipInfoBean;
+import com.szbb.pro.entity.base.BaseBean;
+import com.szbb.pro.entity.base.Events;
+import com.szbb.pro.entity.vip.CheckUpdateBean;
+import com.szbb.pro.entity.vip.VipInfoBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.eum.PhotoPopupOpts;
 import com.szbb.pro.impl.OnPhotoOptsSelectListener;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.LogTools;
 import com.szbb.pro.tools.MiscUtils;
-import com.szbb.pro.ui.activity.vip.PersonalInfo.PersonalInfoActivity;
-import com.szbb.pro.ui.activity.vip.SystemMsg.AccountCementActivity;
-import com.szbb.pro.ui.activity.vip.SystemMsg.FeedBackActivity;
-import com.szbb.pro.ui.activity.vip.SystemMsg.SystemMsgActivity;
-import com.szbb.pro.ui.activity.vip.Wallet.WalletActivity;
+import com.szbb.pro.ui.activity.vip.personal_info.PersonalInfoActivity;
+import com.szbb.pro.ui.activity.vip.system_msg.AccountCementActivity;
+import com.szbb.pro.ui.activity.vip.system_msg.FeedBackActivity;
+import com.szbb.pro.ui.activity.vip.wallet.WalletActivity;
 import com.szbb.pro.ui.activity.vip.WebViewActivity;
 import com.szbb.pro.ui.activity.vip.WorkHistoryActivity;
 import com.szbb.pro.widget.PopupWindow.PhotoPopupWindow;
@@ -87,9 +86,6 @@ public class VIPFragment extends BaseFgm<BaseBean, BaseBean> implements
     protected void onClick(int id, View view) {
         Intent intent = null;
         switch (id) {
-            case R.id.rylt_system_msg://系统消息
-                start(SystemMsgActivity.class);
-                break;
             case R.id.rylt_wallet://我的钱包
                 start(WalletActivity.class);
                 break;

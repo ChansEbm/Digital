@@ -15,8 +15,8 @@ import com.szbb.pro.R;
 import com.szbb.pro.adapters.CommonBinderAdapter;
 import com.szbb.pro.adapters.CommonBinderHolder;
 import com.szbb.pro.base.BaseAty;
-import com.szbb.pro.entity.Base.BaseBean;
-import com.szbb.pro.entity.Fittings.FittingDetailBean;
+import com.szbb.pro.entity.base.BaseBean;
+import com.szbb.pro.entity.fittings.FittingDetailBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.model.MarkPictureModel;
 import com.szbb.pro.tools.AppTools;
@@ -207,8 +207,9 @@ public class FittingApplyDetailActivity extends BaseAty<BaseBean, FittingDetailB
             case AppKeyMap.DONUT://代表回寄配件
                 final FittingDetailBean.DataEntity detail = fittingApplyDetailLayout.getDetail();
                 String orderId = detail.getOrderid();
+                int flag = getIntent().getIntExtra("flag", AppKeyMap.DONUT);
                 final Intent intent = new Intent().putParcelableArrayListExtra("list", list)
-                        .putExtra("acceId", acceId).putExtra("orderId", orderId)
+                        .putExtra("acceId", acceId).putExtra("orderId", orderId).putExtra("flag", flag)
                         .setClass(this, FittingResendByWorkerActivity.class);
                 startActivity(intent);
                 break;

@@ -5,7 +5,7 @@
 
         <variable
             name="cement"
-            type="com.szbb.pro.entity.Vip.AccountCementBean.ListEntity"/>
+            type="com.szbb.pro.entity.vip.AccountCementBean.ListEntity"/>
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

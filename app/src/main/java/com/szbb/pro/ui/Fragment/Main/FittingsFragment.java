@@ -9,7 +9,7 @@ import com.szbb.pro.R;
 import com.szbb.pro.adapters.TabFragmentAdapter;
 import com.szbb.pro.base.BaseFgm;
 import com.szbb.pro.databinding.FgmFittingOrderBinding;
-import com.szbb.pro.entity.EventBus.FittingNavEvent;
+import com.szbb.pro.entity.eventbus.FittingNavEvent;
 import com.szbb.pro.ui.fragment.fittings.ExpensesApplyFragment;
 import com.szbb.pro.ui.fragment.fittings.FittingApplyFragment;
 

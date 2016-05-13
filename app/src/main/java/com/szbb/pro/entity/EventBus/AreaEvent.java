@@ -1,4 +1,4 @@
-package com.szbb.pro.entity.EventBus;
+package com.szbb.pro.entity.eventbus;
 
 import android.content.Intent;
 

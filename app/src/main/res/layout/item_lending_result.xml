@@ -7,7 +7,7 @@
 
         <variable
             name="lending"
-            type="com.szbb.pro.entity.Lending.LendingResultBean"/>
+            type="com.szbb.pro.entity.lending.LendingResultBean"/>
 
     </data>
 

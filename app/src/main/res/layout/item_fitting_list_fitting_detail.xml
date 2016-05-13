@@ -6,7 +6,7 @@
 
         <variable
             name="detail"
-            type="com.szbb.pro.entity.Fittings.FittingDetailBean.DataEntity.AcceListEntity"/>
+            type="com.szbb.pro.entity.fittings.FittingDetailBean.DataEntity.AcceListEntity"/>
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"

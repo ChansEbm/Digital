@@ -16,7 +16,7 @@ import com.szbb.pro.R;
 import com.szbb.pro.adapters.CommonBinderAdapter;
 import com.szbb.pro.adapters.MultiAdapter;
 import com.szbb.pro.broadcast.UpdateUIBroadcast;
-import com.szbb.pro.entity.Base.BaseBean;
+import com.szbb.pro.entity.base.BaseBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.impl.BinderOnItemClickListener;
 import com.szbb.pro.impl.OkHttpResponseListener;

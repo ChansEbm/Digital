@@ -14,7 +14,7 @@
             android:layout_height="match_parent"
             android:background="@color/color_bg_gravy"
             android:orientation="vertical"
-            tools:context="com.szbb.pro.ui.activity.vip.Wallet.DelCreditCardActivity">
+            tools:context="com.szbb.pro.ui.activity.vip.wallet.DelCreditCardActivity">
 
             <include layout="@layout/title_bar" />
 
@@ -53,6 +53,7 @@
                     android:layout_height="33dp"
                     android:layout_weight="0.3"
                     android:background="@drawable/bg_round_blue_dark_selector"
+                    android:onClick="onClick"
                     android:text="@string/login_find_pwd"
                     android:textColor="@color/color_white" />
             </LinearLayout>
@@ -61,6 +62,7 @@
                 android:id="@+id/btn_confirm"
                 style="@style/buttonStyle"
                 android:layout_marginTop="@dimen/large_margin_15dp"
+                android:onClick="onClick"
                 android:text="@string/confirm" />
         </LinearLayout>
     </FrameLayout>

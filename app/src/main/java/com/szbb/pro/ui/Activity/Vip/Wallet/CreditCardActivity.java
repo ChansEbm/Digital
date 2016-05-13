@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.activity.vip.Wallet;
+package com.szbb.pro.ui.activity.vip.wallet;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +10,8 @@ import android.view.View;
 import com.szbb.pro.BankCardLayout;
 import com.szbb.pro.R;
 import com.szbb.pro.base.BaseAty;
-import com.szbb.pro.entity.Base.BaseBean;
-import com.szbb.pro.entity.Vip.CreditCardBean;
+import com.szbb.pro.entity.base.BaseBean;
+import com.szbb.pro.entity.vip.CreditCardBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.impl.InputCallBack;
 import com.szbb.pro.tools.AppTools;

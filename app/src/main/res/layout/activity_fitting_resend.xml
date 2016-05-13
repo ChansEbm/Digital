@@ -5,15 +5,15 @@
 
         <variable
             name="factoryAddr"
-            type="com.szbb.pro.entity.Fittings.CustomerAddressBean.DataEntity" />
+            type="com.szbb.pro.entity.fittings.CustomerAddressBean.DataEntity" />
 
         <variable
             name="customer"
-            type="com.szbb.pro.entity.Fittings.CustomerAddressBean.DataEntity" />
+            type="com.szbb.pro.entity.fittings.CustomerAddressBean.DataEntity" />
 
         <variable
             name="resend"
-            type="com.szbb.pro.entity.Fittings.FittingResendBean" />
+            type="com.szbb.pro.entity.fittings.FittingResendBean" />
 
     </data>
 

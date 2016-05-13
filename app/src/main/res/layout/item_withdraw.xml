@@ -5,7 +5,7 @@
 
         <variable
             name="withdraw"
-            type="com.szbb.pro.entity.Vip.WithdrawBean.ListEntity" />
+            type="com.szbb.pro.entity.vip.WithdrawBean.ListEntity" />
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"

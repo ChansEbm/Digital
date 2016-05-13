@@ -7,7 +7,7 @@
 
         <variable
             name="appointment"
-            type="com.szbb.pro.entity.Order.OrderDetailBean.DataEntity" />
+            type="com.szbb.pro.entity.order.OrderDetailBean.DataEntity" />
     </data>
 
     <FrameLayout
@@ -26,7 +26,8 @@
             <ScrollView
                 android:id="@+id/scrollView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:fillViewport="true">
 
                 <LinearLayout
@@ -319,27 +320,29 @@
                         android:background="@color/color_bg_line" />
 
 
-                    <LinearLayout
-                        android:id="@+id/llyt_book_time"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <Button
-                            android:id="@+id/btn_client_appointment_submit"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/large_margin_15dp"
-                            android:layout_marginEnd="@dimen/large_margin_15dp"
-                            android:layout_marginStart="@dimen/large_margin_15dp"
-                            android:layout_marginTop="@dimen/large_margin_15dp"
-                            android:background="@drawable/bg_round_normal_blue_dark_selector"
-                            android:text="接单"
-                            android:textColor="@color/color_white"
-                            android:textStyle="bold" />
-                    </LinearLayout>
                 </LinearLayout>
             </ScrollView>
+
+            <LinearLayout
+                android:id="@+id/llyt_book_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btn_client_appointment_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/large_margin_15dp"
+                    android:layout_marginEnd="@dimen/large_margin_15dp"
+                    android:layout_marginStart="@dimen/large_margin_15dp"
+                    android:layout_marginTop="@dimen/large_margin_15dp"
+                    android:background="@drawable/bg_round_normal_blue_dark_selector"
+                    android:text="提交预约记录"
+                    android:textColor="@color/color_white"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
         </LinearLayout>
     </FrameLayout>
 </layout>

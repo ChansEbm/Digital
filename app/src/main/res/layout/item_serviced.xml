@@ -12,7 +12,7 @@
 
         <variable
             name="order"
-            type="com.szbb.pro.entity.Order.MyOrderBean.ListEntity"/>
+            type="com.szbb.pro.entity.order.MyOrderBean.ListEntity"/>
     </data>
 
     <LinearLayout

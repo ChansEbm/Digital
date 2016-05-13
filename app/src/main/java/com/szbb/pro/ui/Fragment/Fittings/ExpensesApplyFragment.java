@@ -20,8 +20,8 @@ import com.szbb.pro.adapters.CommonBinderAdapter;
 import com.szbb.pro.adapters.CommonBinderHolder;
 import com.szbb.pro.base.BaseFgm;
 import com.szbb.pro.drawerlayouttoggles.ContentDisplaceDrawerToggle;
-import com.szbb.pro.entity.EventBus.FittingNavEvent;
-import com.szbb.pro.entity.Fittings.FittingCostBean;
+import com.szbb.pro.entity.eventbus.FittingNavEvent;
+import com.szbb.pro.entity.fittings.FittingCostBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.ui.activity.expenses.ExpensesResultActivity;
@@ -217,6 +217,9 @@ public class ExpensesApplyFragment extends BaseFgm<FittingCostBean, FittingCostB
             list.clear();
         }
         list.addAll(t.getList());
+        if (list.isEmpty()) {
+            fittingOrderLayout.include.emptyView.setVisibility(View.VISIBLE);
+        }
         commonBinderAdapter.notifyDataSetChanged();
         refreshLayout.endLoadingMore();
         refreshLayout.endRefreshing();

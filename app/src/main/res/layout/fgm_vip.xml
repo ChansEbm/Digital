@@ -8,11 +8,11 @@
 
         <variable
             name="vip"
-            type="com.szbb.pro.entity.Vip.VipInfoBean.WorkerDataEntity" />
+            type="com.szbb.pro.entity.vip.VipInfoBean.WorkerDataEntity" />
 
         <variable
             name="event"
-            type="com.szbb.pro.entity.Base.Events" />
+            type="com.szbb.pro.entity.base.Events" />
     </data>
 
     <FrameLayout
@@ -130,35 +130,6 @@
                         android:layout_toEndOf="@id/tv_t1"
                         android:text="@{vip.order_count}"
                         android:textSize="13sp" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/rylt_system_msg"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/large_margin_15dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_white_gravy_selector"
-                    android:clickable="true"
-                    android:minHeight="@dimen/minHeight_50dp"
-                    android:onClick="@{event.onClickListener}"
-                    android:paddingEnd="@dimen/large_margin_15dp"
-                    android:paddingStart="@dimen/large_margin_15dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="@string/vip_system_msg"
-                        android:textColor="@color/color_text_dark"
-                        android:textSize="15sp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:src="@mipmap/ic_arrow_right" />
                 </RelativeLayout>
 
                 <RelativeLayout

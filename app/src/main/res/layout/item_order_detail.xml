@@ -8,7 +8,7 @@
 
         <variable
             name="detail"
-            type="com.szbb.pro.entity.Order.OrderDetailBean.ListEntity" />
+            type="com.szbb.pro.entity.order.OrderDetailBean.ListEntity" />
 
         <import type="android.text.TextUtils" />
     </data>

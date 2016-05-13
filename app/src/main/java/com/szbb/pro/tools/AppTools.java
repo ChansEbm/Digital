@@ -146,11 +146,10 @@ public class AppTools {
     /**
      * format time (yyyy-MM-dd HH:mm)
      *
-     * @param date the date will be format
      * @return the time after formatter
      */
-    public static String formatTime(java.util.Date date) {
-        return Formatter.formatTime(date);
+    public static String formatTime(String time, boolean isPhp) {
+        return Formatter.formatTimeDefaultRegex(time, isPhp);
     }
 
     /**
@@ -161,7 +160,7 @@ public class AppTools {
      * @return the time after formatter
      */
     public static String fotmatTime(Date date, String regex) {
-        return Formatter.formatTime(date, regex);
+        return Formatter.formatTimeDefaultRegex(date, regex);
     }
 
     /**

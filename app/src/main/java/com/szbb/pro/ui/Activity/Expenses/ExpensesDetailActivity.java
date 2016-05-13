@@ -15,7 +15,7 @@ import com.szbb.pro.adapters.CommonBinderHolder;
 import com.szbb.pro.adapters.CommonExpandableAdapter;
 import com.szbb.pro.adapters.ViewHolder;
 import com.szbb.pro.base.BaseAty;
-import com.szbb.pro.entity.Expenses.ExpenseDetailBean;
+import com.szbb.pro.entity.expenses.ExpenseDetailBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.ArrayListViewTools;

@@ -1,6 +1,6 @@
-package com.szbb.pro.entity.Order;
+package com.szbb.pro.entity.order;
 
-import com.szbb.pro.entity.Base.BaseBean;
+import com.szbb.pro.entity.base.BaseBean;
 
 import java.util.List;
 

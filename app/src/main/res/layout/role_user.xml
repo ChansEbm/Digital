@@ -8,7 +8,7 @@
 
         <variable
             name="user"
-            type="com.szbb.pro.entity.Order.OrderMsgListBean.ListEntity"/>
+            type="com.szbb.pro.entity.order.OrderMsgListBean.ListEntity"/>
     </data>
 
     <LinearLayout

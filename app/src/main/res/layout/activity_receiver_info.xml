@@ -5,7 +5,7 @@
 
         <variable
             name="info"
-            type="com.szbb.pro.entity.Vip.VipInfoBean.WorkerDataEntity.AddressDataEntity"/>
+            type="com.szbb.pro.entity.vip.VipInfoBean.WorkerDataEntity.AddressDataEntity"/>
     </data>
 
     <FrameLayout
@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:background="@color/theme_primary"
         android:onClick="onClick"
-        tools:context="com.szbb.pro.ui.activity.vip.PersonalInfo.ReceiverInfoActivity">
+        tools:context="com.szbb.pro.ui.activity.vip.personal_info.ReceiverInfoActivity">
 
         <LinearLayout
             android:layout_width="match_parent"

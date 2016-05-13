@@ -7,7 +7,7 @@ import android.view.View;
 import com.szbb.pro.R;
 import com.szbb.pro.TestLayout;
 import com.szbb.pro.base.BaseAty;
-import com.szbb.pro.entity.Order.MyOrderBean;
+import com.szbb.pro.entity.order.MyOrderBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.impl.AreaCallBack;
 import com.szbb.pro.impl.UpdateUIListener;

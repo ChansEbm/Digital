@@ -15,8 +15,8 @@ import com.szbb.pro.FittingAdditionalLayout;
 import com.szbb.pro.R;
 import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.dialog.InputDialog;
-import com.szbb.pro.entity.Fittings.FittingWareHouseBean;
-import com.szbb.pro.entity.Fittings.OtherFittingBean;
+import com.szbb.pro.entity.fittings.FittingWareHouseBean;
+import com.szbb.pro.entity.fittings.OtherFittingBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.eum.PhotoPopupOpts;
 import com.szbb.pro.impl.InputCallBack;
@@ -290,7 +290,6 @@ public class FittingAdditionalActivity extends BaseAty<OtherFittingBean, Object>
         }
         number = countView.getCount();
         code = fittingAdditionalLayout.tvCode.getText().toString();
-
         return true;
     }
 

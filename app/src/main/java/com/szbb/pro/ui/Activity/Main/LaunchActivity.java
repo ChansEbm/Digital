@@ -13,10 +13,12 @@ import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.databinding.LaunchLayout;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.ui.activity.login.LoginActivity;
+import com.szbb.pro.widget.Indicator;
 
 public class LaunchActivity extends BaseAty {
     private LaunchLayout launchLayout;
     private ViewPager viewPager;
+    private Indicator indicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,11 +26,13 @@ public class LaunchActivity extends BaseAty {
                 .LayoutParams.FLAG_FULLSCREEN);//全屏
         super.onCreate(savedInstanceState);
         launchLayout = (LaunchLayout) viewDataBinding;
+
     }
 
     @Override
     protected void initViews() {
         viewPager = launchLayout.viewPager;
+        indicator = launchLayout.indicators;
     }
 
     @Override
@@ -36,6 +40,10 @@ public class LaunchActivity extends BaseAty {
         LaunchAdapter adapter = new LaunchAdapter();
         adapter.setOnClickListener(this);
         viewPager.setAdapter(adapter);
+
+        indicator.setColorNor(R.color.color_bg_gravy);
+        indicator.setColorSelect(R.color.theme_primary);
+        indicator.setWithViewPager(viewPager);
     }
 
     @Override

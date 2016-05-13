@@ -1,4 +1,4 @@
-package com.szbb.pro.entity.Lending;
+package com.szbb.pro.entity.lending;
 
 import android.databinding.Bindable;
 

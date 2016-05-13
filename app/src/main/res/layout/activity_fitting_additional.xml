@@ -52,9 +52,11 @@
                             android:id="@+id/tv_name"
                             style="@style/textStyle"
                             android:layout_gravity="center_vertical|end"
+                            android:gravity="end"
+                            android:hint="@string/label_please_input_name"
                             android:tag="NaN"
-                            android:text="@string/label_please_input_name"
-                            android:textColor="@color/color_text_gravy" />
+                            android:textColor="@color/color_text_gravy"
+                            android:textColorHint="@color/color_gravy" />
                     </FrameLayout>
 
                     <FrameLayout
@@ -94,12 +96,13 @@
 
                         <TextView
                             android:id="@+id/tv_code"
+                            android:gravity="end"
                             style="@style/textStyle"
                             android:layout_gravity="center_vertical|end"
+                            android:hint="@string/label_please_input_code"
                             android:tag="NaN"
-                            android:text="@string/label_please_input_code"
-
-                            android:textColor="@color/color_text_gravy" />
+                            android:textColor="@color/color_text_gravy"
+                            android:textColorHint="@color/color_gravy" />
                     </FrameLayout>
 
                     <RelativeLayout

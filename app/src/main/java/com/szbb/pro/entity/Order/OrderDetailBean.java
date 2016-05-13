@@ -1,4 +1,4 @@
-package com.szbb.pro.entity.Order;
+package com.szbb.pro.entity.order;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
-import android.support.design.widget.CoordinatorLayout;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -16,7 +15,7 @@ import android.widget.TextView;
 
 import com.szbb.pro.BR;
 import com.szbb.pro.R;
-import com.szbb.pro.entity.Base.BaseBean;
+import com.szbb.pro.entity.base.BaseBean;
 import com.szbb.pro.eum.ButtonType;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.ui.activity.expenses.ExpensesResultActivity;
@@ -24,7 +23,6 @@ import com.szbb.pro.ui.activity.orders.operating.a_mode.FittingApplyDetailActivi
 import com.szbb.pro.ui.activity.orders.operating.b_mode.FittingResendDetailActivity;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -94,22 +92,22 @@ public class OrderDetailBean extends BaseBean {
 
         @BindingAdapter(value = {"app:signInText"})
         public static void setSignInText(Button button, String signIn) {
-                if (button == null || TextUtils.isEmpty(signIn))
-                    return;
-                switch (signIn) {
-                    case "0":
-                        button.setText("签到");
-                        break;
-                    case "1":
-                        button.setText("签到成功");
-                        button.setEnabled(false);
-                        break;
-                    case "2":
-                    case "3":
-                        button.setText("签到失败");
-                        button.setEnabled(false);
-                        break;
-                }
+            if (button == null || TextUtils.isEmpty(signIn))
+                return;
+            switch (signIn) {
+                case "0":
+                    button.setText("签到");
+                    break;
+                case "1":
+                    button.setText("签到成功");
+                    button.setEnabled(false);
+                    break;
+                case "2":
+                case "3":
+                    button.setText("签到失败");
+                    button.setEnabled(false);
+                    break;
+            }
         }
 
         @BindingAdapter(value = {"app:signInBackground"})
@@ -139,7 +137,7 @@ public class OrderDetailBean extends BaseBean {
         }
 
         public void setAppoint_time(String appoint_time) {
-            this.appoint_time = AppTools.formatTime(new Date(Long.parseLong(appoint_time + "000")));
+            this.appoint_time = AppTools.formatTime(appoint_time, true);
         }
 
         public String getIs_sign_in() {
@@ -299,7 +297,7 @@ public class OrderDetailBean extends BaseBean {
         @Bindable
         public String getFormatAppointTime() {
             appoint_time = TextUtils.isEmpty(appoint_time) ? "" : appoint_time;
-            return AppTools.formatTime(new Date(Long.parseLong(appoint_time + "000")));
+            return AppTools.formatTime(appoint_time, true);
         }
 
         public void setFormatAppointTime(String formatAppointTime) {

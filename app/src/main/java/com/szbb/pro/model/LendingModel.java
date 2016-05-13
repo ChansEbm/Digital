@@ -2,7 +2,7 @@ package com.szbb.pro.model;
 
 import android.text.TextUtils;
 
-import com.szbb.pro.entity.Lending.LendingMainClassBean;
+import com.szbb.pro.entity.lending.LendingMainClassBean;
 
 import java.util.ArrayList;
 import java.util.List;

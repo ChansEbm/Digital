@@ -6,7 +6,7 @@
 
         <variable
             name="detail"
-            type="com.szbb.pro.entity.Expenses.ExpenseDetailBean"/>
+            type="com.szbb.pro.entity.expenses.ExpenseDetailBean"/>
     </data>
 
     <FrameLayout

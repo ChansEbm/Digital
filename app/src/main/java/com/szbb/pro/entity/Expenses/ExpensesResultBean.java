@@ -1,4 +1,4 @@
-package com.szbb.pro.entity.Expenses;
+package com.szbb.pro.entity.expenses;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
@@ -6,7 +6,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
-import com.szbb.pro.entity.Base.BaseBean;
+import com.szbb.pro.entity.base.BaseBean;
 
 import java.util.ArrayList;
 import java.util.List;

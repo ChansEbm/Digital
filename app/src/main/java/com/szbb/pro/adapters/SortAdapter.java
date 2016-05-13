@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import com.szbb.pro.R;
 import com.szbb.pro.databinding.ItemLendingContentBinding;
 import com.szbb.pro.databinding.ItemLendingHeaderBinding;
-import com.szbb.pro.entity.Lending.LendingMainClassBean;
+import com.szbb.pro.entity.lending.LendingMainClassBean;
 
 import java.util.List;
 

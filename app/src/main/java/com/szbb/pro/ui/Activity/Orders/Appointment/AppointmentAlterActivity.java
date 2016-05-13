@@ -11,7 +11,7 @@ import com.szbb.pro.AppKeyMap;
 import com.szbb.pro.AppointmentAlterLayout;
 import com.szbb.pro.R;
 import com.szbb.pro.base.BaseAty;
-import com.szbb.pro.entity.Base.BaseBean;
+import com.szbb.pro.entity.base.BaseBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.eum.WheelOptions;
 import com.szbb.pro.impl.OnWheelOptsSelectCallback;

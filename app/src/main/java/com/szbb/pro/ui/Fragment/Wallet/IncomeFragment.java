@@ -12,7 +12,7 @@ import com.szbb.pro.R;
 import com.szbb.pro.adapters.CommonBinderAdapter;
 import com.szbb.pro.adapters.CommonBinderHolder;
 import com.szbb.pro.base.BaseFgm;
-import com.szbb.pro.entity.Vip.IncomeBean;
+import com.szbb.pro.entity.vip.IncomeBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.ui.activity.orders.operating.OrderDetailActivity;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;

@@ -16,7 +16,7 @@ import com.szbb.pro.AppKeyMap;
 import com.szbb.pro.ItemOrderDetailLayout;
 import com.szbb.pro.R;
 import com.szbb.pro.dialog.MessageDialog;
-import com.szbb.pro.entity.Order.OrderDetailBean;
+import com.szbb.pro.entity.order.OrderDetailBean;
 import com.szbb.pro.eum.WheelOptions;
 import com.szbb.pro.impl.OnAddPictureDoneListener;
 import com.szbb.pro.impl.OnWheelMultiOptsCallback;
@@ -115,7 +115,7 @@ public class OrderModel implements View.OnClickListener {
 
     private void initMessageDialog() {
         messageDialog = new MessageDialog(appCompatActivity);
-        messageDialog.setTitle(appCompatActivity.getString(R.string.label));
+        messageDialog.setTitle(appCompatActivity.getString(R.string.label_malfunction_status));
     }
 
     /**

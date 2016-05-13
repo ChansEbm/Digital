@@ -2,7 +2,6 @@ package com.szbb.pro.ui.activity.orders.operating;
 
 import android.content.Intent;
 import android.databinding.ViewDataBinding;
-import android.graphics.drawable.VectorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -29,8 +28,8 @@ import com.szbb.pro.databinding.ItemOrderDetailGuideLayout;
 import com.szbb.pro.dialog.DialDialog;
 import com.szbb.pro.dialog.InputDialog;
 import com.szbb.pro.dialog.MessageDialog;
-import com.szbb.pro.entity.Base.BaseBean;
-import com.szbb.pro.entity.Order.OrderDetailBean;
+import com.szbb.pro.entity.base.BaseBean;
+import com.szbb.pro.entity.order.OrderDetailBean;
 import com.szbb.pro.eum.AlterPopupOpts;
 import com.szbb.pro.eum.ButtonType;
 import com.szbb.pro.eum.NetworkParams;
@@ -301,7 +300,8 @@ public class OrderDetailActivity extends BaseAty<BaseBean, OrderDetailBean.ListE
                 break;
             case R.id.btn_resend_code://重发验证码
                 networkModel.getServiceCode(orderId, NetworkParams.HONEYCOMB);
-                ViewUtils.startCountDown(orderDetailLayout.btnResendCode);
+                ViewUtils.startCountDown(orderDetailLayout.btnResendCode, getString(R.string.reg_verification_code_again), getString(R.string
+                        .reg_reCode), 60000);
                 break;
             case R.id.btn_confirm_done://完成工单
                 completeAcce();
@@ -347,8 +347,7 @@ public class OrderDetailActivity extends BaseAty<BaseBean, OrderDetailBean.ListE
                     .please_input_service_code));
         } else
             networkModel.completeOrder(orderId, gridPasswordView.getPassWord(),
-                    NetworkParams
-                            .ICECREAMSANDWICH);
+                    NetworkParams.ICECREAMSANDWICH);
     }
 
     @Override
@@ -373,10 +372,12 @@ public class OrderDetailActivity extends BaseAty<BaseBean, OrderDetailBean.ListE
             intent.putExtra("costId", acid);
         } else {
             intent.putExtra("acceId", acid);
+            intent.putExtra("flag", AppKeyMap.CUPCAKE);//代表如果步骤走到配件回寄的时候,提交完毕直接返回到本Activity
         }
         startActivity(intent.setClass(this, cls));
 
     }
+
 
     @Override
     public void onJsonObjectSuccess(BaseBean o, NetworkParams paramsCode) {
@@ -434,8 +435,7 @@ public class OrderDetailActivity extends BaseAty<BaseBean, OrderDetailBean.ListE
     /**
      * 根据签到情况改变按钮状态
      *
-     * @param isSignIn  is sign in or not
-     * @param isTimeOut
+     * @param isSignIn is sign in or not
      */
     private void changeButtonState(boolean isSignIn, boolean isAllRepair, boolean isAllComplete, boolean isTimeOut) {
         btnSignAgain.setVisibility(isSignIn ? View.VISIBLE : View.GONE);
@@ -536,11 +536,11 @@ public class OrderDetailActivity extends BaseAty<BaseBean, OrderDetailBean.ListE
                 case FITTING://apply fitting
                     String serviceId = listEntity.getServiceid();
                     String detailId = listEntity.getDetailid();
-
                     String accId = listEntity.getAcce_exe_type();
                     startActivity(new Intent().putExtra("orderId", orderId).putExtra("serviceId",
                             serviceId).putExtra("accId", accId).putExtra("detailId", detailId)
                             .setClass(this, FittingAdditionalActivity.class));
+                    ViewUtils.startCountDown((Button) button, getString(R.string.fitting_unlock), getString(R.string.next), 5000);
                     break;
                 case EXPENSES://apply expenses
                     startActivity(new Intent().putExtra("detailid", listEntity.getDetailid())
@@ -693,4 +693,5 @@ public class OrderDetailActivity extends BaseAty<BaseBean, OrderDetailBean.ListE
             }
         }, 300);
     }
+
 }

@@ -1,9 +1,9 @@
-package com.szbb.pro.entity.Vip;
+package com.szbb.pro.entity.vip;
 
 import android.databinding.Bindable;
 import android.text.TextUtils;
 
-import com.szbb.pro.entity.Base.BaseBean;
+import com.szbb.pro.entity.base.BaseBean;
 
 /**
  * Created by ChanZeeBm on 2016/2/25.

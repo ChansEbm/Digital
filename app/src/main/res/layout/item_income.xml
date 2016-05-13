@@ -5,7 +5,7 @@
 
         <variable
             name="income"
-            type="com.szbb.pro.entity.Vip.IncomeBean.ListEntity" />
+            type="com.szbb.pro.entity.vip.IncomeBean.ListEntity" />
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"

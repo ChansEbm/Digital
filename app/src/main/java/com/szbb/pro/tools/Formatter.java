@@ -28,7 +28,17 @@ public class Formatter {
         }
     }
 
-    public static String formatTime(Date date) {
+    public static String formatTimeDefaultRegex(String time, boolean isPhp) {
+        try {
+            long l = Long.parseLong(time);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return time;
+        }
+        Date date = new Date(Long.parseLong("" + time));
+        if (isPhp) {
+            date = new Date(Long.parseLong(time + "000"));
+        }
         SimpleDateFormat simpleDateFormat;
         try {
             simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
@@ -39,10 +49,10 @@ public class Formatter {
         return simpleDateFormat.format(date);
     }
 
-    public static String formatTime(Date date, @NonNull String regex) {
+    public static String formatTimeDefaultRegex(Date date, @NonNull String regex) {
         if (regex.isEmpty())
             regex = "yyyy-MM-dd HH:mm";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(regex);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(regex, Locale.CHINA);
         return simpleDateFormat.format(date);
     }
 

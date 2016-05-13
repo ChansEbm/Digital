@@ -1,6 +1,6 @@
-package com.szbb.pro.entity.Login;
+package com.szbb.pro.entity.login;
 
-import com.szbb.pro.entity.Base.BaseBean;
+import com.szbb.pro.entity.base.BaseBean;
 
 /**
  * Created by ChanZeeBm on 2015/12/26.

@@ -14,7 +14,7 @@ import com.szbb.pro.adapters.CommonBinderAdapter;
 import com.szbb.pro.adapters.CommonBinderHolder;
 import com.szbb.pro.base.BaseFgm;
 import com.szbb.pro.broadcast.UpdateUIBroadcast;
-import com.szbb.pro.entity.Order.MyOrderBean;
+import com.szbb.pro.entity.order.MyOrderBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.impl.UpdateUIListener;
 import com.szbb.pro.tools.AppTools;

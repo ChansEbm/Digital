@@ -8,7 +8,7 @@
 
         <variable
             name="appointment"
-            type="com.szbb.pro.entity.Order.OrderDetailBean.ListEntity"/>
+            type="com.szbb.pro.entity.order.OrderDetailBean.ListEntity"/>
     </data>
 
     <FrameLayout

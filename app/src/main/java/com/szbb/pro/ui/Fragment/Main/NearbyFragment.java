@@ -46,7 +46,6 @@ public class NearbyFragment extends BaseFgm implements BDLocationListener, OnPop
     private TextView tvNearbyLocation;
     private View rootView;
     private FgmNearbyBinding fgmNearbyBinding;
-    private RefreshRecyclerLayout refreshRecyclerLayout;
 
     private RecyclerView recyclerView;
 
@@ -55,7 +54,7 @@ public class NearbyFragment extends BaseFgm implements BDLocationListener, OnPop
         AppTools.locate(this);
         fgmNearbyBinding = (FgmNearbyBinding) viewDataBinding;
         rootView = fgmNearbyBinding.getRoot();
-        refreshRecyclerLayout = DataBindingUtil.inflate(getActivity().getLayoutInflater(), R
+        RefreshRecyclerLayout refreshRecyclerLayout = DataBindingUtil.inflate(getActivity().getLayoutInflater(), R
                 .layout.refresh_recycler, null, false);
         recyclerView = refreshRecyclerLayout.recyclerView;
         tvNearbyLocation = fgmNearbyBinding.tvNearbyLocation;

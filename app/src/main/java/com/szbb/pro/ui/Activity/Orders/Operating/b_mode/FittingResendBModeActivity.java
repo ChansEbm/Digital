@@ -22,11 +22,11 @@ import com.szbb.pro.adapters.CommonBinderAdapter;
 import com.szbb.pro.adapters.CommonBinderHolder;
 import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.dialog.InputDialog;
-import com.szbb.pro.entity.Base.BaseBean;
-import com.szbb.pro.entity.Fittings.CustomerAddressBean;
-import com.szbb.pro.entity.Fittings.ExpressComBean;
-import com.szbb.pro.entity.Fittings.FittingResendBean;
-import com.szbb.pro.entity.Fittings.FittingWareHouseBean;
+import com.szbb.pro.entity.base.BaseBean;
+import com.szbb.pro.entity.fittings.CustomerAddressBean;
+import com.szbb.pro.entity.fittings.ExpressComBean;
+import com.szbb.pro.entity.fittings.FittingResendBean;
+import com.szbb.pro.entity.fittings.FittingWareHouseBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.eum.PhotoPopupOpts;
 import com.szbb.pro.eum.WheelOptions;
@@ -116,7 +116,7 @@ public class FittingResendBModeActivity extends BaseAty<BaseBean, FittingWareHou
 
     @Override
     protected void initEvents() {
-        fittingResendBean.setShippingPayType("2");
+        fittingResendBean.setShippingPayType("1");//默认预付
 
         recyclerView.setAdapter(commonBinderAdapter);
         recyclerView.addItemDecoration(AppTools.defaultHorizontalDecoration());
@@ -269,7 +269,6 @@ public class FittingResendBModeActivity extends BaseAty<BaseBean, FittingWareHou
         networkModel.applyAcce(detailId, acces, otherAcces, fileThumbs, remarks, shippingType,
                 shippingNum, shippingTypeCom, shippingPayType, shippingCost, applicant, applicantTell, areaIds,
                 address, NetworkParams.FROYO);
-
     }
 
     private boolean checkNecessary() {

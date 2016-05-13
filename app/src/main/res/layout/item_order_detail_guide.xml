@@ -5,7 +5,7 @@
 
         <variable
             name="guide"
-            type="com.szbb.pro.entity.Order.OrderDetailBean.DataEntity.AcceCostListEntity"/>
+            type="com.szbb.pro.entity.order.OrderDetailBean.DataEntity.AcceCostListEntity"/>
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"

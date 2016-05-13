@@ -1,6 +1,6 @@
-package com.szbb.pro.entity.Fittings;
+package com.szbb.pro.entity.fittings;
 
-import com.szbb.pro.entity.Base.BaseBean;
+import com.szbb.pro.entity.base.BaseBean;
 
 /**
  * Created by ChanZeeBm on 2016/2/3.

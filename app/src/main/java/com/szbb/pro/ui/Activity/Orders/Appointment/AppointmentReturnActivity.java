@@ -9,7 +9,7 @@ import com.szbb.pro.AppointmentCancelLayout;
 import com.szbb.pro.R;
 import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.dialog.InputDialog;
-import com.szbb.pro.entity.Base.BaseBean;
+import com.szbb.pro.entity.base.BaseBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.impl.InputCallBack;
 import com.szbb.pro.tools.AppTools;

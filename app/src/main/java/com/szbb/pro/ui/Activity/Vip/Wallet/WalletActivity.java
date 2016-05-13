@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.activity.vip.Wallet;
+package com.szbb.pro.ui.activity.vip.wallet;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,8 +9,8 @@ import com.szbb.pro.R;
 import com.szbb.pro.WalletLayout;
 import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.dialog.MessageDialog;
-import com.szbb.pro.entity.Base.BaseBean;
-import com.szbb.pro.entity.Vip.WalletBean;
+import com.szbb.pro.entity.base.BaseBean;
+import com.szbb.pro.entity.vip.WalletBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.model.WalletMode;
 

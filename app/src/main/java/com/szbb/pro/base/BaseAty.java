@@ -14,10 +14,10 @@ import com.szbb.pro.AppKeyMap;
 import com.szbb.pro.R;
 import com.szbb.pro.adapters.CommonBinderAdapter;
 import com.szbb.pro.broadcast.UpdateUIBroadcast;
-import com.szbb.pro.entity.Base.BaseBean;
-import com.szbb.pro.entity.Order.OrderMsgBean;
-import com.szbb.pro.entity.Order.OrderMsgListBean;
-import com.szbb.pro.entity.Vip.CheckUpdateBean;
+import com.szbb.pro.entity.base.BaseBean;
+import com.szbb.pro.entity.order.OrderMsgBean;
+import com.szbb.pro.entity.order.OrderMsgListBean;
+import com.szbb.pro.entity.vip.CheckUpdateBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.impl.BinderOnItemClickListener;
 import com.szbb.pro.impl.OkHttpResponseListener;
@@ -51,6 +51,7 @@ public abstract class BaseAty<E extends BaseBean, T> extends AppCompatActivity i
     protected ViewDataBinding viewDataBinding;
     protected NetworkModel networkModel;
     protected UpdateUIBroadcast uiBroadcast;
+
     private boolean isFirstRunnable = true;
     public boolean isNeedBackground = true;
 

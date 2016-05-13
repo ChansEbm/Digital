@@ -75,7 +75,6 @@
     <string name="choose_done">选好了</string>
 
     <!--会员中心-->
-    <string name="vip_system_msg">系统消息</string>
     <string name="vip_complete_done">完单量</string>
     <string name="vip_complete_detail">完善资料</string>
     <string name="vip_wallet">我的钱包</string>
@@ -166,6 +165,7 @@
     <string name="fitting_sent_to_mechanic">发到我的店铺</string>
     <string name="fitting_apply_order_no">配件申请单号: </string>
     <string name="fitting_subsidy">工单补贴 :</string>
+    <string name="fitting_unlock">秒后解锁操作</string>
 
     <!--电话dialog-->
     <string name="dialog_content">确定拨打</string>
@@ -206,6 +206,8 @@
     <string name="wallet_sn">单号 :</string>
     <string name="wallet_trade_id">交易ID :</string>
     <string name="wallet_no_credit_card">你还没添加过银行卡,请添加!</string>
+    <string name="wallet_withdraw_hint">每次提现需收取手续费1元</string>
+    <string name="wallet_over_300_hint">如提现金额超过300元免收手续费！</string>
     <!--添加银行卡-->
     <string name="please_input_account_attr">请选择开户银行</string>
     <string name="please_input_account_city">请选择开户城市</string>
@@ -298,6 +300,7 @@
     <string name="main_bottom_nearby">附近工单</string>
     <string name="main_bottom_fittings">配件订单</string>
     <string name="main_bottom_order">我的工单</string>
+    <string name="main_bottom_system_msg">系统消息</string>
     <string name="main_bottom_vip">会员中心</string>
     <string name="main_location">暂无位置信息</string>
     <string name="main_i_will_pick">我来接</string>
@@ -372,7 +375,7 @@
     <string name="no_network_is_detected">检测网络连接失败</string>
     <string name="check_setting">检查设置</string>
     <string name="connect_server_error">连接服务器超时</string>
-    <string name="label">标签</string>
+    <string name="label_malfunction_status">故障现象:</string>
     <string name="wait_for_choose">请选择</string>
     <string name="notice">注意</string>
     <string name="can_not_be_changed">一旦确定服务项目,则不可修改</string>

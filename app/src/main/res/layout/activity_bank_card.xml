@@ -5,7 +5,7 @@
 
         <variable
             name="card"
-            type="com.szbb.pro.entity.Vip.CreditCardBean.DataEntity" />
+            type="com.szbb.pro.entity.vip.CreditCardBean.DataEntity" />
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/theme_primary"
-        tools:context=".ui.activity.vip.Wallet.CreditCardActivity">
+        tools:context=".ui.activity.vip.wallet.CreditCardActivity">
 
         <LinearLayout
             android:layout_width="match_parent"

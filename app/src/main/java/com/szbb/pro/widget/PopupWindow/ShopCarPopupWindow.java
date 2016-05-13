@@ -13,7 +13,7 @@ import com.szbb.pro.ShopCarLayout;
 import com.szbb.pro.adapters.CommonBinderAdapter;
 import com.szbb.pro.adapters.CommonBinderHolder;
 import com.szbb.pro.databinding.PopupShopCarLayout;
-import com.szbb.pro.entity.Fittings.FittingWareHouseBean;
+import com.szbb.pro.entity.fittings.FittingWareHouseBean;
 import com.szbb.pro.impl.CountChangeCallBack;
 import com.szbb.pro.impl.OnCountListener;
 import com.szbb.pro.tools.AppTools;

@@ -1,4 +1,4 @@
-package com.szbb.pro.entity.JpushInfo;
+package com.szbb.pro.entity.jpushinfo;
 
 /**
  * Created by ChanZeeBm on 3/2/2016.

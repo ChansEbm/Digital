@@ -15,9 +15,10 @@ import com.szbb.pro.adapters.CommonBinderHolder;
 import com.szbb.pro.base.BaseFgm;
 import com.szbb.pro.broadcast.UpdateUIBroadcast;
 import com.szbb.pro.dialog.DialDialog;
-import com.szbb.pro.entity.Base.BaseBean;
-import com.szbb.pro.entity.Order.MyOrderBean;
+import com.szbb.pro.entity.base.BaseBean;
+import com.szbb.pro.entity.order.MyOrderBean;
 import com.szbb.pro.eum.NetworkParams;
+import com.szbb.pro.impl.DialListener;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.LogTools;
 import com.szbb.pro.ui.activity.orders.appointment.AppointmentClientActivity;
@@ -33,7 +34,7 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 //新工单
 public class NewOrderFragment extends BaseFgm<BaseBean, MyOrderBean.ListEntity> implements
         BGARefreshLayout
-                .BGARefreshLayoutDelegate {
+                .BGARefreshLayoutDelegate, DialListener {
     private RecyclerView recyclerView;
     private BGARefreshLayout refreshLayout;
     private OrderBaseLayout orderBaseLayout;
@@ -66,7 +67,8 @@ public class NewOrderFragment extends BaseFgm<BaseBean, MyOrderBean.ListEntity> 
             public void onBind(ViewDataBinding viewDataBinding, CommonBinderHolder holder, int
                     position, MyOrderBean.ListEntity listEntity) {
                 ItemNewOrderLayout layout = (ItemNewOrderLayout) viewDataBinding;
-                layout.btnCall.setTag(listEntity.getTel());
+                layout.btnCall.setTag(R.id.tag_cupcake, listEntity.getTel());//保存号码
+                layout.btnCall.setTag(R.id.tag_donut, position);//保存位置
                 layout.btnCall.setOnClickListener(NewOrderFragment.this);
                 layout.setOrder(listEntity);
             }
@@ -93,12 +95,15 @@ public class NewOrderFragment extends BaseFgm<BaseBean, MyOrderBean.ListEntity> 
         refreshLayout.endRefreshing();
     }
 
+    private int clickPos = -1;
+
     @Override
     protected void onClick(int id, View view) {
         switch (id) {
             case R.id.btn_call:
-                DialDialog dialDialog = new DialDialog(getActivity(), null);
-                String number = (String) view.getTag();
+                DialDialog dialDialog = new DialDialog(getActivity(), this);
+                String number = (String) view.getTag(R.id.tag_cupcake);//取出电话号码
+                clickPos = (int) view.getTag(R.id.tag_donut);//取出在列表中的位置
                 dialDialog.call(number);
                 break;
         }
@@ -169,5 +174,13 @@ public class NewOrderFragment extends BaseFgm<BaseBean, MyOrderBean.ListEntity> 
         commonBinderAdapter.notifyDataSetChanged();
         refreshLayout.endLoadingMore();
         refreshLayout.endRefreshing();
+    }
+
+    @Override
+    public void dial() {
+        if (clickPos != -1) {
+            String orderId = list.get(clickPos).getOrderid();
+            startActivity(new Intent(getContext(), AppointmentClientActivity.class).putExtra("orderId", orderId));
+        }
     }
 }

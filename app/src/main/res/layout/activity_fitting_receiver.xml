@@ -5,7 +5,7 @@
 
         <variable
             name="receiver"
-            type="com.szbb.pro.entity.Fittings.CustomerAddressBean.DataEntity"/>
+            type="com.szbb.pro.entity.fittings.CustomerAddressBean.DataEntity"/>
     </data>
 
     <FrameLayout

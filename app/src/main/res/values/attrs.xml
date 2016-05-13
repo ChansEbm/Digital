@@ -2,31 +2,38 @@
 <resources>
 
     <declare-styleable name="FancyIndexer">
-        <attr name="widthOffset" format="dimension"/>
-        <attr name="minFontSize" format="integer"/>
-        <attr name="maxFontSize" format="integer"/>
-        <attr name="tipFontSize" format="integer"/>
-        <attr name="maxBezierHeight" format="dimension"/>
-        <attr name="maxBezierWidth" format="dimension"/>
-        <attr name="maxBezierLines" format="integer"/>
-        <attr name="additionalTipOffset" format="dimension"/>
-        <attr name="fontColor" format="color"/>
-        <attr name="tipFontColor" format="color"/>
+        <attr name="widthOffset" format="dimension" />
+        <attr name="minFontSize" format="integer" />
+        <attr name="maxFontSize" format="integer" />
+        <attr name="tipFontSize" format="integer" />
+        <attr name="maxBezierHeight" format="dimension" />
+        <attr name="maxBezierWidth" format="dimension" />
+        <attr name="maxBezierLines" format="integer" />
+        <attr name="additionalTipOffset" format="dimension" />
+        <attr name="fontColor" format="color" />
+        <attr name="tipFontColor" format="color" />
     </declare-styleable>
     <declare-styleable name="StatusBar">
-        <attr name="statusTextColor" format="color|reference"/>
-        <attr name="statusTextSize" format="dimension|reference"/>
-        <attr name="emptyColor" format="color|reference"/>
-        <attr name="fillColor" format="color|reference"/>
-        <attr name="radius" format="dimension"/>
-        <attr name="totalCount" format="integer"/>
-        <attr name="lineThickness" format="dimension"/>
-        <attr name="isCenter" format="boolean"/>
+        <attr name="statusTextColor" format="color|reference" />
+        <attr name="statusTextSize" format="dimension|reference" />
+        <attr name="emptyColor" format="color|reference" />
+        <attr name="fillColor" format="color|reference" />
+        <attr name="radius" format="dimension" />
+        <attr name="totalCount" format="integer" />
+        <attr name="lineThickness" format="dimension" />
+        <attr name="isCenter" format="boolean" />
     </declare-styleable>
     <declare-styleable name="FancyIndicator">
-        <attr name="fancy_radius" format="dimension"/>
-        <attr name="fancy_lineThickness" format="dimension"/>
-        <attr name="chosenColor" format="color|reference"/>
-        <attr name="normalColor" format="color|reference"/>
+        <attr name="fancy_radius" format="dimension" />
+        <attr name="fancy_lineThickness" format="dimension" />
+        <attr name="chosenColor" format="color|reference" />
+        <attr name="normalColor" format="color|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="Indicator">
+        <attr name="indicator_radius" format="dimension" />
+        <attr name="colorNor" format="reference|color" />
+        <attr name="colorSelect" format="reference|color" />
+        <attr name="indicatorMargin" format="dimension" />
     </declare-styleable>
 </resources>

@@ -5,7 +5,7 @@ import android.view.View;
 
 import com.szbb.pro.R;
 import com.szbb.pro.ShareLayout;
-import com.szbb.pro.entity.Base.Events;
+import com.szbb.pro.entity.base.Events;
 
 import java.util.HashMap;
 
@@ -42,10 +42,10 @@ public class SharePopupWindow extends BasePopupWindow implements PlatformActionL
         switch (id) {
             case R.id.wechat:
                 Platform.ShareParams shareParams = new Wechat.ShareParams();
-                shareParams.setTitle("ShareTitle");
-                shareParams.setText("This is text");
+                shareParams.setTitle("神州帮帮");
+                shareParams.setText("神州联保家电后服务平台");
                 shareParams.setImageUrl("http://www.aimis.com.cn/upload/2015031133975205.png");
-                shareParams.setUrl("http://www.baidu.com");
+                shareParams.setUrl("http://www.szlb.cc");
                 shareParams.setShareType(Platform.SHARE_WEBPAGE);
                 Platform platform = ShareSDK.getPlatform(Wechat.NAME);
                 platform.setPlatformActionListener(this);
@@ -53,10 +53,10 @@ public class SharePopupWindow extends BasePopupWindow implements PlatformActionL
                 break;
             case R.id.wechat_moment:
                 shareParams = new WechatMoments.ShareParams();
-                shareParams.setTitle("ShareTitle");
-                shareParams.setText("This is text");
+                shareParams.setTitle("神州帮帮");
+                shareParams.setText("神州联保家电后服务平台");
                 shareParams.setImageUrl("http://www.aimis.com.cn/upload/2015031133975205.png");
-                shareParams.setUrl("http://www.baidu.com");
+                shareParams.setUrl("http://www.szlb.cc");
                 shareParams.setShareType(Platform.SHARE_WEBPAGE);
                 platform = ShareSDK.getPlatform(WechatMoments.NAME);
                 platform.setPlatformActionListener(this);
@@ -64,9 +64,9 @@ public class SharePopupWindow extends BasePopupWindow implements PlatformActionL
                 break;
             case R.id.qq:
                 shareParams = new QQ.ShareParams();
-                shareParams.setTitle("QQ Share Title");
-                shareParams.setText("is the contant?");
-                shareParams.setTitleUrl("www.baidu.com");
+                shareParams.setTitle("神州帮帮");
+                shareParams.setText("神州联保家电后服务平台");
+                shareParams.setTitleUrl("http://www.szlb.cc");
                 shareParams.setImageUrl("http://www.aimis.com.cn/upload/2015031133975205.png");
                 platform = ShareSDK.getPlatform(QQ.NAME);
                 platform.setPlatformActionListener(this);
@@ -74,9 +74,9 @@ public class SharePopupWindow extends BasePopupWindow implements PlatformActionL
                 break;
             case R.id.qzone:
                 shareParams = new QZone.ShareParams();
-                shareParams.setTitle("QQ Share Title");
-                shareParams.setText("is the contant?");
-                shareParams.setTitleUrl("www.baidu.com");
+                shareParams.setTitle("神州帮帮");
+                shareParams.setText("神州联保家电后服务平台");
+                shareParams.setTitleUrl("http://www.szlb.cc");
                 shareParams.setImageUrl("http://www.aimis.com.cn/upload/2015031133975205.png");
                 shareParams.setSite("szbb");
                 shareParams.setSiteUrl("http://www.szlb.net/");

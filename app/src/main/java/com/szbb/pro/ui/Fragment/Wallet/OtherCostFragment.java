@@ -11,7 +11,7 @@ import com.szbb.pro.R;
 import com.szbb.pro.adapters.CommonBinderAdapter;
 import com.szbb.pro.adapters.CommonBinderHolder;
 import com.szbb.pro.base.BaseFgm;
-import com.szbb.pro.entity.Vip.OtherCostBean;
+import com.szbb.pro.entity.vip.OtherCostBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 

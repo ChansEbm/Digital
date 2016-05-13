@@ -1,4 +1,4 @@
-package com.szbb.pro.entity.Lending;
+package com.szbb.pro.entity.lending;
 
 import com.szbb.pro.entity.TextBean;
 

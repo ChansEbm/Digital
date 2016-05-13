@@ -62,18 +62,17 @@ public class ViewUtils {
     private static CountDownTimer countDownTimer;//计时器
 
     //验证码倒计时
-    public static void startCountDown(final Button button) {
+    public static void startCountDown(final Button button, final String start, final String end, long millions) {
         if (button == null)
             return;
         if (countDownTimer == null) {
-            countDownTimer = new CountDownTimer(60000, 10) {
+            countDownTimer = new CountDownTimer(millions, 10) {
                 @Override
                 public void onTick(long millisUntilFinished) {
                     button.setEnabled(false);
                     button.setTextColor(button.getResources().getColor(R.color
                             .color_text_light_gravy));
-                    button.setText((millisUntilFinished / 1000) + button.getResources()
-                            .getString(R.string.reg_verification_code_again));
+                    button.setText((millisUntilFinished / 1000) + start);
                 }
 
                 @Override
@@ -81,8 +80,7 @@ public class ViewUtils {
                     button.setEnabled(true);
                     button.setTextColor(button.getResources().getColor(R.color
                             .color_white));
-                    button.setText(button.getResources().getString(R.string
-                            .reg_reCode));
+                    button.setText(end);
                 }
             };
         }

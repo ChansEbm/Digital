@@ -14,8 +14,8 @@ import com.szbb.pro.R;
 import com.szbb.pro.RegisterLayout;
 import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.dialog.MessageDialog;
-import com.szbb.pro.entity.Base.BaseBean;
-import com.szbb.pro.entity.Login.AuthBean;
+import com.szbb.pro.entity.base.BaseBean;
+import com.szbb.pro.entity.login.AuthBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.ViewUtils;
@@ -92,7 +92,8 @@ public class RegisterActivity extends BaseAty<BaseBean, BaseBean> implements Com
                 if (checkUser()) {
                     networkModel.checkPhone(tInputPhone.getEditText().getText().toString(),
                             NetworkParams.FROYO);
-                    ViewUtils.startCountDown(btnVerification);
+                    ViewUtils.startCountDown(btnVerification, getString(R.string.reg_verification_code_again), getString(R.string
+                            .reg_reCode), 60000);
                 } else {
                     AppTools.showNormalSnackBar(registerLayout.getRoot(), getResources().getString(R
                             .string.invalid_user));

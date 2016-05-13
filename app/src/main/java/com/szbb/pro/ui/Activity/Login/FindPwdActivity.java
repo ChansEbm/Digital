@@ -9,7 +9,7 @@ import android.widget.EditText;
 import com.szbb.pro.FindPwdLayout;
 import com.szbb.pro.R;
 import com.szbb.pro.base.BaseAty;
-import com.szbb.pro.entity.Base.BaseBean;
+import com.szbb.pro.entity.base.BaseBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.ViewUtils;
@@ -75,7 +75,8 @@ public class FindPwdActivity extends BaseAty<BaseBean, BaseBean> {
             case R.id.btn_verification_code:
                 if (checkUser()) {
                     networkModel.phoneCode(phone, null);
-                    ViewUtils.startCountDown((Button) view);
+                    ViewUtils.startCountDown((Button) view, getString(R.string.reg_verification_code_again), getString(R.string
+                            .reg_reCode), 60000);
                 }
                 break;
             case R.id.btn_submit:

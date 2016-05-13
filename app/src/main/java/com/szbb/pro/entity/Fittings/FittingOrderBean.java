@@ -1,4 +1,4 @@
-package com.szbb.pro.entity.Fittings;
+package com.szbb.pro.entity.fittings;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;

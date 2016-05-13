@@ -5,7 +5,7 @@
 
         <variable
             name="parent"
-            type="com.szbb.pro.entity.Expenses.ExpenseDetailBean.ListEntity"/>
+            type="com.szbb.pro.entity.expenses.ExpenseDetailBean.ListEntity"/>
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

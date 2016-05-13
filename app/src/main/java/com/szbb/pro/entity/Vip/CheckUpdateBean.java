@@ -1,6 +1,6 @@
-package com.szbb.pro.entity.Vip;
+package com.szbb.pro.entity.vip;
 
-import com.szbb.pro.entity.Base.BaseBean;
+import com.szbb.pro.entity.base.BaseBean;
 
 /**
  * Created by Administrator on 2016/5/3.

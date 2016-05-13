@@ -1,9 +1,9 @@
-package com.szbb.pro.entity.Fittings;
+package com.szbb.pro.entity.fittings;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
-import com.szbb.pro.entity.Base.BaseBean;
+import com.szbb.pro.entity.base.BaseBean;
 
 import java.util.List;
 

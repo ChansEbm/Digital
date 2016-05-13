@@ -1,4 +1,4 @@
-package com.szbb.pro.entity.EventBus;
+package com.szbb.pro.entity.eventbus;
 
 /**
  * Created by ChanZeeBm on 2016/2/17.

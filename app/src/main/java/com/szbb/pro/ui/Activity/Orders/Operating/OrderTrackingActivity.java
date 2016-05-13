@@ -11,7 +11,7 @@ import com.szbb.pro.adapters.CommonBinderAdapter;
 import com.szbb.pro.adapters.CommonBinderHolder;
 import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.databinding.ItemTrackLayout;
-import com.szbb.pro.entity.Order.OrderTrackingBean;
+import com.szbb.pro.entity.order.OrderTrackingBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.widget.FancyIndicator;

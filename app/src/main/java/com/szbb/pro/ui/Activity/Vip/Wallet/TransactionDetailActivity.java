@@ -1,4 +1,4 @@
-package com.szbb.pro.ui.activity.vip.Wallet;
+package com.szbb.pro.ui.activity.vip.wallet;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;

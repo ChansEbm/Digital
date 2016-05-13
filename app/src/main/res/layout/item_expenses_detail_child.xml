@@ -5,7 +5,7 @@
 
         <variable
             name="child"
-            type="com.szbb.pro.entity.Expenses.ExpenseDetailBean.ListEntity.CateListEntity"/>
+            type="com.szbb.pro.entity.expenses.ExpenseDetailBean.ListEntity.CateListEntity"/>
     </data>
 
     <LinearLayout

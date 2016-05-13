@@ -20,8 +20,8 @@ import com.szbb.pro.adapters.CommonBinderAdapter;
 import com.szbb.pro.adapters.CommonBinderHolder;
 import com.szbb.pro.base.BaseFgm;
 import com.szbb.pro.drawerlayouttoggles.ContentDisplaceDrawerToggle;
-import com.szbb.pro.entity.EventBus.FittingNavEvent;
-import com.szbb.pro.entity.Fittings.MyFittingOrderBean;
+import com.szbb.pro.entity.eventbus.FittingNavEvent;
+import com.szbb.pro.entity.fittings.MyFittingOrderBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.ui.activity.orders.operating.a_mode.FittingApplyDetailActivity;
@@ -235,6 +235,9 @@ public class FittingApplyFragment extends BaseFgm<MyFittingOrderBean, MyFittingO
             list.clear();
         }
         list.addAll(t.getList());
+        if (list.isEmpty()) {
+            fittingOrderLayout.include.emptyView.setVisibility(View.VISIBLE);
+        }
         commonBinderAdapter.notifyDataSetChanged();
         refreshLayout.endLoadingMore();
         refreshLayout.endRefreshing();

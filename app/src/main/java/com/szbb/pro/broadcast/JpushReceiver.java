@@ -16,16 +16,16 @@ import com.github.pwittchen.prefser.library.Prefser;
 import com.google.gson.Gson;
 import com.szbb.pro.R;
 import com.szbb.pro.base.BaseApplication;
-import com.szbb.pro.entity.JpushInfo.JpushBean;
-import com.szbb.pro.entity.Vip.VipInfoBean;
+import com.szbb.pro.entity.jpushinfo.JpushBean;
+import com.szbb.pro.entity.vip.VipInfoBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.model.NetworkModel;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.LogTools;
 import com.szbb.pro.ui.activity.login.LoginActivity;
 import com.szbb.pro.ui.activity.main.MainActivity;
-import com.szbb.pro.ui.activity.vip.SystemMsg.AccountCementActivity;
-import com.szbb.pro.ui.activity.vip.SystemMsg.OrderHintActivity;
+import com.szbb.pro.ui.activity.vip.system_msg.AccountCementActivity;
+import com.szbb.pro.ui.activity.vip.system_msg.OrderHintActivity;
 
 import cn.jpush.android.api.JPushInterface;
 

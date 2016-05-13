@@ -13,7 +13,7 @@ import com.szbb.pro.WorkHistoryLayout;
 import com.szbb.pro.adapters.CommonBinderAdapter;
 import com.szbb.pro.adapters.CommonBinderHolder;
 import com.szbb.pro.base.BaseAty;
-import com.szbb.pro.entity.Vip.WorkHistoryBean;
+import com.szbb.pro.entity.vip.WorkHistoryBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.ui.activity.orders.operating.OrderDetailActivity;

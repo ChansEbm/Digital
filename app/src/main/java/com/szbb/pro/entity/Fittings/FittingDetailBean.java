@@ -1,11 +1,12 @@
-package com.szbb.pro.entity.Fittings;
+package com.szbb.pro.entity.fittings;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.szbb.pro.entity.Base.BaseBean;
+import com.szbb.pro.entity.base.BaseBean;
+import com.szbb.pro.tools.AppTools;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -179,6 +180,7 @@ public class FittingDetailBean extends BaseBean {
 
         @Bindable
         public String getFact_shipping_time() {
+            this.fact_shipping_time = AppTools.formatTime(fact_shipping_time, true);
             return fact_shipping_time;
         }
 

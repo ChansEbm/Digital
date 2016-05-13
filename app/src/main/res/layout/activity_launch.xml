@@ -13,5 +13,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
+        <com.szbb.pro.widget.Indicator
+            android:id="@+id/indicators"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_gravity="bottom" />
+
     </FrameLayout>
 </layout>

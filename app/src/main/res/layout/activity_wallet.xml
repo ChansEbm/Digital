@@ -5,7 +5,7 @@
 
         <variable
             name="wallet"
-            type="com.szbb.pro.entity.Vip.WalletBean.DataEntity"/>
+            type="com.szbb.pro.entity.vip.WalletBean.DataEntity"/>
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"

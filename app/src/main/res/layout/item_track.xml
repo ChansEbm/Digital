@@ -5,7 +5,7 @@
 
         <variable
             name="track"
-            type="com.szbb.pro.entity.Order.OrderTrackingBean.DataEntity.ProcessListEntity"/>
+            type="com.szbb.pro.entity.order.OrderTrackingBean.DataEntity.ProcessListEntity"/>
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
