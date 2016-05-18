@@ -17,10 +17,25 @@ android {
             abiFilters 'armeabi', 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
         }
     }
+    signingConfigs {
+        release {
+            storeFile file('E:\\Chan\\szbb.jks')
+            storePassword 'szbb.cn'
+            keyAlias 'szbb'
+            keyPassword 'szbb.cn'
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-fresco.pro','proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            buildConfigField 'String', 'HEADURL', "\"http://kf.szlb.cc/\""
+            buildConfigField 'boolean','isDebug','false'
+        }
+        debug {
+            buildConfigField 'String', 'HEADURL', "\"http://appbaba.jios.org:8081/\""
+            buildConfigField 'boolean','isDebug','true'
         }
     }
     dataBinding {
@@ -40,7 +55,7 @@ dependencies {
     compile 'com.facebook.fresco:fresco:0.8.0+'
     compile 'com.yqritc:recyclerview-flexibledivider:1.2.6'
     compile 'com.orhanobut:logger:1.11'
-    compile 'me.drakeet.materialdialog:library:1.2.2'
+    compile 'me.drakeet.materialdialog:library:1.3.1'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'org.solovyev.android.views:linear-layout-manager:0.5@aar'
     compile 'cn.bingoogolapple:bga-refreshlayout:1.1.2@aar'
@@ -66,4 +81,6 @@ dependencies {
     compile 'com.github.pwittchen:prefser:2.0.5'
     compile 'com.bm.photoview:library:1.3.6'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'cat.ereza:customactivityoncrash:1.5.0'
+
 }

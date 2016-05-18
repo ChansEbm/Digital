@@ -830,8 +830,7 @@ public class NetworkModel<E> {
     }
 
     public void returnAcce(@NonNull String acceId, List<String> thumb, String remarks, @NonNull
-    String
-            shippingType, @NonNull String shippingNum, @NonNull String shippingPaytype, @NonNull
+    String shippingType, @NonNull String shippingNum, @NonNull String shippingPaytype, @NonNull
                            String shippingCost, NetworkParams networkParams) {
         clearAllParams();
         if (isNecessaryFieldEmpty(acceId, shippingType, shippingNum, shippingPaytype, shippingCost))

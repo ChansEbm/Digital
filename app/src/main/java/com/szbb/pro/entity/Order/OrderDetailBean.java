@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.szbb.pro.BR;
 import com.szbb.pro.R;
 import com.szbb.pro.entity.base.BaseBean;

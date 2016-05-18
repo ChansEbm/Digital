@@ -27,10 +27,12 @@ import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.BitmapCompressTool;
 import com.szbb.pro.tools.LogTools;
 import com.szbb.pro.tools.TitleBarTools;
+import com.szbb.pro.ui.activity.main.ErrorActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
 import cn.finalteam.galleryfinal.GalleryFinal;
 import cn.finalteam.galleryfinal.model.PhotoInfo;
 import cn.jpush.android.api.JPushInterface;
@@ -78,6 +80,8 @@ public abstract class BaseAty<E extends BaseBean, T> extends AppCompatActivity i
         }
 
         networkModel = new NetworkModel(this);
+        CustomActivityOnCrash.setErrorActivityClass(ErrorActivity.class);
+        CustomActivityOnCrash.install(getApplicationContext());
         networkModel.setResultCallBack(this);
         AppTools.addActivity(this);
         uiBroadcast = new UpdateUIBroadcast();
@@ -85,8 +89,8 @@ public abstract class BaseAty<E extends BaseBean, T> extends AppCompatActivity i
         AppTools.registerBroadcast(uiBroadcast, AppKeyMap.NO_NETWORK_ACTION);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//竖屏
         //初始化ShareSDK
-        ShareSDK.initSDK(this);
-
+        if (!(this instanceof ErrorActivity))
+            ShareSDK.initSDK(this);
     }
 
     @Override

@@ -195,14 +195,15 @@ public class FittingResendByWorkerActivity extends BaseAty<BaseBean, FittingDeta
             return false;
         }
         String remarks = fittingResendBean.getRemarks();
-        progressUpload(shippingType, shippingNum, shippingCost, remarks);
+        String shippingPayType = fittingResendBean.getShippingPayType();
+        progressUpload(shippingType, shippingNum, shippingCost, shippingPayType, remarks);
         return true;
     }
 
-    private void progressUpload(String shippingType, String shippingNum, String shippingCost,
+    private void progressUpload(String shippingType, String shippingNum, String shippingCost, String shippingPayType,
                                 String remarks) {
         networkModel.returnAcce(acceId, alreadyAddPic, remarks, shippingType, shippingNum,
-                shippingType, shippingCost, NetworkParams.CUPCAKE);
+                shippingPayType, shippingCost, NetworkParams.CUPCAKE);
     }
 
     @Override

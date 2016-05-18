@@ -43,7 +43,7 @@ public class DelCreditCardActivity extends BaseAty<BaseBean, BaseBean> {
     protected void onClick(int id, View view) {
         switch (id) {
             case R.id.btn_find_pwd:
-                start(FindCreditPasswordActivity.class);
+                start(FindPayPasswordActivity.class);
                 break;
             case R.id.btn_confirm:
                 checkNecessaryAndProgress();

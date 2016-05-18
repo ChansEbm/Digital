@@ -475,16 +475,7 @@ public class AppTools {
         }
     }
 
-    /**
-     * convert chinese to pinyin
-     *
-     * @param allName the full name in chinese
-     * @return the spell for allName
-     */
-    public static String getCharacterSpell(String allName) {
-        ConvertSpell spell = new ConvertSpell();
-        return spell.getCharacterSpell(allName);
-    }
+
 
     /**
      * get picture cache dir

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -56,7 +55,7 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
     private SimpleDraweeView citizenIdBackSimpleDraweeView;//身份证背面
     private EditText edtCompleteInfoRealName;//真实姓名
     private TextView tvCompleteInfoLocation;//所在地区
-    private EditText edtCompleteInfoDetailAddress;//详细地址
+    private TextView tvCompleteInfoDetailAddress;//详细地址
     private EditText edtCompleteInfoPickLocation;//选取坐标
     private EditText edtCompleteInfoCitizenID;//身份证号码
     private InputDialog inputDialog;
@@ -102,7 +101,7 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
         citizenIdBackSimpleDraweeView = completeInfoLayout.sdvCitizenIdBackSide;
         edtCompleteInfoRealName = completeInfoLayout.edtRealName;
         tvCompleteInfoLocation = completeInfoLayout.tvLocation;
-        edtCompleteInfoDetailAddress = completeInfoLayout.edtDetailAddress;
+        tvCompleteInfoDetailAddress = completeInfoLayout.tvDetailAddress;
         edtCompleteInfoPickLocation = completeInfoLayout.edtPickLocation;
         edtCompleteInfoCitizenID = completeInfoLayout.tvRealCitizenId;
 
@@ -134,8 +133,7 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
         switch (id) {
             case R.id.rylt_upload_avatar:
                 photoFlag = AVATAR;
-                photoPopupWindow.showAtLocation(completeInfoLayout.getRoot(), Gravity.BOTTOM,
-                        0, 0);
+                photoPopupWindow.showAtDefaultLocation();
                 break;
             case R.id.rylt_real_name:
                 inputDialog = new InputDialog(this, false);
@@ -172,18 +170,15 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
             case R.id.rylt_location:
                 startActivityForResult(new Intent().putExtra("flag", AppKeyMap.CUPCAKE).putExtra
                                 ("title", getString(R.string.now_position)).setClass
-                                (this, LocationActivity.class),
-                        AppKeyMap.LOLLIPOP);
+                                (this, LocationActivity.class), AppKeyMap.LOLLIPOP);
                 break;
             case R.id.sdv_citizen_id_font_side:
                 photoFlag = ID_FONT;
-                photoPopupWindow.showAtLocation(completeInfoLayout.getRoot(), Gravity.BOTTOM,
-                        0, 0);
+                photoPopupWindow.showAtDefaultLocation();
                 break;
             case R.id.sdv_citizen_id_back_side:
                 photoFlag = ID_BACK;
-                photoPopupWindow.showAtLocation(completeInfoLayout.getRoot(), Gravity.BOTTOM,
-                        0, 0);
+                photoPopupWindow.showAtDefaultLocation();
                 break;
             case R.id.button:
                 if (checkNecessary()) {
@@ -259,11 +254,11 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
         switch (networkParams) {
             case CUPCAKE://means real name
                 if (AppTools.verifyChineseName(completeInfoLayout.getRoot(), word)) {
-                edtCompleteInfoRealName.setText(word);
-            }
+                    edtCompleteInfoRealName.setText(word);
+                }
                 break;
             case DONUT://means address
-                edtCompleteInfoDetailAddress.setText(word);
+                tvCompleteInfoDetailAddress.setText(word);
                 break;
             case FROYO://means citizen id
                 if (AppTools.verifyCitizenId(completeInfoLayout.getRoot(), word))
@@ -305,7 +300,7 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
 
         this.realName = edtCompleteInfoRealName.getText().toString();
         String location = tvCompleteInfoLocation.getText().toString();
-        this.detailAddress = edtCompleteInfoDetailAddress.getText().toString();
+        this.detailAddress = tvCompleteInfoDetailAddress.getText().toString();
         this.citizenID = edtCompleteInfoCitizenID.getText().toString();
         if (TextUtils.isEmpty(avatarPath)) {
             AppTools.showNormalSnackBar(parentView, getString(R.string

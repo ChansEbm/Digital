@@ -50,7 +50,11 @@
     <string name="district">区</string>
     <string name="street">街道</string>
     <string name="now_position">所在地址</string>
-
+<!--错误页面-->
+    <string name="error_quit">暂时退出</string>
+    <string name="error_restart_app">重启程序</string>
+    <string name="error_show_report">显示报告</string>
+    <string name="error_hint">很抱歉,程序出现了些许问题</string>
     <!--所属机构-->
     <string name="organization_business_license">营业执照注册号</string>
     <string name="organization_name">机构名称</string>

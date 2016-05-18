@@ -104,6 +104,10 @@ public class ReceiverInfoActivity extends BaseAty<BaseBean, BaseBean> {
         if (!AppTools.verifyPhone(parentView, phone)) {
             return;
         }
+        if (TextUtils.isEmpty(areaIds)) {
+            AppTools.showNormalSnackBar(parentView, getString(R.string.organization_input_location));
+            return;
+        }
         String detailAddress = edtDetailAddr.getText().toString();
         if (TextUtils.isEmpty(detailAddress)) {
             AppTools.showNormalSnackBar(parentView, getString(R.string

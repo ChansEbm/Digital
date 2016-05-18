@@ -15,13 +15,13 @@ import com.orhanobut.logger.LogLevel;
 import com.orhanobut.logger.Logger;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
+import com.szbb.pro.BuildConfig;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.FileSaveTools;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import java.io.File;
 
-import cn.finalteam.galleryfinal.BuildConfig;
 import cn.finalteam.galleryfinal.CoreConfig;
 import cn.finalteam.galleryfinal.FunctionConfig;
 import cn.finalteam.galleryfinal.GalleryFinal;
@@ -81,6 +81,7 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+//        CustomActivityOnCrash.setErrorActivityClass(ErrorActivity.class);
         AppTools.init(this);
         SDKInitializer.initialize(getApplicationContext());
         MultiDex.install(this);
@@ -88,7 +89,7 @@ public class BaseApplication extends Application {
         Fresco.initialize(this);
         initGalleryFinal();
         Logger.init("digital").setMethodCount(3).hideThreadInfo().setLogLevel(LogLevel.FULL);
-        CrashReport.initCrashReport(getApplicationContext(), "900020359", true);
+        CrashReport.initCrashReport(getApplicationContext(), "900020359", BuildConfig.isDebug);
 
         JPushInterface.setDebugMode(false);
         JPushInterface.init(this);

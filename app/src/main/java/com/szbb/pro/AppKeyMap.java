@@ -7,7 +7,7 @@ import com.szbb.pro.tools.AppTools;
  */
 public class AppKeyMap {
     //手机正则
-    public final static String PHONE_REGEX = "[1][3578]\\d{9}";
+    public final static String PHONE_REGEX = "[1]\\d{10}";
     //身份证正则
     public final static String CITIZEN_ID_REGEX = "^(\\d{6})(\\d{4})(\\d{2})(\\d{2})(\\d{3})([0-9]|X||x)$";
     //中国人名正则
@@ -15,7 +15,7 @@ public class AppKeyMap {
     //密码正则(只能输入数字字母)
     public final static String PWD_REGEX = "^[A-Za-z0-9]+$";
     //邮编正则
-    public final static String ZIP_CODE_REGEX = "^[1-9]\\d{5}$";
+    public final static String ZIP_CODE_REGEX = "^[0-9]\\d{6}$";
     //Action Key
     public final static String ACTION_KEY = "ACTION_KEY";
     //定位Action
@@ -48,7 +48,7 @@ public class AppKeyMap {
     public final static int MARSHMALLOW = 0x09f;
     //http://appbaba.jios.org:8081/
     //http://kf.szlb.cc/
-    public final static String HEAD = "http://kf.szlb.cc/";
+    public final static String HEAD = BuildConfig.HEADURL;
     public final static String HEAD_API_LOGIN = HEAD + "ApiLogin/";
     public final static String HEAD_API_WORKER = HEAD + "ApiWorker/";
     public final static String HEAD_API_ORDER = HEAD + "ApiOrder/";

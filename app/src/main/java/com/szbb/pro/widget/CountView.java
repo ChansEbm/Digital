@@ -32,6 +32,10 @@ public class CountView<T> extends LinearLayout implements View.OnClickListener {
         addButtons();
     }
 
+    public CountView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
+
     private void addButtons() {
         Button addButton;
         Button minusButton;

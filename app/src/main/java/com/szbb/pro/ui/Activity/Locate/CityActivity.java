@@ -102,6 +102,7 @@ public class CityActivity extends BaseAty<BaseBean, AreaListBean.ListEntity> imp
             intent.setClass(this, DistrictActivity.class);
         } else {
             EventBus.getDefault().post(new AreaEvent(intent));
+            return;
         }
         startActivity(intent);
 

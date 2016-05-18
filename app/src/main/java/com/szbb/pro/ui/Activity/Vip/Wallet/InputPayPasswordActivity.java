@@ -55,7 +55,7 @@ public class InputPayPasswordActivity extends BaseAty<BaseBean, BaseBean> {
                 networkModel.checkPayPassword(password, NetworkParams.CUPCAKE);
                 break;
             case R.id.tv_forgot_pwd:
-                start(FindCreditPasswordActivity.class);
+                start(FindPayPasswordActivity.class);
                 break;
         }
     }

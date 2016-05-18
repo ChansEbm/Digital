@@ -97,7 +97,7 @@ public class DistrictActivity extends BaseAty<BaseBean, AreaListBean.ListEntity>
 
     @Override
     public void onBinderItemClick(View view, int pos) {
-        AreaListBean.ListEntity listEntity = (AreaListBean.ListEntity) list.get(pos);
+        AreaListBean.ListEntity listEntity = list.get(pos);
         Intent intent = new Intent();
         intent.putExtra("province", province);
         intent.putExtra("provinceId", provinceId);
@@ -109,6 +109,7 @@ public class DistrictActivity extends BaseAty<BaseBean, AreaListBean.ListEntity>
             intent.setClass(this, StreetActivity.class);
         } else {
             EventBus.getDefault().post(new AreaEvent(intent));
+            return;
         }
         startActivity(intent);
     }

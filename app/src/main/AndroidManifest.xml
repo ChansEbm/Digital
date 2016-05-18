@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.szbb.pro"
+
     android:installLocation="preferExternal">
 
     <!-- shareSDK 所需 -->
@@ -155,17 +156,24 @@
         </activity>
         <activity android:name=".ui.activity.vip.wallet.PayPasswordActivity" />
         <activity android:name=".ui.activity.vip.wallet.DelCreditCardActivity" />
-        <activity android:name=".ui.activity.vip.wallet.FindCreditPasswordActivity" />
+        <activity android:name=".ui.activity.vip.wallet.FindPayPasswordActivity" />
         <activity android:name=".ui.activity.vip.wallet.TransactionDetailActivity" />
         <activity android:name=".ui.activity.vip.wallet.WithdrawActivity" />
-        <activity android:name=".ui.activity.vip.personal_info.PersonalInfoActivity"></activity>
-        <activity android:name=".ui.activity.vip.personal_info.ReceiverInfoActivity"></activity>
-        <activity android:name=".ui.activity.vip.personal_info.ChangePasswordActivity"></activity>
-        <activity android:name=".ui.activity.vip.wallet.InputPayPasswordActivity"></activity>
-        <activity android:name=".ui.activity.vip.personal_info.PreviewActivity"></activity>
-        <activity android:name=".ui.activity.vip.WebViewActivity"></activity>
+        <activity android:name=".ui.activity.vip.personal_info.PersonalInfoActivity" />
+        <activity android:name=".ui.activity.vip.personal_info.ReceiverInfoActivity" />
+        <activity android:name=".ui.activity.vip.personal_info.ChangePasswordActivity" />
+        <activity android:name=".ui.activity.vip.wallet.InputPayPasswordActivity" />
+        <activity android:name=".ui.activity.vip.personal_info.PreviewActivity" />
+        <activity android:name=".ui.activity.vip.WebViewActivity" />
         <activity android:name=".ui.activity.vip.system_msg.FeedBackActivity" />
         <activity android:name=".ui.activity.main.LaunchActivity" />
+        <activity
+            android:name=".ui.activity.main.ErrorActivity"
+            android:process=":error_activity">
+            <intent-filter>
+                <action android:name="cat.ereza.customactivityoncrash.ERROR" />
+            </intent-filter>
+        </activity>
 
         <!-- start ShareSDK -->
         <activity
@@ -275,9 +283,9 @@
             android:name="JPUSH_APPKEY"
             android:value="60a4226f105341c38181e4ca" />
 
-        <activity android:name=".ui.activity.orders.operating.CustomerServiceActivity"></activity>
-        <activity android:name=".ui.activity.orders.operating.OrderTrackingActivity"></activity>
-        <activity android:name=".ui.activity.locate.TagLocationActivity"></activity>
+        <activity android:name=".ui.activity.orders.operating.CustomerServiceActivity" />
+        <activity android:name=".ui.activity.orders.operating.OrderTrackingActivity" />
+        <activity android:name=".ui.activity.locate.TagLocationActivity" />
     </application>
 
 </manifest>

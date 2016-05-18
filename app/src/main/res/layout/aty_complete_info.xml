@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="RtlCompat">
 
-    <data class=".CompleteInfoLayout"/>
+    <data class=".CompleteInfoLayout" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -18,7 +17,7 @@
             android:background="@color/color_bg_gravy"
             android:orientation="vertical">
 
-            <include layout="@layout/title_bar"/>
+            <include layout="@layout/title_bar" />
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -45,7 +44,7 @@
                         <TextView
                             style="@style/textStyle"
                             android:layout_centerVertical="true"
-                            android:text="@string/organizing_upload_avatar"/>
+                            android:text="@string/organizing_upload_avatar" />
 
                         <ImageView
                             android:id="@+id/iv_i1"
@@ -54,8 +53,7 @@
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
                             android:contentDescription="@string/app_name"
-                            android:src="@mipmap/ic_arrow_right"
-                            />
+                            android:src="@mipmap/ic_arrow_right" />
 
                         <com.facebook.drawee.view.SimpleDraweeView
                             android:id="@+id/sdv_avatar"
@@ -68,7 +66,7 @@
                             android:focusableInTouchMode="false"
                             app:actualImageScaleType="centerCrop"
                             app:placeholderImage="@mipmap/ic_avatar_default"
-                            app:placeholderImageScaleType="center"/>
+                            app:placeholderImageScaleType="center" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -87,7 +85,7 @@
                         <TextView
                             style="@style/textStyle"
                             android:layout_centerVertical="true"
-                            android:text="@string/organizing_real_name"/>
+                            android:text="@string/organizing_real_name" />
 
                         <com.szbb.pro.widget.NotEventEditText
                             android:id="@+id/edt_real_name"
@@ -95,7 +93,7 @@
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
                             android:hint="@string/organizing_please_input_real_name"
-                            android:textColor="@color/color_text_dark"/>
+                            android:textColor="@color/color_text_dark" />
                     </RelativeLayout>
 
                     <TextView
@@ -107,7 +105,7 @@
                         android:paddingStart="@dimen/large_margin_15dp"
                         android:singleLine="true"
                         android:text="@string/organizing_hint"
-                        android:textColor="@color/color_text_gravy"/>
+                        android:textColor="@color/color_text_gravy" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -132,7 +130,7 @@
                                 android:id="@+id/tv_t1"
                                 style="@style/textStyle"
                                 android:layout_centerVertical="true"
-                                android:text="@string/real_location"/>
+                                android:text="@string/real_location" />
 
                             <TextView
                                 android:id="@+id/tv_location"
@@ -141,10 +139,12 @@
                                 android:layout_centerVertical="true"
                                 android:layout_gravity="center_vertical|end"
                                 android:layout_toEndOf="@id/tv_t1"
+                                android:clickable="false"
                                 android:contentDescription="@string/app_name"
                                 android:ellipsize="middle"
+                                android:enabled="false"
                                 android:focusableInTouchMode="false"
-                                android:singleLine="true"/>
+                                android:singleLine="true" />
                         </RelativeLayout>
 
                         <include
@@ -152,32 +152,39 @@
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
                             android:layout_marginEnd="@dimen/large_margin_15dp"
-                            android:layout_marginStart="@dimen/large_margin_15dp"/>
+                            android:layout_marginStart="@dimen/large_margin_15dp" />
 
                         <RelativeLayout
                             android:id="@+id/rylt_address"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/bg_white_gravy_selector"
+                            android:descendantFocusability="blocksDescendants"
                             android:minHeight="50dp"
                             android:onClick="onClick"
                             android:paddingEnd="@dimen/large_margin_15dp"
                             android:paddingStart="@dimen/large_margin_15dp">
 
                             <TextView
+                                android:id="@+id/tv_t2"
                                 style="@style/textStyle"
                                 android:layout_centerVertical="true"
-                                android:text="@string/organizing_shop_address"
-                                />
+                                android:text="@string/organizing_shop_address" />
 
-
-                            <com.szbb.pro.widget.NotEventEditText
-                                android:id="@+id/edt_detail_address"
+                            <TextView
+                                android:id="@+id/tv_detail_address"
                                 style="@style/completeEditTextStyle"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
                                 android:layout_marginEnd="@dimen/small_margin_5dp"
-                                android:hint="@string/organization_input_detail_location"/>
+                                android:layout_toEndOf="@id/tv_t2"
+                                android:clickable="false"
+                                android:ellipsize="start"
+                                android:enabled="false"
+                                android:focusableInTouchMode="false"
+                                android:gravity="end"
+                                android:hint="@string/organization_input_detail_location"
+                                android:singleLine="true" />
                         </RelativeLayout>
 
                         <include
@@ -185,7 +192,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
                             android:layout_marginEnd="@dimen/large_margin_15dp"
-                            android:layout_marginStart="@dimen/large_margin_15dp"/>
+                            android:layout_marginStart="@dimen/large_margin_15dp" />
 
                         <RelativeLayout
                             android:id="@+id/rylt_location"
@@ -200,8 +207,7 @@
                             <TextView
                                 style="@style/textStyle"
                                 android:layout_centerVertical="true"
-                                android:text="@string/pick_location"
-                                />
+                                android:text="@string/pick_location" />
 
                             <com.szbb.pro.widget.NotEventEditText
                                 android:id="@+id/edt_pick_location"
@@ -209,7 +215,7 @@
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
                                 android:layout_marginEnd="@dimen/small_margin_5dp"
-                                android:hint="@string/organization_input_not_chosen"/>
+                                android:hint="@string/organization_input_not_chosen" />
                         </RelativeLayout>
 
                     </LinearLayout>
@@ -235,8 +241,7 @@
                             <TextView
                                 style="@style/textStyle"
                                 android:layout_centerVertical="true"
-                                android:text="@string/organizing_citizen_ID"
-                                />
+                                android:text="@string/organizing_citizen_ID" />
 
 
                             <com.szbb.pro.widget.NotEventEditText
@@ -244,8 +249,7 @@
                                 style="@style/completeEditTextStyle"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:hint="@string/organizing_please_input_correct_citizen_ID"
-                                />
+                                android:hint="@string/organizing_please_input_correct_citizen_ID" />
                         </RelativeLayout>
 
                         <include
@@ -253,7 +257,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
                             android:layout_marginEnd="@dimen/large_margin_15dp"
-                            android:layout_marginStart="@dimen/large_margin_15dp"/>
+                            android:layout_marginStart="@dimen/large_margin_15dp" />
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -265,7 +269,7 @@
                             <TextView
                                 style="@style/textStyle"
                                 android:layout_centerVertical="true"
-                                android:text="@string/organizing_upload_citizen_picture"/>
+                                android:text="@string/organizing_upload_citizen_picture" />
 
                             <com.facebook.drawee.view.SimpleDraweeView
                                 android:id="@+id/sdv_citizen_id_back_side"
@@ -277,7 +281,7 @@
                                 android:onClick="onClick"
                                 app:actualImageScaleType="centerCrop"
                                 app:placeholderImage="@mipmap/ic_font_side"
-                                app:placeholderImageScaleType="centerInside"/>
+                                app:placeholderImageScaleType="centerInside" />
 
                             <com.facebook.drawee.view.SimpleDraweeView
                                 android:id="@+id/sdv_citizen_id_font_side"
@@ -288,7 +292,7 @@
                                 android:onClick="onClick"
                                 app:actualImageScaleType="centerCrop"
                                 app:placeholderImage="@mipmap/ic_back_side"
-                                app:placeholderImageScaleType="centerInside"/>
+                                app:placeholderImageScaleType="centerInside" />
 
                         </RelativeLayout>
                     </LinearLayout>
@@ -309,12 +313,12 @@
                             style="@style/textStyle"
                             android:layout_gravity="center_vertical"
                             android:singleLine="true"
-                            android:text="@string/organizing_skill"/>
+                            android:text="@string/organizing_skill" />
 
                         <com.szbb.pro.widget.NotEventEditText
                             android:id="@+id/edt_skill"
                             style="@style/completeEditTextStyle"
-                            android:layout_gravity="center_vertical|end"/>
+                            android:layout_gravity="center_vertical|end" />
                     </FrameLayout>
 
                     <Button
@@ -323,7 +327,7 @@
                         android:layout_marginBottom="@dimen/large_margin_15dp"
                         android:layout_marginTop="@dimen/large_margin_15dp"
                         android:onClick="onClick"
-                        android:text="@string/submit"/>
+                        android:text="@string/submit" />
                 </LinearLayout>
             </ScrollView>
         </LinearLayout>
