@@ -50,7 +50,6 @@ public class LoginActivity extends BaseAty<BaseBean, AuthBean> {
         tvLoginFindPwd = binding.tvLoginFindPwd;
         btnLoginLog = binding.btnLoginLog;
         messageDialog = new MessageDialog(this);
-        throw new RuntimeException("123");
     }
 
     @Override

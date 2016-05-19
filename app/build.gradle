@@ -10,7 +10,7 @@ android {
         targetSdkVersion 23
         versionCode 1
         multiDexEnabled true
-        versionName "0.5.4"
+        versionName "0.5.5"
 
         ndk {
             //设置支持的SO库架构

@@ -169,8 +169,8 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
                 break;
             case R.id.rylt_location:
                 startActivityForResult(new Intent().putExtra("flag", AppKeyMap.CUPCAKE).putExtra
-                                ("title", getString(R.string.now_position)).setClass
-                                (this, LocationActivity.class), AppKeyMap.LOLLIPOP);
+                        ("title", getString(R.string.now_position)).setClass
+                        (this, LocationActivity.class), AppKeyMap.LOLLIPOP);
                 break;
             case R.id.sdv_citizen_id_font_side:
                 photoFlag = ID_FONT;
