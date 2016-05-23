@@ -35,7 +35,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="93dp"
                     android:layout_weight="1"
-                    android:background="@mipmap/bg_avatar_personal"
+                    android:background="@drawable/bg_avatar"
                     android:paddingEnd="@dimen/large_margin_15dp"
                     android:paddingStart="@dimen/large_margin_15dp">
 

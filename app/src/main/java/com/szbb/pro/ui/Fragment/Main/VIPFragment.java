@@ -182,7 +182,6 @@ public class VIPFragment extends BaseFgm<BaseBean, BaseBean> implements
     }
 
     public void onEvent(VipInfoBean vipInfoBean) {
-        LogTools.v("fffff");
         networkModel.workerInfo(NetworkParams.CUPCAKE);
     }
 

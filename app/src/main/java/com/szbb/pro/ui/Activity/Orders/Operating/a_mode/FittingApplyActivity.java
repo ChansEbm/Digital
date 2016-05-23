@@ -182,7 +182,8 @@ public class FittingApplyActivity extends BaseAty<BaseBean, FittingWareHouseBean
             alreadyAdd.add(picsPath.valueAt(i));
         }
         for (String str : alreadyAdd) {
-            fileThumbs.add(str);
+            if (!fileThumbs.contains(str))
+                fileThumbs.add(str);
         }
         for (int i = 0; i < acceListEntitySparseArray.size(); i++) {
             final FittingWareHouseBean.AcceListEntity acceListEntity = acceListEntitySparseArray
