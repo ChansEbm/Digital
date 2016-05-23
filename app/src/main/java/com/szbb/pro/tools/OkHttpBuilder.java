@@ -217,6 +217,11 @@ public class OkHttpBuilder {
             return this;
         }
 
+        public POST urlCorrect() {
+            this.fullUrl = AppKeyMap.HEAD_APIBUGCOLLECT;
+            return this;
+        }
+
         /**
          * the params what we need to upload
          *

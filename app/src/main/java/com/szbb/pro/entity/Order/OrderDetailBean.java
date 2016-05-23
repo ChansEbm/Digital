@@ -121,7 +121,6 @@ public class OrderDetailBean extends BaseBean {
                 button.setBackground(null);
                 button.setEnabled(false);
             }
-
         }
 
         public String getOrderid() {

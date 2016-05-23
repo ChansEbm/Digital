@@ -28,6 +28,7 @@ public class ErrorActivity extends BaseAty<BaseBean, BaseBean> {
     @Override
     protected void initViews() {
         stackTraceFromIntent = CustomActivityOnCrash.getStackTraceFromIntent(getIntent());
+        networkModel.collect(stackTraceFromIntent);
     }
 
     @Override

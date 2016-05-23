@@ -130,7 +130,7 @@ public class AppTools {
      * @return the time after formatter
      */
     public static String convertMillions(long millions) {
-        return Formatter.convertMillions(millions);
+        return DataFormatter.convertMillions(millions);
     }
 
     /**
@@ -140,7 +140,7 @@ public class AppTools {
      * @return the real time and the appoint time's distance
      */
     public static String formatPHPDiffTime(@NonNull String phpTime) {
-        return Formatter.formatPHPDiffTime(phpTime);
+        return DataFormatter.formatPHPDiffTime(phpTime);
     }
 
     /**
@@ -149,7 +149,7 @@ public class AppTools {
      * @return the time after formatter
      */
     public static String formatTime(String time, boolean isPhp) {
-        return Formatter.formatTimeDefaultRegex(time, isPhp);
+        return DataFormatter.formatTimeDefaultRegex(time, isPhp);
     }
 
     /**
@@ -160,7 +160,7 @@ public class AppTools {
      * @return the time after formatter
      */
     public static String fotmatTime(Date date, String regex) {
-        return Formatter.formatTimeDefaultRegex(date, regex);
+        return DataFormatter.formatTimeDefaultRegex(date, regex);
     }
 
     /**

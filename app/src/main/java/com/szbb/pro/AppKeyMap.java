@@ -57,6 +57,7 @@ public class AppKeyMap {
     public final static String HEAD_APIMEMBER = HEAD + "ApiMember/";
     public final static String HEAD_APIPAGES = HEAD + "ApiPages/";
     public final static String HEAD_APIPUSH = HEAD + "ApiPush/";
+    public final static String HEAD_APIBUGCOLLECT = HEAD + "ApiBugCollect/collect";
     public final static String HEAD_ABOUT_US = HEAD_APIPAGES + "aboutUs";
     public final static String HEAD_MUSTREAD = HEAD_APIPAGES + "mustRead";
     public final static String HEAD_JOINTPRICE = HEAD_APIPAGES + "jointPrice";

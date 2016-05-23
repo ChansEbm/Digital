@@ -40,6 +40,7 @@ public class LoginActivity extends BaseAty<BaseBean, AuthBean> {
         super.onCreate(savedInstanceState);
         binding = (AtyLoginBinding) viewDataBinding;
         isBeenKick = getIntent().getBooleanExtra("isBeenKick", false);
+
     }
 
     @Override

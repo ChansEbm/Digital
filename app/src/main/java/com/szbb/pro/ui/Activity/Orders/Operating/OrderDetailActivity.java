@@ -135,7 +135,6 @@ public class OrderDetailActivity extends BaseAty<BaseBean, OrderDetailBean.ListE
                 orderModel.addLabel(linearLayout, faultLabel);
                 itemOrderDetail.sdvContactItemImage.setImageURI(Uri.parse(listEntity
                         .getProduct_thumb()));
-
                 //根据上次服务结果选择隐藏或者显示某些项
                 if (orderModel.changeStatusByLastService(itemOrderDetail, listEntity)) {
                     //如果是已完单 则添加后台图片到图片放置处

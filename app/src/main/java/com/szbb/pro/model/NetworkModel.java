@@ -38,6 +38,7 @@ import com.szbb.pro.entity.vip.WorkHistoryBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.impl.OkHttpResponseListener;
 import com.szbb.pro.tools.AppTools;
+import com.szbb.pro.tools.DataFormatter;
 import com.szbb.pro.tools.LogTools;
 import com.szbb.pro.tools.MiscUtils;
 import com.szbb.pro.tools.OkHttpBuilder;
@@ -1182,6 +1183,16 @@ public class NetworkModel<E> {
                         .class).params(params, list, "thumb").enqueue(networkParams,
                 tOkHttpResponseListener);
 
+    }
+
+    public void collect(String crash) {
+        params.put("crash", crash);
+        params.put("tell_type", MiscUtils.getModel(context));
+        params.put("system", MiscUtils.getSDKVer());
+        params.put("addtime", DataFormatter.getCurrentTime());
+        new OkHttpBuilder.POST(appCompatActivity).setIsNeedLoadingDialog(false).urlCorrect().entityClass
+                (BaseBean.class).params(params).enqueue(null,
+                tOkHttpResponseListener);
     }
 
     private boolean isNecessaryFieldEmpty(String... strings) {

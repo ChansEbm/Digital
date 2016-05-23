@@ -1,18 +1,19 @@
 package com.szbb.pro.ui.activity.vip.personal_info;
 
-import android.net.Uri;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.bm.library.PhotoView;
+import com.squareup.picasso.Picasso;
+import com.szbb.pro.ItemPreviewLayout;
 import com.szbb.pro.PreviewLayout;
 import com.szbb.pro.R;
 import com.szbb.pro.base.BaseAty;
-import com.szbb.pro.widget.SimplePhotoView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,7 @@ public class PreviewActivity extends BaseAty {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager
                 .LayoutParams.FLAG_FULLSCREEN);
+        isNeedBackground = false;
         super.onCreate(savedInstanceState);
         previewLayout = (PreviewLayout) viewDataBinding;
         final ArrayList<String> source = getIntent().getStringArrayListExtra("source");
@@ -42,11 +44,11 @@ public class PreviewActivity extends BaseAty {
         viewPager = previewLayout.viewPager;
 
         for (String s : source) {
-            View view = LayoutInflater.from(this).inflate(R.layout.item_preview, null, false);
-            SimplePhotoView simplePhotoView = (SimplePhotoView) view.findViewById(R.id
-                    .simpleDraweeView);
-            simplePhotoView.setImageURI(Uri.parse(s));
-            views.add(view);
+            final ItemPreviewLayout previewLayout = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_preview, null, false);
+            PhotoView photoView = previewLayout.photoView;
+            photoView.enable();
+            Picasso.with(this).load(s).into(photoView);
+            views.add(previewLayout.getRoot());
         }
     }
 

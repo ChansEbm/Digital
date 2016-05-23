@@ -96,8 +96,7 @@ public class MarkPictureModel implements View.OnClickListener {
         PictureItem pictureItem = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout
                 .item_pics, null, false);
         pictureItem.cancel.setVisibility(View.GONE);
-        FrescoTools frescoTools = FrescoTools.getInstance();
-        frescoTools.displayImage(link, pictureItem.simpleDraweeView, null);
+        pictureItem.simpleDraweeView.setImageURI(Uri.parse(link));
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout
                 .LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -170,8 +169,6 @@ public class MarkPictureModel implements View.OnClickListener {
                         removeDeletedPath(parentView);
                         break;
                     }
-
-
                 }
             }
         }
