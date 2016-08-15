@@ -35,8 +35,11 @@ public class OkHttpBuilder {
     public static String attachHttpGetParam(String fullUrl, Map<String, String> params) {
         StringBuilder stringBuilder = new StringBuilder(fullUrl);
         for (String key : params.keySet()) {
-            stringBuilder.append("&").append(key).append("=").append(params.get(key
-            ));
+            stringBuilder.append("&")
+                         .append(key)
+                         .append("=")
+                         .append(params.get(key
+                                           ));
         }
         return stringBuilder.toString();
     }
@@ -125,23 +128,29 @@ public class OkHttpBuilder {
         public void enqueue(View rootView, OkHttpResponseListener
                 okHttpResponseListener, NetworkParams networkParams) {
             if (!AppTools.isNetworkConnected()) {
-                AppTools.showSettingSnackBar(rootView, appCompatActivity.getResources().getString
-                        (R.string.no_network_is_detected));
+                AppTools.showSettingSnackBar(rootView,
+                                             appCompatActivity.getResources()
+                                                              .getString
+                                                                      (R.string.no_network_is_detected));
                 return;
             }
 
             //show dialog
             AppTools.showLoadingDialog(appCompatActivity);
             //judgement url is empty or not
-            if (TextUtils.isEmpty(fullUrl) || entityClass == null)
+            if (TextUtils.isEmpty(fullUrl) || entityClass == null) {
                 throw new NullPointerException("url is unavailable or not invoke entity");
+            }
             if (params != null) {
                 // attach the params in url
-                fullUrl = attachHttpGetParam(fullUrl, params);
+                fullUrl = attachHttpGetParam(fullUrl,
+                                             params);
             }
-            new OkHttpUtil().setClz(entityClass).GET(fullUrl, networkParams)
-                    .setOkHttpResponseListener
-                            (okHttpResponseListener);
+            new OkHttpUtil().setClz(entityClass)
+                            .GET(fullUrl,
+                                 networkParams)
+                            .setOkHttpResponseListener
+                                    (okHttpResponseListener);
         }
 
     }
@@ -196,29 +205,31 @@ public class OkHttpBuilder {
             return this;
         }
 
-        public POST urlAPInearOrder(String nearOrderUrl) {
-            this.fullUrl = AppKeyMap.HEAD_APINEARORDER + nearOrderUrl;
+
+
+        public POST urlApiNearOrder(String nearOrderUrl) {
+            this.fullUrl = AppKeyMap.HEAD_API_NEAR_ORDER + nearOrderUrl;
             return this;
         }
 
         public POST urlAPIMember(String memberUrl) {
-            this.fullUrl = AppKeyMap.HEAD_APIMEMBER + memberUrl;
+            this.fullUrl = AppKeyMap.HEAD_API_MEMBER + memberUrl;
             return this;
         }
 
         public POST urlAPIPush(String pushUrl) {
-            this.fullUrl = AppKeyMap.HEAD_APIPUSH + pushUrl;
+            this.fullUrl = AppKeyMap.HEAD_API_PUSH + pushUrl;
             return this;
         }
 
 
         public POST urlPages(String pagesUrl) {
-            this.fullUrl = AppKeyMap.HEAD_APIPAGES + pagesUrl;
+            this.fullUrl = AppKeyMap.HEAD_API_PAGES + pagesUrl;
             return this;
         }
 
         public POST urlCorrect() {
-            this.fullUrl = AppKeyMap.HEAD_APIBUGCOLLECT;
+            this.fullUrl = AppKeyMap.HEAD_API_BUG_COLLECT;
             return this;
         }
 
@@ -234,7 +245,8 @@ public class OkHttpBuilder {
             Set<String> keys = params.keySet();//把参数添加到构建体
             //ergodic the params and put them into builder
             for (String key : keys) {
-                builder.add(key, params.get(key));
+                builder.add(key,
+                            params.get(key));
             }
             //build a builder
             requestBody = builder.build();
@@ -253,7 +265,9 @@ public class OkHttpBuilder {
                            @NonNull String fileKey) {
             List<List<String>> lists = new ArrayList<>();
             lists.add(files);
-            params(params, lists, fileKey);
+            params(params,
+                   lists,
+                   fileKey);
             return this;
         }
 
@@ -277,21 +291,29 @@ public class OkHttpBuilder {
             mediaType = MediaType.parse(AppKeyMap.CONTENT_OCT);
             //put the standard params into builder
             for (String key : keys) {
-                builder.addFormDataPart(key, params.get(key));
+                builder.addFormDataPart(key,
+                                        params.get(key));
             }
-            for (int i = 0; i < fileKeys.length; i++) {//循环key
+            for (int i = 0;
+                 i < fileKeys.length;
+                 i++) {//循环key
                 List<String> list = files.get(i);//根据key获得要添加的文件
                 for (String filePath : list) {//遍历文件
                     //get the lastIndex in path
                     int suffixIndex = filePath.lastIndexOf(".");
                     //get the suffix
                     if (suffixIndex != -1) {//当有后缀的时候,识别为一个文件
-                        String fileSuffix = filePath.substring(suffixIndex, filePath.length());
-                        builder.addFormDataPart(fileKeys[i], "file_" + fileSuffix, RequestBody
-                                .create(mediaType,
-                                        new File(filePath)));//以添加的key为后台key,批量添加文件到后台
+                        String fileSuffix = filePath.substring(suffixIndex,
+                                                               filePath.length());
+                        builder.addFormDataPart(fileKeys[i],
+                                                "file_" + fileSuffix,
+                                                RequestBody
+                                                        .create(mediaType,
+                                                                new File(filePath)));
+                        //以添加的key为后台key,批量添加文件到后台
                     } else {//如果没后缀,则当字符串数组上传
-                        builder.addFormDataPart(fileKeys[i], filePath);
+                        builder.addFormDataPart(fileKeys[i],
+                                                filePath);
                     }
                 }
             }
@@ -317,16 +339,20 @@ public class OkHttpBuilder {
             mediaType = MediaType.parse(AppKeyMap.CONTENT_OCT);
             //put the standard params into builder
             for (String key : keys) {
-                builder.addFormDataPart(key, params.get(key));
+                builder.addFormDataPart(key,
+                                        params.get(key));
             }
             for (String key : files.keySet()) {
                 String filePath = files.get(key);
                 int suffixIndex = filePath.lastIndexOf(".");
                 if (suffixIndex != -1) {
-                    String fileSuffix = filePath.substring(suffixIndex, filePath.length());
-                    builder.addFormDataPart(key, "file_" + fileSuffix, RequestBody
-                            .create(mediaType,
-                                    new File(filePath)));
+                    String fileSuffix = filePath.substring(suffixIndex,
+                                                           filePath.length());
+                    builder.addFormDataPart(key,
+                                            "file_" + fileSuffix,
+                                            RequestBody
+                                                    .create(mediaType,
+                                                            new File(filePath)));
                 }
             }
 
@@ -356,25 +382,33 @@ public class OkHttpBuilder {
         public void enqueue(NetworkParams networkParams, OkHttpResponseListener
                 okHttpResponseListener) {
             if (!AppTools.isNetworkConnected()) {
-                if (appCompatActivity != null)
-                    AppTools.showSettingSnackBar(appCompatActivity.getWindow().getDecorView(),
-                            appCompatActivity.getString
-                                    (R.string
-                                            .no_network_is_detected));
-                AppTools.sendBroadcast(null, AppKeyMap.NO_NETWORK_ACTION);
+                if (appCompatActivity != null) {
+                    AppTools.showSettingSnackBar(appCompatActivity.getWindow()
+                                                                  .getDecorView(),
+                                                 appCompatActivity.getString
+                                                         (R.string
+                                                                  .no_network_is_detected));
+                }
+                AppTools.sendBroadcast(null,
+                                       AppKeyMap.NO_NETWORK_ACTION);
                 return;
             }
             if (isNeedLoadingDialog && appCompatActivity != null)
-                //show the dialog
+            //show the dialog
+            {
                 AppTools.showLoadingDialog(appCompatActivity);
+            }
             //fullUrl,requestBody and entityClass none even one of them will be null
             if (TextUtils.isEmpty(fullUrl) || requestBody == null || entityClass == null) {
                 throw new NullPointerException("url or map is unavailable, or not invoke entity");
             }
             //equeue the result
-            new OkHttpUtil().setClz(entityClass).POST(fullUrl, requestBody, networkParams)
-                    .setOkHttpResponseListener
-                            (okHttpResponseListener);
+            new OkHttpUtil().setClz(entityClass)
+                            .POST(fullUrl,
+                                  requestBody,
+                                  networkParams)
+                            .setOkHttpResponseListener
+                                    (okHttpResponseListener);
         }
 
 

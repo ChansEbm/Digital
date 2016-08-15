@@ -31,7 +31,7 @@ public class FittingReceiverActivity extends BaseAty<CustomerAddressBean, Object
     private AppCompatEditText edtPhone;
     private AppCompatEditText edtDetailAddress;
     private TextView tvLocation;
-    private int toggleFlag = toUser;
+    private int toggleFlag = toMechanic;
 
     private String orderId = "";
     private String areaId;

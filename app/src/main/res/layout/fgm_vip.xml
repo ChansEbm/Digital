@@ -457,34 +457,33 @@
                         android:src="@mipmap/ic_arrow_right" />
                 </RelativeLayout>
 
-                <include layout="@layout/line" />
 
-                <RelativeLayout
-                    android:id="@+id/rylt_essentials"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_white_gravy_selector"
-                    android:clickable="true"
-                    android:minHeight="@dimen/minHeight_50dp"
-                    android:onClick="@{event.onClickListener}"
-                    android:paddingEnd="@dimen/large_margin_15dp"
-                    android:paddingStart="@dimen/large_margin_15dp">
+                <!--line<RelativeLayout-->
+                    <!--android:id="@+id/rylt_essentials"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:background="@drawable/bg_white_gravy_selector"-->
+                    <!--android:clickable="true"-->
+                    <!--android:minHeight="@dimen/minHeight_50dp"-->
+                    <!--android:onClick="@{event.onClickListener}"-->
+                    <!--android:paddingEnd="@dimen/large_margin_15dp"-->
+                    <!--android:paddingStart="@dimen/large_margin_15dp">-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="@string/vip_read_me"
-                        android:textColor="@color/color_text_dark"
-                        android:textSize="15sp" />
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:text="@string/vip_read_me"-->
+                        <!--android:textColor="@color/color_text_dark"-->
+                        <!--android:textSize="15sp" />-->
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:src="@mipmap/ic_arrow_right" />
-                </RelativeLayout>
+                    <!--<ImageView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_alignParentEnd="true"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:src="@mipmap/ic_arrow_right" />-->
+                <!--</RelativeLayout>-->
 
                 <include layout="@layout/line" />
 

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:ignore="RtlHardcoded">
+
+    <data class=".ItemFeedbackListLayout">
+
+        <variable
+            name="feedback"
+            type="com.szbb.pro.entity.vip.FeedbackBean.ListBean"/>
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_white_gravy_selector"
+                    android:minHeight="@dimen/minHeight_50dp"
+                    android:padding="@dimen/middle_margin_10dp">
+
+        <TextView
+            android:id="@+id/tv_t1"
+            style="@style/wrap"
+            android:text="@{feedback.id}"
+            android:textColor="@color/color_text_dark"
+            android:textSize="@dimen/text_small_size"/>
+
+        <TextView
+            style="@style/wrap"
+            android:layout_marginLeft="@dimen/small_margin_5dp"
+            android:layout_toRightOf="@id/tv_t1"
+            android:text="@{feedback.addtime}"
+            android:textColor="@color/color_text_dark"/>
+
+        <TextView
+            style="@style/wrap"
+            android:layout_below="@id/tv_t1"
+            android:layout_marginTop="@dimen/small_margin_5dp"
+            android:singleLine="true"
+            android:text="@{feedback.content}"
+            android:textColor="@color/color_text_dark"
+            android:textSize="@dimen/text_normal_size"/>
+
+        <TextView
+            style="@style/wrap"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/text_large_size"
+            app:textColorWithinRepeatStatus="@{feedback.status}"
+            />
+    </RelativeLayout>
+</layout>

@@ -24,6 +24,7 @@ import com.szbb.pro.impl.OnAddPictureDoneListener;
 import com.szbb.pro.impl.OnPhotoOptsSelectListener;
 import com.szbb.pro.model.MarkPictureModel;
 import com.szbb.pro.tools.AppTools;
+import com.szbb.pro.tools.CameraTools;
 import com.szbb.pro.ui.activity.orders.operating.a_mode.FittingApplyActivity;
 import com.szbb.pro.ui.activity.orders.operating.b_mode.FittingResendBModeActivity;
 import com.szbb.pro.widget.CountView;
@@ -59,6 +60,7 @@ public class FittingAdditionalActivity extends BaseAty<OtherFittingBean, Object>
     private String orderId;
     private String serviceId;
     private String accId;
+    private CameraTools cameraTools = new CameraTools();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -190,7 +192,7 @@ public class FittingAdditionalActivity extends BaseAty<OtherFittingBean, Object>
                 }
                 break;
             case TAKE_PHOTO:
-                GalleryFinal.openCamera(flag, this);
+                cameraTools.takePhoto(this, flag);
                 break;
         }
     }
@@ -220,10 +222,11 @@ public class FittingAdditionalActivity extends BaseAty<OtherFittingBean, Object>
                 markPictureModel.setIsNeedDeleteIcon(true);
                 markPictureModel.setOnAddPictureDoneListener(this);
                 for (PhotoInfo photoInfo : resultList) {
-                    markPictureModel.savePicturePath(photoInfo.getPhotoPath());
-                    if (!alreadyAdd.contains(photoInfo.getPhotoPath())) {
-                        alreadyAdd.add(photoInfo.getPhotoPath());
-                        picsPath.put(photoInfo.getPhotoId(), photoInfo.getPhotoPath());
+                    String photoPath = photoInfo.getPhotoPath();
+                    if (!alreadyAdd.contains(photoPath)) {
+                        alreadyAdd.add(photoPath);
+                        picsPath.put(photoPath.hashCode(), photoPath);
+                        markPictureModel.savePicturePath(photoPath);
                     }
                 }
                 markPictureModel.addSinglePictureInLinearLayout(this, fittingAdditionalLayout

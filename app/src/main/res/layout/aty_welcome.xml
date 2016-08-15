@@ -4,6 +4,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
@@ -11,6 +12,6 @@
             android:contentDescription="@string/note"
             android:onClick="onClick"
             android:scaleType="centerCrop"
-            android:src="@mipmap/bg_welcome" />
+            android:src="@drawable/bg_welcome"/>
     </FrameLayout>
 </layout>

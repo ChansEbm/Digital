@@ -14,9 +14,11 @@ import android.text.Html;
 import android.text.Spanned;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.location.BDLocationListener;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.szbb.pro.AppKeyMap;
 import com.szbb.pro.dialog.DialDialog;
 import com.szbb.pro.dialog.LoadingDialog;
 import com.szbb.pro.impl.DialListener;
@@ -40,24 +42,12 @@ public class AppTools {
     private static Context context;
     private static LocationTools locationTools;
     private static AppCompatActivity loadingActivity;
-    private static FileSaveTools fileSaveTools = FileSaveTools.getInstance();
+    private static FileTools fileTools = FileTools.getInstance();
 
     public static void init(Context context) {
         AppTools.context = context;
     }
 
-    /**
-     * take picture from camera
-     *
-     * @param appCompatActivity the activity which will be call onActivityResult after take
-     *                          photo
-     * @param requestCode       requestCode
-     * @return the picture's path after whom take by camera
-     */
-    public static String takePictureUri(AppCompatActivity appCompatActivity, int requestCode) {
-        CameraTools cameraTools = new CameraTools();
-        return cameraTools.takePicture(appCompatActivity, requestCode).getPicturePath();
-    }
 
     /**
      * dial somebody number
@@ -65,8 +55,9 @@ public class AppTools {
      * @param phoneNum the number will be dial
      */
     public static void CALL(String phoneNum) {
-        context.startActivity(SystemTools.CALL(phoneNum).addFlags(Intent
-                .FLAG_ACTIVITY_NEW_TASK));
+        context.startActivity(SystemTools.CALL(phoneNum)
+                                         .addFlags(Intent
+                                                           .FLAG_ACTIVITY_NEW_TASK));
     }
 
     /**
@@ -75,11 +66,13 @@ public class AppTools {
      * @param view the view which need to be get token
      */
     public static void hideSoftInputMethod(View view) {
-        SystemTools.hideSoftInput(context, view);
+        SystemTools.hideSoftInput(context,
+                                  view);
     }
 
     public static void showSoftInputMethod(View view) {
-        SystemTools.showSoftInput(context, view);
+        SystemTools.showSoftInput(context,
+                                  view);
     }
 
     /**
@@ -90,7 +83,8 @@ public class AppTools {
      * @param requestCode       requestCode
      */
     public static void PHOTO(AppCompatActivity appCompatActivity, int requestCode) {
-        appCompatActivity.startActivityForResult(SystemIntentTools.PICTURE(), requestCode);
+        appCompatActivity.startActivityForResult(SystemIntentTools.PICTURE(),
+                                                 requestCode);
     }
 
     /**
@@ -99,7 +93,8 @@ public class AppTools {
      * @return Open Setting intent
      */
     public static void SETTING() {
-        context.startActivity(SystemTools.SETTING().addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        context.startActivity(SystemTools.SETTING()
+                                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
     /**
@@ -111,17 +106,6 @@ public class AppTools {
         return SystemTools.WIFI();
     }
 
-    /**
-     * load image by Uri
-     *
-     * @param uri               image's uri
-     * @param simpleDraweeView  display image view
-     * @param imageLoadComplete callback when image load complete
-     */
-    public static void disPlayImage(String uri, SimpleDraweeView simpleDraweeView,
-                                    ImageLoadComplete imageLoadComplete) {
-        FrescoTools.getInstance().displayImage(uri, simpleDraweeView, imageLoadComplete);
-    }
 
     /**
      * convert millions to HH:MM:SS
@@ -149,7 +133,8 @@ public class AppTools {
      * @return the time after formatter
      */
     public static String formatTime(String time, boolean isPhp) {
-        return DataFormatter.formatTimeDefaultRegex(time, isPhp);
+        return DataFormatter.formatTimeDefaultRegex(time,
+                                                    isPhp);
     }
 
     /**
@@ -160,7 +145,8 @@ public class AppTools {
      * @return the time after formatter
      */
     public static String fotmatTime(Date date, String regex) {
-        return DataFormatter.formatTimeDefaultRegex(date, regex);
+        return DataFormatter.formatTimeDefaultRegex(date,
+                                                    regex);
     }
 
     /**
@@ -180,7 +166,8 @@ public class AppTools {
      * @return the dp depend on px
      */
     public static int px2dp(int px) {
-        return DensityTools.px2dip(context, px);
+        return DensityTools.px2dip(context,
+                                   px);
     }
 
     /**
@@ -190,7 +177,8 @@ public class AppTools {
      * @return the px depend on dp
      */
     public static int dip2px(int dip) {
-        return DensityTools.dip2px(context, dip);
+        return DensityTools.dip2px(context,
+                                   dip);
     }
 
     /**
@@ -252,7 +240,9 @@ public class AppTools {
      */
     public static void defaultRefresh(BGARefreshLayout bgaRefreshLayout, BGARefreshLayout
             .BGARefreshLayoutDelegate bgaRefreshLayoutDelegate) {
-        RefreshTools.defaultRefresh(bgaRefreshLayout, context, bgaRefreshLayoutDelegate);
+        RefreshTools.defaultRefresh(bgaRefreshLayout,
+                                    context,
+                                    bgaRefreshLayoutDelegate);
     }
 
     /**
@@ -263,23 +253,33 @@ public class AppTools {
      * @return the phone qualified or not
      */
     public static boolean verifyPhone(View view, String phone) {
-        return VerificationTools.verifyPhone(context, view, phone);
+        return VerificationTools.verifyPhone(context,
+                                             view,
+                                             phone);
     }
 
     public static boolean verifyCitizenId(View view, String citizenId) {
-        return VerificationTools.verifyCitizenID(context, view, citizenId);
+        return VerificationTools.verifyCitizenID(context,
+                                                 view,
+                                                 citizenId);
     }
 
     public static boolean verifyChineseName(View view, String name) {
-        return VerificationTools.verifyChineseName(context, view, name);
+        return VerificationTools.verifyChineseName(context,
+                                                   view,
+                                                   name);
     }
 
     public static boolean verifyVerificationCode(View view, String verificationCode) {
-        return VerificationTools.verifyVerificationCode(context, view, verificationCode);
+        return VerificationTools.verifyVerificationCode(context,
+                                                        view,
+                                                        verificationCode);
     }
 
     public static boolean verifyZipCode(View view, String zipCode) {
-        return VerificationTools.verifyZipCode(context, view, zipCode);
+        return VerificationTools.verifyZipCode(context,
+                                               view,
+                                               zipCode);
     }
 
     /**
@@ -290,7 +290,9 @@ public class AppTools {
      * @return the password qualified or not
      */
     public static boolean verifyPwd(View view, String... pwd) {
-        return VerificationTools.verifyPwd(context, view, pwd);
+        return VerificationTools.verifyPwd(context,
+                                           view,
+                                           pwd);
     }
 
     /**
@@ -320,7 +322,8 @@ public class AppTools {
      */
     public static void showDialDialog(FragmentActivity fragmentActivity, String phoneNum,
                                       DialListener listener) {
-        DialDialog dialDialog = new DialDialog(fragmentActivity, listener);
+        DialDialog dialDialog = new DialDialog(fragmentActivity,
+                                               listener);
         dialDialog.call(phoneNum);
     }
 
@@ -335,16 +338,25 @@ public class AppTools {
     public static void showActionSnackBar(View view, CharSequence charSequence, CharSequence
             actionCharSequence, View.OnClickListener
                                                   onClickListener) {
-        SnakeTools.getInstance().showSnackBar(context, view, charSequence, actionCharSequence,
-                onClickListener);
+        SnakeTools.getInstance()
+                  .showSnackBar(context,
+                                view,
+                                charSequence,
+                                actionCharSequence,
+                                onClickListener);
     }
 
     public static void showNormalSnackBar(View view, CharSequence charSequence) {
-        showActionSnackBar(view, charSequence, null, null);
+        showActionSnackBar(view,
+                           charSequence,
+                           null,
+                           null);
     }
 
     public static void showSettingSnackBar(View view, CharSequence charSequence) {
-        new SnakeTools().showSettingSnackBar(context, view, charSequence);
+        new SnakeTools().showSettingSnackBar(context,
+                                             view,
+                                             charSequence);
     }
 
     /**
@@ -361,8 +373,12 @@ public class AppTools {
     public static void showSnackBarAtLocation(View view, CharSequence charSequence,
                                               CharSequence actionCharSequence, View.OnClickListener
                                                       listener, int gravity) {
-        new SnakeTools().showSnackBarAtLocation(context, view, charSequence,
-                actionCharSequence, listener, gravity);
+        new SnakeTools().showSnackBarAtLocation(context,
+                                                view,
+                                                charSequence,
+                                                actionCharSequence,
+                                                listener,
+                                                gravity);
     }
 
     /**
@@ -372,7 +388,8 @@ public class AppTools {
      * @return the text in file
      */
     public static String getFromAssets(@NonNull String fileName) {
-        return ParserTools.getFromAssets(context, fileName);
+        return ParserTools.getFromAssets(context,
+                                         fileName);
     }
 
     /**
@@ -381,16 +398,27 @@ public class AppTools {
      * @param listener the callback when locate is finished
      */
     public static void locate(BDLocationListener listener) {
-        locationTools = new LocationTools(context, listener);
-        locationTools.start();
+        if (CheckNetworkTools.isNetworkAvailable(context)) {
+            locationTools = new LocationTools(context,
+                                              listener);
+            locationTools.start();
+        } else {
+            Toast.makeText(context,
+                           "请先打开网络",
+                           Toast.LENGTH_SHORT)
+                 .show();
+            sendBroadcast(new Bundle(),
+                          AppKeyMap.NO_NETWORK_ACTION);
+        }
     }
 
     /**
      * stop locate
      */
     public static void stopLocate() {
-        if (locationTools == null)
+        if (locationTools == null) {
             return;
+        }
         locationTools.stop();
     }
 
@@ -401,7 +429,9 @@ public class AppTools {
      * @param action the action be filtered
      */
     public static void sendBroadcast(Bundle bundle, @NonNull String action) {
-        BroadcastTools.sendBroadcast(context, bundle, action);
+        BroadcastTools.sendBroadcast(context,
+                                     bundle,
+                                     action);
     }
 
     /**
@@ -412,7 +442,9 @@ public class AppTools {
      */
     public static void registerBroadcast(@NonNull BroadcastReceiver receiver, @NonNull String...
             actions) {
-        BroadcastTools.registerReceiver(context, receiver, actions);
+        BroadcastTools.registerReceiver(context,
+                                        receiver,
+                                        actions);
     }
 
     /**
@@ -421,7 +453,8 @@ public class AppTools {
      * @param receiver the receiver which will be unregister(cannot be null)
      */
     public static void unregisterBroadcast(@NonNull BroadcastReceiver receiver) {
-        BroadcastTools.unRegisterReceiver(context, receiver);
+        BroadcastTools.unRegisterReceiver(context,
+                                          receiver);
     }
 
     /**
@@ -449,7 +482,8 @@ public class AppTools {
      * @param alpha             alpha take from 0.0f-1.0f
      */
     public static void setWindowBackground(AppCompatActivity appCompatActivity, float alpha) {
-        WindowManagerTools.setWindowBackground(appCompatActivity, alpha);
+        WindowManagerTools.setWindowBackground(appCompatActivity,
+                                               alpha);
     }
 
     /**
@@ -458,10 +492,12 @@ public class AppTools {
      * @param appCompatActivity the dialog attach window
      */
     public static void showLoadingDialog(AppCompatActivity appCompatActivity) {
-        if (appCompatActivity != loadingActivity)
+        if (appCompatActivity != loadingActivity) {
             loadingDialog = new LoadingDialog(appCompatActivity);
-        if (!loadingDialog.isShowing() && !appCompatActivity.isFinishing())
+        }
+        if (!loadingDialog.isShowing() && !appCompatActivity.isFinishing()) {
             loadingDialog.show();
+        }
         loadingActivity = appCompatActivity;
     }
 
@@ -476,14 +512,18 @@ public class AppTools {
     }
 
 
-
     /**
      * get picture cache dir
      *
      * @return the picture cache dir
      */
     public static String getPictureCacheDir() {
-        return fileSaveTools.getPictureCacheDir();
+        return fileTools.getPictureCacheDir();
+    }
+
+    public static boolean isFileOverLimitSize(String filePath, long sizeLimit) {
+        return fileTools.isFileOverLimitSize(filePath,
+                                             sizeLimit);
     }
 
     /**
@@ -498,7 +538,9 @@ public class AppTools {
 
     public static SharedPreferencesTools putStringSharedPreferences(String key, String value) {
         initSharedPreferencesTools();
-        sharedPreferencesTools.putString(key, value).commit();
+        sharedPreferencesTools.putString(key,
+                                         value)
+                              .commit();
         return sharedPreferencesTools;
     }
 
@@ -506,7 +548,8 @@ public class AppTools {
     public static String getStringSharedPreferences(String key, String
             defaultValue) {
         initSharedPreferencesTools();
-        return sharedPreferencesTools.getString(key, defaultValue);
+        return sharedPreferencesTools.getString(key,
+                                                defaultValue);
     }
 
     private static void initSharedPreferencesTools() {
@@ -525,7 +568,9 @@ public class AppTools {
     }
 
     protected static void setCompoundDrawable(TextView textView, int resId, int side) {
-        ViewUtils.setCompoundDrawable(textView, resId, side);
+        ViewUtils.setCompoundDrawable(textView,
+                                      resId,
+                                      side);
     }
 
 

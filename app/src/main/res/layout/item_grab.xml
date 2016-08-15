@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:ignore="RtlHardcoded">
+
+    <data class=".ItemGrabLayout">
+
+        <variable
+            name="grab"
+            type="com.szbb.pro.entity.grab.GrabBean.ListBean"/>
+
+        <import type="android.text.TextUtils"/>
+
+        <import type="android.view.View"/>
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="85dp"
+                    android:background="@color/color_white"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/middle_margin_10dp"
+                    android:paddingLeft="@dimen/large_margin_15dp"
+                    android:paddingRight="@dimen/large_margin_15dp"
+                    android:paddingTop="11dp">
+
+        <TextView
+            android:id="@+id/tv_t6"
+            android:layout_width="52dp"
+            android:layout_height="44dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/bg_cyan_frame_only"
+            android:gravity="center"
+            android:text="我来抢"
+            android:textColor="@color/theme_primary"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/tv_t1"
+            style="@style/tagStyle"
+            android:background="@color/color_text_red"
+            android:text="@string/label_fac"
+            />
+
+        <TextView
+            android:id="@+id/tv_t7"
+            android:layout_width="41dp"
+            android:layout_height="17dp"
+            android:layout_marginLeft="3.5dp"
+            android:layout_toRightOf="@id/tv_t2"
+            android:background="@color/theme_primary"
+            android:gravity="center"
+            android:text="@string/label_more_pro"
+            android:textColor="@color/color_white"
+            android:textSize="10sp"
+            app:isMultiProduct="@{grab.is_multi_product}"
+            />
+
+        <TextView
+            android:id="@+id/tv_t2"
+            style="@style/tagStyle"
+            android:layout_marginLeft="3.5dp"
+            android:layout_toRightOf="@id/tv_t1"
+            android:background="@color/theme_primary_dark"
+            android:text="@{grab.service_type}"/>
+
+        <TextView
+            android:id="@+id/tv_t3"
+            style="@style/wrap"
+            android:layout_marginLeft="@dimen/middle_margin_10dp"
+            android:layout_toLeftOf="@id/tv_t6"
+            android:layout_toRightOf="@id/tv_t7"
+            android:gravity="left"
+            android:singleLine="true"
+            android:text="@{grab.servicebrand_desc + grab.product_name+grab.stantard_desc}"
+            android:textColor="@color/color_text_dark"
+            android:textSize="@dimen/text_normal_size"/>
+
+
+        <!--<TextView-->
+        <!--android:id="@+id/tv_t5"-->
+        <!--style="@style/wrap"-->
+        <!--android:layout_marginLeft="@dimen/small_margin_5dp"-->
+        <!--android:layout_toRightOf="@id/tv_t4"-->
+        <!--android:gravity="center"-->
+        <!--android:text="@{grab.product_count}"-->
+        <!--android:textColor="@color/color_text_dark"-->
+        <!--android:textSize="@dimen/text_normal_size"/>-->
+
+
+        <TextView
+            style="@style/wrap"
+            android:layout_width="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/tv_t6"
+            android:gravity="start"
+            android:singleLine="true"
+            android:text="@{grab.fault_desc}"
+            android:textColor="@color/color_text_gravy"
+            android:textSize="@dimen/text_small_size"/>
+
+        <TextView
+            style="@style/wrap"
+            android:layout_alignParentBottom="true"
+            android:drawableLeft="@mipmap/ic_location"
+            android:drawablePadding="@dimen/small_margin_5dp"
+            android:text="@{grab.address}"
+            android:textSize="10sp"/>
+
+        <TextView
+            style="@style/wrap"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="@{grab.distanceDesc}"
+            android:textSize="10sp"/>
+    </RelativeLayout>
+</layout>

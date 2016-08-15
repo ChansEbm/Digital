@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data class=".GrabAgreementLayout">
+
+        <variable
+            name="agree"
+            type="com.szbb.pro.entity.grab.GrabAgreementBean"/>
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_bg_gravy"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/small_margin_5dp">
+
+            <include layout="@layout/title_bar"/>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{agree.protocol}"/>
+            </ScrollView>
+
+            <CheckBox
+                android:id="@+id/checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/dont_show_next_time"/>
+
+            <Button
+                android:id="@id/button"
+                style="@style/buttonStyle"
+                android:layout_marginBottom="@dimen/small_margin_5dp"
+                android:onClick="onClick"
+                android:text="@string/i_agree"/>
+        </LinearLayout>
+    </FrameLayout>
+</layout>

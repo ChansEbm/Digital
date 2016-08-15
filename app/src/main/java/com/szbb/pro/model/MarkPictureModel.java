@@ -22,7 +22,6 @@ import com.szbb.pro.eum.Perform;
 import com.szbb.pro.impl.OnAddPictureDoneListener;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.BitmapCompressTool;
-import com.szbb.pro.tools.FrescoTools;
 import com.szbb.pro.tools.ObjectAnimatorTools;
 
 import java.util.ArrayList;
@@ -132,6 +131,7 @@ public class MarkPictureModel implements View.OnClickListener {
                 addSinglePictureInLinearLayoutByLocal(context, linearLayout, s);
             }
         }
+        this.pathCache.clear();
     }
 
 

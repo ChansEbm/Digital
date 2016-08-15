@@ -8,32 +8,21 @@ import android.widget.FrameLayout;
 
 import com.szbb.pro.R;
 
-import java.util.ArrayList;
-
 /**
  * Created by ChanZeeBm on 2015/10/13.
  */
 public class SnakeTools {
     private static Snackbar snackbar;
-    private ArrayList<Snackbar> snackbars = new ArrayList<>();
-    private Snackbar.Callback callback = new Snackbar.Callback() {
-        @Override
-        public void onDismissed(Snackbar snackbar, int event) {
-            snackbars.remove(snackbar);
-            if (snackbars.size() > 0) {
-                displaySnackBar(snackbars.get(0));
-            }
-        }
-    };
+
 
     public static SnakeTools getInstance() {
         return SingleSnake.singleBar;
     }
 
     private void showSnackBar(Context context, View view, CharSequence charSequence) {
-        Snackbar snackbar = Snackbar.make(view, charSequence, Snackbar.LENGTH_LONG);
+        snackbar = Snackbar.make(view, charSequence, Snackbar.LENGTH_LONG);
         initSnackBarBackground(context, snackbar);
-        displaySnackBar(snackbar);
+        displaySnackBar();
     }
 
     public void showSnackBar(Context context, View view, CharSequence charSequence,
@@ -43,22 +32,22 @@ public class SnakeTools {
             showSnackBar(context, view, charSequence);
             return;
         }
-         snackbar = Snackbar.make(view, charSequence, Snackbar.LENGTH_LONG).setAction
+        snackbar = Snackbar.make(view, charSequence, Snackbar.LENGTH_LONG).setAction
                 (actionCharSequence, listener).setActionTextColor(context.getResources().getColor
                 (R.color.color_snack_bar_action_color));
         initSnackBarBackground(context, snackbar);
-        displaySnackBar(snackbar);
+        displaySnackBar();
     }
 
     private void showSnackBarAtLocation(Context context, View view, CharSequence charSequence, int
             gravity) {
-         snackbar = Snackbar.make(view, charSequence, Snackbar.LENGTH_LONG);
+        snackbar = Snackbar.make(view, charSequence, Snackbar.LENGTH_LONG);
         View parentView = snackbar.getView();
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) parentView.getLayoutParams();
         params.gravity = gravity;
         parentView.setLayoutParams(params);
         initSnackBarBackground(context, snackbar);
-        displaySnackBar(snackbar);
+        displaySnackBar();
     }
 
     public void showSnackBarAtLocation(Context context, View view, CharSequence charSequence,
@@ -68,7 +57,7 @@ public class SnakeTools {
             showSnackBarAtLocation(context, view, charSequence, gravity);
             return;
         }
-         snackbar = Snackbar.make(view, charSequence, Snackbar.LENGTH_LONG).setAction
+        snackbar = Snackbar.make(view, charSequence, Snackbar.LENGTH_LONG).setAction
                 (actionCharSequence, listener).setActionTextColor(context.getResources().getColor
                 (R.color.color_snack_bar_action_color));
         View parentView = snackbar.getView();
@@ -76,7 +65,7 @@ public class SnakeTools {
         params.gravity = gravity;
         parentView.setLayoutParams(params);
         initSnackBarBackground(context, snackbar);
-        displaySnackBar(snackbar);
+        displaySnackBar();
     }
 
     public void showSettingSnackBar(Context context, View view, CharSequence charSequence) {
@@ -90,21 +79,27 @@ public class SnakeTools {
                 });
     }
 
+    public void showBottomMarginSnackBar(Context context, View view, CharSequence charSequence, int marginOffset) {
+        if (!(view instanceof FrameLayout)) {
+            showSnackBar(context, view, charSequence);
+            return;
+        }
+        snackbar = Snackbar.make(view, charSequence, Snackbar.LENGTH_LONG);
+        View snackbarView = snackbar.getView();
+        FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) snackbarView.getLayoutParams();
+        layoutParams.setMargins(0, 0, 0, marginOffset);
+        snackbarView.setLayoutParams(layoutParams);
+        displaySnackBar();
+
+    }
+
     private void initSnackBarBackground(Context context, Snackbar snackbar) {
         snackbar.getView().setBackgroundColor(context.getResources().getColor(R.color
                 .color_snack_bar_bg));
     }
 
-    private void addQueue(Snackbar snackbar) {
-        snackbar.setCallback(callback);
-        boolean isFirst = snackbars.size() == 0;
-        LogTools.w("isfirst:? " + isFirst);
-        snackbars.add(snackbar);
-        if (isFirst)
-            displaySnackBar(snackbar);
-    }
 
-    private void displaySnackBar(Snackbar snackbar) {
+    private void displaySnackBar() {
         snackbar.show();
     }
 

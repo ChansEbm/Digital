@@ -1,0 +1,113 @@
+<layout>
+
+    <data class=".GrabLayout">
+
+        <variable
+            name="grab"
+            type="com.szbb.pro.entity.grab.GrabBean"/>
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:background="@color/color_bg_gravy"
+                  android:orientation="vertical"
+                  tools:context="com.szbb.pro.ui.fragment.main.GrabFragment">
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/color_white">
+
+            <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/rb_all"
+                style="@style/RbGrabTab"
+                android:checked="true"
+                android:text="@string/all_the_location"/>
+
+            <View
+                style="@style/RbGrabTabLine"/>
+
+            <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/rb_within_5km"
+                style="@style/RbGrabTab"
+                android:checked="false"
+                android:text="@string/within_5km"/>
+
+            <View
+                style="@style/RbGrabTabLine"/>
+
+            <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/rb_within_10km"
+                style="@style/RbGrabTab"
+                android:checked="false"
+                android:text="@string/within_10km"/>
+
+            <View
+                style="@style/RbGrabTabLine"/>
+
+            <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/rb_within_30km"
+                style="@style/RbGrabTab"
+                android:checked="false"
+                android:text="@string/within_30km"/>
+
+            <View
+                style="@style/RbGrabTabLine"/>
+
+            <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/rb_above_30km"
+                style="@style/RbGrabTab"
+                android:checked="false"
+                android:text="@string/above_30km"/>
+        </RadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e9e9e9"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include
+                android:id="@+id/include"
+                layout="@layout/refresh_recycler"/>
+
+
+            <LinearLayout
+                android:id="@+id/llyt_empty_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    style="@style/wrap"
+                    android:src="@mipmap/rocket"
+                    />
+
+                <TextView
+                    style="@style/wrap"
+                    android:layout_marginTop="24dp"
+                    android:text="@{grab.orderNumsDesc}"
+                    android:textColor="@color/color_text_dark"
+                    android:textSize="@dimen/text_normal_size"
+                    />
+
+                <TextView
+                    style="@style/wrap"
+                    android:layout_marginTop="@dimen/small_margin_5dp"
+                    android:text="@string/over_hint"
+                    android:textColor="@color/color_text_dark"
+                    android:textSize="12sp"
+                    />
+            </LinearLayout>
+
+        </FrameLayout>
+    </LinearLayout>
+</layout>

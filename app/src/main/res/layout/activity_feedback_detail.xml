@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data class=".FeedbackDetailLayout">
+
+        <variable
+            name="detail"
+            type="com.szbb.pro.entity.vip.FeedbackBean.ListBean"/>
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_white"
+            android:orientation="vertical">
+
+            <include layout="@layout/title_bar"/>
+
+            <RelativeLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                tools:context="com.szbb.pro.ui.activity.vip.feedback.FeedbackDetailActivity">
+                <!--android:text="@{detail.id}"-->
+
+                <TextView
+                    android:id="@+id/tv_t1"
+                    style="@style/wrap"
+                    android:text="@{detail.id}"
+                    android:textColor="@color/color_text_dark"
+                    android:textSize="@dimen/text_large_size"/>
+
+                <TextView
+                    android:id="@+id/tv_t3"
+                    style="@style/wrap"
+                    android:layout_below="@id/tv_t1"
+                    android:layout_marginTop="@dimen/small_margin_5dp"
+                    android:text="@{detail.content}"
+                    android:textColor="@color/color_text_dark"
+                    android:textSize="@dimen/text_normal_size"/>
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/tv_t3"
+                    android:layout_marginBottom="@dimen/small_margin_5dp"
+                    android:layout_marginTop="@dimen/small_margin_5dp"
+                    android:background="@color/color_text_dark"/>
+
+                <TextView
+                    android:id="@+id/tv_t4"
+                    style="@style/wrap"
+                    android:layout_below="@id/view"
+                    android:text="回复:"
+                    android:textColor="@color/color_text_dark"
+                    android:textSize="@dimen/text_large_size"/>
+
+                <TextView
+                    style="@style/wrap"
+                    android:layout_below="@id/tv_t4"
+                    android:layout_marginTop="@dimen/small_margin_5dp"
+                    android:text="@{detail.reply}"
+                    android:textColor="@color/color_text_dark"
+                    android:textSize="@dimen/text_normal_size"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </FrameLayout>
+</layout>

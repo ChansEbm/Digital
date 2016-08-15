@@ -1,10 +1,14 @@
 package com.szbb.pro.ui.activity.locate;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
@@ -19,11 +23,14 @@ import com.szbb.pro.TagLocationLayout;
 import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.model.MapModel;
 import com.szbb.pro.tools.AppTools;
+import com.szbb.pro.tools.LogTools;
 
-public class TagLocationActivity extends BaseAty {
+public class TagLocationActivity
+        extends BaseAty
+        implements BDLocationListener {
 
     private TagLocationLayout layout;
-    private boolean isShowing = false;
+//    private boolean isShowing = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,30 +44,49 @@ public class TagLocationActivity extends BaseAty {
         MapView mapView = layout.mapView;
         final BaiduMap baiduMap = mapView.getMap();
         MapModel model = new MapModel(this);
-        double lat = getIntent().getDoubleExtra("lat", 0.0d);
-        double lng = getIntent().getDoubleExtra("lng", 0.0d);
+        double lat = getIntent().getDoubleExtra("lat",
+                                                0.0d);
+        double lng = getIntent().getDoubleExtra("lng",
+                                                0.0d);
         String address = getIntent().getStringExtra("address");
         if (lat == 0.0d || lng == 0.0d) {
             AppTools.removeSingleActivity(this);
         }
-        BitmapDescriptor bd = BitmapDescriptorFactory.fromResource(R.mipmap.ic_location_blue);
-        final LatLng latLng = new LatLng(lat, lng);
-        OverlayOptions options = new MarkerOptions().position(latLng).icon(bd);
-        baiduMap.addOverlay(options);
-        final InfoWindow infoWindow = new InfoWindow(getInfoView(address), latLng, -getResources().getDrawable(R.mipmap.ic_location_blue).getMinimumHeight());
-        baiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                if (!isShowing) {
-                    baiduMap.showInfoWindow(infoWindow);
-                } else {
-                    baiduMap.hideInfoWindow();
-                }
-                isShowing = !isShowing;
-                return false;
-            }
-        });
-        model.moveToSpecifyLocation(baiduMap, latLng);
+        final LatLng latLng = new LatLng(lat,
+                                         lng);
+        model.addOverlay(baiduMap,
+                         lat,
+                         lng,
+                         false,
+                         R.mipmap.ic_location_blue);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
+                                                     R.mipmap.ic_location_blue);
+        int offsetHeight = bitmap.getHeight();
+        model.addInfoWindow(baiduMap,
+                            getInfoView(address),
+                            lat,
+                            lng,
+                            -offsetHeight);
+//        final InfoWindow infoWindow = new InfoWindow(getInfoView(address),
+//                                                     latLng,
+//                                                     -offsetHeight);
+//        baiduMap.showInfoWindow(infoWindow);
+//        isShowing = true;
+//        baiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
+//            @Override
+//            public boolean onMarkerClick(Marker marker) {
+//                if (!isShowing) {
+//                    baiduMap.showInfoWindow(infoWindow);
+//                } else {
+//                    baiduMap.hideInfoWindow();
+//                }
+//                isShowing = !isShowing;
+//                return false;
+//            }
+//        });
+        model.moveToSpecifyLocation(baiduMap,
+                                    latLng);
+        AppTools.locate(this);
     }
 
     @Override
@@ -86,4 +112,18 @@ public class TagLocationActivity extends BaseAty {
         return textView;
     }
 
+    @Override
+    public void onReceiveLocation(BDLocation bdLocation) {
+        new MapModel(this).addMyLocation(layout.mapView.getMap(),
+                                         bdLocation.getLatitude(),
+                                         bdLocation.getLongitude(),
+                                         0,
+                                         0);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        AppTools.stopLocate();
+    }
 }

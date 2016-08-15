@@ -18,24 +18,31 @@ import com.szbb.pro.ui.activity.login.LoginActivity;
 /**
  * Created by ChanZeeBm on 2015/9/9.
  */
-public class WelcomeActivity extends BaseAty implements Runnable {
+public class WelcomeActivity
+        extends BaseAty
+        implements Runnable {
     private Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                             WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
     }
 
     @Override
     protected void initViews() {
-        boolean isFirstRunApplication = new Prefser(AppTools.getSharePreferences()).get("isFirstRunApplication", Boolean.class, true);
+        boolean isFirstRunApplication = new Prefser(AppTools.getSharePreferences()).get
+                ("isFirstRunApplication",
+                 Boolean.class,
+                 true);
         if (isFirstRunApplication) {
+//            start(TestAty.class);
             start(LaunchActivity.class);
             return;
         }
-        handler.postDelayed(this, 5000);
+        handler.postDelayed(this,
+                            5000);
     }
 
     @Override
@@ -53,15 +60,21 @@ public class WelcomeActivity extends BaseAty implements Runnable {
     }
 
     @Override
-    protected void onClick(int id, View view) {
+    protected void onClick(int id,
+                           View view) {
         if (id == R.id.imageView) {
-            skipToLoginActivity();
+            if (AppKeyMap.IS_DEBUG) {
+                start(TestAty.class);
+            } else {
+                skipToLoginActivity();
+            }
             handler.removeCallbacks(this);
         }
     }
 
     @Override
-    public void onJsonObjectResponse(Object o, NetworkParams paramsCode) {
+    public void onJsonObjectResponse(Object o,
+                                     NetworkParams paramsCode) {
 
     }
 
@@ -75,7 +88,9 @@ public class WelcomeActivity extends BaseAty implements Runnable {
     }
 
     private void skipToLoginActivity() {
-        Intent it = new Intent(WelcomeActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        Intent it = new Intent(WelcomeActivity.this,
+                               LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                                                                     Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(it);
     }
 

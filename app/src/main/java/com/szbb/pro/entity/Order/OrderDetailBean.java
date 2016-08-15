@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.szbb.pro.AppKeyMap;
 import com.szbb.pro.BR;
 import com.szbb.pro.R;
 import com.szbb.pro.entity.base.BaseBean;
@@ -23,13 +24,16 @@ import com.szbb.pro.ui.activity.expenses.ExpensesResultActivity;
 import com.szbb.pro.ui.activity.orders.operating.a_mode.FittingApplyDetailActivity;
 import com.szbb.pro.ui.activity.orders.operating.b_mode.FittingResendDetailActivity;
 
+import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by ChanZeeBm on 2016/1/6.
  */
-public class OrderDetailBean extends BaseBean {
+public class OrderDetailBean
+        extends BaseBean {
 
     private DataEntity data;
 
@@ -51,10 +55,12 @@ public class OrderDetailBean extends BaseBean {
         this.list = list;
     }
 
-    public static class DataEntity extends BaseObservable {
+    public static class DataEntity
+            extends BaseObservable {
 
         private String orderid;
         private String customer_service_phone;
+        private String CS_identifier;
         private String sn;
         private String order_status_desc;
         private String appoint_time = "";
@@ -86,15 +92,17 @@ public class OrderDetailBean extends BaseBean {
 
         private String service_evaluation;
         private String order_settlement;
+        private String sms_template;
 
         public DataEntity() {
-
         }
 
         @BindingAdapter(value = {"app:signInText"})
-        public static void setSignInText(Button button, String signIn) {
-            if (button == null || TextUtils.isEmpty(signIn))
+        public static void setSignInText(Button button,
+                                         String signIn) {
+            if (button == null || TextUtils.isEmpty(signIn)) {
                 return;
+            }
             switch (signIn) {
                 case "0":
                     button.setText("签到");
@@ -105,19 +113,22 @@ public class OrderDetailBean extends BaseBean {
                     break;
                 case "2":
                 case "3":
-                    button.setText("签到失败");
+                    button.setText("已签到");
                     button.setEnabled(false);
                     break;
             }
         }
 
         @BindingAdapter(value = {"app:signInBackground"})
-        public static void setSignInBackground(Button button, String sign) {
-            if (button == null || TextUtils.isEmpty(sign))
+        public static void setSignInBackground(Button button,
+                                               String sign) {
+            if (button == null || TextUtils.isEmpty(sign)) {
                 return;
-            if (TextUtils.equals("0", sign))
+            }
+            if (TextUtils.equals("0",
+                    sign)) {
                 button.setBackgroundResource(R.drawable.bg_cyan_frame);
-            else {
+            } else {
                 button.setBackground(null);
                 button.setEnabled(false);
             }
@@ -137,7 +148,8 @@ public class OrderDetailBean extends BaseBean {
         }
 
         public void setAppoint_time(String appoint_time) {
-            this.appoint_time = AppTools.formatTime(appoint_time, true);
+            this.appoint_time = AppTools.formatTime(appoint_time,
+                    true);
         }
 
         public String getIs_sign_in() {
@@ -279,7 +291,8 @@ public class OrderDetailBean extends BaseBean {
         }
 
         public boolean isSignIn() {
-            return TextUtils.equals("1", is_sign_in);
+            return TextUtils.equals("1",
+                    is_sign_in);
         }
 
         public String getIs_all_repair() {
@@ -291,13 +304,15 @@ public class OrderDetailBean extends BaseBean {
         }
 
         public boolean isAllRepair() {
-            return TextUtils.equals(is_all_repair, "1");
+            return TextUtils.equals(is_all_repair,
+                    "1");
         }
 
         @Bindable
         public String getFormatAppointTime() {
             appoint_time = TextUtils.isEmpty(appoint_time) ? "" : appoint_time;
-            return AppTools.formatTime(appoint_time, true);
+            return AppTools.formatTime(appoint_time,
+                    true);
         }
 
         public void setFormatAppointTime(String formatAppointTime) {
@@ -339,24 +354,30 @@ public class OrderDetailBean extends BaseBean {
             long at = Long.parseLong(getAppoint_time() + "000");
             String result = AppTools.convertMillions(at - ct);
             String isSignIn = getIs_sign_in();
-            if (TextUtils.equals(isSignIn, "0")) {
-                if (!TextUtils.equals("-1", result))
+            if (TextUtils.equals(isSignIn,
+                    "0")) {
+                if (!TextUtils.equals("-1",
+                        result)) {
                     this.sign_in_desc = Html.fromHtml("<font " +
                             "color=\"#a0a0a0\">距上门服务还有</font><font " +
                             "color=\"#ff9000" +
                             "\">" + result + "</font>");
-                else
+                } else {
                     this.sign_in_desc = Html.fromHtml("<font " +
                             "color=\"#a0a0a0\">距上门服务还有</font><font " +
                             "color=\"#ff9000" +
                             "\">" + "0个小时" + "</font>");
-            } else if (TextUtils.equals(isSignIn, "1"))
+                }
+            } else if (TextUtils.equals(isSignIn,
+                    "1")) {
                 this.sign_in_desc = Html.fromHtml("<font color=\"#a0a0a0\">已于" + getSign_in_time() +
                         "</font><font " +
                         "color=\"#ff9000\">签到成功</font>");
-            else if (TextUtils.equals(isSignIn, "2"))
+            } else if (TextUtils.equals(isSignIn,
+                    "2")) {
                 this.sign_in_desc = Html.fromHtml("<font color=\"#ff9000\">签到失败</font>");
-            else if (TextUtils.equals(isSignIn, "3")) {
+            } else if (TextUtils.equals(isSignIn,
+                    "3")) {
                 this.sign_in_desc = Html.fromHtml("<font color=\"#ff9000\">签到已超时</font>");
             }
             return sign_in_desc;
@@ -421,8 +442,26 @@ public class OrderDetailBean extends BaseBean {
             this.customer_service_phone = customer_service_phone;
         }
 
+        public String getSms_template() {
+            return sms_template;
+        }
 
-        public static class AcceCostListEntity {
+        public void setSms_template(String sms_template) {
+            this.sms_template = sms_template;
+        }
+
+        public String getCS_identifier() {
+            return CS_identifier;
+        }
+
+        public void setCS_identifier(String CS_identifier) {
+            this.CS_identifier = CS_identifier;
+        }
+
+
+        public static class AcceCostListEntity
+                implements Parcelable {
+
             private String handle_type;
             private String exe_type;
             private String exe_status;
@@ -480,11 +519,14 @@ public class OrderDetailBean extends BaseBean {
             }
 
             public Class<?> getIntentFlag() {
-                if (TextUtils.equals("0", getExe_type())) {//费用申请
+                if (TextUtils.equals("0",
+                        getExe_type())) {//费用申请
                     return ExpensesResultActivity.class;
-                } else if (TextUtils.equals("1", getExe_type())) {//A模式
+                } else if (TextUtils.equals("1",
+                        getExe_type())) {//A模式
                     return FittingApplyDetailActivity.class;
-                } else if (TextUtils.equals("2", getExe_type())) {//B模式
+                } else if (TextUtils.equals("2",
+                        getExe_type())) {//B模式
                     return FittingResendDetailActivity.class;
                 }
                 return null;
@@ -497,26 +539,63 @@ public class OrderDetailBean extends BaseBean {
             public void setAcid(String acid) {
                 this.acid = acid;
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest,
+                                      int flags) {
+                dest.writeString(this.handle_type);
+                dest.writeString(this.exe_type);
+                dest.writeString(this.exe_status);
+                dest.writeString(this.exe_desc);
+                dest.writeString(this.title);
+                dest.writeString(this.addtime);
+                dest.writeString(this.acid);
+            }
+
+            public AcceCostListEntity() {
+            }
+
+            protected AcceCostListEntity(Parcel in) {
+                this.handle_type = in.readString();
+                this.exe_type = in.readString();
+                this.exe_status = in.readString();
+                this.exe_desc = in.readString();
+                this.title = in.readString();
+                this.addtime = in.readString();
+                this.acid = in.readString();
+            }
+
+            public static final Parcelable.Creator<AcceCostListEntity> CREATOR = new Parcelable
+                    .Creator<AcceCostListEntity>() {
+                @Override
+                public AcceCostListEntity createFromParcel(Parcel source) {
+                    return new AcceCostListEntity(source);
+                }
+
+                @Override
+                public AcceCostListEntity[] newArray(int size) {
+                    return new AcceCostListEntity[size];
+                }
+            };
         }
 
     }
 
-    public static class ListEntity extends BaseObservable implements Parcelable {
-
-        public static final Parcelable.Creator<ListEntity> CREATOR = new Parcelable
-                .Creator<ListEntity>() {
-            public ListEntity createFromParcel(Parcel source) {
-                return new ListEntity(source);
-            }
-
-            public ListEntity[] newArray(int size) {
-                return new ListEntity[size];
-            }
-        };
+    public static class ListEntity
+            extends BaseObservable
+            implements Parcelable {
         private String detailid;
         private String service_id;//服务器返回的id
         private String serviceid = "-1";//保存用户选择的id
         private String service_name = "请选择";
+
+
+        private int servicePage = AppKeyMap.CUPCAKE;
         private String this_service_name;
         private String name;
         private String brand;
@@ -543,49 +622,34 @@ public class OrderDetailBean extends BaseBean {
         public ListEntity() {
         }
 
-        protected ListEntity(Parcel in) {
-            this.detailid = in.readString();
-            this.service_id = in.readString();
-            this.serviceid = in.readString();
-            this.service_name = in.readString();
-            this.this_service_name = in.readString();
-            this.name = in.readString();
-            this.brand = in.readString();
-            this.stantard = in.readString();
-            this.model = in.readString();
-            this.fault_lable = in.readString();
-            this.fault_desc = in.readString();
-            this.product_thumb = in.readString();
-            this.last_handle_type = in.readString();
-            this.last_handle_status = in.readString();
-            this.last_handle_desc = in.readString();
-            this.last_handle_statue_chinese = in.readString();
-            this.acce_exe_type = in.readString();
-            int tmpButtonType = in.readInt();
-            this.buttonType = tmpButtonType == -1 ? null : ButtonType.values()[tmpButtonType];
-            this.report = in.readString();
-            this.service_list = new ArrayList<ServiceListEntity>();
-            in.readList(this.service_list, getClass().getClassLoader());
-            this.complete_photos = new ArrayList<CompletePhotosEntity>();
-            in.readList(this.complete_photos, getClass().getClassLoader());
-            this.addPics = in.createStringArrayList();
-            this.complete_report = in.readString();
-        }
-
         @BindingAdapter(value = {"app:compoundDrawable"})
-        public static void setCompoundDrawable(TextView textView, String lastHandleType) {
-            if (TextUtils.equals(lastHandleType, "3") || TextUtils.equals
-                    (lastHandleType, "4")) {
-                textView.setCompoundDrawables(null, null, null, null);
+        public static void setCompoundDrawable(TextView textView,
+                                               String lastHandleType) {
+            if (TextUtils.equals(lastHandleType,
+                    "3") || TextUtils.equals
+                    (lastHandleType,
+                            "4")) {
+                textView.setCompoundDrawables(null,
+                        null,
+                        null,
+                        null);
             } else {
-                Drawable drawable = textView.getResources().getDrawable(R.mipmap.ic_arrow_right);
+                Drawable drawable = textView.getResources()
+                        .getDrawable(R.mipmap.ic_arrow_right);
                 if (drawable != null) {
-                    drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable
-                            .getMinimumHeight());
-                    textView.setCompoundDrawables(null, null, drawable, null);
+                    drawable.setBounds(0,
+                            0,
+                            drawable.getMinimumWidth(),
+                            drawable
+                                    .getMinimumHeight());
+                    textView.setCompoundDrawables(null,
+                            null,
+                            drawable,
+                            null);
                 }
             }
         }
+
 
         public String getDetailid() {
             return detailid;
@@ -696,7 +760,8 @@ public class OrderDetailBean extends BaseBean {
         @Bindable
         public String getLast_handle_statue_chinese() {
             this.last_handle_statue_chinese = OperateLastHandle.getLastHandle(last_handle_type,
-                    last_handle_status, acce_exe_type);
+                    last_handle_status,
+                    acce_exe_type);
             return last_handle_statue_chinese;
         }
 
@@ -709,30 +774,53 @@ public class OrderDetailBean extends BaseBean {
         }
 
         public boolean canDone() {
-            return TextUtils.equals(last_handle_type, "3") || TextUtils.equals(last_handle_type,
+            return TextUtils.equals(last_handle_type,
+                    "3") || TextUtils.equals(last_handle_type,
                     "4");
         }
 
         public boolean canNext() {
-            return (TextUtils.equals(last_handle_type, "1") && TextUtils.equals
-                    (last_handle_status, "2")) ||
-                    (TextUtils.equals(last_handle_type, "1") && TextUtils.equals
-                            (last_handle_status, "3")) ||
-                    (TextUtils.equals(last_handle_type, "2") && TextUtils.equals(acce_exe_type,
-                            "1") && TextUtils.equals(last_handle_status, "5")) ||
-                    (TextUtils.equals(last_handle_type, "2") && TextUtils.equals(acce_exe_type,
-                            "1") && TextUtils.equals(last_handle_status, "6")) ||
-                    (TextUtils.equals(last_handle_type, "2") && TextUtils.equals(acce_exe_type,
-                            "2") && TextUtils.equals(last_handle_status, "3"));
+            return (TextUtils.equals(last_handle_type,
+                    "1") && TextUtils.equals
+                    (last_handle_status,
+                            "2")) ||
+                    (TextUtils.equals(last_handle_type,
+                            "1") && TextUtils.equals
+                            (last_handle_status,
+                                    "3")) ||
+                    (TextUtils.equals(last_handle_type,
+                            "2") && TextUtils.equals(acce_exe_type,
+                            "1") && TextUtils.equals
+                            (last_handle_status,
+                                    "5")) ||
+                    (TextUtils.equals(last_handle_type,
+                            "2") && TextUtils.equals(acce_exe_type,
+                            "1") && TextUtils.equals
+                            (last_handle_status,
+                                    "6")) ||
+                    (TextUtils.equals(last_handle_type,
+                            "2") && TextUtils.equals(acce_exe_type,
+                            "2") && TextUtils.equals
+                            (last_handle_status,
+                                    "3"));
+        }
+
+        public void setServicePage(int servicePage) {
+            //AppKeyMap.CUPCAKE 标记服务项目显示在工单详情页
+            //APPKeyMap.FROYO 标记为服务项目显示在工单操作页
+            this.servicePage = servicePage;
         }
 
         @Bindable
         public String getService_name() {
-            return TextUtils.isEmpty(service_name) ? "请选择" : service_name;
+            return TextUtils.isEmpty(service_name) ? (servicePage == AppKeyMap.CUPCAKE ? "暂无" :
+                    "请选择") :
+                    service_name;
         }
 
         public void setService_name(String service_name) {
             this.service_name = service_name;
+            notifyPropertyChanged(BR.service_name);
         }
 
         public String getService_id() {
@@ -750,6 +838,7 @@ public class OrderDetailBean extends BaseBean {
 
         public void setThis_service_name(String this_service_name) {
             this.this_service_name = this_service_name;
+            notifyPropertyChanged(BR.this_service_name);
         }
 
         public ButtonType getButtonType() {
@@ -795,37 +884,6 @@ public class OrderDetailBean extends BaseBean {
             this.complete_report = complete_report;
         }
 
-        @Override
-        public int describeContents() {
-            return 0;
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeString(this.detailid);
-            dest.writeString(this.service_id);
-            dest.writeString(this.serviceid);
-            dest.writeString(this.service_name);
-            dest.writeString(this.this_service_name);
-            dest.writeString(this.name);
-            dest.writeString(this.brand);
-            dest.writeString(this.stantard);
-            dest.writeString(this.model);
-            dest.writeString(this.fault_lable);
-            dest.writeString(this.fault_desc);
-            dest.writeString(this.product_thumb);
-            dest.writeString(this.last_handle_type);
-            dest.writeString(this.last_handle_status);
-            dest.writeString(this.last_handle_desc);
-            dest.writeString(this.last_handle_statue_chinese);
-            dest.writeString(this.acce_exe_type);
-            dest.writeInt(this.buttonType == null ? -1 : this.buttonType.ordinal());
-            dest.writeString(this.report);
-            dest.writeList(this.service_list);
-            dest.writeList(this.complete_photos);
-            dest.writeStringList(this.addPics);
-            dest.writeString(this.complete_report);
-        }
 
         @Bindable
         public String getService_type() {
@@ -853,7 +911,9 @@ public class OrderDetailBean extends BaseBean {
             this.service_desc = service_desc;
         }
 
-        public static class ServiceListEntity extends BaseObservable implements Parcelable {
+        public static class ServiceListEntity
+                extends BaseObservable
+                implements Parcelable {
 
             private String service_id;
             private String service_name;
@@ -904,7 +964,8 @@ public class OrderDetailBean extends BaseBean {
             }
 
             @Override
-            public void writeToParcel(Parcel dest, int flags) {
+            public void writeToParcel(Parcel dest,
+                                      int flags) {
                 dest.writeString(this.service_id);
                 dest.writeString(this.service_name);
                 dest.writeString(this.service_cost);
@@ -918,20 +979,23 @@ public class OrderDetailBean extends BaseBean {
                 this.service_desc = in.readString();
             }
 
-            public static final Creator<ServiceListEntity> CREATOR = new Creator<ServiceListEntity>() {
-                @Override
-                public ServiceListEntity createFromParcel(Parcel source) {
-                    return new ServiceListEntity(source);
-                }
+            public static final Creator<ServiceListEntity> CREATOR = new
+                    Creator<ServiceListEntity>() {
+                        @Override
+                        public ServiceListEntity createFromParcel(Parcel source) {
+                            return new ServiceListEntity(source);
+                        }
 
-                @Override
-                public ServiceListEntity[] newArray(int size) {
-                    return new ServiceListEntity[size];
-                }
-            };
+                        @Override
+                        public ServiceListEntity[] newArray(int size) {
+                            return new ServiceListEntity[size];
+                        }
+                    };
         }
 
-        public static class CompletePhotosEntity {
+        public static class CompletePhotosEntity
+                implements Parcelable {
+
             private String name;
             private String url;
 
@@ -950,11 +1014,126 @@ public class OrderDetailBean extends BaseBean {
             public void setUrl(String url) {
                 this.url = url;
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest,
+                                      int flags) {
+                dest.writeString(this.name);
+                dest.writeString(this.url);
+            }
+
+            public CompletePhotosEntity() {
+            }
+
+            protected CompletePhotosEntity(Parcel in) {
+                this.name = in.readString();
+                this.url = in.readString();
+            }
+
+            public static final Creator<CompletePhotosEntity> CREATOR = new
+                    Creator<CompletePhotosEntity>() {
+                        @Override
+                        public CompletePhotosEntity createFromParcel(Parcel source) {
+                            return new CompletePhotosEntity(source);
+                        }
+
+                        @Override
+                        public CompletePhotosEntity[] newArray(int size) {
+                            return new CompletePhotosEntity[size];
+                        }
+                    };
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest,
+                                  int flags) {
+            dest.writeString(this.detailid);
+            dest.writeString(this.service_id);
+            dest.writeString(this.serviceid);
+            dest.writeString(this.service_name);
+            dest.writeString(this.this_service_name);
+            dest.writeString(this.name);
+            dest.writeString(this.brand);
+            dest.writeString(this.stantard);
+            dest.writeString(this.model);
+            dest.writeString(this.service_type);
+            dest.writeString(this.fault_lable);
+            dest.writeString(this.fault_desc);
+            dest.writeString(this.product_thumb);
+            dest.writeString(this.last_handle_type);
+            dest.writeString(this.last_handle_status);
+            dest.writeString(this.last_handle_desc);
+            dest.writeString(this.last_handle_statue_chinese);
+            dest.writeString(this.service_desc);
+            dest.writeString(this.acce_exe_type);
+            dest.writeInt(this.buttonType == null ? -1 : this.buttonType.ordinal());
+            dest.writeString(this.report);
+            dest.writeTypedList(this.service_list);
+            dest.writeList(this.complete_photos);
+            dest.writeStringList(this.addPics);
+            dest.writeString(this.complete_report);
+            dest.writeString(this.productNum);
+        }
+
+        protected ListEntity(Parcel in) {
+            this.detailid = in.readString();
+            this.service_id = in.readString();
+            this.serviceid = in.readString();
+            this.service_name = in.readString();
+            this.this_service_name = in.readString();
+            this.name = in.readString();
+            this.brand = in.readString();
+            this.stantard = in.readString();
+            this.model = in.readString();
+            this.service_type = in.readString();
+            this.fault_lable = in.readString();
+            this.fault_desc = in.readString();
+            this.product_thumb = in.readString();
+            this.last_handle_type = in.readString();
+            this.last_handle_status = in.readString();
+            this.last_handle_desc = in.readString();
+            this.last_handle_statue_chinese = in.readString();
+            this.service_desc = in.readString();
+            this.acce_exe_type = in.readString();
+            int tmpButtonType = in.readInt();
+            this.buttonType = tmpButtonType == -1 ? null : ButtonType.values()[tmpButtonType];
+            this.report = in.readString();
+            this.service_list = in.createTypedArrayList(ServiceListEntity.CREATOR);
+            this.complete_photos = new ArrayList<>();
+            in.readList(this.complete_photos,
+                    CompletePhotosEntity.class.getClassLoader());
+            this.addPics = in.createStringArrayList();
+            this.complete_report = in.readString();
+            this.productNum = in.readString();
+        }
+
+        public static final Parcelable.Creator<ListEntity> CREATOR = new Parcelable
+                .Creator<ListEntity>() {
+            @Override
+            public ListEntity createFromParcel(Parcel source) {
+                return new ListEntity(source);
+            }
+
+            @Override
+            public ListEntity[] newArray(int size) {
+                return new ListEntity[size];
+            }
+        };
     }
 
     static class OperateLastHandle {
-        private static String getLastHandle(@NonNull String lastType, @NonNull String lastStatus,
+        private static String getLastHandle(@NonNull String lastType,
+                                            @NonNull String lastStatus,
                                             @NonNull String accExeType) {
             switch (lastType) {
                 case "0":
@@ -968,7 +1147,8 @@ public class OrderDetailBean extends BaseBean {
                 case "1":
                     return getFittingApplyStatus(lastStatus);
                 case "2":
-                    return getOperateStatus(lastStatus, accExeType);
+                    return getOperateStatus(lastStatus,
+                            accExeType);
                 default:
                     return "无";
             }
@@ -1000,7 +1180,8 @@ public class OrderDetailBean extends BaseBean {
          * @param accExeType 配件单执行流程码
          * @return 最终上次操作工单的状态
          */
-        private static String getOperateStatus(String lastStatus, String accExeType) {
+        private static String getOperateStatus(String lastStatus,
+                                               String accExeType) {
             switch (accExeType) {
                 case "1":
                     return getOperateFirstStatus(lastStatus);

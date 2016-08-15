@@ -20,7 +20,8 @@ import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.LogTools;
 
-public class ServiceObjActivity extends BaseAty<BaseBean, OrderDetailBean.ListEntity.ServiceListEntity> {
+public class ServiceObjActivity
+        extends BaseAty<BaseBean, OrderDetailBean.ListEntity.ServiceListEntity> {
     private String detailId = "";
     private RecyclerView recyclerView;
     private ServiceObjLayout serviceObjLayout;
@@ -46,11 +47,16 @@ public class ServiceObjActivity extends BaseAty<BaseBean, OrderDetailBean.ListEn
         defaultTitleBar(this).setTitle(R.string.order_detail_service_option);
         recyclerView = serviceObjLayout.recyclerView;
         commonBinderAdapter = new CommonBinderAdapter<OrderDetailBean.ListEntity
-                .ServiceListEntity>(this, R.layout.item_service_obj, list) {
+                .ServiceListEntity>(this,
+                                    R.layout.item_service_obj,
+                                    list) {
 
             @Override
-            public void onBind(ViewDataBinding viewDataBinding, CommonBinderHolder holder, int
-                    position, OrderDetailBean.ListEntity.ServiceListEntity serviceListEntity) {
+            public void onBind(ViewDataBinding viewDataBinding,
+                               CommonBinderHolder holder,
+                               int
+                                       position,
+                               OrderDetailBean.ListEntity.ServiceListEntity serviceListEntity) {
                 ((ItemServiceObjLayout) viewDataBinding).setService(serviceListEntity);
             }
         };
@@ -76,7 +82,8 @@ public class ServiceObjActivity extends BaseAty<BaseBean, OrderDetailBean.ListEn
     }
 
     @Override
-    protected void onClick(int id, View view) {
+    protected void onClick(int id,
+                           View view) {
         switch (id) {
             case R.id.negative:
                 messageDialog.dismiss();
@@ -90,35 +97,48 @@ public class ServiceObjActivity extends BaseAty<BaseBean, OrderDetailBean.ListEn
     }
 
     @Override
-    public void onBinderItemClick(View view, final int pos) {
-        super.onBinderItemClick(view, pos);
+    public void onBinderItemClick(View view,
+                                  final int pos) {
+        super.onBinderItemClick(view,
+                                pos);
 
         final OrderDetailBean.ListEntity.ServiceListEntity serviceListEntity = list.get(pos);
         messageDialog = new MessageDialog(this);
         String serviceName = serviceListEntity.getService_name();
         messageDialog.setTitle(serviceName);
         String serviceDesc = serviceListEntity.getService_desc();
-        String name = "\n" + "【服务项目是为您结算费用的重要标准，在提交报告后将无法修改。为保证通过审核，请按真实情况选择。如对服务项目内容有疑问，请与我们的客服联系确认。】";
+        String name = "\n" +
+                "【服务项目是为您结算费用的重要标准，在提交报告后将无法修改。为保证通过审核，请按真实情况选择。如对服务项目内容有疑问，请与我们的客服联系确认。】";
         this.serviceName = serviceName;
         messageDialog.setMessage(serviceDesc + name);
-        messageDialog.setPositiveButton(getString(R.string.positive), new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ServiceObjActivity.this.serviceId = serviceListEntity.getService_id();
-                networkModel.choiceFaultService(detailId, serviceId, null
-                );
-                messageDialog.dismiss();
+        messageDialog.setPositiveButton(getString(R.string.positive),
+                                        new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                ServiceObjActivity.this.serviceId =
+                                                        serviceListEntity.getService_id();
+                                                networkModel.choiceFaultService(detailId,
+                                                                                serviceId,
+                                                                                null
+                                                                               );
+                                                messageDialog.dismiss();
 
-            }
-        });
-        messageDialog.setNegativeButton(getString(R.string.negative), this);
+                                            }
+                                        });
+        messageDialog.setNegativeButton(getString(R.string.negative),
+                                        this);
         messageDialog.show();
     }
 
     @Override
-    public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {
-        setResult(RESULT_OK, new Intent().putExtra("serviceId", serviceId));
-        setResult(RESULT_OK, new Intent().putExtra("serviceName", serviceName));
+    public void onJsonObjectSuccess(BaseBean baseBean,
+                                    NetworkParams paramsCode) {
+        setResult(RESULT_OK,
+                  new Intent().putExtra("serviceId",
+                                        serviceId)
+                              .putExtra
+                                      ("serviceName",
+                                       serviceName));
         AppTools.removeSingleActivity(ServiceObjActivity.this);
     }
 }

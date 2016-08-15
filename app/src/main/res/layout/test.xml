@@ -1,46 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data class=".TestLayout">
 
         <variable
             name="test"
-            type="com.szbb.pro.entity.Tx"/>
+            type="com.szbb.pro.entity.Tx" />
     </data>
 
-    <LinearLayout
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/theme_primary"
         android:orientation="vertical">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/color_bg_gravy">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/button"
-                        style="@style/Widget.AppCompat.Button.Borderless"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:onClick="onClick"
-                        android:text="button1"
-                        android:theme="@style/textButtom"/>
-
-                </LinearLayout>
-            </FrameLayout>
-        </ScrollView>
+        <com.szbb.pro.widget.deleter.DeleterScrollLayout
+            android:id="@+id/deleterScrollLayout"
+            style="@style/DeleterLayout" />
     </LinearLayout>
 </layout>

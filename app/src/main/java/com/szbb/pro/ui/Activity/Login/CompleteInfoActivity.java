@@ -1,12 +1,13 @@
 package com.szbb.pro.ui.activity.login;
 
+import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ import com.szbb.pro.impl.OnPhotoOptsSelectListener;
 import com.szbb.pro.impl.UpdateUIListener;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.BitmapCompressTool;
+import com.szbb.pro.tools.CameraTools;
 import com.szbb.pro.tools.LogTools;
 import com.szbb.pro.ui.activity.locate.LocationActivity;
 import com.szbb.pro.ui.activity.locate.ProvinceActivity;
@@ -35,10 +37,10 @@ import com.szbb.pro.widget.PopupWindow.PhotoPopupWindow;
 
 import java.util.List;
 
-import cn.finalteam.galleryfinal.FunctionConfig;
 import cn.finalteam.galleryfinal.GalleryFinal;
 import cn.finalteam.galleryfinal.model.PhotoInfo;
 import de.greenrobot.event.EventBus;
+
 
 /**
  * Created by ChanZeeBm on 2015/10/16.
@@ -73,6 +75,7 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
     private double lng = 0d;
 
     private int photoFlag = 0;
+    private CameraTools cameraTools = new CameraTools();
 
 
     @Override
@@ -113,7 +116,6 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
 
     @Override
     protected void initEvents() {
-
         inputDialog.setInputCallBack(this);
         photoPopupWindow.setOnPhotoOptsSelectListener(this);
     }
@@ -127,6 +129,7 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
     protected int getContentView() {
         return R.layout.aty_complete_info;
     }
+
 
     @Override
     protected void onClick(int id, View view) {
@@ -168,9 +171,15 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
                 start(ProvinceActivity.class);
                 break;
             case R.id.rylt_location:
+                int permission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+//                if(permission!=PackageManager.PERMISSION_GRANTED){
+                LogTools.w(permission);
+//                }
                 startActivityForResult(new Intent().putExtra("flag", AppKeyMap.CUPCAKE).putExtra
                         ("title", getString(R.string.now_position)).setClass
                         (this, LocationActivity.class), AppKeyMap.LOLLIPOP);
+
+//                    Toast.makeText(CompleteInfoActivity.this, "由于您没有允许本APP的定位权限,请通过手机的安全管理来打开!", Toast.LENGTH_LONG).show();
                 break;
             case R.id.sdv_citizen_id_font_side:
                 photoFlag = ID_FONT;
@@ -230,6 +239,27 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
                     this.edtCompleteInfoPickLocation.setText(R.string
                             .organization_input_chosen);
             }
+        } else {
+            //place picture which with take photo action
+            placeImageInSwitch(requestCode, resultCode);
+        }
+    }
+
+    private void placeImageInSwitch(int requestCode, int resultCode) {
+        String photoPath = cameraTools.getPhotoPath(resultCode);
+        if (TextUtils.isEmpty(photoPath))//如果路径为空,则有可能用户点击了取消拍照或者返回,不方面继续往下走了
+        {
+            return;
+        }
+        if (requestCode == AVATAR) {//如果点击的是头像,则进行头像路径的记录和显示拍出来的照片
+            avatarPath = photoPath;
+            avatarSimpleDraweeView.setImageURI(Uri.parse("file://" + avatarPath));
+        } else if (requestCode == ID_FONT) {//如果填写的是身份证前面,.....(同上)
+            idFontPath = photoPath;
+            citizenIdFrontSimpleDraweeView.setImageURI(Uri.parse("file://" + idFontPath));
+        } else if (requestCode == ID_BACK) {//如果填写的是身份证背面,.....(同上)
+            idBackPath = photoPath;
+            citizenIdBackSimpleDraweeView.setImageURI(Uri.parse("file://" + idBackPath));
         }
     }
 
@@ -269,28 +299,30 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
 
     @Override
     public void onOptsSelect(PhotoPopupOpts opts) {
-        FunctionConfig functionConfig = new FunctionConfig.Builder().setEnablePreview(true)
-                .setEnableCrop(true).setCropHeight(500).setCropWidth(500).build();
+//        FunctionConfig functionConfig = new FunctionConfig.Builder().setEnablePreview(true)
+//                .setEnableCrop(true).setCropHeight(500).setCropWidth(500).build();
         switch (opts) {
             case TAKE_PHOTO:
-                if (photoFlag == AVATAR) {
-                    //avatar and from camera
-                    GalleryFinal.openCamera(AppKeyMap.CUPCAKE, functionConfig, this);
-                } else if (photoFlag == ID_FONT) {
-                    //id front side and  from camera
-                    GalleryFinal.openCamera(AppKeyMap.DONUT, functionConfig, this);
-                } else if (photoFlag == ID_BACK) {
-                    //id back side and from camera
-                    GalleryFinal.openCamera(AppKeyMap.FROYO, functionConfig, this);
-                }
+                cameraTools = new CameraTools();
+                cameraTools.takePhoto(this, photoFlag);
+//                if (photoFlag == AVATAR) {
+//                    //avatar and from camera
+//
+//                } else if (photoFlag == ID_FONT) {
+//                    //id front side and  from camera
+//                    GalleryFinal.openCamera(AppKeyMap.DONUT, functionConfig, this);
+//                } else if (photoFlag == ID_BACK) {
+//                    //id back side and from camera
+//                    GalleryFinal.openCamera(AppKeyMap.FROYO, functionConfig, this);
+//                }
                 break;
             case ALBUM:
                 if (photoFlag == AVATAR) {//avatar and from album
-                    GalleryFinal.openGalleryMuti(AppKeyMap.CUPCAKE, 1, this);
+                    GalleryFinal.openGallerySingle(AppKeyMap.CUPCAKE, this);
                 } else if (photoFlag == ID_FONT) {//id front side and from album
-                    GalleryFinal.openGalleryMuti(AppKeyMap.DONUT, 1, this);
+                    GalleryFinal.openGallerySingle(AppKeyMap.DONUT, this);
                 } else if (photoFlag == ID_BACK) {//id back side and from album
-                    GalleryFinal.openGalleryMuti(AppKeyMap.FROYO, 1, this);
+                    GalleryFinal.openGallerySingle(AppKeyMap.FROYO, this);
                 }
                 break;
         }
@@ -352,15 +384,6 @@ public class CompleteInfoActivity extends BaseAty<BaseBean, BaseBean> implements
         return true;
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            AppTools.showNormalSnackBar(completeInfoLayout.getRoot(), getString(R.string
-                    .organizing_please_complete_your_profile_first));
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
 
     @Override
     public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {

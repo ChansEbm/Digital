@@ -7,10 +7,12 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.github.pwittchen.prefser.library.Prefser;
+import com.szbb.pro.BuildConfig;
 import com.szbb.pro.R;
 import com.szbb.pro.adapters.LaunchAdapter;
 import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.databinding.LaunchLayout;
+import com.szbb.pro.test.TestAty;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.ui.activity.login.LoginActivity;
 import com.szbb.pro.widget.Indicator;
@@ -65,7 +67,10 @@ public class LaunchActivity extends BaseAty {
     private void startMainActivity() {
         Intent intent = new Intent();
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.setClass(this, LoginActivity.class);
+        if (BuildConfig.isDebug)
+            intent.setClass(this, TestAty.class);
+        else
+            intent.setClass(this, LoginActivity.class);
         startActivity(intent);
         this.finish();
     }

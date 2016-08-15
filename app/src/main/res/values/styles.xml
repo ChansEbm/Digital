@@ -31,8 +31,8 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">15sp</item>
-        <item name="android:layout_marginStart">@dimen/large_margin_15dp</item>
-        <item name="android:layout_marginEnd">@dimen/large_margin_15dp</item>
+        <item name="android:layout_marginLeft">@dimen/large_margin_15dp</item>
+        <item name="android:layout_marginRight">@dimen/large_margin_15dp</item>
         <item name="android:background">@drawable/bg_round_normal_blue_dark_selector</item>
     </style>
 
@@ -115,18 +115,35 @@
         <item name="progressBarImageScaleType">centerInside</item>
     </style>
 
-    <style name="RbMainTab">
+    <style name="RbMainTab" parent="Base.Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:layout_marginTop">8.2dp</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
         <item name="android:paddingTop">@dimen/small_margin_5dp</item>
         <item name="android:button">@null</item>
-        <item name="android:drawablePadding">@dimen/small_margin_5dp</item>
         <item name="android:gravity">center</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:textColor">@drawable/main_tab_selector</item>
-        <item name="android:paddingBottom">5dp</item>
         <item name="android:background">@drawable/bg_white_gravy_selector</item>
+    </style>
+
+    <style name="RbGrabTab" parent="Base.Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@drawable/grab_tab_selector</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="RbGrabTabLine">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">#e9e9e9</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
     </style>
 
     <!-- 对话框样式 -->
@@ -138,6 +155,33 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="DeleterLayout">
+        <item name="deleter_adderBitmapRes">@mipmap/ic_add_default</item>
+        <item name="deleter_hasAdderIcon">true</item>
+        <item name="deleter_deleteBitmapRes">@mipmap/ic_cancel</item>
+        <item name="deleter_maxLimit">8</item>
+        <item name="android:background">@color/color_white</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:scrollbars">none</item>
+        <item name="deleter_height">@dimen/default_deleter_height</item>
+        <item name="deleter_width">@dimen/default_deleter_width</item>
+        <item name="deleter_margin">@dimen/middle_margin_10dp</item>
+    </style>
+
+    <style name="tagStyle" parent="android:Widget.TextView">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">16.5dp</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+
+    <style name="wrap">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
 </resources>

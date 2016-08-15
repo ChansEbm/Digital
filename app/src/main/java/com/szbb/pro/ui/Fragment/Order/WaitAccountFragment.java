@@ -14,10 +14,11 @@ import com.szbb.pro.OrderBaseLayout;
 import com.szbb.pro.R;
 import com.szbb.pro.adapters.CommonBinderAdapter;
 import com.szbb.pro.adapters.CommonBinderHolder;
-import com.szbb.pro.base.BaseFgm;
 import com.szbb.pro.broadcast.UpdateUIBroadcast;
+import com.szbb.pro.entity.eventbus.SearchGod;
 import com.szbb.pro.entity.order.MyOrderBean;
 import com.szbb.pro.eum.NetworkParams;
+import com.szbb.pro.manager.SearcherManager;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.ui.activity.orders.operating.OrderDetailActivity;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
@@ -25,38 +26,47 @@ import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 import java.util.List;
 
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by ChanZeeBm on 2015/9/19.
  */
 //待结算
-public class WaitAccountFragment extends BaseFgm<MyOrderBean, MyOrderBean.ListEntity> implements
+public class WaitAccountFragment
+        extends OrderSearchBaseFragment<MyOrderBean, MyOrderBean.ListEntity>
+        implements
         BGARefreshLayout
                 .BGARefreshLayoutDelegate {
     private OrderBaseLayout orderBaseLayout;
     private RecyclerView recyclerView;
     private BGARefreshLayout refreshLayout;
     private int page = 1;
-    private int pageSize = 20;
+    private int pageSize = 100;
     private MyOrderBean myOrderBean;
     private UpdateUIBroadcast updateUIBroadcast = new UpdateUIBroadcast();
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate (@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         updateUIBroadcast.setListener(this);
-        AppTools.registerBroadcast(updateUIBroadcast, AppKeyMap.WAITING_COST_ACTION);
+        AppTools.registerBroadcast(updateUIBroadcast,
+                                   AppKeyMap.WAITING_COST_ACTION);
+//        EventBus.getDefault()
+//                .register(this);
     }
 
     @Override
-    protected void initViews() {
+    protected void initViews () {
         orderBaseLayout = (OrderBaseLayout) viewDataBinding;
         recyclerView = orderBaseLayout.include.recyclerView;
         refreshLayout = orderBaseLayout.include.refreshLayout;
-        commonBinderAdapter = new CommonBinderAdapter<MyOrderBean.ListEntity>(getActivity(), R
-                .layout.item_waiting_account, list) {
+        commonBinderAdapter = new CommonBinderAdapter<MyOrderBean.ListEntity>(getActivity(),
+                                                                              R
+                                                                                      .layout
+                                                                                      .item_waiting_account,
+                                                                              list) {
             @Override
-            public void onBind(ViewDataBinding viewDataBinding, CommonBinderHolder holder, int
+            public void onBind (ViewDataBinding viewDataBinding, CommonBinderHolder holder, int
                     position, MyOrderBean.ListEntity listEntity) {
                 ItemWaitingAccountLayout waitingAccountLayout = (ItemWaitingAccountLayout)
                         viewDataBinding;
@@ -66,64 +76,85 @@ public class WaitAccountFragment extends BaseFgm<MyOrderBean, MyOrderBean.ListEn
     }
 
     @Override
-    protected void initEvents() {
+    protected void initEvents () {
         recyclerView.setAdapter(commonBinderAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity())
-                .sizeResId(R.dimen.large_margin_15dp).color(android.R.color.transparent)
-                .build());
+                                               .sizeResId(R.dimen.large_margin_15dp)
+                                               .color(android.R.color.transparent)
+                                               .build());
         commonBinderAdapter.setBinderOnItemClickListener(this);
-        AppTools.defaultRefresh(refreshLayout, this);
-        networkModel.myOrderList("3", "", "", NetworkParams.CUPCAKE);
+        AppTools.defaultRefresh(refreshLayout,
+                                this);
+        networkModel.myOrderList("3",
+                                 "",
+                                 "",
+                                 NetworkParams.CUPCAKE);
     }
 
     @Override
-    protected void noNetworkStatus() {
+    protected void noNetworkStatus () {
         refreshLayout.endLoadingMore();
         refreshLayout.endRefreshing();
     }
 
     @Override
-    protected void onClick(int id, View view) {
+    protected void onClick (int id, View view) {
 
     }
 
     @Override
-    protected int getContentView() {
+    protected int getContentView () {
         return R.layout.fgm_order_base;
     }
 
     @Override
-    public void onBinderItemClick(View view, int pos) {
-        super.onBinderItemClick(view, pos);
-        final String orderid = list.get(pos).getOrderid();
-        startActivity(new Intent().setClass(getActivity(), OrderDetailActivity.class).putExtra
-                ("orderId", orderid));
+    public void onBinderItemClick (View view, int pos) {
+        super.onBinderItemClick(view,
+                                pos);
+        MyOrderBean.ListEntity entity = list.get(pos);
+        final String orderid = entity
+                .getOrderid();
+        String unread = entity.getUnread();
+
+        startActivity(new Intent().setClass(getActivity(),
+                                            OrderDetailActivity.class)
+                                  .putExtra("orderId",
+                                            orderid)
+                                  .putExtra("unread",
+                                            unread));
     }
 
     @Override
-    public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout bgaRefreshLayout) {
+    public void onBGARefreshLayoutBeginRefreshing (BGARefreshLayout bgaRefreshLayout) {
         page = 1;
-        pageSize = 20;
-        networkModel.myOrderList("3", page + "", pageSize + "", NetworkParams.DONUT);
+        pageSize = 100;
+        networkModel.myOrderList("3",
+                                 page + "",
+                                 pageSize + "",
+                                 NetworkParams.DONUT);
     }
 
     @Override
-    public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout bgaRefreshLayout) {
+    public boolean onBGARefreshLayoutBeginLoadingMore (BGARefreshLayout bgaRefreshLayout) {
         if (myOrderBean.getIsNext() == 1) {
             page++;
             pageSize += 10;
-            networkModel.myOrderList("3", page + "", pageSize + "", NetworkParams.FROYO);
+            networkModel.myOrderList("3",
+                                     page + "",
+                                     pageSize + "",
+                                     NetworkParams.FROYO);
         } else {
-            AppTools.showNormalSnackBar(orderBaseLayout.getRoot(), getString(R.string.no_more)
-            );
+            AppTools.showNormalSnackBar(orderBaseLayout.getRoot(),
+                                        getString(R.string.no_more)
+                                       );
             return false;
         }
         return true;
     }
 
     @Override
-    public void onJsonObjectSuccess(MyOrderBean myOrderBean, NetworkParams paramsCode) {
+    public void onJsonObjectSuccess (MyOrderBean myOrderBean, NetworkParams paramsCode) {
         this.myOrderBean = myOrderBean;
         switch (paramsCode) {
             case CUPCAKE://the first time load
@@ -133,21 +164,49 @@ public class WaitAccountFragment extends BaseFgm<MyOrderBean, MyOrderBean.ListEn
                 break;
         }
         final List<MyOrderBean.ListEntity> list = myOrderBean.getList();
-        if (list.isEmpty() && this.list.isEmpty())
+        if (list.isEmpty() && this.list.isEmpty()) {
             orderBaseLayout.include.emptyView2.setVisibility(View.VISIBLE);
-        else
+        } else {
             orderBaseLayout.include.emptyView2.setVisibility(View.GONE);
+        }
         this.list.addAll(list);
+        saveListToLocal(WAITACCOUNTKEY);
         commonBinderAdapter.notifyDataSetChanged();
         refreshLayout.endLoadingMore();
         refreshLayout.endRefreshing();
     }
 
     @Override
-    public void uiUpData(Intent intent) {
+    public void uiUpData (Intent intent) {
+        super.uiUpData(intent);
         final String action = intent.getAction();
         if (action.equals(AppKeyMap.WAITING_COST_ACTION)) {
-            networkModel.myOrderList("3", "", "", NetworkParams.CUPCAKE);
+            networkModel.myOrderList("3",
+                                     "",
+                                     "100",
+                                     NetworkParams.CUPCAKE);
         }
+    }
+
+    @Override
+    public void searchResult (List<MyOrderBean.ListEntity> list) {
+        this.list.clear();
+        this.list.addAll(list);
+        commonBinderAdapter.notifyDataSetChanged();
+    }
+
+    public void onEvent (SearchGod searchGod) {
+        if (searchGod.isSelf(this)) {
+            SearcherManager.searchItems(this,
+                                        getLocalList(WAITACCOUNTKEY),
+                                        searchGod.getSearchFields());
+        }
+    }
+
+    @Override
+    public void onDestroy () {
+        super.onDestroy();
+        EventBus.getDefault()
+                .unregister(this);
     }
 }

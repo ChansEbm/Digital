@@ -63,6 +63,7 @@ public class AccountCementBean extends BaseBean {
         private String summary;
         private String addtime;
         private String url;
+        private String is_video;
 
         @Bindable
         public String getAnnid() {
@@ -116,6 +117,14 @@ public class AccountCementBean extends BaseBean {
 
         public void setUrl(String url) {
             this.url = url;
+        }
+
+        public String getIs_video () {
+            return is_video;
+        }
+
+        public void setIs_video (String is_video) {
+            this.is_video = is_video;
         }
     }
 }

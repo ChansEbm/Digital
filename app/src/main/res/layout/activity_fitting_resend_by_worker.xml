@@ -86,25 +86,9 @@
                             style="@style/textStyle"
                             android:text="@string/old_photo" />
 
-                        <HorizontalScrollView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="@dimen/small_margin_5dp"
-                            android:scrollbars="none">
-
-                            <LinearLayout
-                                android:id="@+id/llyt_upload_pic"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal">
-
-                                <include
-                                    android:id="@+id/add"
-                                    layout="@layout/item_pics" />
-
-                            </LinearLayout>
-                        </HorizontalScrollView>
+                        <com.szbb.pro.widget.deleter.DeleterScrollLayout
+                            android:id="@+id/worker_deleterScrollLayout"
+                            style="@style/DeleterLayout" />
                     </LinearLayout>
 
                     <LinearLayout

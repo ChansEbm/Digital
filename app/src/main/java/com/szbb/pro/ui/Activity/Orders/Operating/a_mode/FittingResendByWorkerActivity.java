@@ -39,11 +39,13 @@ import com.szbb.pro.ui.activity.main.MainActivity;
 import com.szbb.pro.ui.activity.orders.operating.OrderDetailActivity;
 import com.szbb.pro.widget.PopupWindow.PhotoPopupWindow;
 import com.szbb.pro.widget.PopupWindow.WheelPopupWindow;
+import com.szbb.pro.widget.deleter.DeleterHandlerCallback;
 
 import org.solovyev.android.views.llm.LinearLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import cn.finalteam.galleryfinal.FunctionConfig;
 import cn.finalteam.galleryfinal.GalleryFinal;
@@ -54,15 +56,13 @@ import cn.finalteam.galleryfinal.model.PhotoInfo;
  */
 public class FittingResendByWorkerActivity extends BaseAty<BaseBean, FittingDetailBean.DataEntity
         .AcceListEntity> implements OnWheelOptsSelectCallback, InputCallBack, RadioGroup
-        .OnCheckedChangeListener, OnPhotoOptsSelectListener, OnAddPictureDoneListener {
+        .OnCheckedChangeListener, DeleterHandlerCallback {
     private FittingResendByWorkerLayout fittingResendByWorkerLayout;
     private FittingResendBean fittingResendBean = new FittingResendBean();
     private RecyclerView recyclerView;
     private WheelPopupWindow deliveryWheel;
     private ArrayList<String> alreadyAddPic = new ArrayList<>();
     private String acceId = "";
-
-    private PhotoPopupWindow photoPopupWindow;
     private ExpressComBean expressComBean = new ExpressComBean();
 
     @Override
@@ -77,7 +77,6 @@ public class FittingResendByWorkerActivity extends BaseAty<BaseBean, FittingDeta
     protected void initViews() {
         defaultTitleBar(this).setTitle(R.string.title_fitting_resend);
         deliveryWheel = new WheelPopupWindow(this);
-        photoPopupWindow = new PhotoPopupWindow(this);
         recyclerView = fittingResendByWorkerLayout.recyclerView;
 
         commonBinderAdapter = new CommonBinderAdapter<FittingDetailBean.DataEntity
@@ -106,10 +105,9 @@ public class FittingResendByWorkerActivity extends BaseAty<BaseBean, FittingDeta
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         fittingResendByWorkerLayout.radioGroup.setOnCheckedChangeListener(this);
-        photoPopupWindow.setOnPhotoOptsSelectListener(this);
         fittingResendByWorkerLayout.statusBar.setTextArr(R.array.fitting_receipting);
         fittingResendByWorkerLayout.statusBar.setProgress(3);
-        fittingResendByWorkerLayout.add.simpleDraweeView.setTag("add");
+        fittingResendByWorkerLayout.workerDeleterScrollLayout.setDeleterHandlerCallback(this);
         fittingResendBean.setShippingPayType("1");
         fittingResendByWorkerLayout.setResend(fittingResendBean);
         networkModel.getFactoryAddress(getIntent().getStringExtra("orderId"), NetworkParams
@@ -137,17 +135,13 @@ public class FittingResendByWorkerActivity extends BaseAty<BaseBean, FittingDeta
     @Override
     protected void onClick(int id, View view) {
         switch (id) {
-            case R.id.simpleDraweeView:
-                if (!TextUtils.isEmpty((CharSequence) view.getTag()))
-                    photoPopupWindow.showAtDefaultLocation();
-                break;
             case R.id.flyt_shipment:
                 deliveriesData();
                 break;
             case R.id.rylt_scan:
-                InputDialog inputDialog = new InputDialog(this, true);
+                InputDialog inputDialog = new InputDialog(this, false);
                 inputDialog.setInputCallBack(this);
-                inputDialog.setParams(NetworkParams.DONUT);
+                inputDialog.setParams(NetworkParams.GINGERBREAD);
                 inputDialog.setTitle(getString(R.string.delivery_number));
                 inputDialog.show();
                 break;
@@ -219,7 +213,7 @@ public class FittingResendByWorkerActivity extends BaseAty<BaseBean, FittingDeta
             case CUPCAKE://means cost
                 fittingResendBean.setShippingCost(word);
                 break;
-            case DONUT://means scan code
+            case GINGERBREAD://means scan code
                 fittingResendBean.setShippingNum(word);
                 networkModel.getExpressCom(word, NetworkParams.GINGERBREAD);//获取快递公司信息
                 break;
@@ -238,62 +232,13 @@ public class FittingResendByWorkerActivity extends BaseAty<BaseBean, FittingDeta
                 break;
             case R.id.rb_cash_on_delivery:
                 Toast.makeText(FittingResendByWorkerActivity.this,
-                        "根据厂家的要求，请您在返回配件时先预付运费，您预付的运费将和本工单维修费用一起结算，给您带来不便敬请谅解，谢谢您的支持！", Toast
+                        "由于到付的运费金额较高，厂家希望维修商先预付配件返厂运费，您预付的运费将和本工单维修费用一起结算，谢谢您的支持！", Toast
                                 .LENGTH_LONG).show();
                 fittingResendBean.setShippingPayType("2");
                 break;
         }
     }
 
-    @Override
-    public void onOptsSelect(PhotoPopupOpts opts) {
-        if (alreadyAddPic.size() == 5) {
-            AppTools.showNormalSnackBar(parentView, "不可添加更多图片");
-            return;
-        }
-        switch (opts) {
-            case ALBUM:
-                FunctionConfig functionConfig = new FunctionConfig.Builder()
-                        .setMutiSelectMaxSize(5).setSelected(alreadyAddPic).build();
-                GalleryFinal.openGalleryMuti(AppKeyMap.CUPCAKE, functionConfig, this);
-                break;
-            case TAKE_PHOTO:
-                GalleryFinal.openCamera(AppKeyMap.DONUT, this);
-                break;
-        }
-    }
-
-    @Override
-    public void onHanlderSuccess(int requestCode, List<PhotoInfo> resultList) {
-        super.onHanlderSuccess(requestCode, resultList);
-        MarkPictureModel markPictureModel = new MarkPictureModel();
-        markPictureModel.setOnAddPictureDoneListener(this);
-        for (PhotoInfo photoInfo : resultList) {
-            if (!alreadyAddPic.contains(photoInfo.getPhotoPath())) {
-                markPictureModel.savePicturePath(photoInfo.getPhotoPath());
-                alreadyAddPic.add(photoInfo.getPhotoPath());
-            }
-            markPictureModel.addSinglePictureInLinearLayout(this,
-                    fittingResendByWorkerLayout.llytUploadPic, false);
-        }
-    }
-
-    @Override
-    public void onAddPictureDone(View picParentView, int childViewCount) {
-
-    }
-
-    @Override
-    public void onDeletePictureDone(View deleteView, int childViewCount, int childPosition, int
-            tagPos) {
-        for (String s : alreadyAddPic) {
-            String tag = (String) deleteView.getTag();
-            if (TextUtils.equals(s, tag)) {
-                alreadyAddPic.remove(s);
-                break;
-            }
-        }
-    }
 
     @Override
     public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {
@@ -333,7 +278,6 @@ public class FittingResendByWorkerActivity extends BaseAty<BaseBean, FittingDeta
         if (list.size() == 0) {//如果只有一个 则直接录入
             fittingResendBean.setShippingType(list.get(0).getComName());
             fittingResendBean.setShippingTypeCom(list.get(0).getComCode());
-            return;
         }
         String[] deliveries = new String[list.size()];
         for (int i = 0; i < list.size(); i++) {//遍历返回的存在的多个快递公司
@@ -345,5 +289,11 @@ public class FittingResendByWorkerActivity extends BaseAty<BaseBean, FittingDeta
         deliveryWheel.setPopupTitle(getString(R.string.delivery_way));
         deliveryWheel.setOnWheelOptsSelectCallback(this);
         deliveryWheel.showAtDefaultLocation();
+    }
+
+    @Override
+    public void success(Set<Integer> keySet, List<String> photoPaths) {
+        this.alreadyAddPic.clear();
+        this.alreadyAddPic.addAll(photoPaths);
     }
 }

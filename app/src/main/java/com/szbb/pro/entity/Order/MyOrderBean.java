@@ -1,22 +1,38 @@
 package com.szbb.pro.entity.order;
 
-import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.databinding.BindingAdapter;
+import android.support.annotation.IntDef;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.view.View;
 
+import com.szbb.pro.BR;
 import com.szbb.pro.entity.base.BaseBean;
 import com.szbb.pro.tools.AppTools;
+import com.szbb.pro.widget.CircleView;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.List;
 
 /**
  * Created by ChanZeeBm on 2015/12/28.
  */
 public class MyOrderBean extends BaseBean {
-    private CondEntity cond;
 
+    public final static int NEWORDER = 1;
+    public final static int SERVICED = 2;
+    public final static int COUNTINT = 3;
+
+    @IntDef(value = {NEWORDER, SERVICED, COUNTINT})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface type {
+
+    }
+
+    private CondEntity cond;
 
     private List<ListEntity> list;
 
@@ -48,7 +64,7 @@ public class MyOrderBean extends BaseBean {
         }
     }
 
-    public static class ListEntity extends BaseObservable {
+    public static class ListEntity extends BaseBean {
         private String orderid;
         private String sn;
         private String drop_time = "";//新工单才有数据
@@ -75,6 +91,19 @@ public class MyOrderBean extends BaseBean {
         private String service_pro_stantard;
         private String service_pro_model;
         private String is_more_pro;
+        private String unread = "0";
+        private String identifier;
+
+        @BindingAdapter({"app:unreadTag"})
+        public static void unreadTag(CircleView circleView, String unread) {
+            assert circleView != null;
+            if (TextUtils.isEmpty(unread) || TextUtils.equals("0", unread)) {
+                circleView.setVisibility(View.INVISIBLE);
+            } else {
+                circleView.setVisibility(View.VISIBLE);
+                circleView.setCircleText(unread);
+            }
+        }
 
         @Bindable
         public String getOrderid() {
@@ -300,13 +329,13 @@ public class MyOrderBean extends BaseBean {
                             "color=\"#ff9000" +
                             "\">" + result + "</font>");
                 }
-            } else if (TextUtils.equals(isSignIn, "1"))
+            } else if (TextUtils.equals(isSignIn, "1")) {
                 this.sign_in_desc = Html.fromHtml("<font color=\"#a0a0a0\">已于" + sign_in_time +
                         "</font><font " +
                         "color=\"#ff9000\">签到成功</font>");
-            else if (TextUtils.equals(isSignIn, "2"))
+            } else if (TextUtils.equals(isSignIn, "2")) {
                 this.sign_in_desc = Html.fromHtml("<font color=\"#ff9000\">签到失败</font>");
-            else  if(TextUtils.equals(isSignIn, "3")){
+            } else if (TextUtils.equals(isSignIn, "3")) {
                 this.sign_in_desc = Html.fromHtml("<font color=\"#ff9000\">签到已超时</font>");
             }
             return sign_in_desc;
@@ -321,13 +350,34 @@ public class MyOrderBean extends BaseBean {
             this.complete_time = complete_time;
         }
 
-
         @Bindable
         public Spanned getOrder_handle_desc_in_color() {
             order_handle_desc_in_color = Html.fromHtml("<font color='#ff9000'>" +
                     getOrder_handle_desc()
                     + "</font>");
             return order_handle_desc_in_color;
+        }
+
+        public String getSearchField() {
+            return sn + service_pro_brand + service_pro_stantard + service_pro_model + nickname + tel + address;
+        }
+
+        @Bindable
+        public String getUnread() {
+            return unread;
+        }
+
+        public void setUnread(String unread) {
+            this.unread = unread;
+            notifyPropertyChanged(BR.unread);
+        }
+
+        public String getIdentifier() {
+            return identifier;
+        }
+
+        public void setIdentifier(String identifier) {
+            this.identifier = identifier;
         }
     }
 }

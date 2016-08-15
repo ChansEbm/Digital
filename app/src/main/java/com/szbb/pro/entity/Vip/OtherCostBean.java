@@ -1,6 +1,7 @@
 package com.szbb.pro.entity.vip;
 
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 
 import com.szbb.pro.entity.base.BaseBean;
 
@@ -20,11 +21,11 @@ public class OtherCostBean extends BaseBean {
 
     private List<ListEntity> list;
 
-    public void setList(List<ListEntity> list) {
+    public void setList (List<ListEntity> list) {
         this.list = list;
     }
 
-    public List<ListEntity> getList() {
+    public List<ListEntity> getList () {
         return list;
     }
 
@@ -33,37 +34,49 @@ public class OtherCostBean extends BaseBean {
         private String money;
         private String status_desc;
         private String addtime;
+        private String order_id;
 
-        public void setOcostid(String ocostid) {
+        public void setOcostid (String ocostid) {
             this.ocostid = ocostid;
         }
 
-        public void setMoney(String money) {
+        public void setMoney (String money) {
             this.money = money;
         }
 
-        public void setStatus_desc(String status_desc) {
+        public void setStatus_desc (String status_desc) {
             this.status_desc = status_desc;
         }
 
-        public void setAddtime(String addtime) {
+        public void setAddtime (String addtime) {
             this.addtime = addtime;
         }
 
-        public String getOcostid() {
+        public String getOcostid () {
             return ocostid;
         }
 
-        public String getMoney() {
+        @Bindable
+        public String getMoney () {
             return money;
         }
 
-        public String getStatus_desc() {
+        @Bindable
+        public String getStatus_desc () {
             return status_desc;
         }
 
-        public String getAddtime() {
+        @Bindable
+        public String getAddtime () {
             return addtime;
+        }
+
+        public String getOrder_id () {
+            return order_id;
+        }
+
+        public void setOrder_id (String order_id) {
+            this.order_id = order_id;
         }
     }
 }

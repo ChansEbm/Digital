@@ -5,11 +5,10 @@
 
         <variable
             name="customer"
-            type="com.szbb.pro.entity.fittings.CustomerAddressBean.DataEntity"/>
+            type="com.szbb.pro.entity.fittings.CustomerAddressBean.DataEntity" />
     </data>
 
-    <FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -23,7 +22,7 @@
             android:background="@color/color_bg_gravy"
             android:orientation="vertical">
 
-            <include layout="@layout/title_bar"/>
+            <include layout="@layout/title_bar" />
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -41,12 +40,12 @@
                         android:layout_marginStart="@dimen/large_margin_15dp"
                         android:gravity="center"
                         android:text="@string/fitting_lists"
-                        android:textColor="@color/color_text_gravy"/>
+                        android:textColor="@color/color_text_gravy" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recyclerView"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -58,20 +57,20 @@
                             style="@style/textStyle"
                             android:gravity="center"
                             android:text="@string/total_count"
-                            android:textColor="@color/color_text_gravy"/>
+                            android:textColor="@color/color_text_gravy" />
 
                         <TextView
                             android:id="@+id/tv_num"
                             style="@style/textStyle"
                             android:layout_marginEnd="@dimen/small_margin_5dp"
                             android:gravity="center"
-                            android:textColor="@color/color_text_gravy"/>
+                            android:textColor="@color/color_text_gravy" />
 
                         <TextView
                             style="@style/textStyle"
                             android:gravity="center"
                             android:text="件"
-                            android:textColor="@color/color_text_gravy"/>
+                            android:textColor="@color/color_text_gravy" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -87,42 +86,14 @@
 
                         <TextView
                             style="@style/textStyle"
-                            android:text="@string/old_photo"/>
+                            android:text="@string/old_photo" />
 
-                        <HorizontalScrollView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="@dimen/small_margin_5dp"
-                            android:scrollbars="none">
-
-                            <LinearLayout
-                                android:id="@+id/llyt_upload_pic"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal">
-
-                                <include
-                                    android:id="@+id/font"
-                                    layout="@layout/item_pics"/>
-
-                                <include
-                                    android:id="@+id/back"
-                                    layout="@layout/item_pics"/>
-
-                                <include
-                                    android:id="@+id/model"
-                                    layout="@layout/item_pics"/>
-
-                                <include
-                                    android:id="@+id/add"
-                                    layout="@layout/item_pics"/>
-                            </LinearLayout>
-                        </HorizontalScrollView>
+                        <com.szbb.pro.widget.deleter.DeleterScrollLayout
+                            android:id="@+id/apply_deleterScrollLayout"
+                            style="@style/DeleterLayout" />
                     </LinearLayout>
 
-                    <include
-                        layout="@layout/line"/>
+                    <include layout="@layout/line" />
 
                     <LinearLayout
                         android:id="@+id/llyt_report"
@@ -134,17 +105,16 @@
                         android:onClick="onClick"
                         android:orientation="horizontal"
                         android:paddingEnd="@dimen/large_margin_15dp"
-                        android:paddingStart="@dimen/large_margin_15dp"
-                        >
+                        android:paddingStart="@dimen/large_margin_15dp">
 
                         <TextView
                             style="@style/textStyle"
-                            android:text="@string/fitting_leave_supplier_message"/>
+                            android:text="@string/fitting_leave_supplier_message" />
 
                         <TextView
                             android:id="@+id/tv_message"
                             style="@style/textStyle"
-                            android:layout_marginStart="@dimen/small_margin_5dp"/>
+                            android:layout_marginStart="@dimen/small_margin_5dp" />
                     </LinearLayout>
 
                     <TextView
@@ -153,7 +123,7 @@
                         android:layout_marginStart="@dimen/large_margin_15dp"
                         android:gravity="center"
                         android:text="@string/fitting_worker_new_address"
-                        android:textColor="@color/color_text_gravy"/>
+                        android:textColor="@color/color_text_gravy" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -166,7 +136,7 @@
                             style="@style/textStyle"
                             android:layout_marginTop="@dimen/middle_margin_10dp"
                             android:text="@{customer.nickname}"
-                            android:textColor="@color/color_text_gravy"/>
+                            android:textColor="@color/color_text_gravy" />
 
                         <TextView
                             style="@style/textStyle"
@@ -174,7 +144,7 @@
                             android:layout_marginStart="@dimen/middle_margin_10dp"
                             android:layout_toEndOf="@id/tv_t8"
                             android:text="@{customer.telephone}"
-                            android:textColor="@color/color_text_gravy"/>
+                            android:textColor="@color/color_text_gravy" />
 
                         <TextView
                             android:id="@+id/tv_t9"
@@ -182,7 +152,7 @@
                             android:layout_below="@id/tv_t8"
                             android:layout_marginTop="@dimen/middle_margin_10dp"
                             android:text="@string/address"
-                            android:textColor="@color/color_text_gravy"/>
+                            android:textColor="@color/color_text_gravy" />
 
                         <Button
                             android:id="@+id/btn_edit"
@@ -194,7 +164,7 @@
                             android:background="@drawable/bg_round_orange_dark_disable_sliver"
                             android:onClick="onClick"
                             android:text="@string/edit"
-                            android:textColor="@color/color_white"/>
+                            android:textColor="@color/color_white" />
 
                         <TextView
                             android:id="@+id/tv_t1"
@@ -204,8 +174,7 @@
                             android:layout_toEndOf="@id/tv_t9"
                             android:layout_toStartOf="@id/btn_edit"
                             android:text="@{customer.area_ids_desc+customer.address}"
-                            android:textColor="@color/color_text_gravy"
-                            />
+                            android:textColor="@color/color_text_gravy" />
 
                     </RelativeLayout>
 
@@ -220,7 +189,7 @@
                 android:background="@drawable/bg_round_normal_blue_dark_selector"
                 android:onClick="onClick"
                 android:text="@string/submit"
-                android:textColor="@color/color_white"/>
+                android:textColor="@color/color_white" />
         </LinearLayout>
 
     </FrameLayout>

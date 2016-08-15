@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:ignore="RtlCompat">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="RtlCompat">
 
-    <data class=".ExpensesApplyLayout"/>
+    <data class=".ExpensesApplyLayout" />
+
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/theme_primary"
-        android:onClick="onClick"
-        >
+        android:onClick="onClick">
 
 
         <LinearLayout
@@ -19,7 +20,7 @@
             android:background="@color/color_bg_gravy"
             android:orientation="vertical">
 
-            <include layout="@layout/title_bar"/>
+            <include layout="@layout/title_bar" />
 
 
             <LinearLayout
@@ -40,7 +41,7 @@
                     <TextView
                         style="@style/textStyle"
                         android:layout_centerVertical="true"
-                        android:text="@string/expenses_apply_type"/>
+                        android:text="@string/expenses_apply_type" />
 
                     <ImageView
                         android:id="@+id/iv_i1"
@@ -48,19 +49,18 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:src="@mipmap/ic_arrow_down"/>
+                        android:src="@mipmap/ic_arrow_down" />
 
                     <TextView
                         android:id="@+id/tv_type"
                         style="@style/textStyle"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="@dimen/small_margin_5dp"
-                        android:layout_toStartOf="@id/iv_i1"
-                        />
+                        android:layout_toStartOf="@id/iv_i1" />
                 </RelativeLayout>
 
 
-                <include layout="@layout/line"/>
+                <include layout="@layout/line" />
 
 
                 <RelativeLayout
@@ -75,8 +75,7 @@
                         android:id="@+id/tv_t2"
                         style="@style/textStyle"
                         android:layout_centerVertical="true"
-                        android:text="@string/expenses_apply_price"
-                        />
+                        android:text="@string/expenses_apply_price" />
 
                     <TextView
                         android:id="@+id/tv_expenses"
@@ -85,36 +84,23 @@
                         android:layout_marginEnd="@dimen/small_margin_5dp"
                         android:layout_marginStart="@dimen/small_margin_5dp"
                         android:layout_toEndOf="@id/tv_t2"
-                        android:textColor="@color/color_text_red"
-                        />
+                        android:textColor="@color/color_text_red" />
                 </RelativeLayout>
 
-                <include layout="@layout/line"/>
+                <include layout="@layout/line" />
 
-                <HorizontalScrollView
+                <com.szbb.pro.widget.deleter.DeleterScrollLayout
+                    android:id="@+id/expenses_deleterScrollLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="124dp"
-                    android:background="@color/color_white">
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_white"
+                    app:deleter_adderBitmapRes="@mipmap/ic_add_default"
+                    app:deleter_deleteBitmapRes="@mipmap/ic_cancel"
+                    app:deleter_hasAdderIcon="true"
+                    app:deleter_height="70dp"
+                    app:deleter_width="70dp" />
 
-                    <LinearLayout
-                        android:id="@+id/llyt_upload_pic"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingEnd="@dimen/large_margin_15dp"
-                        android:paddingStart="@dimen/large_margin_15dp">
-
-                        <Button
-                            android:id="@+id/btn_add_pic"
-                            android:layout_width="76dp"
-                            android:layout_height="76dp"
-                            android:background="@mipmap/ic_add_default"
-                            />
-                    </LinearLayout>
-                </HorizontalScrollView>
-
-                <include layout="@layout/line"/>
+                <include layout="@layout/line" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -126,8 +112,7 @@
                     <TextView
                         android:id="@+id/tv_t3"
                         style="@style/textStyle"
-                        android:text="@string/expenses_apply_reason"
-                        />
+                        android:text="@string/expenses_apply_reason" />
 
                     <EditText
                         android:id="@+id/editText"
@@ -137,16 +122,16 @@
                         android:layout_toEndOf="@id/tv_t3"
                         android:background="@null"
                         android:minHeight="100dp"
-                        android:textColor="@color/color_text_gravy"/>
+                        android:textColor="@color/color_text_gravy" />
                 </RelativeLayout>
 
-                <include layout="@layout/line"/>
+                <include layout="@layout/line" />
 
                 <include
                     layout="@layout/line"
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:layout_marginTop="@dimen/large_margin_15dp"/>
+                    android:layout_marginTop="@dimen/large_margin_15dp" />
             </LinearLayout>
 
             <Button
@@ -154,7 +139,7 @@
                 style="@style/buttonStyle"
                 android:layout_marginBottom="15dp"
                 android:layout_marginTop="@dimen/large_margin_15dp"
-                android:text="@string/submit"/>
+                android:text="@string/submit" />
         </LinearLayout>
     </FrameLayout>
 </layout>

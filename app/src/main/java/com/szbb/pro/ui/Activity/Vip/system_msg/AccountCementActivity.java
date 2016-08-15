@@ -2,9 +2,11 @@ package com.szbb.pro.ui.activity.vip.system_msg;
 
 import android.content.Intent;
 import android.databinding.ViewDataBinding;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.szbb.pro.ItemAccountCementLayout;
@@ -27,21 +29,23 @@ public class AccountCementActivity extends BaseAty<AccountCementBean, AccountCem
     private String type = "";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         recyclerLayout = (MainRecyclerLayout) viewDataBinding;
         type = getIntent().getStringExtra("type");
     }
 
     @Override
-    protected void initViews() {
+    protected void initViews () {
         defaultTitleBar(this);
         switchTitle();
         recyclerView = recyclerLayout.recyclerView;
-        commonBinderAdapter = new CommonBinderAdapter<AccountCementBean.ListEntity>(this, R
-                .layout.item_account_cement, list) {
+        commonBinderAdapter = new CommonBinderAdapter<AccountCementBean.ListEntity>(this,
+                                                                                    R
+                                                                                            .layout.item_account_cement,
+                                                                                    list) {
             @Override
-            public void onBind(ViewDataBinding viewDataBinding, CommonBinderHolder holder, int
+            public void onBind (ViewDataBinding viewDataBinding, CommonBinderHolder holder, int
                     position, AccountCementBean.ListEntity listEntity) {
                 ((ItemAccountCementLayout) viewDataBinding).setCement(listEntity);
             }
@@ -50,19 +54,22 @@ public class AccountCementActivity extends BaseAty<AccountCementBean, AccountCem
 
 
     @Override
-    protected void initEvents() {
+    protected void initEvents () {
         commonBinderAdapter.setBinderOnItemClickListener(this);
 
         recyclerView.setAdapter(commonBinderAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this)
-                .sizeResId(R.dimen.large_margin_15dp).colorResId(R.color.color_transparent).build
-                        ());
+                                               .sizeResId(R.dimen.large_margin_15dp)
+                                               .colorResId(R.color.color_transparent)
+                                               .build
+                                                       ());
 
-        networkModel.announcementList(type, NetworkParams.CUPCAKE);
+        networkModel.announcementList(type,
+                                      NetworkParams.CUPCAKE);
     }
 
-    private void switchTitle() {
+    private void switchTitle () {
         switch (type) {
             case "1":
                 titleBarTools.setTitle(R.string.label_sys_business_msg);
@@ -77,29 +84,41 @@ public class AccountCementActivity extends BaseAty<AccountCementBean, AccountCem
     }
 
     @Override
-    protected int getContentView() {
+    protected int getContentView () {
         return R.layout.main_recycler_view;
     }
 
     @Override
-    protected void onClick(int id, View view) {
+    protected void onClick (int id, View view) {
 
     }
 
     @Override
-    public void onJsonObjectSuccess(AccountCementBean accountCementBean, NetworkParams paramsCode) {
+    public void onJsonObjectSuccess (AccountCementBean accountCementBean,
+                                     NetworkParams paramsCode) {
         final List<AccountCementBean.ListEntity> list = accountCementBean.getList();
-        if (list.isEmpty())
-            recyclerLayout.emptyView.setVisibility(View.VISIBLE);
+        if (list.isEmpty()) { recyclerLayout.emptyView.setVisibility(View.VISIBLE); }
         this.list.addAll(list);
         commonBinderAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void onBinderItemClick(View view, int pos) {
+    public void onBinderItemClick (View view, int pos) {
         final AccountCementBean.ListEntity listEntity = list.get(pos);
         final String url = listEntity.getUrl();
-        startActivity(new Intent().setClass(this, WebViewActivity.class).putExtra("url",
-                url).putExtra("title", getString(R.string.title_detail)));
+        String is_video = listEntity.getIs_video();
+        if (TextUtils.equals(is_video,
+                             "1")) {
+            Intent intent = new Intent("android.intent.action.VIEW");
+            intent.setData(Uri.parse(url));
+            startActivity(intent);
+        } else {
+            startActivity(new Intent().setClass(this,
+                                                WebViewActivity.class)
+                                      .putExtra("url",
+                                                url)
+                                      .putExtra("title",
+                                                getString(R.string.title_detail)));
+        }
     }
 }

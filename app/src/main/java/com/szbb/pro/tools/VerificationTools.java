@@ -76,8 +76,7 @@ public class VerificationTools {
     }
 
     public static boolean verifyVerificationCode(Context context, @NonNull View view, @NonNull
-    String
-            verifyCode) {
+    String verifyCode) {
         if (verifyCode.length() < 6) {
             AppTools.showNormalSnackBar(view, context.getString(R.string.invalid_code));
             return false;
@@ -87,10 +86,8 @@ public class VerificationTools {
 
     public static boolean verifyZipCode(Context context, @NonNull View view, @NonNull
     String zipCode) {
-        if (!zipCode.matches(AppKeyMap.ZIP_CODE_REGEX)) {
-            AppTools.showNormalSnackBar(view, context.getString(R.string.invalid_zip_code));
-        }
-        return zipCode.matches(AppKeyMap.ZIP_CODE_REGEX);
+
+        return true;
     }
 
 }

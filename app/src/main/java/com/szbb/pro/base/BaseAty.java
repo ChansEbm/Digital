@@ -30,6 +30,7 @@ import com.szbb.pro.tools.TitleBarTools;
 import com.szbb.pro.ui.activity.main.ErrorActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
@@ -41,7 +42,9 @@ import cn.sharesdk.framework.ShareSDK;
 /**
  * Created by ChanZeeBm on 2015/9/7.
  */
-public abstract class BaseAty<E extends BaseBean, T> extends AppCompatActivity implements View
+public abstract class BaseAty<E extends BaseBean, T>
+        extends AppCompatActivity
+        implements View
         .OnClickListener,
         BinderOnItemClickListener, OkHttpResponseListener<E>, UpdateUIListener, GalleryFinal
                 .OnHanlderResultCallback {
@@ -51,11 +54,12 @@ public abstract class BaseAty<E extends BaseBean, T> extends AppCompatActivity i
     protected ArrayList<T> list = new ArrayList<>();
     protected TitleBarTools titleBarTools;
     protected ViewDataBinding viewDataBinding;
-    protected NetworkModel networkModel;
     protected UpdateUIBroadcast uiBroadcast;
-
     private boolean isFirstRunnable = true;
+
     public boolean isNeedBackground = true;
+    public NetworkModel networkModel;
+    protected HashMap<String, Object> permissionMap = new HashMap<>();//保存权限管理的键值对
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +69,8 @@ public abstract class BaseAty<E extends BaseBean, T> extends AppCompatActivity i
             isFirstRunnable = savedInstanceState.getBoolean("isFirstRunnable");
         }
         if (getContentView() != 0) {
-            viewDataBinding = DataBindingUtil.setContentView(this, getContentView());
+            viewDataBinding = DataBindingUtil.setContentView(this,
+                    getContentView());
             parentView = viewDataBinding.getRoot();
         } else {
             throw new IllegalStateException("not invoke setContentView");
@@ -74,9 +79,12 @@ public abstract class BaseAty<E extends BaseBean, T> extends AppCompatActivity i
             //            getWindow().addFlags(WindowManager.LayoutParams
             // .FLAG_TRANSLUCENT_NAVIGATION);//虚拟底部
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);//状态栏
-            viewDataBinding.getRoot().setFitsSystemWindows(true);
-            if (isNeedBackground)
-                viewDataBinding.getRoot().setBackgroundResource(R.color.theme_primary);
+            viewDataBinding.getRoot()
+                    .setFitsSystemWindows(true);
+            if (isNeedBackground) {
+                viewDataBinding.getRoot()
+                        .setBackgroundResource(R.color.theme_primary);
+            }
         }
 
         networkModel = new NetworkModel(this);
@@ -86,11 +94,13 @@ public abstract class BaseAty<E extends BaseBean, T> extends AppCompatActivity i
         AppTools.addActivity(this);
         uiBroadcast = new UpdateUIBroadcast();
         uiBroadcast.setListener(this);
-        AppTools.registerBroadcast(uiBroadcast, AppKeyMap.NO_NETWORK_ACTION);
+        AppTools.registerBroadcast(uiBroadcast,
+                AppKeyMap.NO_NETWORK_ACTION);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//竖屏
         //初始化ShareSDK
-        if (!(this instanceof ErrorActivity))
+        if (!(this instanceof ErrorActivity)) {
             ShareSDK.initSDK(this);
+        }
     }
 
     @Override
@@ -127,11 +137,14 @@ public abstract class BaseAty<E extends BaseBean, T> extends AppCompatActivity i
     }
 
     protected void start(Bundle bundle, Class<?> targetClz) {
-        start(new Intent().setClass(this, targetClz).putExtras(bundle));
+        start(new Intent().setClass(this,
+                targetClz)
+                .putExtras(bundle));
     }
 
-    protected void start(Class<?> targetClz, Integer... flags) {
-        Intent intent = new Intent().setClass(this, targetClz);
+    public void start(Class<?> targetClz, Integer... flags) {
+        Intent intent = new Intent().setClass(this,
+                targetClz);
         for (Integer flag : flags) {
             intent.addFlags(flag);
         }
@@ -139,7 +152,8 @@ public abstract class BaseAty<E extends BaseBean, T> extends AppCompatActivity i
     }
 
     protected void start(Class cls) {
-        start(new Intent().setClass(this, cls));
+        start(new Intent().setClass(this,
+                cls));
     }
 
     private void start(Intent intent) {
@@ -147,7 +161,8 @@ public abstract class BaseAty<E extends BaseBean, T> extends AppCompatActivity i
     }
 
     protected <T extends View> T getViewById(int id) {
-        return (T) viewDataBinding.getRoot().findViewById(id);
+        return (T) viewDataBinding.getRoot()
+                .findViewById(id);
     }
 
     protected abstract void initViews();
@@ -155,7 +170,8 @@ public abstract class BaseAty<E extends BaseBean, T> extends AppCompatActivity i
     protected abstract void initEvents();
 
     protected void noNetworkStatus() {
-        AppTools.showSettingSnackBar(parentView, getString(R.string.no_network_is_detected));
+        AppTools.showSettingSnackBar(parentView,
+                getString(R.string.no_network_is_detected));
     }
 
     protected abstract int getContentView();
@@ -164,7 +180,8 @@ public abstract class BaseAty<E extends BaseBean, T> extends AppCompatActivity i
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putBoolean("isFirstRunnable", isFirstRunnable);
+        outState.putBoolean("isFirstRunnable",
+                isFirstRunnable);
         super.onSaveInstanceState(outState);
     }
 
@@ -176,7 +193,8 @@ public abstract class BaseAty<E extends BaseBean, T> extends AppCompatActivity i
             LogTools.i("close activity");
             AppTools.removeSingleActivity(this);
         }
-        onClick(id, v);
+        onClick(id,
+                v);
     }
 
     @Override
@@ -197,7 +215,9 @@ public abstract class BaseAty<E extends BaseBean, T> extends AppCompatActivity i
     @Override
     public void onHanlderSuccess(int requestCode, List<PhotoInfo> resultList) {
         for (PhotoInfo photoInfo : resultList) {
-            BitmapCompressTool.getRadioBitmap(photoInfo.getPhotoPath(), 1000, 1000);
+            BitmapCompressTool.getRadioBitmap(photoInfo.getPhotoPath(),
+                    1000,
+                    1000);
         }
     }
 
@@ -205,8 +225,10 @@ public abstract class BaseAty<E extends BaseBean, T> extends AppCompatActivity i
     @Override
     public void onError(String error, NetworkParams paramsCode) {
         LogTools.e("error:" + error + ",NetworkParams:" + paramsCode);
-        AppTools.showNormalSnackBar(viewDataBinding.getRoot(), getString(R.string
-                .connect_server_error));
+        noNetworkStatus();
+        AppTools.showNormalSnackBar(viewDataBinding.getRoot(),
+                getString(R.string
+                        .connect_server_error));
     }
 
     public void onError(BaseBean baseBean) {
@@ -218,6 +240,7 @@ public abstract class BaseAty<E extends BaseBean, T> extends AppCompatActivity i
 
     }
 
+
     @Override
     public void onJsonObjectResponse(E e, NetworkParams paramsCode) {
         BaseBean baseBean = e;
@@ -225,11 +248,15 @@ public abstract class BaseAty<E extends BaseBean, T> extends AppCompatActivity i
         if (errorCode == 1) {
             LogTools.e("参数错误");
         } else {
-            if (!((baseBean instanceof OrderMsgListBean) || (baseBean instanceof OrderMsgBean) || (baseBean instanceof CheckUpdateBean)))
-                //唉 这样写非常不好 联系客服什么时候可以去掉
+            if (!((baseBean instanceof OrderMsgListBean) || (baseBean instanceof OrderMsgBean) ||
+                    (baseBean instanceof CheckUpdateBean)))
+            //唉 这样写非常不好 联系客服什么时候可以去掉
+            {
                 showMsgSnackBar(baseBean.getMsg());
+            }
             if (errorCode == 0) {
-                onJsonObjectSuccess(e, paramsCode);
+                onJsonObjectSuccess(e,
+                        paramsCode);
             } else {
                 onError(baseBean);
             }
@@ -242,13 +269,16 @@ public abstract class BaseAty<E extends BaseBean, T> extends AppCompatActivity i
 
 
     private void showMsgSnackBar(String msg) {
-        AppTools.showNormalSnackBar(parentView, msg);
+        AppTools.showNormalSnackBar(parentView,
+                msg);
     }
 
     @Override
     public void uiUpData(Intent intent) {
-        if (intent.getAction().equals(AppKeyMap.NO_NETWORK_ACTION))
+        if (intent.getAction()
+                .equals(AppKeyMap.NO_NETWORK_ACTION)) {
             noNetworkStatus();
+        }
     }
 
 }

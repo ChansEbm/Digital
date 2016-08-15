@@ -2,18 +2,24 @@ package com.szbb.pro.model;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.view.View;
 
-import com.szbb.pro.R;
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
+import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
+import com.szbb.pro.R;
+import com.szbb.pro.tools.AppTools;
 
 /**
  * map model (depend on Baidu map)
@@ -36,21 +42,53 @@ public class MapModel {
      * @return a marker object
      */
     public Marker addOverlay(@NonNull BaiduMap baiduMap, double lat, double lng, boolean
-            draggable) {
-        LatLng latLng = new LatLng(lat, lng);
-        BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromResource(R.mipmap
-                .ic_location);
-        OverlayOptions overlayOptions = new MarkerOptions().position(latLng).icon
-                (bitmapDescriptor).draggable(draggable);
+            draggable, int overLayRes) {
+        LatLng latLng = new LatLng(lat,
+                                   lng);
+        BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromResource(overLayRes);
+        OverlayOptions overlayOptions = new MarkerOptions().position(latLng)
+                                                           .icon(bitmapDescriptor)
+                                                           .draggable(draggable);
         return (Marker) baiduMap.addOverlay(overlayOptions);
     }
 
     public void moveToSpecifyLocation(@NonNull BaiduMap baiduMap, @NonNull LatLng latLng) {
-        MyLocationData locationData = new MyLocationData.Builder().latitude(latLng.latitude)
-                .longitude(latLng.longitude)
-                .build();
-        baiduMap.setMyLocationData(locationData);
         MapStatusUpdate mapStatusUpdate = MapStatusUpdateFactory.newLatLng(latLng);
         baiduMap.animateMapStatus(mapStatusUpdate);
     }
+
+    public void addMyLocation(BaiduMap baiduMap, double lat, double lng, float direction, int
+            ownerRes) {
+        baiduMap.setMyLocationEnabled(true);
+        MyLocationData locationData = new MyLocationData.Builder().latitude(lat)
+                                                                  .longitude(lng)
+                                                                  .direction(direction)
+                                                                  .build();
+        baiduMap.setMyLocationData(locationData);
+        if (ownerRes != 0) {
+            addCustomLocationTag(baiduMap,
+                                 ownerRes);
+        }
+    }
+
+    private void addCustomLocationTag(BaiduMap baiduMap, int ownerRes) {
+        BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromResource(ownerRes);
+        MyLocationConfiguration config = new MyLocationConfiguration(MyLocationConfiguration
+                                                                             .LocationMode
+                                                                             .NORMAL,
+                                                                     true,
+                                                                     bitmapDescriptor);
+        baiduMap.setMyLocationConfigeration(config);
+    }
+
+    public void addInfoWindow(BaiduMap baiduMap, View showContent, double lat, double lng, int
+            contentOffset) {
+        InfoWindow infoWindow = new InfoWindow(showContent,
+                                               new LatLng(lat,
+                                                          lng),
+                                               contentOffset);
+        baiduMap.showInfoWindow(infoWindow);
+    }
+
+
 }

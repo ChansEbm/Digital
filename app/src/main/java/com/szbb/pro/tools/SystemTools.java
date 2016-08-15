@@ -1,12 +1,23 @@
 package com.szbb.pro.tools;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+
+import com.szbb.pro.impl.TakePhotoCallBack;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.SimpleFormatter;
 
 /**
  * Created by ChanZeeBm on 2015/10/21.
@@ -15,18 +26,13 @@ public class SystemTools {
 
     //拨号
     public static Intent CALL(String phoneNum) {
+        Context context;
+
         return new Intent(Intent.ACTION_CALL).setData(Uri.parse("tel:" + phoneNum));
     }
 
-    public static Intent CAMERA() {
-        return new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-    }
 
 
-    //打开相册
-    public static Intent PICTURE() {
-        return new Intent(Intent.ACTION_GET_CONTENT).setType("image/**");
-    }
 
     //打开系统设置
     public static Intent SETTING() {
@@ -50,6 +56,8 @@ public class SystemTools {
                 .INPUT_METHOD_SERVICE);
         imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
     }
+
+
 
 
 }

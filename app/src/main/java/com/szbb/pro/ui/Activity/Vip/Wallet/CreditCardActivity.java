@@ -104,10 +104,10 @@ public class CreditCardActivity extends BaseAty<BaseBean, BaseBean> implements I
     private void setCardData(CreditCardBean creditCardBean) {
         CreditCardBean.DataEntity data = creditCardBean.getData();
         if (!data.isBindCard()) {
-            bankCardLayout.swipeLayout.setVisibility(View.GONE);
+            bankCardLayout.llytCard.setVisibility(View.GONE);
             bankCardLayout.imageView.setVisibility(View.VISIBLE);
         } else {
-            bankCardLayout.swipeLayout.setVisibility(View.VISIBLE);
+            bankCardLayout.llytCard.setVisibility(View.VISIBLE);
             bankCardLayout.imageView.setVisibility(View.GONE);
         }
         bankCardLayout.setCard(data);

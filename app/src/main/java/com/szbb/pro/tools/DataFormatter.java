@@ -41,7 +41,8 @@ public class DataFormatter {
         }
         SimpleDateFormat simpleDateFormat;
         try {
-            simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
+            simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm",
+                                                    Locale.CHINA);
         } catch (Exception e) {
             e.printStackTrace();
             return "";
@@ -49,10 +50,12 @@ public class DataFormatter {
         return simpleDateFormat.format(date);
     }
 
-    public static String formatTimeDefaultRegex(Date date, @NonNull String regex) {
-        if (regex.isEmpty())
+    public static String formatTimeDefaultRegex(Date date, String regex) {
+        if (regex.isEmpty()) {
             regex = "yyyy-MM-dd HH:mm";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(regex, Locale.CHINA);
+        }
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(regex,
+                                                                 Locale.CHINA);
         return simpleDateFormat.format(date);
     }
 
@@ -63,11 +66,13 @@ public class DataFormatter {
     }
 
     public static String getCurrentTime() {
-        String regex = "yyyy-MM-dd HH:mm";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(regex, Locale.CHINA);
+        String regex = "yyyy-MM-dd HH:mm:ss";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(regex,
+                                                                 Locale.CHINA);
         Date date = new Date(System.currentTimeMillis());
         return simpleDateFormat.format(date);
     }
+
 
     /**
      * 格式化时间

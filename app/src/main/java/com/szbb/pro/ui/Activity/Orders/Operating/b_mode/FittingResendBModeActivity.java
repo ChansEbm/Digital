@@ -28,35 +28,29 @@ import com.szbb.pro.entity.fittings.ExpressComBean;
 import com.szbb.pro.entity.fittings.FittingResendBean;
 import com.szbb.pro.entity.fittings.FittingWareHouseBean;
 import com.szbb.pro.eum.NetworkParams;
-import com.szbb.pro.eum.PhotoPopupOpts;
 import com.szbb.pro.eum.WheelOptions;
 import com.szbb.pro.impl.InputCallBack;
-import com.szbb.pro.impl.OnAddPictureDoneListener;
-import com.szbb.pro.impl.OnPhotoOptsSelectListener;
 import com.szbb.pro.impl.OnWheelOptsSelectCallback;
-import com.szbb.pro.model.MarkPictureModel;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.ui.activity.main.MainActivity;
 import com.szbb.pro.ui.activity.orders.operating.FittingReceiverActivity;
-import com.szbb.pro.widget.PopupWindow.PhotoPopupWindow;
 import com.szbb.pro.widget.PopupWindow.WheelPopupWindow;
+import com.szbb.pro.widget.deleter.DeleterHandlerCallback;
 
 import org.solovyev.android.views.llm.LinearLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import cn.finalteam.galleryfinal.FunctionConfig;
-import cn.finalteam.galleryfinal.GalleryFinal;
-import cn.finalteam.galleryfinal.model.PhotoInfo;
+import java.util.Set;
 
 /**
  * 申请配件同时回寄配件  B模式
  */
+
 public class FittingResendBModeActivity extends BaseAty<BaseBean, FittingWareHouseBean
         .AcceListEntity>
-        implements OnPhotoOptsSelectListener, OnAddPictureDoneListener,
-        OnWheelOptsSelectCallback, RadioGroup.OnCheckedChangeListener, InputCallBack {
+        implements
+        OnWheelOptsSelectCallback, RadioGroup.OnCheckedChangeListener, InputCallBack, DeleterHandlerCallback {
 
     private FittingResendLayout fittingResendLayout;
     private SparseArray<FittingWareHouseBean.AcceListEntity> acceListEntitySparseArray = new
@@ -66,11 +60,8 @@ public class FittingResendBModeActivity extends BaseAty<BaseBean, FittingWareHou
     private FittingResendBean fittingResendBean = new FittingResendBean();
     private ExpressComBean expressComBean = new ExpressComBean();//保存快递方式
     private RecyclerView recyclerView;
-    private PhotoPopupWindow photoPopupWindow;
     private String detailId;
-    private int flag;
-    private ArrayList<String> alreadyAdd = new ArrayList<>();
-    private SparseArray<String> picsPath = new SparseArray<>();
+    private ArrayList<String> alreadyAdd = new ArrayList<>();//保存要提交的图片地址
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +102,6 @@ public class FittingResendBModeActivity extends BaseAty<BaseBean, FittingWareHou
         };
         recyclerView = fittingResendLayout.recyclerView;
 
-        photoPopupWindow = new PhotoPopupWindow(this);
     }
 
     @Override
@@ -122,13 +112,12 @@ public class FittingResendBModeActivity extends BaseAty<BaseBean, FittingWareHou
         recyclerView.addItemDecoration(AppTools.defaultHorizontalDecoration());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         fittingResendLayout.radioGroup.setOnCheckedChangeListener(this);
-
-        photoPopupWindow.setOnPhotoOptsSelectListener(this);
+        fittingResendLayout.resendDeleterScrollLayout.setPlacerImages(R.mipmap.ic_font_side, R.mipmap.ic_back_side, R.mipmap.ic_model);
+        fittingResendLayout.resendDeleterScrollLayout.setDeleterHandlerCallback(this);
 
         networkModel.getFactoryAddress(orderId, NetworkParams.CUPCAKE);
         networkModel.getCustomerAddress(orderId, NetworkParams.DONUT);
         fittingResendLayout.setResend(fittingResendBean);
-        initAllSimpleDraweeView();
     }
 
     @Override
@@ -139,10 +128,6 @@ public class FittingResendBModeActivity extends BaseAty<BaseBean, FittingWareHou
     @Override
     protected void onClick(int id, View view) {
         switch (id) {
-            case R.id.simpleDraweeView:
-                String tag = (String) view.getTag();
-                caseByTag(tag);
-                break;
             case R.id.flyt_shipment:
                 deliveriesData();
                 break;
@@ -194,49 +179,12 @@ public class FittingResendBModeActivity extends BaseAty<BaseBean, FittingWareHou
         fittingResendBean.setTotalCount(allCount + "");
     }
 
-    private void initAllSimpleDraweeView() {
-        fittingResendLayout.font.simpleDraweeView.getHierarchy().setPlaceholderImage(R.mipmap
-                .ic_font_side);
-        fittingResendLayout.font.simpleDraweeView.setTag("front");
-        fittingResendLayout.back.simpleDraweeView.getHierarchy().setPlaceholderImage(R.mipmap
-                .ic_back_side);
-        fittingResendLayout.back.simpleDraweeView.setTag("back");
-        fittingResendLayout.model.simpleDraweeView.getHierarchy().setPlaceholderImage(R.mipmap
-                .ic_model);
-        fittingResendLayout.model.simpleDraweeView.setTag("model");
-        fittingResendLayout.add.simpleDraweeView.setOnClickListener(this);
-        fittingResendLayout.add.simpleDraweeView.setTag("add");
-    }
-
-    private void caseByTag(String tag) {
-        switch (tag) {
-            case "front":
-                flag = AppKeyMap.CUPCAKE;
-                break;
-            case "back":
-                flag = AppKeyMap.DONUT;
-                break;
-            case "model":
-                flag = AppKeyMap.FROYO;
-                break;
-            case "add":
-                flag = AppKeyMap.GINGERBREAD;
-                break;
-            default:
-                return;
-        }
-        photoPopupWindow.showAtDefaultLocation();
-    }
-
     private void progressUpload() {
         if (!checkNecessary())
             return;
         List<String> acces = new ArrayList<>();
         List<String> otherAcces = new ArrayList<>();
         List<String> fileThumbs = new ArrayList<>();
-        for (int i = 0; i < picsPath.size(); i++) {
-            alreadyAdd.add(picsPath.valueAt(i));
-        }
         for (String str : alreadyAdd) {
             fileThumbs.add(str);
         }
@@ -291,83 +239,6 @@ public class FittingResendBModeActivity extends BaseAty<BaseBean, FittingWareHou
         return true;
     }
 
-    @Override
-    public void onHanlderSuccess(int requestCode, List<PhotoInfo> resultList) {
-        super.onHanlderSuccess(requestCode, resultList);
-        String filePath;
-        filePath = resultList.get(0).getPhotoPath();
-        switch (requestCode) {
-            case AppKeyMap.CUPCAKE://means  font side from album
-                fittingResendLayout.font.simpleDraweeView.setImageURI(Uri.parse("file://" +
-                        filePath));
-                picsPath.put(0, filePath);
-                break;
-            case AppKeyMap.DONUT://means  back side from album
-                fittingResendLayout.back.simpleDraweeView.setImageURI(Uri.parse("file://" +
-                        filePath));
-                picsPath.put(1, filePath);
-                break;
-            case AppKeyMap.FROYO://means  model side from album
-                fittingResendLayout.model.simpleDraweeView.setImageURI(Uri.parse("file://" +
-                        filePath));
-                picsPath.put(2, filePath);
-                break;
-            default://means add pic
-                MarkPictureModel markPictureModel = new MarkPictureModel();
-                markPictureModel.setIsNeedDeleteIcon(true);
-                markPictureModel.setOnAddPictureDoneListener(this);
-                for (PhotoInfo photoInfo : resultList) {
-                    markPictureModel.savePicturePath(photoInfo.getPhotoPath());
-
-                    if (!alreadyAdd.contains(photoInfo.getPhotoPath())) {
-                        alreadyAdd.add(photoInfo.getPhotoPath());
-                        picsPath.put(photoInfo.getPhotoId(), photoInfo.getPhotoPath());
-                    }
-                }
-                markPictureModel.addSinglePictureInLinearLayout(this,
-                        fittingResendLayout.llytUploadPic, false);
-                break;
-        }
-    }
-
-    @Override
-    public void onOptsSelect(PhotoPopupOpts opts) {
-        if (flag == -1)
-            return;
-        if (alreadyAdd.size() == 2) {
-            AppTools.showNormalSnackBar(parentView, "不可添加更多图片");
-            return;
-        }
-        switch (opts) {
-            case ALBUM:
-                if (flag == AppKeyMap.GINGERBREAD) {
-                    FunctionConfig functionConfig = new FunctionConfig.Builder()
-                            .setMutiSelectMaxSize(2).setSelected(alreadyAdd).build();
-                    GalleryFinal.openGalleryMuti(flag, functionConfig, this);
-                } else {
-                    GalleryFinal.openGallerySingle(flag, this);
-                }
-                break;
-            case TAKE_PHOTO:
-                GalleryFinal.openCamera(flag, this);
-                break;
-        }
-    }
-
-    @Override
-    public void onAddPictureDone(View picParentView, int childViewCount) {
-
-    }
-
-    @Override
-    public void onDeletePictureDone(View deleteView, int childViewCount, int childPosition, int
-            tagPos) {
-        String tag = (String) deleteView.getTag();
-        int index = picsPath.indexOfValue(tag);
-        int key = picsPath.keyAt(index);
-        alreadyAdd.remove(picsPath.get(key));
-        picsPath.delete(key);
-    }
 
     @Override
     public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {
@@ -383,7 +254,7 @@ public class FittingResendBModeActivity extends BaseAty<BaseBean, FittingWareHou
                     "配件申请已提交成功,神州联保会尽快安排寄发新配件,请在收到配件后再次预约客户继续服务",
                     Toast.LENGTH_LONG).show();
             start(MainActivity.class);
-            AppTools.sendBroadcast(new Bundle(), AppKeyMap.APPOINTMENT_CLIENT_ACTION);
+            AppTools.sendBroadcast(new Bundle(), AppKeyMap.REFRESH_ORDER_ACTION);
         } else if (paramsCode == NetworkParams.GINGERBREAD) {
             this.expressComBean = (ExpressComBean) baseBean;
             fittingResendBean.setShippingType("");
@@ -470,4 +341,9 @@ public class FittingResendBModeActivity extends BaseAty<BaseBean, FittingWareHou
         }
     }
 
+    @Override
+    public void success(Set<Integer> keySet, List<String> photoPaths) {
+        alreadyAdd.clear();
+        alreadyAdd.addAll(photoPaths);
+    }
 }

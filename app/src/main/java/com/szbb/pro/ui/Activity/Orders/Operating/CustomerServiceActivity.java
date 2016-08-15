@@ -1,8 +1,12 @@
 package com.szbb.pro.ui.activity.orders.operating;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.databinding.ViewDataBinding;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -16,9 +20,9 @@ import android.widget.ImageView;
 
 import com.bm.library.Info;
 import com.bm.library.PhotoView;
-import com.facebook.common.util.UriUtil;
 import com.github.pwittchen.prefser.library.Prefser;
 import com.squareup.picasso.Picasso;
+import com.szbb.pro.AppKeyMap;
 import com.szbb.pro.CustomerServiceLayout;
 import com.szbb.pro.R;
 import com.szbb.pro.RoleServiceLayout;
@@ -34,63 +38,74 @@ import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.eum.PhotoPopupOpts;
 import com.szbb.pro.impl.OnPhotoOptsSelectListener;
 import com.szbb.pro.tools.AppTools;
-import com.szbb.pro.tools.ViewUtils;
-import com.szbb.pro.widget.PopupWindow.PhotoPopupWindow;
+import com.szbb.pro.tools.ChatManager;
+import com.szbb.pro.tools.PermissionTools;
+import com.tencent.TIMElem;
+import com.tencent.TIMElemType;
+import com.tencent.TIMImageElem;
+import com.tencent.TIMMessage;
+import com.tencent.TIMTextElem;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import java.util.List;
 
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
-import cn.finalteam.galleryfinal.GalleryFinal;
 import cn.finalteam.galleryfinal.model.PhotoInfo;
 
 /**
  * 联系客服
  */
-public class CustomerServiceActivity extends BaseAty<BaseBean, OrderMsgListBean.ListEntity>
-        implements
-        BGARefreshLayout.BGARefreshLayoutDelegate, OnPhotoOptsSelectListener {
+public class CustomerServiceActivity
+        extends BaseAty<BaseBean, OrderMsgListBean>
+        implements OnPhotoOptsSelectListener {
 
-    private CustomerServiceLayout customerServiceLayout;
-    private RecyclerView recyclerView;
+    protected CustomerServiceLayout customerServiceLayout;
+    protected RecyclerView recyclerView;
 
-    private ImageView ivBackground;
-    private PhotoView zoomPhotoView;
-    private PhotoView photoView;
-    private EditText editText;
-    private MultiAdapter<OrderMsgListBean.ListEntity> multiAdapter;
-    private String avatarUrl;
-    private Animation in;
-    private Animation out;
-    private View parent;
-    private String orderId = "";
-
-    private PhotoPopupWindow photoPopupWindow;
+    protected ImageView ivBackground;
+    protected PhotoView zoomPhotoView;
+    protected PhotoView photoView;
+    protected EditText editText;
+    protected MultiAdapter<OrderMsgListBean> multiAdapter;
+    protected String avatarUrl;
+    protected Animation in;
+    protected Animation out;
+    protected View parent;
+    protected String orderId = "";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         customerServiceLayout = (CustomerServiceLayout) viewDataBinding;
         orderId = getIntent().getStringExtra("orderId");
+        if (!TextUtils.isEmpty(orderId)) {
+            ChatManager.setChattingFlag(orderId);
+        }
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_call, menu);
+    public boolean onCreateOptionsMenu (Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_call,
+                                  menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected (MenuItem item) {
         if (item.getItemId() == R.id.menu_call) {
-            String servicePhone = getIntent().getStringExtra("servicePhone");
-            new DialDialog(this, null).call(servicePhone);
+            if (PermissionTools.alreadyHasPermission(this,
+                                                     AppKeyMap.FROYO,
+                                                     Manifest.permission.CALL_PHONE)) {
+                String servicePhone = getIntent().getStringExtra("servicePhone");
+                new DialDialog(this,
+                               null).call(servicePhone);
+            }
         }
         return true;
     }
 
     @Override
-    protected void initViews() {
+    protected void initViews () {
         defaultTitleBar(this).setTitle(R.string.title_customer_service);
         recyclerView = customerServiceLayout.include.recyclerView;
         ivBackground = customerServiceLayout.ivBg;
@@ -98,75 +113,75 @@ public class CustomerServiceActivity extends BaseAty<BaseBean, OrderMsgListBean.
         parent = customerServiceLayout.parent;
         editText = customerServiceLayout.editText;
 
-        in = new AlphaAnimation(0.0f, 1.0f);
-        out = new AlphaAnimation(1.0f, 0.0f);
+        in = new AlphaAnimation(0.0f,
+                                1.0f);
+        out = new AlphaAnimation(1.0f,
+                                 0.0f);
 
-        photoPopupWindow = new PhotoPopupWindow(this);
 
         VipInfoBean vipInfoBean = new Prefser(AppTools.getSharePreferences()).get("VipInfo",
-                VipInfoBean
-                        .class, new VipInfoBean());
-        avatarUrl = vipInfoBean.getWorker_data().getThumb();
+                                                                                  VipInfoBean.class,
+                                                                                  new VipInfoBean
+                                                                                          ());
+        avatarUrl = vipInfoBean
+                .getWorker_data()
+                .getThumb();
 
-        multiAdapter = new MultiAdapter<OrderMsgListBean.ListEntity>
-                (this, list, R.layout
-                        .role_service, R
-                        .layout.role_user) {
-
+        multiAdapter = new MultiAdapter<OrderMsgListBean>(this,
+                                                          list,
+                                                          R.layout.role_user,
+                                                          R.layout.role_service) {
             @Override
-            public void onBind(ViewDataBinding viewDataBinding, CommonBinderHolder holder, int
-                    position, OrderMsgListBean.ListEntity listEntity) {
-                if (viewDataBinding instanceof RoleUserLayout) {
-                    ((RoleUserLayout) viewDataBinding).sdvAvatar.setImageURI(Uri.parse
-                            (avatarUrl));
-                    ((RoleUserLayout) viewDataBinding).rolePhotoView.setOnClickListener
-                            (CustomerServiceActivity.this);
-                    ((RoleUserLayout) viewDataBinding).setUser(listEntity);
-                } else if (viewDataBinding instanceof RoleServiceLayout) {
-                    Uri uri = new Uri.Builder().scheme(UriUtil.LOCAL_RESOURCE_SCHEME).path(String
-                            .valueOf(R.mipmap.customer_service_avatar)).build();
-                    ((RoleServiceLayout) viewDataBinding).sdvAvatar.setImageURI(uri);
-                    ((RoleServiceLayout) viewDataBinding).setService(listEntity);
+            public int getItemViewType (int position) {
+                if (list.get(position)
+                        .isSelf()) {
+                    return FIRST_LAYOUT;
+                } else {
+                    return SECOND_LAYOUT;
                 }
             }
 
             @Override
-            public int getItemViewType(int position) {
-                final OrderMsgListBean.ListEntity listEntity = list.get
-                        (position);
-                final String role = listEntity.getRole();
-                if (TextUtils.equals(role, "user")) {
-                    return SECOND_LAYOUT;
-                } else if (TextUtils.equals(role, "service")) {
-                    return FIRST_LAYOUT;
+            public void onBind (ViewDataBinding viewDataBinding,
+                                CommonBinderHolder holder,
+                                int position,
+                                OrderMsgListBean orderMsgListBean) {
+                if (viewDataBinding instanceof RoleUserLayout) {
+                    dealUser((RoleUserLayout) viewDataBinding,
+                             orderMsgListBean.getTimElem());
+                    ((RoleUserLayout) viewDataBinding).setUser(orderMsgListBean);
+                } else if (viewDataBinding instanceof RoleServiceLayout) {
+                    dealService((RoleServiceLayout) viewDataBinding,
+                                orderMsgListBean.getTimElem());
+                    ((RoleServiceLayout) viewDataBinding).setService(orderMsgListBean);
                 }
-                return R.layout.role_user;
             }
         };
     }
 
     @Override
-    protected void initEvents() {
-        AppTools.defaultRefresh(customerServiceLayout.include.refreshLayout, this);
+    protected void initEvents () {
+
         in.setDuration(300);
         out.setDuration(300);
 
         recyclerView.setAdapter(multiAdapter);
         recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this)
-                .sizeResId(R.dimen.large_margin_15dp).colorResId(R.color.color_transparent).build
-                        ());
+                                               .sizeResId(R.dimen.large_margin_15dp)
+                                               .colorResId(R.color.color_transparent)
+                                               .build());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        photoPopupWindow.setOnPhotoOptsSelectListener(this);
-        networkModel.orderMessageList(orderId, "", NetworkParams.CUPCAKE);
+
     }
 
     @Override
-    protected int getContentView() {
+    protected int getContentView () {
         return R.layout.activity_customer_service;
     }
 
     @Override
-    protected void onClick(int id, View view) {
+    protected void onClick (int id,
+                            View view) {
         switch (id) {
             case R.id.role_photoView:
                 animToZoomView(view);
@@ -176,98 +191,127 @@ public class CustomerServiceActivity extends BaseAty<BaseBean, OrderMsgListBean.
             case R.id.parent:
                 animFromPhotoView();
                 break;
-            case R.id.ibtn_send:
-                if (!ViewUtils.isEdtEmpty(editText)) {
-                    final String content = editText.getText().toString();
-                    networkModel.addOrderMessage(orderId, "", content, "1", "", NetworkParams
-                            .DONUT);
-                    //代表发送新消息
-                }
-                break;
-            case R.id.ibtn_pic:
-                photoPopupWindow.showAtDefaultLocation();
-                break;
         }
     }
 
-    private void animFromPhotoView() {
+    protected void animFromPhotoView () {
         ivBackground.startAnimation(out);
-        this.zoomPhotoView.animaTo(photoView.getInfo(), new Runnable() {
-            @Override
-            public void run() {
-                parent.setVisibility(View.GONE);
-            }
-        });
+        this.zoomPhotoView.animaTo(photoView.getInfo(),
+                                   new Runnable() {
+                                       @Override
+                                       public void run () {
+                                           parent.setVisibility(View.GONE);
+                                       }
+                                   });
     }
 
-    private void animToZoomView(View view) {
+    protected void animToZoomView (View view) {
         parent.setVisibility(View.VISIBLE);
         photoView = (PhotoView) view;
         String tag = (String) view.getTag();
-        Picasso.with(this).load(Uri.parse(tag)).into(zoomPhotoView);
+        if (TextUtils.isEmpty(tag)) {
+            return;
+        }
+        Picasso.with(this)
+               .load(Uri.parse(tag))
+               .into(zoomPhotoView);
         final Info info = photoView.getInfo();
         zoomPhotoView.animaFrom(info);
         ivBackground.startAnimation(in);
     }
 
     @Override
-    protected void noNetworkStatus() {
+    protected void noNetworkStatus () {
         super.noNetworkStatus();
         customerServiceLayout.include.refreshLayout.endLoadingMore();
         customerServiceLayout.include.refreshLayout.endRefreshing();
     }
 
+
     @Override
-    public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout bgaRefreshLayout) {
-        networkModel.orderMessageList(orderId, "", NetworkParams.FROYO);
+    public void onJsonObjectSuccess (BaseBean baseBean,
+                                     NetworkParams paramsCode) {
+        super.onJsonObjectSuccess(baseBean,
+                                  paramsCode);
+
     }
 
     @Override
-    public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout bgaRefreshLayout) {
-        return false;
+    public void onOptsSelect (PhotoPopupOpts opts) {
     }
 
     @Override
-    public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {
-        super.onJsonObjectSuccess(baseBean, paramsCode);
-        customerServiceLayout.include.refreshLayout.endLoadingMore();
-        customerServiceLayout.include.refreshLayout.endRefreshing();
-        if (paramsCode == NetworkParams.CUPCAKE) {//代表获取全部数据
-            OrderMsgListBean orderMsgListBean = (OrderMsgListBean) baseBean;
-            this.list.addAll(orderMsgListBean.getList());
-            multiAdapter.notifyDataSetChanged();
-            recyclerView.smoothScrollToPosition(recyclerView.getAdapter()
-                    .getItemCount());//滑动到最后
-        } else if (paramsCode == NetworkParams.DONUT) {
-            final String message_id = list.get(list.size() - 1).getMessage_id();
-            ViewUtils.clearEdt(editText);
-            networkModel.orderMessageList(orderId, message_id, NetworkParams.CUPCAKE);
-        } else if (paramsCode == NetworkParams.FROYO) {//刷新
-            final List<OrderMsgListBean.ListEntity> list = ((OrderMsgListBean) baseBean).getList();
-            this.list.clear();
-            this.list.addAll(list);
-            multiAdapter.notifyDataSetChanged();
+    public void onHanlderSuccess (int requestCode,
+                                  List<PhotoInfo> resultList) {
+        super.onHanlderSuccess(requestCode,
+                               resultList);
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult (int requestCode,
+                                            @NonNull String[] permissions,
+                                            @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode,
+                                         permissions,
+                                         grantResults);
+        if (permissions[0].equals(Manifest.permission.CALL_PHONE) && grantResults[0] ==
+                                                                     PackageManager
+                                                                             .PERMISSION_GRANTED) {
+            AppTools.CALL(getIntent().getStringExtra("servicePhone"));
         }
     }
 
-    @Override
-    public void onOptsSelect(PhotoPopupOpts opts) {
-        switch (opts) {
-            case TAKE_PHOTO:
-                GalleryFinal.openCamera(0, this);
+    private void dealUser (RoleUserLayout roleUserLayout, TIMElem timElem) {
+        roleUserLayout.sdvAvatar.setImageURI(Uri.parse(avatarUrl));
+        TIMElemType type = timElem.getType();
+        switch (type) {
+            case Text:
+                TIMTextElem timTextElem = (TIMTextElem) timElem;
+                roleUserLayout.tvMsgTxt.setText(timTextElem.getText());
+                roleUserLayout.llytUserPic.setVisibility(View.GONE);
+                roleUserLayout.llytUserText.setVisibility(View.VISIBLE);
                 break;
-            case ALBUM:
-                GalleryFinal.openGallerySingle(0, this);
+            case Image:
+                TIMImageElem timImageElem = (TIMImageElem) timElem;
+                roleUserLayout.llytUserText.setVisibility(View.GONE);
+                roleUserLayout.llytUserPic.setVisibility(View.VISIBLE);
+                String url = timImageElem.getImageList()
+                                         .get(0)
+                                         .getUrl();
+                Picasso.with(this)
+                       .load(url)
+                       .resize(300,
+                               300)
+                       .into(roleUserLayout.rolePhotoView);
+                roleUserLayout.rolePhotoView.setTag(url);
                 break;
         }
     }
 
-    @Override
-    public void onHanlderSuccess(int requestCode, List<PhotoInfo> resultList) {
-        super.onHanlderSuccess(requestCode, resultList);
-        final PhotoInfo photoInfo = resultList.get(0);
-        final String photoPath = photoInfo.getPhotoPath();
-        networkModel.addOrderMessage(orderId, "", "", "2", photoPath, NetworkParams
-                .DONUT);
+    private void dealService (RoleServiceLayout layout, TIMElem timElem) {
+        TIMElemType type = timElem.getType();
+        switch (type) {
+            case Text:
+                TIMTextElem timTextElem = (TIMTextElem) timElem;
+                layout.tvMsgTxt.setText(timTextElem.getText());
+                layout.llytServicePic.setVisibility(View.GONE);
+                layout.llytServiceMsg.setVisibility(View.VISIBLE);
+                break;
+            case Image:
+                TIMImageElem timImageElem = (TIMImageElem) timElem;
+                layout.llytServiceMsg.setVisibility(View.GONE);
+                layout.llytServicePic.setVisibility(View.VISIBLE);
+                String url = timImageElem.getImageList()
+                                         .get(0)
+                                         .getUrl();
+                Picasso.with(this)
+                       .load(url)
+                       .resize(300,
+                               300)
+                       .into(layout.rolePhotoView);
+                layout.rolePhotoView.setTag(url);
+                break;
+        }
     }
 }

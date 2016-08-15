@@ -45,7 +45,6 @@ public class FittingsFragment extends BaseFgm {
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(2);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);//设置导航栏模式
-        tabLayout.setTabsFromPagerAdapter(adapter);//从适配器设置Tabs
         tabLayout.setupWithViewPager(viewPager);//导航栏跟滑动视图联动
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout))
         ;//设置监听器

@@ -1,97 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+		xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data class=".RoleServiceLayout">
+	<data class=".RoleServiceLayout">
 
-        <import type="android.view.View"/>
+		<variable
+			name="service"
+			type="com.szbb.pro.entity.order.OrderMsgListBean"/>
 
-        <variable
-            name="service"
-            type="com.szbb.pro.entity.order.OrderMsgListBean.ListEntity"/>
-    </data>
+		<import type="android.view.View"/>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        android:orientation="horizontal"
-        android:paddingStart="@dimen/small_margin_5dp"
-        android:paddingTop="@dimen/small_margin_5dp">
+	</data>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/small_margin_5dp"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:gravity="start"
+		android:orientation="horizontal"
+		android:paddingLeft="@dimen/small_margin_5dp"
+		android:paddingTop="@dimen/small_margin_5dp">
 
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/sdv_avatar"
-                style="@style/DefaultSimpleDraweeView"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                app:roundAsCircle="true"/>
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginRight="@dimen/small_margin_5dp"
+			android:gravity="center_horizontal"
+			android:orientation="vertical">
 
-            <TextView
-                style="@style/textStyle"
-                android:text="@{service.nickname}"
-                android:textColor="@color/color_text_gravy"
-                android:textSize="9sp"/>
-        </LinearLayout>
+			<com.facebook.drawee.view.SimpleDraweeView
+				android:id="@+id/sdv_avatar"
+				style="@style/DefaultSimpleDraweeView"
+				android:layout_width="44dp"
+				android:layout_height="44dp"
+				app:roundAsCircle="true"/>
 
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+			<TextView
+				style="@style/textStyle"
+				android:textColor="@color/color_text_gravy"
+				android:textSize="9sp"/>
+		</LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/role_service_text_bg"
-                android:orientation="vertical"
-                app:visibility='@{service.type.equals("1")?View.VISIBLE:View.GONE}'>
+		<FrameLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
 
-                <TextView
-                    style="@style/textStyle"
-                    android:maxEms="12"
-                    android:text="@{service.content}"
-                    />
+			<LinearLayout
+				android:id="@+id/llyt_service_msg"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:background="@drawable/role_service_text_bg"
+				android:orientation="vertical"
+				>
 
-                <TextView
-                    style="@style/textStyle"
-                    android:layout_marginTop="@dimen/middle_margin_10dp"
-                    android:text="@{service.addtime}"
-                    android:textColor="@color/color_white"
-                    android:textSize="11sp"
-                    />
-            </LinearLayout>
+				<TextView
+					android:id="@+id/tv_msg_txt"
+					style="@style/textStyle"
+					android:maxEms="12"
+					/>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/role_service_text_bg"
-                android:orientation="vertical"
-                app:visibility='@{service.type.equals("0")?View.VISIBLE:View.GONE}'>
+				<TextView
+					style="@style/textStyle"
+					android:layout_marginTop="@dimen/middle_margin_10dp"
+					android:text="@{service.conversionTime}"
+					android:textColor="@color/color_white"
+					android:textSize="11sp"
+					/>
+			</LinearLayout>
 
-                <com.bm.library.PhotoView
-                    android:id="@+id/role_photoView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="onClick"
-                    android:scaleType="centerCrop"
-                    android:tag="@{service.img}"
-                    app:photoSrc="@{service.img}"/>
+			<LinearLayout
+				android:id="@+id/llyt_service_pic"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:background="@drawable/role_service_text_bg"
+				android:orientation="vertical"
+				android:visibility="gone">
 
-                <TextView
-                    style="@style/textStyle"
-                    android:layout_marginTop="@dimen/middle_margin_10dp"
-                    android:text="@{service.addtime}"
-                    android:textColor="@color/color_white"
-                    android:textSize="11sp"
-                    />
-            </LinearLayout>
+				<com.bm.library.PhotoView
+					android:id="@+id/role_photoView"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:onClick="onClick"
+					android:scaleType="centerCrop"/>
 
-        </FrameLayout>
-    </LinearLayout>
+				<TextView
+					style="@style/textStyle"
+					android:layout_marginTop="@dimen/middle_margin_10dp"
+					android:textColor="@color/color_white"
+					android:textSize="11sp"
+					/>
+			</LinearLayout>
+
+		</FrameLayout>
+	</LinearLayout>
 </layout>

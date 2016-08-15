@@ -11,7 +11,8 @@ import com.szbb.pro.entity.base.BaseBean;
  * Created by ChanZeeBm on 2016/2/2.
  * 获取技工或者客户默认地址
  */
-public class CustomerAddressBean extends BaseBean {
+public class CustomerAddressBean
+        extends BaseBean {
 
     private DataEntity data;
 
@@ -23,13 +24,45 @@ public class CustomerAddressBean extends BaseBean {
         return data;
     }
 
-    public static class DataEntity extends BaseObservable implements Parcelable {
+    public static class DataEntity
+            extends BaseObservable
+            implements Parcelable {
         private String nickname = "";
         private String area_ids = "";
         private String area_ids_desc = "";
         private String address = "";
         private String telephone = "";
 
+        private String receive_address = "";
+        private String receive_tell = "";
+        private String receive_person = "";
+
+        @Bindable
+        public String getReceive_address() {
+            return receive_address;
+        }
+
+        public void setReceive_address(String receive_address) {
+            this.receive_address = receive_address;
+        }
+
+        @Bindable
+        public String getReceive_person() {
+            return receive_person;
+        }
+
+        public void setReceive_person(String receive_person) {
+            this.receive_person = receive_person;
+        }
+
+        @Bindable
+        public String getReceive_tell() {
+            return receive_tell;
+        }
+
+        public void setReceive_tell(String receive_tell) {
+            this.receive_tell = receive_tell;
+        }
 
         public void setNickname(String nickname) {
             this.nickname = nickname;
@@ -81,7 +114,8 @@ public class CustomerAddressBean extends BaseBean {
         }
 
         @Override
-        public void writeToParcel(Parcel dest, int flags) {
+        public void writeToParcel(Parcel dest,
+                                  int flags) {
             dest.writeString(this.nickname);
             dest.writeString(this.area_ids);
             dest.writeString(this.area_ids_desc);
@@ -100,7 +134,8 @@ public class CustomerAddressBean extends BaseBean {
             this.telephone = in.readString();
         }
 
-        public static final Parcelable.Creator<DataEntity> CREATOR = new Parcelable.Creator<DataEntity>() {
+        public static final Parcelable.Creator<DataEntity> CREATOR = new Parcelable
+                .Creator<DataEntity>() {
             public DataEntity createFromParcel(Parcel source) {
                 return new DataEntity(source);
             }

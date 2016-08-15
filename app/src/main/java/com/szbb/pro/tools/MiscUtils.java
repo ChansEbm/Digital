@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Locale;
+import java.util.UUID;
 
 /**
  *
@@ -25,11 +26,12 @@ import java.util.Locale;
 public class MiscUtils {
     private final static String TAG = MiscUtils.class.getSimpleName();
     public static final String APP_FOLDER_ON_SD =
-            Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/TianXiang/TianXiang";
+            Environment.getExternalStorageDirectory()
+                       .getAbsolutePath() +
+            "/TianXiang/TianXiang";
 
 
-    public static boolean checkFsWritable() {
+    public static boolean checkFsWritable () {
         // Create a temporary file to see whether a volume is really writeable.
         // It's important not to put it in the root directory which may have a
         // limit on the number of files.
@@ -43,7 +45,8 @@ public class MiscUtils {
                 return false;
             }
         }
-        File f = new File(APP_FOLDER_ON_SD, ".probe");
+        File f = new File(APP_FOLDER_ON_SD,
+                          ".probe");
         try {
             // Remove stale file if any
             if (f.exists()) {
@@ -60,7 +63,7 @@ public class MiscUtils {
     }
 
 
-    public static boolean hasStorage() {
+    public static boolean hasStorage () {
         boolean hasStorage = false;
         String str = Environment.getExternalStorageState();
 
@@ -76,9 +79,10 @@ public class MiscUtils {
      * @param dir      目标文件
      * @param fileName 文件名
      */
-    public static void updateFileTime(String dir, String fileName) {
+    public static void updateFileTime (String dir, String fileName) {
 
-        File file = new File(dir, fileName);
+        File file = new File(dir,
+                             fileName);
         long newModifiedTime = System.currentTimeMillis();
         file.setLastModified(newModifiedTime);
     }
@@ -88,7 +92,7 @@ public class MiscUtils {
      * @param context 上下文
      * @return 是否有网络
      */
-    public static boolean checkNet(Context context) {
+    public static boolean checkNet (Context context) {
 
         ConnectivityManager manager
                 = (ConnectivityManager) context.getSystemService(
@@ -105,7 +109,7 @@ public class MiscUtils {
      * @param context 上下文
      * @return apn
      */
-    public static String getAPN(Context context) {
+    public static String getAPN (Context context) {
 
         String apn = "";
         ConnectivityManager manager
@@ -120,7 +124,8 @@ public class MiscUtils {
                     apn = "wifi";
                 }
             } else {
-                apn = info.getExtraInfo().toLowerCase();
+                apn = info.getExtraInfo()
+                          .toLowerCase();
                 if (apn == null) {
                     apn = "mobile";
                 }
@@ -134,7 +139,7 @@ public class MiscUtils {
      * @param context 上下文
      * @return model
      */
-    public static String getModel(Context context) {
+    public static String getModel (Context context) {
         return Build.MODEL;
     }
 
@@ -153,7 +158,7 @@ public class MiscUtils {
      * @param context context
      * @return MANUFACTURER
      */
-    public static String getManufacturer(Context context) {
+    public static String getManufacturer (Context context) {
 
         return Build.MANUFACTURER;
     }
@@ -163,7 +168,7 @@ public class MiscUtils {
      * @param context context
      * @return RELEASE
      */
-    public static String getFirmware(Context context) {
+    public static String getFirmware (Context context) {
 
         return Build.VERSION.RELEASE;
     }
@@ -172,16 +177,17 @@ public class MiscUtils {
     /**
      * @return sdkversion
      */
-    public static String getSDKVer() {
+    public static String getSDKVer () {
 
-        return Integer.valueOf(Build.VERSION.SDK_INT).toString();
+        return Integer.valueOf(Build.VERSION.SDK_INT)
+                      .toString();
     }
 
 
     /**
      * @return 获取语言
      */
-    public static String getLanguage() {
+    public static String getLanguage () {
 
         Locale locale = Locale.getDefault();
         String languageCode = locale.getLanguage();
@@ -195,7 +201,7 @@ public class MiscUtils {
     /**
      * @return 获取国家
      */
-    public static String getCountry() {
+    public static String getCountry () {
 
         Locale locale = Locale.getDefault();
         String countryCode = locale.getCountry();
@@ -210,14 +216,14 @@ public class MiscUtils {
      * @param context context
      * @return imei
      */
-    public static String getIMEI(Context context) {
+    public static String getIMEI (Context context) {
 
         TelephonyManager mTelephonyMgr
                 = (TelephonyManager) context.getSystemService(
                 Context.TELEPHONY_SERVICE);
         String imei = mTelephonyMgr.getDeviceId();
         if (TextUtils.isEmpty(imei) || imei.equals("000000000000000")) {
-            imei = "0";
+            imei = getUUID();
         }
 
         return imei;
@@ -228,7 +234,7 @@ public class MiscUtils {
      * @param context context
      * @return imsi
      */
-    public static String getIMSI(Context context) {
+    public static String getIMSI (Context context) {
 
         TelephonyManager mTelephonyMgr
                 = (TelephonyManager) context.getSystemService(
@@ -258,7 +264,7 @@ public class MiscUtils {
      * @param context context
      * @return mcnc
      */
-    public static String getMcnc(Context context) {
+    public static String getMcnc (Context context) {
 
         TelephonyManager tm = (TelephonyManager) context.getSystemService(
                 Context.TELEPHONY_SERVICE);
@@ -277,7 +283,7 @@ public class MiscUtils {
      * @param mContext mContext
      * @return SDK version
      */
-    public static int getPhoneSDK(Context mContext) {
+    public static int getPhoneSDK (Context mContext) {
 
         TelephonyManager phoneMgr
                 = (TelephonyManager) mContext.getSystemService(
@@ -298,13 +304,13 @@ public class MiscUtils {
      * @param keyName keyName
      * @return data
      */
-    public static Object getMetaData(Context context, String keyName) {
+    public static Object getMetaData (Context context, String keyName) {
 
         try {
             ApplicationInfo info = context.getPackageManager()
-                    .getApplicationInfo(
-                            context.getPackageName(),
-                            PackageManager.GET_META_DATA);
+                                          .getApplicationInfo(
+                                                  context.getPackageName(),
+                                                  PackageManager.GET_META_DATA);
 
             Bundle bundle = info.metaData;
             Object value = bundle.get(keyName);
@@ -321,12 +327,13 @@ public class MiscUtils {
      * @param context context
      * @return AppVersion
      */
-    public static String getAppVersion(Context context) {
+    public static String getAppVersion (Context context) {
 
         PackageManager pm = context.getPackageManager();
         PackageInfo pi;
         try {
-            pi = pm.getPackageInfo(context.getPackageName(), 0);
+            pi = pm.getPackageInfo(context.getPackageName(),
+                                   0);
             String versionName = pi.versionName;
             return versionName;
         } catch (NameNotFoundException e) {
@@ -336,19 +343,33 @@ public class MiscUtils {
         return "";
     }
 
+    public static int getAppVersionCode (Context context) {
+        PackageManager packageManager = context.getPackageManager();
+        try {
+            return packageManager.getPackageInfo(context.getPackageName(),
+                                                 0).versionCode;
+        } catch (NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
 
     /**
      * @param context context
      * @return SerialNumber
      */
-    public static String getSerialNumber(Context context) {
+    public static String getSerialNumber (Context context) {
 
         String serial = null;
         try {
             Class<?> c = Class.forName("android.os.SystemProperties");
-            Method get = c.getMethod("get", String.class);
-            serial = (String) get.invoke(c, "ro.serialno");
-            if (serial == null || serial.trim().length() <= 0) {
+            Method get = c.getMethod("get",
+                                     String.class);
+            serial = (String) get.invoke(c,
+                                         "ro.serialno");
+            if (serial == null || serial.trim()
+                                        .length() <= 0) {
                 TelephonyManager tManager
                         = (TelephonyManager) context.getSystemService(
                         Context.TELEPHONY_SERVICE);
@@ -366,7 +387,7 @@ public class MiscUtils {
      *
      * @return SDCard
      */
-    public boolean isSDCardSizeOverflow() {
+    public boolean isSDCardSizeOverflow () {
 
         boolean result = false;
 
@@ -394,5 +415,21 @@ public class MiscUtils {
         }// end of if
         // end of func
         return result;
+    }
+
+    public static String getUUID () {
+        //固定UUID
+//        final TelephonyManager tm = (TelephonyManager) context.getSystemService(Context
+// .TELEPHONY_SERVICE);
+//        final String tmDevice, tmSerial;
+//        tmDevice = "" + tm.getDeviceId();
+//        tmSerial = "" + tm.getSimSerialNumber();
+//        String androidId = Settings.Secure.getString(context.getContentResolver(),
+//                Settings.Secure.ANDROID_ID);
+//        UUID uuid = new UUID(androidId.hashCode(),
+//                ((long) tmDevice.hashCode() << 32) | tmSerial.hashCode());
+        //随机UUID
+        return UUID.randomUUID()
+                   .toString();
     }
 }

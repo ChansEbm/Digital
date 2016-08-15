@@ -37,7 +37,8 @@
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:fillViewport="true"
                 android:scrollbars="none">
 
@@ -466,17 +467,17 @@
                             android:layout_marginStart="@dimen/small_margin_5dp"
                             android:text="@{detail.fact_reply_desc}" />
                     </LinearLayout>
-
-                    <Button
-                        android:id="@+id/btn_submit"
-                        style="@style/buttonStyle"
-                        android:layout_marginBottom="@dimen/large_margin_15dp"
-                        android:layout_marginTop="@dimen/minHeight_50dp"
-                        android:background="@drawable/bg_round_orange_dark_disable_sliver"
-                        android:onClick="onClick"
-                        android:text="@string/submit" />
                 </LinearLayout>
             </ScrollView>
+
+            <Button
+                android:id="@+id/btn_submit"
+                style="@style/buttonStyle"
+                android:layout_marginBottom="@dimen/large_margin_15dp"
+                android:layout_marginTop="@dimen/minHeight_50dp"
+                android:background="@drawable/bg_round_orange_dark_disable_sliver"
+                android:onClick="onClick"
+                android:text="@string/submit" />
         </LinearLayout>
 
     </FrameLayout>

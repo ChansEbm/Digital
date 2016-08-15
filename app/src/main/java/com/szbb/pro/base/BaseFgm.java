@@ -34,7 +34,9 @@ import cn.finalteam.galleryfinal.model.PhotoInfo;
 /**
  * Created by ChanZeeBm on 2015/9/7.
  */
-public abstract class BaseFgm<E, T> extends Fragment implements View.OnClickListener,
+public abstract class BaseFgm<E, T>
+        extends Fragment
+        implements View.OnClickListener,
         BinderOnItemClickListener, OkHttpResponseListener<E>, UpdateUIListener, GalleryFinal
                 .OnHanlderResultCallback {
     protected CommonBinderAdapter<T> commonBinderAdapter;
@@ -46,18 +48,22 @@ public abstract class BaseFgm<E, T> extends Fragment implements View.OnClickList
     protected View parentView;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate (@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         uiBroadcast = new UpdateUIBroadcast();
         uiBroadcast.setListener(this);
-        AppTools.registerBroadcast(uiBroadcast, AppKeyMap.NO_NETWORK_ACTION);
+        AppTools.registerBroadcast(uiBroadcast,
+                                   AppKeyMap.NO_NETWORK_ACTION);
     }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
+    public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
-        viewDataBinding = DataBindingUtil.inflate(inflater, getContentView(), null, false);
+        viewDataBinding = DataBindingUtil.inflate(inflater,
+                                                  getContentView(),
+                                                  null,
+                                                  false);
         networkModel = new NetworkModel((AppCompatActivity) getActivity());
         networkModel.setResultCallBack(this);
 
@@ -70,119 +76,143 @@ public abstract class BaseFgm<E, T> extends Fragment implements View.OnClickList
     }
 
     @Override
-    public void onStart() {
+    public void onStart () {
         super.onStart();
     }
 
-    protected abstract void initViews();
+    protected abstract void initViews ();
 
-    protected abstract void initEvents();
+    protected abstract void initEvents ();
 
-    protected abstract void noNetworkStatus();
+    protected abstract void noNetworkStatus ();
 
-    protected abstract void onClick(int id, View view);
+    protected abstract void onClick (int id, View view);
 
-    protected abstract int getContentView();
+    protected abstract int getContentView ();
 
 
     @Override
-    public void onClick(View v) {
+    public void onClick (View v) {
         int id = v.getId();
-        onClick(id, v);
+        onClick(id,
+                v);
     }
 
-    protected void start(Bundle bundle, Class<?> targetClz) {
-        start(new Intent().setClass(getActivity(), targetClz).putExtras(bundle));
+    protected void start (Bundle bundle, Class<?> targetClz) {
+        start(new Intent().setClass(getActivity(),
+                                    targetClz)
+                          .putExtras(bundle));
     }
 
-    protected void start(Class<?> targetClz, Integer... flags) {
-        Intent intent = new Intent().setClass(getActivity(), targetClz);
+    protected void start (Class<?> targetClz, Integer... flags) {
+        Intent intent = new Intent().setClass(getActivity(),
+                                              targetClz);
         for (Integer flag : flags) {
             intent.addFlags(flag);
         }
         start(intent);
     }
 
-    protected void start(Class<?> cls) {
-        start(new Intent().setClass(getActivity(), cls));
+    protected void start (Class<?> cls) {
+        start(new Intent().setClass(getActivity(),
+                                    cls));
     }
 
-    private void start(Intent intent) {
+    private void start (Intent intent) {
         startActivity(intent);
     }
 
-    protected View getViewById(int id) {
-        return viewDataBinding.getRoot().findViewById(id);
+    protected View getViewById (int id) {
+        return viewDataBinding.getRoot()
+                              .findViewById(id);
     }
 
     @Override
-    public void onBinderItemClick(View view, int pos) {
-
-    }
-
-    @Override
-    public void onBinderItemLongClick(View view, int pos) {
+    public void onBinderItemClick (View view, int pos) {
 
     }
 
     @Override
-    public void onError(String error, NetworkParams paramsCode) {
+    public void onBinderItemLongClick (View view, int pos) {
+
+    }
+
+    @Override
+    public void onError (String error, NetworkParams paramsCode) {
         LogTools.e("error response here");
-        AppTools.showActionSnackBar(viewDataBinding.getRoot(), getString(R.string
-                .connect_server_error)
-                , null, null);
+        noNetworkStatus();
+        if (!(getActivity() == null) && isAdded()) {
+            AppTools.showActionSnackBar(viewDataBinding.getRoot(),
+                                        getString(R.string.connect_server_error),
+                                        null,
+                                        null);
+        }
     }
 
     @Override
-    public void onJsonArrayResponse(List<E> t, NetworkParams paramsCode) {
+    public void onJsonArrayResponse (List<E> t, NetworkParams paramsCode) {
         LogTools.w("jsonArray response here");
 
     }
 
     @Override
-    public void onJsonObjectResponse(E t, NetworkParams paramsCode) {
+    public void onJsonObjectResponse (E t, NetworkParams paramsCode) {
         if (t instanceof BaseBean) {
             BaseBean baseBean = (BaseBean) t;
             final int errorCode = baseBean.getErrorcode();
             if (errorCode == 1) {
                 LogTools.e("参数错误");
             } else {
-                showMsgSnackBar(baseBean.getMsg());
                 if (errorCode == 0) {
-                    onJsonObjectSuccess(t, paramsCode);
+                    onJsonObjectSuccess(t,
+                                        paramsCode);
+                } else {
+                    showMsgSnackBar(baseBean.getMsg());
+                    onError();
                 }
             }
         }
     }
 
-    public void onJsonObjectSuccess(E t, NetworkParams paramsCode) {
+    public void onJsonObjectSuccess (E t, NetworkParams paramsCode) {
 
     }
 
-    private void showMsgSnackBar(String msg) {
-        AppTools.showNormalSnackBar(viewDataBinding.getRoot(), msg);
+    public void onError () {
+
+    }
+
+    private void showMsgSnackBar (String msg) {
+        if (getActivity() != null) {
+            View activityView = getActivity().findViewById(R.id.flyt_fragment);
+            View thisRoot = viewDataBinding.getRoot();
+            View finalView = activityView == null ? thisRoot : activityView;
+            AppTools.showNormalSnackBar(thisRoot,
+                                        msg);
+        }
     }
 
     @Override
-    public void uiUpData(Intent intent) {
-        if (intent.getAction().equals(AppKeyMap.NO_NETWORK_ACTION)) {
+    public void uiUpData (Intent intent) {
+        if (intent.getAction()
+                  .equals(AppKeyMap.NO_NETWORK_ACTION)) {
             LogTools.w("no net work");
             noNetworkStatus();
         }
     }
 
     @Override
-    public void onDestroy() {
+    public void onDestroy () {
         super.onDestroy();
     }
 
     @Override
-    public void onHanlderSuccess(int reqeustCode, List<PhotoInfo> resultList) {
+    public void onHanlderSuccess (int reqeustCode, List<PhotoInfo> resultList) {
 
     }
 
     @Override
-    public void onHanlderFailure(int requestCode, String errorMsg) {
+    public void onHanlderFailure (int requestCode, String errorMsg) {
 
     }
 }

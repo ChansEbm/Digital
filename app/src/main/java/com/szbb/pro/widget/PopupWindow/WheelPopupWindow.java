@@ -48,6 +48,8 @@ public class WheelPopupWindow extends BasePopupWindow {
 
     private List<String> list = new ArrayList<>();
 
+
+
     public WheelPopupWindow(Context context) {
         super(context);
         wheelPickerLayout = (WheelPickerLayout) viewDataBinding;

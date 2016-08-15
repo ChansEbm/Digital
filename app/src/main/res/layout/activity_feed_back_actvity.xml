@@ -4,9 +4,9 @@
     <data class=".FeedBackLayout"/>
 
     <FrameLayout
-        android:id="@+id/frameLayout"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/theme_primary"
@@ -31,6 +31,30 @@
                 android:hint="请输入你的宝贵意见"
                 android:padding="@dimen/small_margin_5dp"
                 android:textColorHint="@color/color_text_gravy"/>
+
+            <FrameLayout
+                android:id="@+id/flyt_classify"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/labelHeight_35dp"
+                android:layout_marginTop="@dimen/large_margin_15dp"
+                android:background="@drawable/bg_white_gravy_selector"
+                android:onClick="onClick"
+                android:paddingLeft="@dimen/large_margin_15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:id="@+id/tv_classify"
+                    style="@style/wrap"
+                    android:layout_gravity="center_vertical"
+                    android:hint="请选择分类"
+                    android:textColorHint="@color/color_gravy"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|right"
+                    android:src="@mipmap/ic_arrow_right"/>
+            </FrameLayout>
 
             <Button
                 android:id="@+id/button"

@@ -16,7 +16,6 @@
     </data>
 
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_white_gravy_selector"
@@ -38,6 +37,7 @@
                 android:textColor="@color/color_text_gravy"/>
 
             <TextView
+                android:id="@+id/tv_t2"
                 style="@style/textStyle"
                 android:layout_below="@id/tv_t1"
                 android:layout_marginTop="@dimen/small_margin_5dp"
@@ -49,6 +49,15 @@
                 android:layout_alignParentEnd="true"
                 android:text="@{order.order_status_desc}"
                 android:textColor="@color/color_text_red"/>
+
+            <com.szbb.pro.widget.CircleView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@id/tv_t2"
+                app:unreadTag="@{order.unread}"
+                android:padding="@dimen/small_margin_5dp"
+                app:circle_textSize="@dimen/text_small_size"/>
         </RelativeLayout>
 
         <include layout="@layout/line"/>
@@ -56,7 +65,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="11"
             android:paddingEnd="@dimen/middle_margin_10dp"
             android:paddingStart="@dimen/middle_margin_10dp"
             android:paddingTop="@dimen/middle_margin_10dp">
@@ -79,18 +88,15 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="@dimen/large_margin_15dp"
-                    android:layout_height="@dimen/large_margin_15dp"
+                    style="@style/tagStyle"
                     android:background="@color/color_bg_blue"
-                    android:gravity="center"
                     android:text="@string/label_fac"
                     android:textColor="@color/color_white"
                     android:textSize="10sp"/>
 
                 <TextView
-                    android:layout_width="26dp"
-                    android:layout_height="@dimen/large_margin_15dp"
-                    android:layout_marginStart="@dimen/small_margin_5dp"
+                    style="@style/tagStyle"
+                    android:layout_marginLeft="@dimen/small_margin_5dp"
                     android:background="@drawable/bg_blue_frame"
                     android:gravity="center"
                     android:text="@{order.service_type}"

@@ -1,0 +1,77 @@
+<layout>
+
+    <data class=".MainLayout"/>
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:background="@color/theme_primary"
+                  android:clipToPadding="false"
+                  android:fitsSystemWindows="true"
+                  android:orientation="vertical">
+
+        <include layout="@layout/title_bar"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:id="@+id/flyt_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="52dp"
+                android:background="@color/color_white"/>
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@drawable/bottom_bg"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/small_margin_5dp">
+
+                <android.support.v7.widget.AppCompatRadioButton
+                    android:id="@+id/rb_main_order"
+                    style="@style/RbMainTab"
+                    android:checked="true"
+                    android:drawableTop="@drawable/main_order_selector"
+                    android:text="@string/main_bottom_order"/>
+
+                <android.support.v7.widget.AppCompatRadioButton
+                    android:id="@+id/rb_main_fitting"
+                    style="@style/RbMainTab"
+                    android:drawableTop="@drawable/main_fitting_selector"
+                    android:text="@string/main_bottom_fittings"/>
+
+                <android.support.v7.widget.AppCompatRadioButton
+                    android:id="@+id/rb_main_grab"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:background="@drawable/bg_grab"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="@string/main_bottom_grab"
+                    android:textColor="@color/color_white"
+                    android:textSize="24sp"/>
+
+
+                <android.support.v7.widget.AppCompatRadioButton
+                    android:id="@+id/rb_main_sys_msg"
+                    style="@style/RbMainTab"
+                    android:drawableTop="@drawable/main_sys_selector"
+                    android:text="@string/main_bottom_system_msg"/>
+
+                <android.support.v7.widget.AppCompatRadioButton
+                    android:id="@+id/rb_main_vip"
+                    style="@style/RbMainTab"
+                    android:drawableTop="@drawable/main_vip_selector"
+                    android:text="@string/main_bottom_vip"/>
+
+            </RadioGroup>
+        </FrameLayout>
+    </LinearLayout>
+</layout>

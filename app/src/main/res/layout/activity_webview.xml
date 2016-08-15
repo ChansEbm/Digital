@@ -6,11 +6,11 @@
     <FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/theme_primary">
+        android:layout_height="match_parent">
 
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/nonLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/color_bg_gravy"
@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <WebView
+                <com.szbb.pro.widget.VideoEnabledWebView
                     android:id="@+id/webView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
@@ -35,5 +35,10 @@
                     android:max="100"/>
             </FrameLayout>
         </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/fullScreenLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
     </FrameLayout>
 </layout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="buttonStyle" parent="Base.TextAppearance.AppCompat.Button">
+        <item name="android:textColor">@color/color_white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_marginStart">@dimen/large_margin_15dp</item>
+        <item name="android:layout_marginEnd">@dimen/large_margin_15dp</item>
+        <item name="android:background">@drawable/bg_round_normal_blue_dark_selector</item>
+    </style>
+</resources>

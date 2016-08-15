@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data class=".GrabDetailLayout">
+
+        <variable
+            name="grab"
+            type="com.szbb.pro.entity.grab.GrabBean.ListBean"/>
+    </data>
+
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.szbb.pro.ui.activity.grab.GrabDetailActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_bg_gravy"
+            android:orientation="vertical">
+
+            <include layout="@layout/title_bar"/>
+
+            <LinearLayout
+                android:id="@+id/llyt_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small_margin_5dp"
+                    android:background="@color/color_white"
+                    android:minHeight="67dp"
+                    android:padding="@dimen/large_margin_15dp">
+
+                    <TextView
+                        android:id="@+id/tv_t1"
+                        style="@style/wrap"
+                        android:text="@string/order_detail_no"
+                        android:textSize="@dimen/text_normal_size"/>
+
+                    <TextView
+                        android:id="@+id/orderid"
+
+                        style="@style/wrap"
+                        android:layout_marginLeft="@dimen/small_margin_5dp"
+                        android:layout_toRightOf="@id/tv_t1"
+                        android:text="@{grab.orno}"
+                        android:textSize="@dimen/text_normal_size"/>
+
+                    <TextView
+                        android:id="@+id/tv_t2"
+                        style="@style/wrap"
+                        android:layout_below="@id/tv_t1"
+                        android:layout_marginTop="@dimen/small_margin_5dp"
+                        android:text="@string/order_make_order_time"
+                        android:textSize="@dimen/text_normal_size"/>
+
+
+                    <TextView
+                        style="@style/wrap"
+                        android:layout_alignTop="@id/tv_t2"
+                        android:layout_marginLeft="@dimen/small_margin_5dp"
+                        android:layout_toRightOf="@id/tv_t2"
+                        android:text="@{grab.datetime}"
+                        android:textSize="@dimen/text_normal_size"/>
+
+
+                    <TextView
+                        android:id="@+id/tv_t3"
+                        style="@style/wrap"
+                        android:layout_below="@id/tv_t2"
+                        android:layout_marginTop="@dimen/small_margin_5dp"
+                        android:text="@string/label_distance"
+                        android:textSize="@dimen/text_normal_size"/>
+
+                    <TextView
+                        style="@style/wrap"
+                        android:layout_alignTop="@id/tv_t3"
+                        android:layout_marginLeft="@dimen/small_margin_5dp"
+                        android:layout_toRightOf="@id/tv_t3"
+                        android:text="@{grab.distance}"
+                        android:textColor="@color/color_text_org"
+                        android:textSize="@dimen/text_normal_size"/>
+
+                    <Button
+                        android:id="@+id/button"
+                        style="@style/wrap"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/bg_round_normal_blue_dark_selector"
+                        android:onClick="onClick"
+                        android:text="确认抢单"
+                        android:textColor="@color/color_white"/>
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+
+            <com.baidu.mapapi.map.MapView
+                android:id="@+id/mapView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/small_margin_5dp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+    </FrameLayout>
+</layout>

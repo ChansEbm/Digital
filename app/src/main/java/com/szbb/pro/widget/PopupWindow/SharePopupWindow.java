@@ -45,7 +45,7 @@ public class SharePopupWindow extends BasePopupWindow implements PlatformActionL
                 shareParams.setTitle("神州帮帮");
                 shareParams.setText("神州联保家电后服务平台");
                 shareParams.setImageUrl("http://www.aimis.com.cn/upload/2015031133975205.png");
-                shareParams.setUrl("http://www.szlb.cc");
+                shareParams.setUrl("http://www.szlb.net/appxiazai");
                 shareParams.setShareType(Platform.SHARE_WEBPAGE);
                 Platform platform = ShareSDK.getPlatform(Wechat.NAME);
                 platform.setPlatformActionListener(this);
@@ -56,7 +56,7 @@ public class SharePopupWindow extends BasePopupWindow implements PlatformActionL
                 shareParams.setTitle("神州帮帮");
                 shareParams.setText("神州联保家电后服务平台");
                 shareParams.setImageUrl("http://www.aimis.com.cn/upload/2015031133975205.png");
-                shareParams.setUrl("http://www.szlb.cc");
+                shareParams.setUrl("http://www.szlb.net/appxiazai");
                 shareParams.setShareType(Platform.SHARE_WEBPAGE);
                 platform = ShareSDK.getPlatform(WechatMoments.NAME);
                 platform.setPlatformActionListener(this);
@@ -66,7 +66,7 @@ public class SharePopupWindow extends BasePopupWindow implements PlatformActionL
                 shareParams = new QQ.ShareParams();
                 shareParams.setTitle("神州帮帮");
                 shareParams.setText("神州联保家电后服务平台");
-                shareParams.setTitleUrl("http://www.szlb.cc");
+                shareParams.setTitleUrl("http://www.szlb.net/appxiazai");
                 shareParams.setImageUrl("http://www.aimis.com.cn/upload/2015031133975205.png");
                 platform = ShareSDK.getPlatform(QQ.NAME);
                 platform.setPlatformActionListener(this);
@@ -76,10 +76,10 @@ public class SharePopupWindow extends BasePopupWindow implements PlatformActionL
                 shareParams = new QZone.ShareParams();
                 shareParams.setTitle("神州帮帮");
                 shareParams.setText("神州联保家电后服务平台");
-                shareParams.setTitleUrl("http://www.szlb.cc");
+                shareParams.setTitleUrl("http://www.szlb.net/appxiazai");
                 shareParams.setImageUrl("http://www.aimis.com.cn/upload/2015031133975205.png");
                 shareParams.setSite("szbb");
-                shareParams.setSiteUrl("http://www.szlb.net/");
+                shareParams.setSiteUrl("http://www.szlb.net/appxiazai");
                 platform = ShareSDK.getPlatform(QZone.NAME);
                 platform.setPlatformActionListener(this);
                 platform.share(shareParams);

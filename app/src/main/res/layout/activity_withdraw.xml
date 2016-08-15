@@ -87,7 +87,7 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:digits="1234567890"
-                    android:hint="每次提现需收取手续费1元"
+                    android:hint="@string/wallet_withdraw_hint"
                     android:inputType="number"
                     android:paddingStart="@dimen/small_margin_5dp"
                     android:textColorHint="@color/color_gravy"

@@ -35,8 +35,10 @@ import de.greenrobot.event.EventBus;
  * Created by ChanZeeBm on 2015/11/2.
  * 配件订单- 配件申请
  */
-public class FittingApplyFragment extends BaseFgm<MyFittingOrderBean, MyFittingOrderBean
-        .ListEntity> implements BGARefreshLayout
+public class FittingApplyFragment
+        extends BaseFgm<MyFittingOrderBean, MyFittingOrderBean
+        .ListEntity>
+        implements BGARefreshLayout
         .BGARefreshLayoutDelegate {
     private FittingOrderLayout fittingOrderLayout;
     private RecyclerView refreshRecyclerView;
@@ -52,7 +54,8 @@ public class FittingApplyFragment extends BaseFgm<MyFittingOrderBean, MyFittingO
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
+        EventBus.getDefault()
+                .register(this);
     }
 
     @Override
@@ -69,7 +72,8 @@ public class FittingApplyFragment extends BaseFgm<MyFittingOrderBean, MyFittingO
 
     @Override
     protected void initEvents() {
-        AppTools.defaultRefresh(refreshLayout, this);
+        AppTools.defaultRefresh(refreshLayout,
+                                this);
         menuAdapter.setBinderOnItemClickListener(this);
         commonBinderAdapter.setBinderOnItemClickListener(this);
 
@@ -79,7 +83,10 @@ public class FittingApplyFragment extends BaseFgm<MyFittingOrderBean, MyFittingO
         drawerLayout.setDrawerListener(new DisplaceDrawerToggle());
         drawerLayout.setScrimColor(Color.TRANSPARENT);
 
-        networkModel.acceList("0", "", "", NetworkParams.CUPCAKE);
+        networkModel.acceList("0",
+                              "",
+                              "",
+                              NetworkParams.CUPCAKE);
     }
 
     private void menuEvents() {
@@ -104,15 +111,18 @@ public class FittingApplyFragment extends BaseFgm<MyFittingOrderBean, MyFittingO
         refreshRecyclerView.setAdapter(commonBinderAdapter);
         refreshRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         refreshRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder
-                (getContext()).sizeResId(R.dimen.large_margin_15dp).color(getResources().getColor
-                (R.color.color_bg_gravy))
-                .build());
+                                                      (getContext()).sizeResId(R.dimen.large_margin_15dp)
+                                                                    .color(getResources().getColor
+                                                                            (R.color.color_bg_gravy))
+                                                                    .build());
     }
 
 
     private void initContentAdapter() {
         commonBinderAdapter = new CommonBinderAdapter<MyFittingOrderBean.ListEntity>(getContext()
-                , R.layout.item_fgm_fitting_apply, list) {
+                ,
+                                                                                     R.layout.item_fgm_fitting_apply,
+                                                                                     list) {
             @Override
             public void onBind(ViewDataBinding viewDataBinding, CommonBinderHolder holder, int
                     position, MyFittingOrderBean.ListEntity listEntity) {
@@ -122,9 +132,10 @@ public class FittingApplyFragment extends BaseFgm<MyFittingOrderBean, MyFittingO
     }
 
     private void initMenuAdapter() {
-        menuAdapter = new CommonBinderAdapter<String>(getActivity(), R.layout.item_fitting_order,
-                getResources
-                        ().getStringArray(R.array.fitting_apply)) {
+        menuAdapter = new CommonBinderAdapter<String>(getActivity(),
+                                                      R.layout.item_fitting_order,
+                                                      getResources
+                                                              ().getStringArray(R.array.fitting_apply)) {
             @Override
             public void onBind(ViewDataBinding viewDataBinding, CommonBinderHolder holder, int
                     position, String s) {
@@ -132,7 +143,7 @@ public class FittingApplyFragment extends BaseFgm<MyFittingOrderBean, MyFittingO
                         viewDataBinding;
                 if (position == 0 && isFirst) {
                     itemFittingOrderLayout.textView.setTextColor(getResources().getColor(R.color
-                            .theme_primary));
+                                                                                                 .theme_primary));
                     isFirst = false;
                 }
                 itemFittingOrderLayout.textView.setText(s);
@@ -166,8 +177,9 @@ public class FittingApplyFragment extends BaseFgm<MyFittingOrderBean, MyFittingO
         View v = (View) view.getParent();
         switch (v.getId()) {
             case R.id.rv_menu:
-                if (currentPos == pos)
+                if (currentPos == pos) {
                     return;
+                }
                 switchMenuPos(pos);
                 resetAllTextColor();
                 setChosenColor(view);
@@ -185,10 +197,12 @@ public class FittingApplyFragment extends BaseFgm<MyFittingOrderBean, MyFittingO
     }
 
     private void resetAllTextColor() {
-        for (int i = 0; i < menuRecyclerView.getChildCount(); i++) {
+        for (int i = 0;
+             i < menuRecyclerView.getChildCount();
+             i++) {
             final TextView textView = (TextView) menuRecyclerView.getChildAt(i)
-                    .findViewById(R.id
-                            .textView);
+                                                                 .findViewById(R.id
+                                                                                       .textView);
             textView.setTextColor(getResources().getColor(R.color.color_text_dark));
         }
     }
@@ -196,19 +210,24 @@ public class FittingApplyFragment extends BaseFgm<MyFittingOrderBean, MyFittingO
     private void switchContent(int pos) {
         final MyFittingOrderBean.ListEntity listEntity = list.get(pos);
         final String acceid = listEntity.getAcceid();
-        switchExeType(listEntity, acceid);
+        switchExeType(listEntity,
+                      acceid);
     }
 
     private void switchExeType(MyFittingOrderBean.ListEntity listEntity, String acceid) {
         final String exe_type = listEntity.getExe_type();
         switch (exe_type) {
             case "1"://A模式
-                startActivity(new Intent().setClass(getContext(), FittingApplyDetailActivity.class)
-                        .putExtra("acceId", acceid));
+                startActivity(new Intent().setClass(getContext(),
+                                                    FittingApplyDetailActivity.class)
+                                          .putExtra("acceId",
+                                                    acceid));
                 break;
             case "2"://B模式
-                startActivity(new Intent().setClass(getContext(), FittingResendDetailActivity.class)
-                        .putExtra("acceId", acceid));
+                startActivity(new Intent().setClass(getContext(),
+                                                    FittingResendDetailActivity.class)
+                                          .putExtra("acceId",
+                                                    acceid));
                 break;
         }
     }
@@ -216,20 +235,30 @@ public class FittingApplyFragment extends BaseFgm<MyFittingOrderBean, MyFittingO
     private void switchMenuPos(int pos) {
         switch (pos) {
             case 0:
-                networkModel.acceList("0", "", "", NetworkParams.CUPCAKE);
+                networkModel.acceList("0",
+                                      "",
+                                      "",
+                                      NetworkParams.CUPCAKE);
                 break;
             case 1:
-                networkModel.acceList("1", "", "", NetworkParams.CUPCAKE);
+                networkModel.acceList("1",
+                                      "",
+                                      "",
+                                      NetworkParams.CUPCAKE);
                 break;
             case 2:
-                networkModel.acceList("2", "", "", NetworkParams.CUPCAKE);
+                networkModel.acceList("2",
+                                      "",
+                                      "",
+                                      NetworkParams.CUPCAKE);
                 break;
         }
     }
 
     @Override
     public void onJsonObjectSuccess(MyFittingOrderBean t, NetworkParams paramsCode) {
-        super.onJsonObjectSuccess(t, paramsCode);
+        super.onJsonObjectSuccess(t,
+                                  paramsCode);
         this.myFittingOrderBean = t;
         if (paramsCode == NetworkParams.CUPCAKE) {
             list.clear();
@@ -237,6 +266,8 @@ public class FittingApplyFragment extends BaseFgm<MyFittingOrderBean, MyFittingO
         list.addAll(t.getList());
         if (list.isEmpty()) {
             fittingOrderLayout.include.emptyView.setVisibility(View.VISIBLE);
+        } else {
+            fittingOrderLayout.include.emptyView.setVisibility(View.GONE);
         }
         commonBinderAdapter.notifyDataSetChanged();
         refreshLayout.endLoadingMore();
@@ -246,31 +277,45 @@ public class FittingApplyFragment extends BaseFgm<MyFittingOrderBean, MyFittingO
     @Override
     public void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
+        EventBus.getDefault()
+                .unregister(this);
     }
 
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout bgaRefreshLayout) {
-        final int status = myFittingOrderBean.getCond().getStatus();
-        networkModel.acceList(status + "", "", "", NetworkParams.CUPCAKE);
+        final int status = myFittingOrderBean.getCond()
+                                             .getStatus();
+        networkModel.acceList(status + "",
+                              "",
+                              "",
+                              NetworkParams.CUPCAKE);
     }
 
     @Override
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout bgaRefreshLayout) {
         if (myFittingOrderBean.getIsNext() == 1) {
             final int page = myFittingOrderBean.getPage();
-            final int status = myFittingOrderBean.getCond().getStatus();
-            networkModel.acceList(status + "", (page + 1) + "", "", NetworkParams.DONUT);
+            final int status = myFittingOrderBean.getCond()
+                                                 .getStatus();
+            networkModel.acceList(status + "",
+                                  (page + 1) + "",
+                                  "",
+                                  NetworkParams.DONUT);
         } else {
-            AppTools.showNormalSnackBar(parentView, getString(R.string.no_more));
+            AppTools.showNormalSnackBar(parentView,
+                                        getString(R.string.no_more));
             return false;
         }
         return true;
     }
 
-    class DisplaceDrawerToggle extends ContentDisplaceDrawerToggle {
+    class DisplaceDrawerToggle
+            extends ContentDisplaceDrawerToggle {
         public DisplaceDrawerToggle() {
-            super(getActivity(), drawerLayout, fittingOrderLayout.flytContant, GravityCompat.START);
+            super(getActivity(),
+                  drawerLayout,
+                  fittingOrderLayout.flytContant,
+                  GravityCompat.START);
         }
 
         @Override

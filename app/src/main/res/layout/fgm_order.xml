@@ -13,18 +13,35 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tabLayout"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/theme_primary"
-                app:tabGravity="fill"
-                app:tabIndicatorColor="@color/color_white"
-                app:tabIndicatorHeight="3dp"
-                app:tabSelectedTextColor="@color/color_white"
-                app:tabTextAppearance="@style/TabLayout"
-                app:tabTextColor="@color/color_white"/>
+                android:layout_height="wrap_content">
 
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/theme_primary">
+
+                    <android.support.design.widget.TabLayout
+                        android:id="@+id/tabLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:background="@color/theme_primary"
+                        app:tabGravity="fill"
+                        app:tabIndicatorColor="@color/color_white"
+                        app:tabIndicatorHeight="3dp"
+                        app:tabSelectedTextColor="@color/color_white"
+                        app:tabTextAppearance="@style/TabLayout"
+                        app:tabTextColor="@color/color_white"/>
+                </android.support.v7.widget.Toolbar>
+
+                <com.miguelcatalan.materialsearchview.MaterialSearchView
+                    android:id="@+id/materialSearchView"
+                    style="@style/MaterialSearchViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </FrameLayout>
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.view.ViewPager

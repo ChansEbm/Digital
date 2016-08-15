@@ -9,20 +9,23 @@ public class AppKeyMap {
     //手机正则
     public final static String PHONE_REGEX = "[1]\\d{10}";
     //身份证正则
-    public final static String CITIZEN_ID_REGEX = "^(\\d{6})(\\d{4})(\\d{2})(\\d{2})(\\d{3})([0-9]|X||x)$";
+    public final static String CITIZEN_ID_REGEX = "^(\\d{6})(\\d{4})(\\d{2})(\\d{2})(\\d{3})" +
+            "([0-9]|X||x)$";
     //中国人名正则
     public final static String CHINESE_PEOPLE_REGEX = "(([\\u4E00-\\u9FA5]|[·]){2,15})";
     //密码正则(只能输入数字字母)
     public final static String PWD_REGEX = "^[A-Za-z0-9]+$";
     //邮编正则
-    public final static String ZIP_CODE_REGEX = "^[0-9]\\d{6}$";
+    public final static String ZIP_CODE_REGEX = "\\d{6}$";
     //Action Key
     public final static String ACTION_KEY = "ACTION_KEY";
     //定位Action
     public final static String LOCATION_ACTION = "android.intent.action.LOCATION";
+    //抢单ACTION
+    public final static String GRAB_ACTION = "android.intent.action.GRAB";
     //预约客户成功Action
-    public final static String APPOINTMENT_CLIENT_ACTION = "android.intent.action" +
-            ".APPOINTMENT_CLIENT_ACTION";
+    public final static String REFRESH_ORDER_ACTION = "android.intent.action" +
+            ".REFRESH_ORDER";
     //联系不上客户
     public final static String APPOINTMENT_CAN_NOT_CONTENT_CLIENT = "android.intent.action" +
             ".APPOINTMENT_CAN_NOT_CONTENT_CLIENT";
@@ -34,7 +37,7 @@ public class AppKeyMap {
     //默认动画执行时间 300ms
     public final static int DEFAULT_DURATION = 300;
 
-    public final static boolean IS_DEBUG = false;
+    public final static boolean IS_DEBUG = BuildConfig.isDebug;
 
     //be flag
     public final static int CUPCAKE = 0x01f;
@@ -53,17 +56,17 @@ public class AppKeyMap {
     public final static String HEAD_API_WORKER = HEAD + "ApiWorker/";
     public final static String HEAD_API_ORDER = HEAD + "ApiOrder/";
     public final static String HEAD_API_ACCE_ORDER = HEAD + "ApiAcceOrder/";
-    public final static String HEAD_APINEARORDER = HEAD + "ApiNearOrder/";
-    public final static String HEAD_APIMEMBER = HEAD + "ApiMember/";
-    public final static String HEAD_APIPAGES = HEAD + "ApiPages/";
-    public final static String HEAD_APIPUSH = HEAD + "ApiPush/";
-    public final static String HEAD_APIBUGCOLLECT = HEAD + "ApiBugCollect/collect";
-    public final static String HEAD_ABOUT_US = HEAD_APIPAGES + "aboutUs";
-    public final static String HEAD_MUSTREAD = HEAD_APIPAGES + "mustRead";
-    public final static String HEAD_JOINTPRICE = HEAD_APIPAGES + "jointPrice";
-    public final static String HEAD_REGISTERAGREEMENT = HEAD_APIPAGES + "registerAgreement";
-    public final static String HEAD_QUERYLOGISTICS = HEAD_APIPAGES + "queryLogistics";
-    public final static String REGISTERAGREEMENT = HEAD_APIPAGES + "registerAgreement";
+    public final static String HEAD_API_NEAR_ORDER = HEAD + "ApiNearOrder/";
+    public final static String HEAD_API_MEMBER = HEAD + "ApiMember/";
+    public final static String HEAD_API_PAGES = HEAD + "ApiPages/";
+    public final static String HEAD_API_PUSH = HEAD + "ApiPush/";
+    public final static String HEAD_API_BUG_COLLECT = HEAD + "ApiBugCollect/collect";
+    public final static String HEAD_ABOUT_US = HEAD_API_PAGES + "aboutUs";
+    public final static String HEAD_MUSTREAD = HEAD_API_PAGES + "mustRead";
+    public final static String HEAD_JOINTPRICE = HEAD_API_PAGES + "jointPrice";
+    public final static String HEAD_REGISTERAGREEMENT = HEAD_API_PAGES + "registerAgreement";
+    public final static String HEAD_QUERYLOGISTICS = HEAD_API_PAGES + "queryLogistics";
+    public final static String REGISTERAGREEMENT = HEAD_API_PAGES + "registerAgreement";
 
 
     public final static String CONTENT_JPG = "image/jpg";
@@ -74,9 +77,13 @@ public class AppKeyMap {
 
     //用户标识
     public final static String AUTH = "auth";
+    public final static String SIG = "sig";
+    public final static String IDENTIFIER = "identifier";
 
     public static boolean isAuthEmpty() {
-        return AppTools.getStringSharedPreferences(AUTH, "").isEmpty();
+        return AppTools.getStringSharedPreferences(AUTH,
+                                                   "")
+                       .isEmpty();
     }
 
 }

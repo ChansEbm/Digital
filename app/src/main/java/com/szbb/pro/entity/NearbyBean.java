@@ -10,6 +10,7 @@ public class NearbyBean {
     private Drawable drawable;
     private String text;
 
+
     public String getText() {
         return text;
     }

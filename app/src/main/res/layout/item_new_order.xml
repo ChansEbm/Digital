@@ -1,138 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="RtlCompat">
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		tools:ignore="RtlCompat">
 
-    <data class=".ItemNewOrderLayout">
+	<data class=".ItemNewOrderLayout">
 
-        <import type="android.view.View" />
+		<import type="android.view.View"/>
 
-        <import type="android.text.TextUtils" />
+		<import type="android.text.TextUtils"/>
 
-        <variable
-            name="order"
-            type="com.szbb.pro.entity.order.MyOrderBean.ListEntity" />
-    </data>
+		<variable
+			name="order"
+			type="com.szbb.pro.entity.order.MyOrderBean.ListEntity"/>
+	</data>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_white_gravy_selector"
-        android:minHeight="132dp"
-        android:orientation="vertical">
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@drawable/bg_white_gravy_selector"
+		android:minHeight="132dp"
+		android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:paddingEnd="0dp"
-            android:paddingStart="@dimen/middle_margin_10dp"
-            android:paddingTop="@dimen/middle_margin_10dp">
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:paddingEnd="0dp"
+			android:paddingStart="@dimen/middle_margin_10dp"
+			android:paddingTop="@dimen/middle_margin_10dp">
 
 
-            <TextView
-                android:id="@+id/tv_t1"
-                style="@style/textStyle"
-                android:text="@{order.sn}"
-                android:textColor="@color/color_text_gravy" />
+			<TextView
+				android:id="@+id/tv_t1"
+				style="@style/textStyle"
+				android:text="@{order.sn}"
+				android:textColor="@color/color_text_gravy"/>
 
-            <TextView
-                style="@style/textStyle"
-                android:layout_below="@id/tv_t1"
-                android:layout_marginTop="@dimen/small_margin_5dp"
-                android:text="@{order.new_order_drop_time_desc}"
-                android:textColor="@color/color_text_gravy" />
+			<TextView
+				android:id="@+id/tv_t2"
+				style="@style/textStyle"
+				android:layout_below="@id/tv_t1"
+				android:layout_marginTop="@dimen/small_margin_5dp"
+				android:text="@{order.new_order_drop_time_desc}"
+				android:textColor="@color/color_text_gravy"/>
 
-            <Button
-                android:id="@+id/btn_call"
-                style="@style/buttonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="33dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:drawableStart="@mipmap/ic_call"
-                android:minWidth="90dp"
-                android:paddingStart="@dimen/small_margin_5dp"
-                android:text="@string/label_contact_client"
-                android:textSize="12sp" />
-        </RelativeLayout>
+			<com.szbb.pro.widget.CircleView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignTop="@id/tv_t2"
+				android:layout_marginLeft="@dimen/small_margin_5dp"
+				android:layout_toRightOf="@id/tv_t2"
+				android:padding="@dimen/small_margin_5dp"
+				app:circle_textSize="@dimen/text_small_size"
+				app:unreadTag="@{order.unread}"/>
 
-        <include layout="@layout/line" />
+			<Button
+				android:id="@+id/btn_call"
+				style="@style/buttonStyle"
+				android:layout_width="wrap_content"
+				android:layout_height="33dp"
+				android:layout_alignParentEnd="true"
+				android:layout_centerVertical="true"
+				android:drawableStart="@mipmap/ic_call"
+				android:minWidth="60dp"
+				android:paddingStart="@dimen/small_margin_5dp"
+				android:text="@string/label_client"
+				android:textSize="12sp"/>
+		</RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:paddingEnd="@dimen/middle_margin_10dp"
-            android:paddingStart="@dimen/middle_margin_10dp"
-            android:paddingTop="@dimen/middle_margin_10dp">
+		<include layout="@layout/line"/>
 
-            <ImageView
-                android:id="@+id/iv_i1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/small_margin_5dp"
-                android:src="@mipmap/ic_arrow_right" />
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:paddingEnd="@dimen/middle_margin_10dp"
+			android:paddingStart="@dimen/middle_margin_10dp"
+			android:paddingTop="@dimen/middle_margin_10dp">
 
-            <LinearLayout
-                android:id="@+id/llyt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toStartOf="@id/iv_i1"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+			<ImageView
+				android:id="@+id/iv_i1"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentEnd="true"
+				android:layout_centerVertical="true"
+				android:layout_marginStart="@dimen/small_margin_5dp"
+				android:src="@mipmap/ic_arrow_right"/>
 
-                <TextView
-                    android:layout_width="@dimen/large_margin_15dp"
-                    android:layout_height="@dimen/large_margin_15dp"
-                    android:background="@color/color_bg_blue"
-                    android:gravity="center"
-                    android:text="@string/label_fac"
-                    android:textColor="@color/color_white"
-                    android:textSize="10sp" />
+			<LinearLayout
+				android:id="@+id/llyt"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_toStartOf="@id/iv_i1"
+				android:gravity="center_vertical"
+				android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="26dp"
-                    android:layout_height="@dimen/large_margin_15dp"
-                    android:layout_marginStart="@dimen/small_margin_5dp"
-                    android:background="@drawable/bg_blue_frame"
-                    android:gravity="center"
-                    android:text="@{order.service_type}"
-                    android:textColor="@color/color_bg_blue"
-                    android:textSize="11sp" />
+				<TextView
+					style="@style/tagStyle"
+					android:background="@color/color_bg_blue"
+					android:gravity="center"
+					android:text="@string/label_fac"
+					android:textColor="@color/color_white"
+					android:textSize="10sp"/>
 
-                <TextView
-                    style="@style/textStyle"
-                    android:layout_width="0dp"
-                    android:layout_marginStart="@dimen/middle_margin_10dp"
-                    android:layout_toEndOf="@id/tv_t3"
-                    android:layout_weight="1"
-                    android:singleLine="true"
-                    android:text="@{order.service_pro_brand+order.service_pro+order.service_pro_stantard}" />
+				<TextView
+					android:layout_width="26dp"
+					android:layout_height="@dimen/large_margin_15dp"
+					android:layout_marginStart="@dimen/small_margin_5dp"
+					android:background="@drawable/bg_blue_frame"
+					android:gravity="center"
+					android:text="@{order.service_type}"
+					android:textColor="@color/color_bg_blue"
+					android:textSize="11sp"/>
 
-                <Button
-                    android:layout_width="41dp"
-                    android:layout_height="17dp"
-                    android:layout_marginStart="@dimen/middle_margin_10dp"
-                    android:background="@drawable/bg_round_blue_dark_selector"
-                    android:text="@string/label_more_pro"
-                    android:textColor="@color/color_white"
-                    android:textSize="10sp"
-                    app:visibility='@{order.is_more_pro.equals("1") ? View.VISIBLE : View.GONE}' />
-            </LinearLayout>
+				<TextView
+					style="@style/textStyle"
+					android:layout_width="0dp"
+					android:layout_marginStart="@dimen/middle_margin_10dp"
+					android:layout_toEndOf="@id/tv_t3"
+					android:layout_weight="1"
+					android:singleLine="true"
+					android:text="@{order.service_pro_brand+order.service_pro+order.service_pro_stantard}"/>
 
-            <TextView
-                style="@style/textStyle"
-                android:layout_alignParentStart="true"
-                android:layout_below="@id/llyt"
-                android:layout_marginTop="@dimen/small_margin_5dp"
-                android:layout_toStartOf="@id/iv_i1"
-                android:singleLine="true"
-                android:text="@{order.nickname+order.tel+order.address}"
-                android:textColor="@color/color_text_gravy" />
-        </RelativeLayout>
-    </LinearLayout>
+				<Button
+					android:layout_width="41dp"
+					android:layout_height="17dp"
+					android:layout_marginStart="@dimen/middle_margin_10dp"
+					android:background="@drawable/bg_round_blue_dark_selector"
+					android:text="@string/label_more_pro"
+					android:textColor="@color/color_white"
+					android:textSize="10sp"
+					app:visibility='@{order.is_more_pro.equals("1") ? View.VISIBLE : View.GONE}'/>
+			</LinearLayout>
+
+			<TextView
+				style="@style/textStyle"
+				android:layout_alignParentStart="true"
+				android:layout_below="@id/llyt"
+				android:layout_marginTop="@dimen/small_margin_5dp"
+				android:layout_toStartOf="@id/iv_i1"
+				android:singleLine="true"
+				android:text="@{order.nickname+order.tel+order.address}"
+				android:textColor="@color/color_text_gravy"/>
+		</RelativeLayout>
+	</LinearLayout>
 </layout>

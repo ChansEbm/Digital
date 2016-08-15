@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="horizontal">
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom_bg"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/small_margin_5dp">
+
+        <android.support.v7.widget.AppCompatRadioButton
+            style="@style/RbMainTab"
+            android:drawableTop="@mipmap/ic_order_nor"
+            android:text="@string/main_bottom_fittings"/>
+
+        <android.support.v7.widget.AppCompatRadioButton
+            style="@style/RbMainTab"
+            android:drawableTop="@mipmap/ic_order_nor"
+            android:text="@string/main_bottom_fittings"/>
+
+        <android.support.v7.widget.AppCompatRadioButton
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:background="@drawable/bg_grab"
+            android:button="@null"
+            android:gravity="center"
+            android:text="@string/main_bottom_grab"
+            android:textColor="@color/color_white"
+            android:textSize="24sp"/>
+
+
+        <android.support.v7.widget.AppCompatRadioButton
+            style="@style/RbMainTab"
+            android:drawableTop="@mipmap/ic_order_nor"
+            android:text="@string/main_bottom_fittings"/>
+
+        <android.support.v7.widget.AppCompatRadioButton
+            style="@style/RbMainTab"
+            android:drawableTop="@mipmap/ic_order_nor"
+            android:text="@string/main_bottom_fittings"/>
+
+    </RadioGroup>
+</LinearLayout>

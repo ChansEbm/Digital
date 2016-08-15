@@ -3,6 +3,7 @@ package com.szbb.pro.ui.activity.vip;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -12,16 +13,20 @@ import com.szbb.pro.R;
 import com.szbb.pro.WebViewLayout;
 import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.tools.AppTools;
+import com.szbb.pro.tools.LogTools;
+import com.szbb.pro.widget.VideoEnabledWebChromeClient;
+import com.szbb.pro.widget.VideoEnabledWebView;
 
 
 public class WebViewActivity extends BaseAty {
     private WebViewLayout detailLayout;
     private String url = "";
 
-    private WebView webView;
+    private VideoEnabledWebView webView;
     private ProgressBar progressBar;
 
     private String title = "";
+    private VideoEnabledWebChromeClient webChromeClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +34,10 @@ public class WebViewActivity extends BaseAty {
         detailLayout = (WebViewLayout) viewDataBinding;
         url = getIntent().getStringExtra("url");
         title = getIntent().getStringExtra("title");
-        if (TextUtils.isEmpty(url) || TextUtils.isEmpty(title))
+        if (TextUtils.isEmpty(url) || TextUtils.isEmpty(title)) {
             AppTools.removeSingleActivity(this);
+        }
+        LogTools.i(url);
     }
 
     @Override
@@ -42,29 +49,53 @@ public class WebViewActivity extends BaseAty {
 
     @Override
     protected void initEvents() {
-        webView.setWebChromeClient(new WebChromeClient() {
+        webChromeClient = new VideoEnabledWebChromeClient(detailLayout.nonLayout,
+                detailLayout.fullScreenLayout,
+                null,
+                webView) // See all available constructors...
+        {
+            // Subscribe to standard events, such as onProgressChanged()...
             @Override
-            public void onProgressChanged(WebView view, int newProgress) {
-                super.onProgressChanged(view, newProgress);
-                progressBar.setProgress(newProgress);
-                if (newProgress == 100) {
+            public void onProgressChanged(WebView view, int progress) {
+                progressBar.setVisibility(View.VISIBLE);
+                progressBar.setProgress(progress);
+                if (progress >= 99) {
                     progressBar.setVisibility(View.GONE);
                 }
             }
-        });
-        webView.setWebViewClient(new WebViewClient() {
+        };
+        webChromeClient.setOnToggledFullscreen(new VideoEnabledWebChromeClient.ToggledFullscreenCallback() {
             @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                return true;
+            public void toggledFullscreen(boolean fullscreen) {
+                // Your code to handle the full-screen change, for example showing and hiding the title bar
+                LogTools.w(fullscreen);
+                if (fullscreen) {
+                    WindowManager.LayoutParams attrs = getWindow().getAttributes();
+                    attrs.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+                    attrs.flags |= WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
+                    getWindow().setAttributes(attrs);
+                    if (android.os.Build.VERSION.SDK_INT >= 14) {
+                        //noinspection all
+                        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+                    }
+                } else {
+                    WindowManager.LayoutParams attrs = getWindow().getAttributes();
+                    attrs.flags &= ~WindowManager.LayoutParams.FLAG_FULLSCREEN;
+                    attrs.flags &= ~WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
+                    getWindow().setAttributes(attrs);
+                    if (android.os.Build.VERSION.SDK_INT >= 14) {
+                        //noinspection all
+                        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+                    }
+                }
+
             }
         });
-        webView.getSettings().setAllowContentAccess(true);
-        webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.getSettings().setBlockNetworkImage(false);
-
-        detailLayout.webView.loadUrl(url);
+        webView.setWebChromeClient(webChromeClient);
+        webView.setWebViewClient(new InsideWebViewClient());
+        webView.loadUrl(url);
     }
+
 
     @Override
     protected int getContentView() {
@@ -75,4 +106,41 @@ public class WebViewActivity extends BaseAty {
     protected void onClick(int id, View view) {
 
     }
+
+    @Override
+    public void onBackPressed() {
+        // Notify the VideoEnabledWebChromeClient, and handle it ourselves if it doesn't handle it
+        if (!webChromeClient.onBackPressed()) {
+            if (webView.canGoBack()) {
+                webView.goBack();
+            } else {
+                // Standard back button implementation (for example this could close the app)
+                super.onBackPressed();
+            }
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        webView.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        webView.onResume();
+    }
+
+    private class InsideWebViewClient extends WebViewClient {
+        @Override
+        // Force links to be opened inside WebView and not in Default Browser
+        // Thanks http://stackoverflow.com/a/33681975/1815624
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
+        }
+    }
+
+
 }

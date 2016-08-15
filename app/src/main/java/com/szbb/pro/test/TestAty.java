@@ -11,14 +11,24 @@ import com.szbb.pro.entity.order.MyOrderBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.impl.AreaCallBack;
 import com.szbb.pro.impl.UpdateUIListener;
+import com.szbb.pro.tools.LogTools;
+import com.szbb.pro.widget.deleter.DeleterConfigs;
+import com.szbb.pro.widget.deleter.DeleterConfigsBuilder;
+import com.szbb.pro.widget.deleter.DeleterHandlerCallback;
+import com.szbb.pro.widget.deleter.DeleterImageView;
+import com.szbb.pro.widget.deleter.DeleterScrollLayout;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 /**
  * Created by ChanZeeBm on 2015/9/19.
  */
-public class TestAty extends BaseAty<MyOrderBean, MyOrderBean.ListEntity> implements
+public class TestAty
+        extends BaseAty<MyOrderBean, MyOrderBean.ListEntity>
+        implements
         UpdateUIListener, AreaCallBack {
     TestLayout testLayout;
 
@@ -26,7 +36,44 @@ public class TestAty extends BaseAty<MyOrderBean, MyOrderBean.ListEntity> implem
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         testLayout = (TestLayout) viewDataBinding;
-
+        DeleterScrollLayout deleterScrollLayout = testLayout.deleterScrollLayout;
+        ArrayList<String> urls = new ArrayList<>();
+        urls.add("http://www.wed114.cn/jiehun/uploads/allimg/160426/39_160426110638_1.jpg");
+        urls.add("http://www.wed114.cn/jiehun/uploads/allimg/160426/39_160426110638_1.jpg");
+        urls.add("http://www.wed114.cn/jiehun/uploads/allimg/160426/39_160426110638_1.jpg");
+        urls.add("http://www.wed114.cn/jiehun/uploads/allimg/160426/39_160426110638_1.jpg");
+        urls.add("http://www.wed114.cn/jiehun/uploads/allimg/160426/39_160426110638_1.jpg");
+        urls.add("http://www.wed114.cn/jiehun/uploads/allimg/160426/39_160426110638_1.jpg");
+        urls.add("http://www.wed114.cn/jiehun/uploads/allimg/160426/39_160426110638_1.jpg");
+        urls.add("http://www.wed114.cn/jiehun/uploads/allimg/160426/39_160426110638_1.jpg");
+        urls.add("http://www.wed114.cn/jiehun/uploads/allimg/160426/39_160426110638_1.jpg");
+        urls.add("http://www.wed114.cn/jiehun/uploads/allimg/160426/39_160426110638_1.jpg");
+        urls.add("http://www.wed114.cn/jiehun/uploads/allimg/160426/39_160426110638_1.jpg");
+        urls.add("http://www.wed114.cn/jiehun/uploads/allimg/160426/39_160426110638_1.jpg");
+        urls.add("http://www.wed114.cn/jiehun/uploads/allimg/160426/39_160426110638_1.jpg");
+        urls.add("http://www.wed114.cn/jiehun/uploads/allimg/160426/39_160426110638_1.jpg");
+        urls.add("http://www.wed114.cn/jiehun/uploads/allimg/160426/39_160426110638_1.jpg");
+        urls.add("http://www.wed114.cn/jiehun/uploads/allimg/160426/39_160426110638_1.jpg");
+        urls.add("http://www.wed114.cn/jiehun/uploads/allimg/160426/39_160426110638_1.jpg");
+        urls.add("http://www.wed114.cn/jiehun/uploads/allimg/160426/39_160426110638_1.jpg");
+        urls.add("http://www.wed114.cn/jiehun/uploads/allimg/160426/39_160426110638_1.jpg");
+        urls.add("http://www.wed114.cn/jiehun/uploads/allimg/160426/39_160426110638_1.jpg");
+        deleterScrollLayout.setConfigs(deleterScrollLayout.getConfigsBuilder()
+                                                          .setNetworkUrls(urls)
+                                                          .setMode(DeleterConfigs.MODE_VIEW)
+                                                          .createDeleterConfigs());
+        deleterScrollLayout.setPlacerImages(R.mipmap.ic_citizen_id,
+                                            R.mipmap.ic_citizen_back,
+                                            R.mipmap.ic_citizen_font);
+        deleterScrollLayout.setDeleterHandlerCallback(new DeleterHandlerCallback() {
+            @Override
+            public void success(Set<Integer> keySet,
+                                List<String> photoPaths) {
+                for (String photoPath : photoPaths) {
+                    LogTools.w(photoPath);
+                }
+            }
+        });
     }
 
     @Override
@@ -56,7 +103,8 @@ public class TestAty extends BaseAty<MyOrderBean, MyOrderBean.ListEntity> implem
     }
 
     @Override
-    protected void onClick(int id, View view) {
+    protected void onClick(int id,
+                           View view) {
 //        if (id == R.id.button) {
 //            startActivity(new Intent().setClass(this, SecondActivity.class).setFlags(Intent
 //                    .FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
@@ -69,7 +117,10 @@ public class TestAty extends BaseAty<MyOrderBean, MyOrderBean.ListEntity> implem
     }
 
     @Override
-    public void onSelect(String provinceName, String cityName, int provinceIndex, int cityIndex) {
+    public void onSelect(String provinceName,
+                         String cityName,
+                         int provinceIndex,
+                         int cityIndex) {
 
     }
 
@@ -84,7 +135,8 @@ public class TestAty extends BaseAty<MyOrderBean, MyOrderBean.ListEntity> implem
     }
 
     @Override
-    public void onJsonObjectSuccess(MyOrderBean myOrderBean, NetworkParams paramsCode) {
+    public void onJsonObjectSuccess(MyOrderBean myOrderBean,
+                                    NetworkParams paramsCode) {
 
     }
 }

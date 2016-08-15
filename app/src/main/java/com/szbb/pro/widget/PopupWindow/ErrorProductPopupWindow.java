@@ -16,40 +16,35 @@ import com.szbb.pro.impl.OnErrorProductCallback;
 import com.szbb.pro.impl.OnPhotoOptsSelectListener;
 import com.szbb.pro.model.MarkPictureModel;
 import com.szbb.pro.tools.AppTools;
+import com.szbb.pro.widget.deleter.DeleterHandlerCallback;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import cn.finalteam.galleryfinal.FunctionConfig;
 import cn.finalteam.galleryfinal.GalleryFinal;
 import cn.finalteam.galleryfinal.model.PhotoInfo;
 
+
 /**
  * Created by ChanZeeBm on 2016/1/22.
  */
-public class ErrorProductPopupWindow extends BasePopupWindow implements GalleryFinal
-        .OnHanlderResultCallback, OnPhotoOptsSelectListener {
-    private PhotoPopupWindow photoPopupWindow;
+public class ErrorProductPopupWindow extends BasePopupWindow implements DeleterHandlerCallback {
     private OnErrorProductCallback onErrorProductCallback;
     private ArrayList<String> filePaths = new ArrayList<>();
     private String detailId = "";
     private String info = "";
-    private MarkPictureModel markPictureModel;
 
     private EditText edtError;
-    private LinearLayout llytUploadPic;
 
     public ErrorProductPopupWindow(Context context) {
         super(context);
         PopupErrorProductLayout popupErrorProductLayout = (PopupErrorProductLayout) viewDataBinding;
-        photoPopupWindow = new PhotoPopupWindow(context);
-        markPictureModel = new MarkPictureModel();
         edtError = popupErrorProductLayout.edtError;
-        llytUploadPic = popupErrorProductLayout.llytUploadPic;
         popupErrorProductLayout.cancel.setOnClickListener(this);
         popupErrorProductLayout.submit.setOnClickListener(this);
-        popupErrorProductLayout.btnAdd.setOnClickListener(this);
-        photoPopupWindow.setOnPhotoOptsSelectListener(this);
+        popupErrorProductLayout.deleterScrollLayout.setDeleterHandlerCallback(this);
         setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
         setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         setFocusable(true);
@@ -71,12 +66,10 @@ public class ErrorProductPopupWindow extends BasePopupWindow implements GalleryF
                     if (onErrorProductCallback != null) {
                         onErrorProductCallback.onSubmit(detailId, info, filePaths);
                     }
+                    dismiss();
                 }
                 break;
-            case R.id.btn_add:
-                photoPopupWindow.showAtLocation(appCompatActivity.getWindow().getDecorView(),
-                        Gravity.BOTTOM, 0, 0);
-                break;
+
         }
     }
 
@@ -111,35 +104,10 @@ public class ErrorProductPopupWindow extends BasePopupWindow implements GalleryF
         }
     }
 
-    @Override
-    public void onHanlderSuccess(int requestCode, List<PhotoInfo> resultList) {
-        for (PhotoInfo photoInfo : resultList) {
-            String singleFilePath = photoInfo.getPhotoPath();
-            if (!filePaths.contains(singleFilePath)) {
-                filePaths.add(singleFilePath);
-                markPictureModel.savePicturePath(singleFilePath);
-            }
-        }
-        markPictureModel.addSinglePictureInLinearLayout(context, llytUploadPic,
-                false);
-    }
 
     @Override
-    public void onHanlderFailure(int requestCode, String errorMsg) {
-
-    }
-
-    @Override
-    public void onOptsSelect(PhotoPopupOpts opts) {
-        switch (opts) {
-            case TAKE_PHOTO:
-                GalleryFinal.openCamera(AppKeyMap.CUPCAKE, this);
-                break;
-            case ALBUM:
-                FunctionConfig config = new FunctionConfig.Builder().setMutiSelectMaxSize(8)
-                        .setSelected(filePaths).build();
-                GalleryFinal.openGalleryMuti(AppKeyMap.DONUT, config, this);
-                break;
-        }
+    public void success(Set<Integer> keySet, List<String> photoPaths) {
+        this.filePaths.clear();
+        this.filePaths.addAll(photoPaths);
     }
 }
