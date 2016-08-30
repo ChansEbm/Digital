@@ -3,7 +3,6 @@ package com.szbb.pro.ui.activity.orders.operating;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.databinding.ViewDataBinding;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,8 +19,8 @@ import android.widget.ImageView;
 
 import com.bm.library.Info;
 import com.bm.library.PhotoView;
+import com.bumptech.glide.Glide;
 import com.github.pwittchen.prefser.library.Prefser;
-import com.squareup.picasso.Picasso;
 import com.szbb.pro.AppKeyMap;
 import com.szbb.pro.CustomerServiceLayout;
 import com.szbb.pro.R;
@@ -42,14 +41,14 @@ import com.szbb.pro.tools.ChatManager;
 import com.szbb.pro.tools.PermissionTools;
 import com.tencent.TIMElem;
 import com.tencent.TIMElemType;
+import com.tencent.TIMImage;
 import com.tencent.TIMImageElem;
-import com.tencent.TIMMessage;
 import com.tencent.TIMTextElem;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 import cn.finalteam.galleryfinal.model.PhotoInfo;
 
 /**
@@ -212,9 +211,9 @@ public class CustomerServiceActivity
         if (TextUtils.isEmpty(tag)) {
             return;
         }
-        Picasso.with(this)
-               .load(Uri.parse(tag))
-               .into(zoomPhotoView);
+        Glide.with(this)
+             .load(Uri.parse(tag))
+             .into(zoomPhotoView);
         final Info info = photoView.getInfo();
         zoomPhotoView.animaFrom(info);
         ivBackground.startAnimation(in);
@@ -276,15 +275,17 @@ public class CustomerServiceActivity
                 TIMImageElem timImageElem = (TIMImageElem) timElem;
                 roleUserLayout.llytUserText.setVisibility(View.GONE);
                 roleUserLayout.llytUserPic.setVisibility(View.VISIBLE);
-                String url = timImageElem.getImageList()
-                                         .get(0)
-                                         .getUrl();
-                Picasso.with(this)
-                       .load(url)
-                       .resize(300,
-                               300)
-                       .into(roleUserLayout.rolePhotoView);
-                roleUserLayout.rolePhotoView.setTag(url);
+                ArrayList<TIMImage> imageList = timImageElem.getImageList();
+                if (!imageList.isEmpty()) {
+                    String url = imageList
+                            .get(0)
+                            .getUrl();
+                    Glide.with(this)
+                         .load(url)
+                         .override(300, 300)
+                         .into(roleUserLayout.rolePhotoView);
+                    roleUserLayout.rolePhotoView.setTag(url);
+                }
                 break;
         }
     }
@@ -305,11 +306,10 @@ public class CustomerServiceActivity
                 String url = timImageElem.getImageList()
                                          .get(0)
                                          .getUrl();
-                Picasso.with(this)
-                       .load(url)
-                       .resize(300,
-                               300)
-                       .into(layout.rolePhotoView);
+                Glide.with(this)
+                     .load(url)
+                     .override(300, 300)
+                     .into(layout.rolePhotoView);
                 layout.rolePhotoView.setTag(url);
                 break;
         }

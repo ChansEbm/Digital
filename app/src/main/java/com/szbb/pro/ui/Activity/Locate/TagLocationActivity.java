@@ -10,20 +10,13 @@ import android.widget.TextView;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.mapapi.map.BaiduMap;
-import com.baidu.mapapi.map.BitmapDescriptor;
-import com.baidu.mapapi.map.BitmapDescriptorFactory;
-import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapView;
-import com.baidu.mapapi.map.Marker;
-import com.baidu.mapapi.map.MarkerOptions;
-import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.szbb.pro.R;
 import com.szbb.pro.TagLocationLayout;
 import com.szbb.pro.base.BaseAty;
-import com.szbb.pro.model.MapModel;
+import com.szbb.pro.biz.MapBiz;
 import com.szbb.pro.tools.AppTools;
-import com.szbb.pro.tools.LogTools;
 
 public class TagLocationActivity
         extends BaseAty
@@ -43,7 +36,7 @@ public class TagLocationActivity
         defaultTitleBar(this).setTitle("定位");
         MapView mapView = layout.mapView;
         final BaiduMap baiduMap = mapView.getMap();
-        MapModel model = new MapModel(this);
+        MapBiz model = new MapBiz(this);
         double lat = getIntent().getDoubleExtra("lat",
                                                 0.0d);
         double lng = getIntent().getDoubleExtra("lng",
@@ -114,11 +107,11 @@ public class TagLocationActivity
 
     @Override
     public void onReceiveLocation(BDLocation bdLocation) {
-        new MapModel(this).addMyLocation(layout.mapView.getMap(),
-                                         bdLocation.getLatitude(),
-                                         bdLocation.getLongitude(),
-                                         0,
-                                         0);
+        new MapBiz(this).addMyLocation(layout.mapView.getMap(),
+                                       bdLocation.getLatitude(),
+                                       bdLocation.getLongitude(),
+                                       0,
+                                       0);
     }
 
     @Override

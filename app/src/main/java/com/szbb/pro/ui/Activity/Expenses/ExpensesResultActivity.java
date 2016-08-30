@@ -10,7 +10,7 @@ import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.entity.base.BaseBean;
 import com.szbb.pro.entity.expenses.ExpensesResultBean;
 import com.szbb.pro.eum.NetworkParams;
-import com.szbb.pro.model.MarkPictureModel;
+import com.szbb.pro.biz.MarkPictureBiz;
 import com.szbb.pro.ui.activity.main.MainActivity;
 
 import java.util.ArrayList;
@@ -85,7 +85,7 @@ public class ExpensesResultActivity extends BaseAty<BaseBean, BaseBean> {
     private void addPic(ExpensesResultBean resultBean) {
         final List<ExpensesResultBean.DataEntity.CostImgEntity> cost_img = resultBean.getData
                 ().getCost_img();
-        MarkPictureModel markPictureModel = new MarkPictureModel();
+        MarkPictureBiz markPictureModel = new MarkPictureBiz();
         for (ExpensesResultBean.DataEntity.CostImgEntity costImgEntity : cost_img) {
             markPictureModel.savePicturePath(costImgEntity.getUrl());
         }

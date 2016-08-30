@@ -109,7 +109,7 @@ public class AppointmentAlterActivity extends BaseAty<BaseBean, BaseBean> implem
     @Override
     public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {
         Toast.makeText(AppointmentAlterActivity.this, "修改预约成功!", Toast.LENGTH_SHORT).show();
-        AppTools.sendBroadcast(new Bundle(), AppKeyMap.REFRESH_ORDER_ACTION);
+        AppTools.sendBroadcast(new Bundle(), AppKeyMap.REFRESH_AND_JUMPTO_SERVICED_PAGE);
         start(MainActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP, Intent.FLAG_ACTIVITY_SINGLE_TOP);
     }
 

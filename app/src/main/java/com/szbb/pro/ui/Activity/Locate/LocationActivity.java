@@ -16,9 +16,8 @@ import com.szbb.pro.AppKeyMap;
 import com.szbb.pro.LocationLayout;
 import com.szbb.pro.R;
 import com.szbb.pro.base.BaseAty;
-import com.szbb.pro.model.MapModel;
+import com.szbb.pro.biz.MapBiz;
 import com.szbb.pro.tools.AppTools;
-import com.szbb.pro.tools.LogTools;
 
 public class LocationActivity
         extends BaseAty
@@ -26,7 +25,7 @@ public class LocationActivity
     private MapView mapView;
     private BaiduMap baiduMap;
     private LocationLayout locationLayout;
-    private MapModel mapModel;
+    private MapBiz mapModel;
     private int flag = -1;
     private double lat = -1d;
     private double lng = -1d;
@@ -51,7 +50,7 @@ public class LocationActivity
     @Override
     protected void initViews() {
         defaultTitleBar(this).setTitle(title);
-        mapModel = new MapModel(this);
+        mapModel = new MapBiz(this);
         mapView = locationLayout.mapView;
         if (flag == AppKeyMap.CUPCAKE) {
             checkNetWorkStateAndLocate();

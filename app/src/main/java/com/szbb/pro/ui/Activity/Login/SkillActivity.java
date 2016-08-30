@@ -19,7 +19,7 @@ import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.databinding.ItemSkillBinding;
 import com.szbb.pro.entity.SkillBean;
 import com.szbb.pro.impl.BinderOnItemClickListener;
-import com.szbb.pro.model.SkillCheckModel;
+import com.szbb.pro.biz.SkillCheckBiz;
 import com.szbb.pro.tools.AppTools;
 
 import java.util.ArrayList;
@@ -115,7 +115,7 @@ public class SkillActivity extends BaseAty implements BinderOnItemClickListener,
 
     @Override
     public void onBinderItemClick(View view, int pos) {
-        if (SkillCheckModel.checkCount(list, pos)) {
+        if (SkillCheckBiz.checkCount(list, pos)) {
             SkillBean skillBean = list.get(pos);
             skillBean.setIsChoosen(!skillBean.isChosen());
             commonBinderAdapter.notifyItemChanged(pos);

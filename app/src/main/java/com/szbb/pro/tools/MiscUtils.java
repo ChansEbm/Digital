@@ -334,8 +334,7 @@ public class MiscUtils {
         try {
             pi = pm.getPackageInfo(context.getPackageName(),
                                    0);
-            String versionName = pi.versionName;
-            return versionName;
+            return pi.versionName;
         } catch (NameNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

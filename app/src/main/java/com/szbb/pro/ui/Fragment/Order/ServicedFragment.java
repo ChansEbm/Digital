@@ -49,7 +49,8 @@ public class ServicedFragment extends OrderSearchBaseFragment<MyOrderBean, MyOrd
         broadcast.setListener(this);
         //接收点击预约客户后的广播
         AppTools.registerBroadcast(broadcast,
-                                   AppKeyMap.REFRESH_ORDER_ACTION);
+                                   AppKeyMap.REFRESH_AND_JUMPTO_SERVICED_PAGE,
+                                   AppKeyMap.REFRESH_ALL);
     }
 
     @Override
@@ -59,9 +60,7 @@ public class ServicedFragment extends OrderSearchBaseFragment<MyOrderBean, MyOrd
         refreshLayout = orderBaseLayout.include.refreshLayout;
 
         commonBinderAdapter = new CommonBinderAdapter<MyOrderBean.ListEntity>(getActivity(),
-                                                                              R
-                                                                                      .layout
-                                                                                      .item_serviced,
+                                                                              R.layout.item_serviced,
                                                                               list) {
 
             @Override
@@ -125,8 +124,8 @@ public class ServicedFragment extends OrderSearchBaseFragment<MyOrderBean, MyOrd
     public void uiUpData (Intent intent) {
         super.uiUpData(intent);
         final String action = intent.getAction();
-        if (action.equals(AppKeyMap.REFRESH_ORDER_ACTION) || action.equals(AppKeyMap
-                                                                                   .WAITING_COST_ACTION)) {
+        if (action.equals(AppKeyMap.REFRESH_AND_JUMPTO_SERVICED_PAGE) ||
+            action.equals(AppKeyMap.WAITING_COST_ACTION) || action.equals(AppKeyMap.REFRESH_ALL)) {
             //重新访问后台执行刷新操作
             networkModel.myOrderList("2",
                                      "",
@@ -138,11 +137,6 @@ public class ServicedFragment extends OrderSearchBaseFragment<MyOrderBean, MyOrd
     @Override
     public void onResume () {
         super.onResume();
-//        if (!EventBus.getDefault()
-//                     .isRegistered(this)) {
-//            EventBus.getDefault()
-//                    .register(this);
-//        }
     }
 
     @Override

@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import com.szbb.pro.AppKeyMap;
 import com.szbb.pro.R;
 import com.szbb.pro.adapters.CommonBinderAdapter;
+import com.szbb.pro.biz.NetworkBiz;
 import com.szbb.pro.broadcast.UpdateUIBroadcast;
 import com.szbb.pro.entity.base.BaseBean;
 import com.szbb.pro.entity.order.OrderMsgBean;
@@ -22,7 +23,6 @@ import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.impl.BinderOnItemClickListener;
 import com.szbb.pro.impl.OkHttpResponseListener;
 import com.szbb.pro.impl.UpdateUIListener;
-import com.szbb.pro.model.NetworkModel;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.BitmapCompressTool;
 import com.szbb.pro.tools.LogTools;
@@ -58,11 +58,11 @@ public abstract class BaseAty<E extends BaseBean, T>
     private boolean isFirstRunnable = true;
 
     public boolean isNeedBackground = true;
-    public NetworkModel networkModel;
+    public NetworkBiz networkModel;
     protected HashMap<String, Object> permissionMap = new HashMap<>();//保存权限管理的键值对
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LogTools.v(getClass().getSimpleName());
         if (savedInstanceState != null) {
@@ -70,7 +70,7 @@ public abstract class BaseAty<E extends BaseBean, T>
         }
         if (getContentView() != 0) {
             viewDataBinding = DataBindingUtil.setContentView(this,
-                    getContentView());
+                                                             getContentView());
             parentView = viewDataBinding.getRoot();
         } else {
             throw new IllegalStateException("not invoke setContentView");
@@ -80,14 +80,14 @@ public abstract class BaseAty<E extends BaseBean, T>
             // .FLAG_TRANSLUCENT_NAVIGATION);//虚拟底部
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);//状态栏
             viewDataBinding.getRoot()
-                    .setFitsSystemWindows(true);
+                           .setFitsSystemWindows(true);
             if (isNeedBackground) {
                 viewDataBinding.getRoot()
-                        .setBackgroundResource(R.color.theme_primary);
+                               .setBackgroundResource(R.color.theme_primary);
             }
         }
 
-        networkModel = new NetworkModel(this);
+        networkModel = new NetworkBiz(this);
         CustomActivityOnCrash.setErrorActivityClass(ErrorActivity.class);
         CustomActivityOnCrash.install(getApplicationContext());
         networkModel.setResultCallBack(this);
@@ -95,7 +95,7 @@ public abstract class BaseAty<E extends BaseBean, T>
         uiBroadcast = new UpdateUIBroadcast();
         uiBroadcast.setListener(this);
         AppTools.registerBroadcast(uiBroadcast,
-                AppKeyMap.NO_NETWORK_ACTION);
+                                   AppKeyMap.NO_NETWORK_ACTION);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//竖屏
         //初始化ShareSDK
         if (!(this instanceof ErrorActivity)) {
@@ -104,7 +104,7 @@ public abstract class BaseAty<E extends BaseBean, T>
     }
 
     @Override
-    protected void onStart() {
+    protected void onStart () {
         super.onStart();
         if (isFirstRunnable) {
             initViews();
@@ -114,79 +114,79 @@ public abstract class BaseAty<E extends BaseBean, T>
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume () {
         super.onResume();
         JPushInterface.onResume(getApplicationContext());
         BaseApplication.setCurrentActivity(this);
     }
 
     @Override
-    protected void onPause() {
+    protected void onPause () {
         super.onPause();
         JPushInterface.onPause(getApplicationContext());
     }
 
-    protected TitleBarTools titleBarTools(AppCompatActivity activity) {
+    protected TitleBarTools titleBarTools (AppCompatActivity activity) {
         titleBarTools = new TitleBarTools(activity);
         return titleBarTools;
     }
 
-    protected TitleBarTools defaultTitleBar(AppCompatActivity activity) {
+    protected TitleBarTools defaultTitleBar (AppCompatActivity activity) {
         titleBarTools = new TitleBarTools(activity);
         return titleBarTools.defaultToolBar(this);
     }
 
-    protected void start(Bundle bundle, Class<?> targetClz) {
+    protected void start (Bundle bundle, Class<?> targetClz) {
         start(new Intent().setClass(this,
-                targetClz)
-                .putExtras(bundle));
+                                    targetClz)
+                          .putExtras(bundle));
     }
 
-    public void start(Class<?> targetClz, Integer... flags) {
+    public void start (Class<?> targetClz, Integer... flags) {
         Intent intent = new Intent().setClass(this,
-                targetClz);
+                                              targetClz);
         for (Integer flag : flags) {
             intent.addFlags(flag);
         }
         start(intent);
     }
 
-    protected void start(Class cls) {
+    protected void start (Class cls) {
         start(new Intent().setClass(this,
-                cls));
+                                    cls));
     }
 
-    private void start(Intent intent) {
+    private void start (Intent intent) {
         startActivity(intent);
     }
 
-    protected <T extends View> T getViewById(int id) {
+    protected <T extends View> T getViewById (int id) {
         return (T) viewDataBinding.getRoot()
-                .findViewById(id);
+                                  .findViewById(id);
     }
 
-    protected abstract void initViews();
+    protected abstract void initViews ();
 
-    protected abstract void initEvents();
+    protected abstract void initEvents ();
 
-    protected void noNetworkStatus() {
+    protected void noNetworkStatus () {
         AppTools.showSettingSnackBar(parentView,
-                getString(R.string.no_network_is_detected));
+                                     getString(R.string.no_network_is_detected));
     }
 
-    protected abstract int getContentView();
+    protected abstract int getContentView ();
 
-    protected abstract void onClick(int id, View view);
+    protected abstract void onClick (int id, View view);
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState (Bundle outState) {
         outState.putBoolean("isFirstRunnable",
-                isFirstRunnable);
+                            isFirstRunnable);
         super.onSaveInstanceState(outState);
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick (View v) {
         int id = v.getId();
         AppTools.hideSoftInputMethod(v);
         if (id == R.id.nav) {
@@ -198,85 +198,85 @@ public abstract class BaseAty<E extends BaseBean, T>
     }
 
     @Override
-    public void onBinderItemClick(View view, int pos) {
+    public void onBinderItemClick (View view, int pos) {
 
     }
 
     @Override
-    public void onBinderItemLongClick(View view, int pos) {
+    public void onBinderItemLongClick (View view, int pos) {
 
     }
 
     @Override
-    public void onHanlderFailure(int requestCode, String errorMsg) {
+    public void onHanlderFailure (int requestCode, String errorMsg) {
 
     }
 
     @Override
-    public void onHanlderSuccess(int requestCode, List<PhotoInfo> resultList) {
+    public void onHanlderSuccess (int requestCode, List<PhotoInfo> resultList) {
         for (PhotoInfo photoInfo : resultList) {
             BitmapCompressTool.getRadioBitmap(photoInfo.getPhotoPath(),
-                    1000,
-                    1000);
+                                              1000,
+                                              1000);
         }
     }
 
 
     @Override
-    public void onError(String error, NetworkParams paramsCode) {
+    public void onError (String error, NetworkParams paramsCode) {
         LogTools.e("error:" + error + ",NetworkParams:" + paramsCode);
         noNetworkStatus();
         AppTools.showNormalSnackBar(viewDataBinding.getRoot(),
-                getString(R.string
-                        .connect_server_error));
+                                    getString(R.string
+                                                      .connect_server_error));
     }
 
-    public void onError(BaseBean baseBean) {
+    public void onError (E baseBean) {
 
     }
 
     @Override
-    public void onJsonArrayResponse(List<E> t, NetworkParams paramsCode) {
+    public void onJsonArrayResponse (List<E> t, NetworkParams paramsCode) {
 
     }
 
 
     @Override
-    public void onJsonObjectResponse(E e, NetworkParams paramsCode) {
+    public void onJsonObjectResponse (E e, NetworkParams paramsCode) {
         BaseBean baseBean = e;
         final int errorCode = baseBean.getErrorcode();
         if (errorCode == 1) {
             LogTools.e("参数错误");
         } else {
             if (!((baseBean instanceof OrderMsgListBean) || (baseBean instanceof OrderMsgBean) ||
-                    (baseBean instanceof CheckUpdateBean)))
+                  (baseBean instanceof CheckUpdateBean)))
             //唉 这样写非常不好 联系客服什么时候可以去掉
             {
                 showMsgSnackBar(baseBean.getMsg());
             }
             if (errorCode == 0) {
                 onJsonObjectSuccess(e,
-                        paramsCode);
+                                    paramsCode);
             } else {
-                onError(baseBean);
+                onError(e);
             }
         }
     }
 
-    public void onJsonObjectSuccess(E e, NetworkParams paramsCode) {
+    public void onJsonObjectSuccess (E e, NetworkParams paramsCode) {
 
     }
 
 
-    private void showMsgSnackBar(String msg) {
+    private void showMsgSnackBar (String msg) {
         AppTools.showNormalSnackBar(parentView,
-                msg);
+                                    msg);
     }
 
     @Override
-    public void uiUpData(Intent intent) {
+    public void uiUpData (Intent intent) {
         if (intent.getAction()
-                .equals(AppKeyMap.NO_NETWORK_ACTION)) {
+                  .equals(AppKeyMap.NO_NETWORK_ACTION)) {
             noNetworkStatus();
         }
     }

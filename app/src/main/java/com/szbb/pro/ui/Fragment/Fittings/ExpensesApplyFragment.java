@@ -45,14 +45,15 @@ public class ExpensesApplyFragment extends BaseFgm<FittingCostBean, FittingCostB
     private FittingCostBean fittingCostBean;
     private boolean isFirst = true;
 
+
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate (@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
     }
 
     @Override
-    protected void initViews() {
+    protected void initViews () {
         fittingOrderLayout = (FittingOrderLayout) viewDataBinding;
         refreshRecyclerView = fittingOrderLayout.include.recyclerView;
         refreshLayout = fittingOrderLayout.include.refreshLayout;
@@ -65,7 +66,7 @@ public class ExpensesApplyFragment extends BaseFgm<FittingCostBean, FittingCostB
 
 
     @Override
-    protected void initEvents() {
+    protected void initEvents () {
         AppTools.defaultRefresh(refreshLayout, this);
         menuAdapter.setBinderOnItemClickListener(this);
         commonBinderAdapter.setBinderOnItemClickListener(this);
@@ -83,49 +84,52 @@ public class ExpensesApplyFragment extends BaseFgm<FittingCostBean, FittingCostB
     }
 
     @Override
-    protected void noNetworkStatus() {
+    protected void noNetworkStatus () {
         refreshLayout.endRefreshing();
         refreshLayout.endLoadingMore();
     }
 
     @Override
-    protected void onClick(int id, View view) {
+    protected void onClick (int id, View view) {
 
     }
 
-    private void initRefreshRecyclerView() {
+    private void initRefreshRecyclerView () {
         refreshRecyclerView.setAdapter(commonBinderAdapter);
         refreshRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         refreshRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder
-                (getContext()).sizeResId(R.dimen.large_margin_15dp).color(getResources().getColor
-                (R.color.color_bg_gravy))
-                .build());
+                                                      (getContext())
+                                                      .sizeResId(R.dimen.large_margin_15dp)
+                                                      .color(getResources().getColor
+                                                              (R.color.color_bg_gravy))
+                                                      .build());
     }
 
 
-    private void initContentAdapter() {
+    private void initContentAdapter () {
         commonBinderAdapter = new CommonBinderAdapter<FittingCostBean.ListEntity>(getContext()
                 , R.layout.item_fgm_fitting_cost, list) {
             @Override
-            public void onBind(ViewDataBinding viewDataBinding, CommonBinderHolder holder, int
+            public void onBind (ViewDataBinding viewDataBinding, CommonBinderHolder holder, int
                     position, FittingCostBean.ListEntity listEntity) {
                 ((ItemFgmFittingCostLayout) viewDataBinding).setCost(listEntity);
             }
         };
     }
 
-    private void initMenuAdapter() {
+    private void initMenuAdapter () {
         menuAdapter = new CommonBinderAdapter<String>(getActivity(), R.layout.item_fitting_order,
-                getResources
-                        ().getStringArray(R.array.expense_apply)) {
+                                                      getResources
+                                                              ().getStringArray(
+                                                              R.array.expense_apply)) {
             @Override
-            public void onBind(ViewDataBinding viewDataBinding, CommonBinderHolder holder, int
+            public void onBind (ViewDataBinding viewDataBinding, CommonBinderHolder holder, int
                     position, String s) {
                 ItemFittingOrderLayout itemFittingOrderLayout = (ItemFittingOrderLayout)
                         viewDataBinding;
                 if (position == 0 && isFirst) {
                     itemFittingOrderLayout.textView.setTextColor(getResources().getColor(R.color
-                            .theme_primary));
+                                                                                                 .theme_primary));
                     isFirst = false;
                 }
                 itemFittingOrderLayout.textView.setText(s);
@@ -135,7 +139,7 @@ public class ExpensesApplyFragment extends BaseFgm<FittingCostBean, FittingCostB
 
     }
 
-    public void onEvent(FittingNavEvent fittingNavEvent) {
+    public void onEvent (FittingNavEvent fittingNavEvent) {
         if (fittingNavEvent.getCurrentPos() == 1) {
             drawerToggle();
         } else {
@@ -143,7 +147,7 @@ public class ExpensesApplyFragment extends BaseFgm<FittingCostBean, FittingCostB
         }
     }
 
-    private void drawerToggle() {
+    private void drawerToggle () {
         if (drawerLayout.isDrawerOpen(menuRecyclerView)) {
             drawerLayout.closeDrawer(menuRecyclerView);
         } else {
@@ -152,12 +156,12 @@ public class ExpensesApplyFragment extends BaseFgm<FittingCostBean, FittingCostB
     }
 
     @Override
-    protected int getContentView() {
+    protected int getContentView () {
         return R.layout.fragment_fitting_order;
     }
 
     @Override
-    public void onBinderItemClick(View view, int pos) {
+    public void onBinderItemClick (View view, int pos) {
         View v = (View) view.getParent();
         switch (v.getId()) {
             case R.id.rv_menu:
@@ -171,27 +175,29 @@ public class ExpensesApplyFragment extends BaseFgm<FittingCostBean, FittingCostB
         }
     }
 
-    private void setChosenColor(View view) {
+    private void setChosenColor (View view) {
         TextView textView = (TextView) view.findViewById(R.id.textView);
         textView.setTextColor(getResources().getColor(R.color.theme_primary));
     }
 
-    private void resetAllTextColor() {
-        for (int i = 0; i < menuRecyclerView.getChildCount(); i++) {
+    private void resetAllTextColor () {
+        for (int i = 0;
+             i < menuRecyclerView.getChildCount();
+             i++) {
             final TextView textView = (TextView) menuRecyclerView.getChildAt(i)
-                    .findViewById(R.id
-                            .textView);
+                                                                 .findViewById(R.id
+                                                                                       .textView);
             textView.setTextColor(getResources().getColor(R.color.color_text_dark));
         }
     }
 
-    private void switchContent(int pos) {
+    private void switchContent (int pos) {
         final String costid = list.get(pos).getCostid();
         startActivity(new Intent().setClass(getActivity(), ExpensesResultActivity.class).putExtra
                 ("costId", costid));
     }
 
-    private void switchMenuPos(int pos) {
+    private void switchMenuPos (int pos) {
         switch (pos) {
             case 0:
                 networkModel.costList("0", "", "", NetworkParams.CUPCAKE);
@@ -210,7 +216,7 @@ public class ExpensesApplyFragment extends BaseFgm<FittingCostBean, FittingCostB
     }
 
     @Override
-    public void onJsonObjectSuccess(FittingCostBean t, NetworkParams paramsCode) {
+    public void onJsonObjectSuccess (FittingCostBean t, NetworkParams paramsCode) {
         super.onJsonObjectSuccess(t, paramsCode);
         this.fittingCostBean = t;
         if (paramsCode == NetworkParams.CUPCAKE) {
@@ -226,19 +232,19 @@ public class ExpensesApplyFragment extends BaseFgm<FittingCostBean, FittingCostB
     }
 
     @Override
-    public void onDestroy() {
+    public void onDestroy () {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
 
     @Override
-    public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout bgaRefreshLayout) {
+    public void onBGARefreshLayoutBeginRefreshing (BGARefreshLayout bgaRefreshLayout) {
         final int status = fittingCostBean.getCond().getStatus();
         networkModel.costList(status + "", "", "", NetworkParams.CUPCAKE);
     }
 
     @Override
-    public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout bgaRefreshLayout) {
+    public boolean onBGARefreshLayoutBeginLoadingMore (BGARefreshLayout bgaRefreshLayout) {
         if (fittingCostBean.getIsNext() == 1) {
             final int page = fittingCostBean.getPage();
             final int status = fittingCostBean.getCond().getStatus();
@@ -251,12 +257,12 @@ public class ExpensesApplyFragment extends BaseFgm<FittingCostBean, FittingCostB
     }
 
     class DisplaceDrawerToggle extends ContentDisplaceDrawerToggle {
-        public DisplaceDrawerToggle() {
+        public DisplaceDrawerToggle () {
             super(getActivity(), drawerLayout, fittingOrderLayout.flytContant, GravityCompat.START);
         }
 
         @Override
-        public void onDrawerOpened(View arg0) {
+        public void onDrawerOpened (View arg0) {
             super.onDrawerOpened(arg0);
             menuRecyclerView.bringToFront();
             drawerLayout.requestLayout();

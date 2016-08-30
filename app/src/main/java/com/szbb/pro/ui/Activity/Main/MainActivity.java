@@ -16,10 +16,15 @@ import com.szbb.pro.MainLayout;
 import com.szbb.pro.R;
 import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.entity.base.BaseBean;
+import com.szbb.pro.entity.vip.CheckUpdateBean;
 import com.szbb.pro.entity.vip.VipInfoBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.impl.OnPopUpSelectListener;
+import com.szbb.pro.manager.AppUpdaterManager;
+import com.szbb.pro.tools.ApkTools;
 import com.szbb.pro.tools.AppTools;
+import com.szbb.pro.tools.LogTools;
+import com.szbb.pro.tools.MiscUtils;
 import com.szbb.pro.ui.fragment.main.FittingsFragment;
 import com.szbb.pro.ui.fragment.main.GrabFragment;
 import com.szbb.pro.ui.fragment.main.OrderFragment;
@@ -81,6 +86,10 @@ public class MainActivity
     protected void initEvents () {
         layout.radioGroup.setOnCheckedChangeListener(this);
         networkModel.workerInfo(NetworkParams.DONUT);
+        networkModel.versions(MiscUtils.getAppVersion(this),
+                              NetworkParams.GINGERBREAD);
+
+        ApkTools.installAPK(this);
     }
 
     @Override
@@ -154,6 +163,7 @@ public class MainActivity
                                event);
     }
 
+
     @Override
     public void onJsonObjectSuccess (BaseBean baseBean, NetworkParams paramsCode) {
         if (paramsCode == NetworkParams.DONUT) {
@@ -161,8 +171,20 @@ public class MainActivity
             Prefser prefser = new Prefser(AppTools.getSharePreferences());
             prefser.put("VipInfo",
                         vipInfoBean);
+        } else if (paramsCode == NetworkParams.GINGERBREAD) {//检查版本
+            CheckUpdateBean checkUpdateBean = (CheckUpdateBean) baseBean;
+            if (AppUpdaterManager.isNeedUpdate(this, checkUpdateBean)) {
+                AppUpdaterManager.startDownloadApkFile(this, checkUpdateBean.getUrl());
+            }
         }
     }
+
+    @Override
+    public void onError (BaseBean baseBean) {
+        super.onError(baseBean);
+        LogTools.i("error");
+    }
+
 
     @Override
     public void onCheckedChanged (RadioGroup group, int checkedId) {
@@ -200,7 +222,7 @@ public class MainActivity
 
     }
 
-    //    private void newApkCheck(final CheckUpdateBean checkUpdateBean) {
+//    private void newApkCheck(final CheckUpdateBean checkUpdateBean) {
 //        if (ApkTools.getUpdateApkFile(this).isEmpty()) {
 //            Intent intent = new Intent(MainActivity.this, DownloadService.class);
 //            intent.putExtra("uri", checkUpdateBean.getUrl());

@@ -22,7 +22,7 @@ import com.szbb.pro.eum.PhotoPopupOpts;
 import com.szbb.pro.impl.InputCallBack;
 import com.szbb.pro.impl.OnAddPictureDoneListener;
 import com.szbb.pro.impl.OnPhotoOptsSelectListener;
-import com.szbb.pro.model.MarkPictureModel;
+import com.szbb.pro.biz.MarkPictureBiz;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.CameraTools;
 import com.szbb.pro.ui.activity.orders.operating.a_mode.FittingApplyActivity;
@@ -218,7 +218,7 @@ public class FittingAdditionalActivity extends BaseAty<OtherFittingBean, Object>
                 picsPath.put(2, filePath);
                 break;
             default://means add pic
-                MarkPictureModel markPictureModel = new MarkPictureModel();
+                MarkPictureBiz markPictureModel = new MarkPictureBiz();
                 markPictureModel.setIsNeedDeleteIcon(true);
                 markPictureModel.setOnAddPictureDoneListener(this);
                 for (PhotoInfo photoInfo : resultList) {

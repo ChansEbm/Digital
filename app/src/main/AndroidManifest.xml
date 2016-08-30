@@ -19,6 +19,7 @@
 	<uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL"/>
 	<uses-permission android:name="android.permission.READ_CONTACTS"/>
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION"/>
 	<!-- 这个权限用于进行网络定位 -->
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 	<!-- 这个权限用于访问GPS定位 -->
@@ -147,6 +148,7 @@
 		</activity>
 		<activity android:name=".ui.activity.vip.wallet.CreditCardActivity"/>
 		<activity android:name=".ui.activity.vip.wallet.AddCreditCardActivity"/>
+		<activity android:name=".ui.activity.vip.wallet.PerformanceBondActivity"/>
 		<activity android:name=".ui.activity.vip.WorkHistoryActivity"/>
 		<activity
 			android:name=".ui.activity.vip.system_msg.OrderHintActivity"

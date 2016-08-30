@@ -12,12 +12,10 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 import com.szbb.pro.R;
 import com.szbb.pro.eum.PhotoPopupOpts;
 import com.szbb.pro.impl.OnPhotoOptsSelectListener;
-import com.szbb.pro.tools.AppTools;
-import com.szbb.pro.tools.BitmapCompressTool;
 import com.szbb.pro.widget.PopupWindow.PhotoPopupWindow;
 
 import java.io.File;
@@ -237,11 +235,11 @@ public class DeleterImageView
             if (deleterLayoutCallback != null) {
                 DeleterImageView.this.photoPath = path;
                 if (getRole() == PLACER) {
-                    Picasso.with(getContext())
-                           .load(new File(path))
-                           .resize(150,
+                    Glide.with(getContext())
+                         .load(new File(path))
+                         .override(150,
                                    150)
-                           .into(DeleterImageView.this);
+                         .into(DeleterImageView.this);
                     DeleterImageView.this.setImageURI(Uri.fromFile(new File(path)));
                     deleterLayoutCallback.placerAdd(path,
                                                     DeleterImageView.this);

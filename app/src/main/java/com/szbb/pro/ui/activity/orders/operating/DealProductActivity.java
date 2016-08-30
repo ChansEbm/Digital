@@ -2,9 +2,10 @@ package com.szbb.pro.ui.activity.orders.operating;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 import com.szbb.pro.AppKeyMap;
 import com.szbb.pro.DealProductLayout;
 import com.szbb.pro.R;
@@ -15,18 +16,17 @@ import com.szbb.pro.eum.ButtonType;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.eum.WheelOptions;
 import com.szbb.pro.impl.OnWheelMultiOptsCallback;
-import com.szbb.pro.model.order_detail.ButtonEventManager;
-import com.szbb.pro.model.order_detail.ErrorReportManager;
-import com.szbb.pro.model.order_detail.OrderManager;
-import com.szbb.pro.model.order_detail.OrderReportDescriptManager;
-import com.szbb.pro.model.order_detail.ServiceObjManager;
-import com.szbb.pro.model.order_detail.ServiceTypeManager;
+import com.szbb.pro.biz.order_detail.ButtonEventManager;
+import com.szbb.pro.biz.order_detail.ErrorReportManager;
+import com.szbb.pro.biz.order_detail.OrderManager;
+import com.szbb.pro.biz.order_detail.OrderReportDescriptManager;
+import com.szbb.pro.biz.order_detail.ServiceObjManager;
+import com.szbb.pro.biz.order_detail.ServiceTypeManager;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.widget.deleter.DeleterHandlerCallback;
 
 import java.util.List;
 import java.util.Set;
-
 
 /**
  * Created by KenChan on 16/6/14.
@@ -38,13 +38,13 @@ public class DealProductActivity
     private String orderId = "";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dealProductLayout = (DealProductLayout) viewDataBinding;
     }
 
     @Override
-    protected void initViews() {
+    protected void initViews () {
         defaultTitleBar(this).setTitle("服务报告提交");
         fillActivityData();
     }
@@ -52,14 +52,16 @@ public class DealProductActivity
     /**
      * 填充页面数据
      */
-    private void fillActivityData() {
+    private void fillActivityData () {
         if (getIntent() == null) {
             AppTools.removeSingleActivity(this);
         }
         OrderDetailBean.ListEntity product = getIntent().getParcelableExtra("product");
-        Picasso.with(this)
-               .load(product.getProduct_thumb())
-               .into(dealProductLayout.ivContactItemImage);
+        if (!TextUtils.isEmpty(product.getProduct_thumb())) {
+            Glide.with(this)
+                 .load(product.getProduct_thumb())
+                 .into(dealProductLayout.ivContactItemImage);
+        }
         orderId = getIntent().getStringExtra("orderId");
         dealProductLayout.setDetail(product);
 
@@ -68,18 +70,18 @@ public class DealProductActivity
     }
 
     @Override
-    protected void initEvents() {
+    protected void initEvents () {
         dealProductLayout.deleterScrollLayout.setDeleterHandlerCallback(this);
     }
 
     @Override
-    protected int getContentView() {
+    protected int getContentView () {
         return R.layout.deal_product_activity;
     }
 
     @Override
-    protected void onClick(int id,
-                           View view) {
+    protected void onClick (int id,
+                            View view) {
         OrderDetailBean.ListEntity detail = dealProductLayout.getDetail();
         switch (id) {
             case R.id.tv_error_product:
@@ -115,9 +117,9 @@ public class DealProductActivity
     }
 
     @Override
-    protected void onActivityResult(int requestCode,
-                                    int resultCode,
-                                    Intent data) {
+    protected void onActivityResult (int requestCode,
+                                     int resultCode,
+                                     Intent data) {
         super.onActivityResult(requestCode,
                                resultCode,
                                data);
@@ -131,17 +133,17 @@ public class DealProductActivity
                     dealProductLayout.getDetail()
                                      .setService_id(serviceId);
                     AppTools.sendBroadcast(new Bundle(),
-                                           AppKeyMap.REFRESH_ORDER_ACTION);
+                                           AppKeyMap.REFRESH_AND_JUMPTO_SERVICED_PAGE);
                 }
                 break;
         }
     }
 
     @Override
-    public void onWheelSelect(String selectData,
-                              WheelOptions wheelOptions,
-                              int params,
-                              int index) {
+    public void onWheelSelect (String selectData,
+                               WheelOptions wheelOptions,
+                               int params,
+                               int index) {
         OrderDetailBean.ListEntity detail = dealProductLayout.getDetail();
         if (params == AppKeyMap.DONUT) {//服务结果
             detail.setThis_service_name(selectData);
@@ -155,16 +157,16 @@ public class DealProductActivity
     }
 
     @Override
-    public void onJsonObjectSuccess(BaseBean baseBean,
-                                    NetworkParams paramsCode) {
+    public void onJsonObjectSuccess (BaseBean baseBean,
+                                     NetworkParams paramsCode) {
         AppTools.sendBroadcast(new Bundle(),
-                               AppKeyMap.REFRESH_ORDER_ACTION);
+                               AppKeyMap.REFRESH_AND_JUMPTO_SERVICED_PAGE);
         AppTools.removeSingleActivity(this);
     }
 
     @Override
-    public void success(Set<Integer> keySet,
-                        List<String> photoPaths) {
+    public void success (Set<Integer> keySet,
+                         List<String> photoPaths) {
         dealProductLayout.getDetail()
                          .getAddPics()
                          .clear();

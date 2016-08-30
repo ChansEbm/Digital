@@ -18,7 +18,7 @@ import com.szbb.pro.base.BaseAty;
 import com.szbb.pro.entity.base.BaseBean;
 import com.szbb.pro.entity.fittings.FittingDetailBean;
 import com.szbb.pro.eum.NetworkParams;
-import com.szbb.pro.model.MarkPictureModel;
+import com.szbb.pro.biz.MarkPictureBiz;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.LogTools;
 import com.szbb.pro.ui.activity.vip.WebViewActivity;
@@ -99,7 +99,7 @@ public class FittingApplyDetailActivity extends BaseAty<BaseBean, FittingDetailB
         final List<FittingDetailBean.DataEntity.AccePhotosEntity> acce_photos = detailBean
                 .getData().getAcce_photos();
         workerLayout.removeAllViews();
-        MarkPictureModel markPictureModel = new MarkPictureModel();
+        MarkPictureBiz markPictureModel = new MarkPictureBiz();
         markPictureModel.setIsNeedDeleteIcon(false);
         for (FittingDetailBean.DataEntity.AccePhotosEntity acce_photo : acce_photos) {
             markPictureModel.savePicturePath(acce_photo.getUrl());

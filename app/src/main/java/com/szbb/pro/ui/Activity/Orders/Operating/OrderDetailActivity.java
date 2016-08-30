@@ -13,7 +13,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -36,7 +35,7 @@ import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.eum.WheelOptions;
 import com.szbb.pro.impl.OnAlterPopupWindowOptsClickListener;
 import com.szbb.pro.impl.OnWheelMultiOptsCallback;
-import com.szbb.pro.model.OrderModel;
+import com.szbb.pro.biz.OrderBiz;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.PermissionTools;
 import com.szbb.pro.tools.ViewUtils;
@@ -82,6 +81,7 @@ public class OrderDetailActivity
     private LinearLayoutManager linearLayoutManager;
     private CommonBinderAdapter<OrderDetailBean.DataEntity.AcceCostListEntity> guideAdapter;
     private List<OrderDetailBean.DataEntity.AcceCostListEntity> guideList = new ArrayList<>();
+    private BGABadgeTextView bgaBadgeTextView;
 
     @Override
     public void onCreate (Bundle savedInstanceState) {
@@ -91,7 +91,7 @@ public class OrderDetailActivity
             orderId = getIntent().getStringExtra("orderId");
         }
         AppTools.registerBroadcast(new RefreshDataBroadcast(),
-                                   AppKeyMap.REFRESH_ORDER_ACTION);
+                                   AppKeyMap.REFRESH_AND_JUMPTO_SERVICED_PAGE);
     }
 
     @Override
@@ -136,8 +136,8 @@ public class OrderDetailActivity
                 ItemOrderDetailLayout itemOrderDetail = (ItemOrderDetailLayout) viewDataBinding;
                 itemOrderDetail.sdvContactItemImage.setImageURI(Uri.parse(listEntity
                                                                                   .getProduct_thumb()));
-                new OrderModel(OrderDetailActivity.this).displayFinishSign(itemOrderDetail,
-                                                                           listEntity);
+                new OrderBiz(OrderDetailActivity.this).displayFinishSign(itemOrderDetail,
+                                                                         listEntity);
                 itemOrderDetail.setDetail(listEntity);
             }
         };
@@ -232,6 +232,7 @@ public class OrderDetailActivity
                                                     OrderTrackingActivity.class));
                 break;
             case R.id.textView://联系客服
+
                 contactService(orderId);
                 BGABadgeTextView bt = (BGABadgeTextView) view;
                 bt.hiddenBadge();
@@ -251,7 +252,6 @@ public class OrderDetailActivity
                 break;
         }
     }
-
 
     private void smsForword () {
         Intent intent = new Intent(Intent.ACTION_SENDTO,
@@ -458,14 +458,14 @@ public class OrderDetailActivity
                               MainActivity.class);
             startActivity(intent);
             AppTools.sendBroadcast(new Bundle(),
-                                   AppKeyMap.REFRESH_ORDER_ACTION);//意在刷新
+                                   AppKeyMap.REFRESH_AND_JUMPTO_SERVICED_PAGE);//意在刷新
         } else if (paramsCode == NetworkParams.LOLLIPOP) {
             start(MainActivity.class);
             AppTools.sendBroadcast(new Bundle(),
-                                   AppKeyMap.REFRESH_ORDER_ACTION);//意在刷新
+                                   AppKeyMap.REFRESH_AND_JUMPTO_SERVICED_PAGE);//意在刷新
         } else if (paramsCode == NetworkParams.HONEYCOMB) {//未读清除成功
             AppTools.sendBroadcast(new Bundle(),
-                                   AppKeyMap.REFRESH_ORDER_ACTION);//意在刷新
+                                   AppKeyMap.REFRESH_AND_JUMPTO_SERVICED_PAGE);//意在刷新
         }
     }
 
@@ -481,6 +481,10 @@ public class OrderDetailActivity
         boolean isAllRepair = data.isAllRepair();//是否全部产品维修完毕
         //该工单是否全部完毕,并且已完成提交
         boolean isAllComplete = data.getIs_submit_complete();
+        //如果已经完结工单,则隐藏菜单栏上的bgaTextView
+        if (bgaBadgeTextView != null) {
+            bgaBadgeTextView.setVisibility(isAllComplete ? View.GONE : View.VISIBLE);
+        }
         List<OrderDetailBean.ListEntity> listEntities = orderDetailBean.getList();
         boolean isTimeOut = data.getIs_sign_in()
                                 .equals("3") || data.getIs_sign_in()
@@ -566,10 +570,6 @@ public class OrderDetailActivity
                                  NetworkParams.CUPCAKE);
     }
 
-    @Override
-    public boolean onOptionsItemSelected (MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public boolean onPrepareOptionsMenu (Menu menu) {
@@ -578,14 +578,15 @@ public class OrderDetailActivity
         final View actionView = menu
                 .findItem(R.id.custom_service)
                 .getActionView();
-        BGABadgeTextView textView = (BGABadgeTextView) actionView.findViewById(R.id.textView);
+        bgaBadgeTextView = (BGABadgeTextView) actionView
+                .findViewById(R.id.textView);
 
         String unread = getIntent().getStringExtra("unread");
         if (!(TextUtils.isEmpty(unread) || TextUtils.equals("0",
                                                             unread))) {
-            textView.showTextBadge(unread);
+            bgaBadgeTextView.showTextBadge(unread);
         }
-        textView.setOnClickListener(this);
+        bgaBadgeTextView.setOnClickListener(this);
         titleBarTools.getToolbar()
                      .setPadding(0,
                                  0,
@@ -672,7 +673,7 @@ public class OrderDetailActivity
         public void onReceive (Context context,
                                Intent intent) {
             if (intent.getAction()
-                      .equals(AppKeyMap.REFRESH_ORDER_ACTION)) {
+                      .equals(AppKeyMap.REFRESH_AND_JUMPTO_SERVICED_PAGE)) {
                 progressNewData();
             }
         }

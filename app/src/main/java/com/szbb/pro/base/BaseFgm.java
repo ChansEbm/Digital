@@ -15,17 +15,18 @@ import com.szbb.pro.AppKeyMap;
 import com.szbb.pro.R;
 import com.szbb.pro.adapters.CommonBinderAdapter;
 import com.szbb.pro.adapters.MultiAdapter;
+import com.szbb.pro.biz.NetworkBiz;
 import com.szbb.pro.broadcast.UpdateUIBroadcast;
 import com.szbb.pro.entity.base.BaseBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.impl.BinderOnItemClickListener;
 import com.szbb.pro.impl.OkHttpResponseListener;
 import com.szbb.pro.impl.UpdateUIListener;
-import com.szbb.pro.model.NetworkModel;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.LogTools;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import cn.finalteam.galleryfinal.GalleryFinal;
@@ -43,9 +44,10 @@ public abstract class BaseFgm<E, T>
     protected MultiAdapter<T> multiAdapter;
     protected List<T> list = new ArrayList<>();
     protected ViewDataBinding viewDataBinding;
-    protected NetworkModel networkModel;
+    protected NetworkBiz networkModel;
     protected UpdateUIBroadcast uiBroadcast;
     protected View parentView;
+    protected HashMap<String, Object> permissions = new HashMap<>();
 
     @Override
     public void onCreate (@Nullable Bundle savedInstanceState) {
@@ -64,15 +66,17 @@ public abstract class BaseFgm<E, T>
                                                   getContentView(),
                                                   null,
                                                   false);
-        networkModel = new NetworkModel((AppCompatActivity) getActivity());
-        networkModel.setResultCallBack(this);
-
         parentView = viewDataBinding.getRoot();
+        return parentView;
 
+    }
+
+    @Override public void onViewCreated (View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        networkModel = new NetworkBiz(getActivity());
+        networkModel.setResultCallBack(this);
         initViews();
         initEvents();
-        return viewDataBinding.getRoot();
-
     }
 
     @Override

@@ -1,30 +1,20 @@
 package com.szbb.pro.widget.PopupWindow;
 
 import android.content.Context;
-import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
-import com.szbb.pro.AppKeyMap;
 import com.szbb.pro.PopupErrorProductLayout;
 import com.szbb.pro.R;
-import com.szbb.pro.eum.PhotoPopupOpts;
 import com.szbb.pro.impl.OnErrorProductCallback;
-import com.szbb.pro.impl.OnPhotoOptsSelectListener;
-import com.szbb.pro.model.MarkPictureModel;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.widget.deleter.DeleterHandlerCallback;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
-import cn.finalteam.galleryfinal.FunctionConfig;
-import cn.finalteam.galleryfinal.GalleryFinal;
-import cn.finalteam.galleryfinal.model.PhotoInfo;
 
 
 /**

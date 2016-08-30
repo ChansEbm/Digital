@@ -35,13 +35,12 @@ import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.eum.WheelOptions;
 import com.szbb.pro.impl.InputCallBack;
 import com.szbb.pro.impl.OnWheelOptsSelectCallback;
-import com.szbb.pro.model.OrderModel;
+import com.szbb.pro.biz.OrderBiz;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.PermissionTools;
 import com.szbb.pro.ui.activity.locate.TagLocationActivity;
 import com.szbb.pro.ui.activity.main.MainActivity;
 import com.szbb.pro.ui.activity.orders.operating.CustomerActivity;
-import com.szbb.pro.ui.activity.orders.operating.CustomerServiceActivity;
 import com.szbb.pro.widget.PopupWindow.WheelPopupWindow;
 
 import org.solovyev.android.views.llm.LinearLayoutManager;
@@ -58,7 +57,7 @@ public class AppointmentClientActivity
         InputCallBack {
     private AppointmentClientLayout appointmentClientLayout;
     private RecyclerView recyclerView;
-    private OrderModel orderModel;
+    private OrderBiz orderModel;
     private String orderId = "";
     private WheelPopupWindow wheelPopupWindow;
     private FrameLayout flytAppointmentTime;
@@ -118,7 +117,7 @@ public class AppointmentClientActivity
         tvAppointmentTime = appointmentClientLayout.tvAppointmentTime;
         tvAppointmentResult = appointmentClientLayout.tvAppointmentResult;
 
-        orderModel = new OrderModel(this);
+        orderModel = new OrderBiz(this);
         wheelPopupWindow = new WheelPopupWindow(this);
         initAdapter();
     }
@@ -383,7 +382,7 @@ public class AppointmentClientActivity
                                            .LENGTH_SHORT)
                          .show();
                     AppTools.sendBroadcast(new Bundle(),
-                                           AppKeyMap.REFRESH_ORDER_ACTION);
+                                           AppKeyMap.REFRESH_AND_JUMPTO_SERVICED_PAGE);
                     break;
                 case "2":
                     Toast.makeText(AppointmentClientActivity.this,

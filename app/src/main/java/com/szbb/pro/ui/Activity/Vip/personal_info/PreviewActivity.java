@@ -9,7 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.bm.library.PhotoView;
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 import com.szbb.pro.ItemPreviewLayout;
 import com.szbb.pro.PreviewLayout;
 import com.szbb.pro.R;
@@ -47,7 +47,7 @@ public class PreviewActivity extends BaseAty {
             final ItemPreviewLayout previewLayout = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_preview, null, false);
             PhotoView photoView = previewLayout.photoView;
             photoView.enable();
-            Picasso.with(this).load(s).into(photoView);
+            Glide.with(this).load(s).into(photoView);
             views.add(previewLayout.getRoot());
         }
     }

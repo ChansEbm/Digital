@@ -50,9 +50,8 @@ public class WaitAccountFragment
         super.onCreate(savedInstanceState);
         updateUIBroadcast.setListener(this);
         AppTools.registerBroadcast(updateUIBroadcast,
-                                   AppKeyMap.WAITING_COST_ACTION);
-//        EventBus.getDefault()
-//                .register(this);
+                                   AppKeyMap.WAITING_COST_ACTION,
+                                   AppKeyMap.REFRESH_ALL);
     }
 
     @Override
@@ -61,9 +60,7 @@ public class WaitAccountFragment
         recyclerView = orderBaseLayout.include.recyclerView;
         refreshLayout = orderBaseLayout.include.refreshLayout;
         commonBinderAdapter = new CommonBinderAdapter<MyOrderBean.ListEntity>(getActivity(),
-                                                                              R
-                                                                                      .layout
-                                                                                      .item_waiting_account,
+                                                                              R.layout.item_waiting_account,
                                                                               list) {
             @Override
             public void onBind (ViewDataBinding viewDataBinding, CommonBinderHolder holder, int
@@ -180,7 +177,7 @@ public class WaitAccountFragment
     public void uiUpData (Intent intent) {
         super.uiUpData(intent);
         final String action = intent.getAction();
-        if (action.equals(AppKeyMap.WAITING_COST_ACTION)) {
+        if (action.equals(AppKeyMap.WAITING_COST_ACTION) || action.equals(AppKeyMap.REFRESH_ALL)) {
             networkModel.myOrderList("3",
                                      "",
                                      "100",

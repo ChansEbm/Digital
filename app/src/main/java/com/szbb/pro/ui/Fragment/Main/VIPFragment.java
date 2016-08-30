@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.Toast;
 
 import com.github.pwittchen.prefser.library.Prefser;
 import com.szbb.pro.AppKeyMap;
@@ -23,6 +24,8 @@ import com.szbb.pro.entity.vip.VipInfoBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.eum.PhotoPopupOpts;
 import com.szbb.pro.impl.OnPhotoOptsSelectListener;
+import com.szbb.pro.manager.AppUpdaterManager;
+import com.szbb.pro.tools.ApkTools;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.MiscUtils;
 import com.szbb.pro.tools.PermissionTools;
@@ -55,20 +58,20 @@ public class VIPFragment
     private PhotoPopupWindow window;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate (@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault()
                 .register(this);
     }
 
     @Override
-    protected void initViews() {
+    protected void initViews () {
         vipLayout = (VipLayout) viewDataBinding;
         window = new PhotoPopupWindow(getActivity());
     }
 
     @Override
-    protected void initEvents() {
+    protected void initEvents () {
         events.setOnClickListener(this);
         vipLayout.setEvent(events);
         networkModel.workerInfo(NetworkParams.CUPCAKE);
@@ -78,19 +81,19 @@ public class VIPFragment
         vipLayout.versionInfo.setText(MiscUtils.getAppVersion(getContext()));
     }
 
-    private void initInfoData(VipInfoBean vipInfoBean) {
+    private void initInfoData (VipInfoBean vipInfoBean) {
         final VipInfoBean.WorkerDataEntity worker_data = vipInfoBean.getWorker_data();
         vipLayout.sdvVipAvatar.setImageURI(Uri.parse(worker_data.getThumb()));
         vipLayout.setVip(worker_data);
     }
 
     @Override
-    protected void noNetworkStatus() {
+    protected void noNetworkStatus () {
 
     }
 
     @Override
-    protected void onClick(int id, View view) {
+    protected void onClick (int id, View view) {
         Intent intent = null;
         switch (id) {
             case R.id.rylt_wallet://我的钱包
@@ -113,43 +116,37 @@ public class VIPFragment
                 break;
             case R.id.rylt_customer_phone://客服电话
                 if (PermissionTools.alreadyHasPermission(getActivity(),
-                        AppKeyMap.CUPCAKE,
-                        Manifest
-                                .permission
-                                .CALL_PHONE)) {
+                                                         AppKeyMap.CUPCAKE,
+                                                         Manifest.permission
+                                                                 .CALL_PHONE)) {
                     DialDialog dialDialog = new DialDialog(getContext(),
-                            null);
+                                                           null);
                     dialDialog.call("4008309995");
                 }
                 break;
             case R.id.rylt_warranty_price://联保价格
                 intent = new Intent().setClass(getActivity(),
-                        WebViewActivity.class);
+                                               WebViewActivity.class);
                 intent.putExtra("url",
-                        AppKeyMap.HEAD_JOINTPRICE)
-                        .putExtra("title",
+                                AppKeyMap.HEAD_JOINTPRICE)
+                      .putExtra("title",
                                 getString(R
-                                        .string.vip_repairing_price));
+                                                  .string.vip_repairing_price));
                 break;
-//            case R.id.rylt_essentials://接单必读
-//                startActivity(new Intent().putExtra("type",
-//                                                    "2")
-//                                          .setClass(getActivity(),
-//                                                    AccountCementActivity
-//                                                            .class));
-//                break;
             case R.id.rylt_check_update:
-                networkModel.versions(MiscUtils.getAppVersion(getContext()),
-                        NetworkParams.FROYO);//检查版本
+                if (!ApkTools.installAPK(getContext())) {
+                    Toast.makeText(getContext(), "目前为最新版本!", Toast.LENGTH_SHORT)
+                         .show();
+                }
                 break;
             case R.id.rylt_about://关于
                 intent = new Intent().setClass(getActivity(),
-                        WebViewActivity.class);
+                                               WebViewActivity.class);
                 intent.putExtra("url",
-                        AppKeyMap.HEAD_ABOUT_US)
-                        .putExtra("title",
+                                AppKeyMap.HEAD_ABOUT_US)
+                      .putExtra("title",
                                 getString(R
-                                        .string.vip_about));
+                                                  .string.vip_about));
                 break;
             case R.id.sdv_vip_avatar://修改头像
                 window.setHideTakePhotoButton();
@@ -162,79 +159,46 @@ public class VIPFragment
     }
 
     @Override
-    protected int getContentView() {
+    protected int getContentView () {
         return R.layout.fgm_vip;
     }
 
     @Override
-    public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {
+    public void onJsonObjectSuccess (BaseBean baseBean, NetworkParams paramsCode) {
         if (paramsCode == NetworkParams.CUPCAKE) {
             VipInfoBean vipInfoBean = (VipInfoBean) baseBean;
             Prefser prefser = new Prefser(AppTools.getSharePreferences());
             prefser.put("VipInfo",
-                    vipInfoBean);
+                        vipInfoBean);
             initInfoData(vipInfoBean);
         } else if (paramsCode == NetworkParams.DONUT) {
             networkModel.workerInfo(NetworkParams.CUPCAKE);
-        } else if (paramsCode == NetworkParams.FROYO) {
-            final CheckUpdateBean checkUpdateBean = (CheckUpdateBean) baseBean;
-            boolean isNeedUpdate = checkUpdateBean.getVersion_code()
-                    .equals("1");
-            if (isNeedUpdate) {
-                final MessageDialog messageDialog = new MessageDialog(getContext());
-                messageDialog.setTitle("发现新版本")
-                        .setPositiveButton("下载",
-                                new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        Intent it = new Intent();
-                                        it.setAction("android.intent.action.VIEW");
-                                        Uri uri = Uri.parse(checkUpdateBean
-                                                .getUrl());
-                                        it.setData(uri);
-                                        startActivity(it);
-                                        messageDialog.dismiss();
-                                    }
-                                })
-                        .setNegativeButton("取消",
-                                new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        messageDialog.dismiss();
-                                    }
-                                })
-                        .setMessage("发现了新版本,需要下载吗")
-                        .show();
-            } else {
-                AppTools.showNormalSnackBar(parentView,
-                        "当前为最新版本!");
-            }
         }
     }
 
     @Override
-    public void onDestroy() {
+    public void onDestroy () {
         super.onDestroy();
         EventBus.getDefault()
                 .unregister(this);
     }
 
-    public void onEvent(VipInfoBean vipInfoBean) {
+    public void onEvent (VipInfoBean vipInfoBean) {
         networkModel.workerInfo(NetworkParams.CUPCAKE);
     }
 
 
     @Override
-    public void onOptsSelect(PhotoPopupOpts opts) {
+    public void onOptsSelect (PhotoPopupOpts opts) {
         switch (opts) {
             case ALBUM:
                 FunctionConfig functionConfig = new FunctionConfig.Builder().setCropHeight(300)
-                        .setCropWidth(300)
-                        .setEnableCamera(true)
-                        .build();
+                                                                            .setCropWidth(300)
+                                                                            .setEnableCamera(true)
+                                                                            .build();
                 GalleryFinal.openGallerySingle(AppKeyMap.DONUT,
-                        functionConfig,
-                        this);
+                                               functionConfig,
+                                               this);
                 break;
             case TAKE_PHOTO:
                 break;
@@ -242,18 +206,18 @@ public class VIPFragment
     }
 
     @Override
-    public void onHanlderSuccess(int reqeustCode, List<PhotoInfo> resultList) {
+    public void onHanlderSuccess (int reqeustCode, List<PhotoInfo> resultList) {
         super.onHanlderSuccess(reqeustCode,
-                resultList);
+                               resultList);
         final String photoPath = resultList.get(0)
-                .getPhotoPath();
+                                           .getPhotoPath();
         networkModel.editAvatar(photoPath,
-                NetworkParams.DONUT);
+                                NetworkParams.DONUT);
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult (int requestCode, @NonNull String[] permissions,
+                                            @NonNull int[] grantResults) {
         if (requestCode == AppKeyMap.CUPCAKE && grantResults[0] == PackageManager
                 .PERMISSION_GRANTED) {
             AppTools.CALL("4008309995");

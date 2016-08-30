@@ -254,7 +254,7 @@ public class FittingResendBModeActivity extends BaseAty<BaseBean, FittingWareHou
                     "配件申请已提交成功,神州联保会尽快安排寄发新配件,请在收到配件后再次预约客户继续服务",
                     Toast.LENGTH_LONG).show();
             start(MainActivity.class);
-            AppTools.sendBroadcast(new Bundle(), AppKeyMap.REFRESH_ORDER_ACTION);
+            AppTools.sendBroadcast(new Bundle(), AppKeyMap.REFRESH_AND_JUMPTO_SERVICED_PAGE);
         } else if (paramsCode == NetworkParams.GINGERBREAD) {
             this.expressComBean = (ExpressComBean) baseBean;
             fittingResendBean.setShippingType("");

@@ -55,37 +55,34 @@ public class NewOrderFragment
     private int pageSize = 100;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         UpdateUIBroadcast broadcast = new UpdateUIBroadcast();
         broadcast.setListener(this);
         AppTools.registerBroadcast(broadcast,
-                AppKeyMap.REFRESH_ORDER_ACTION,
-                AppKeyMap.APPOINTMENT_CAN_NOT_CONTENT_CLIENT,
-                AppKeyMap.GRAB_ACTION);
-//        EventBus.getDefault()
-//                .register(this);
-
+                                   AppKeyMap.REFRESH_ALL,
+                                   AppKeyMap.APPOINTMENT_CAN_NOT_CONTENT_CLIENT,
+                                   AppKeyMap.GRAB_ACTION);
     }
 
     @Override
-    protected void initViews() {
+    protected void initViews () {
         orderBaseLayout = (OrderBaseLayout) viewDataBinding;
         recyclerView = orderBaseLayout.include.recyclerView;
         refreshLayout = orderBaseLayout.include.refreshLayout;
         linearLayoutManager = new org.solovyev.android.views.llm.LinearLayoutManager(getActivity());
         commonBinderAdapter = new CommonBinderAdapter<MyOrderBean.ListEntity>(getActivity(),
-                R.layout.item_new_order,
-                list) {
+                                                                              R.layout.item_new_order,
+                                                                              list) {
             @Override
-            public void onBind(ViewDataBinding viewDataBinding, CommonBinderHolder holder, int
+            public void onBind (ViewDataBinding viewDataBinding, CommonBinderHolder holder, int
                     position, MyOrderBean.ListEntity listEntity) {
                 ItemNewOrderLayout layout = (ItemNewOrderLayout) viewDataBinding;
                 layout.btnCall.setTag(R.id.tag_cupcake,
-                        listEntity.getTel());//保存号码
+                                      listEntity.getTel());//保存号码
                 layout.btnCall.setTag(R.id.tag_donut,
-                        position);//保存位置
+                                      position);//保存位置
                 layout.btnCall.setOnClickListener(NewOrderFragment.this);
                 layout.setOrder(listEntity);
             }
@@ -93,33 +90,33 @@ public class NewOrderFragment
     }
 
     @Override
-    protected void initEvents() {
+    protected void initEvents () {
         commonBinderAdapter.setBinderOnItemClickListener(this);
         recyclerView.setAdapter(commonBinderAdapter);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity())
-                .sizeResId(R.dimen.large_margin_15dp)
-                .color(android.R.color.transparent)
-                .build());
+                                               .sizeResId(R.dimen.large_margin_15dp)
+                                               .color(android.R.color.transparent)
+                                               .build());
         //默认刷新样式
         AppTools.defaultRefresh(refreshLayout,
-                this);
+                                this);
         requestNetwork();
     }
 
     @Override
-    protected void noNetworkStatus() {
+    protected void noNetworkStatus () {
 
     }
 
     private int clickPos = -1;
 
     @Override
-    protected void onClick(int id, View view) {
+    protected void onClick (int id, View view) {
         switch (id) {
             case R.id.btn_call:
                 DialDialog dialDialog = new DialDialog(getActivity(),
-                        this);
+                                                       this);
                 String number = (String) view.getTag(R.id.tag_cupcake);//取出电话号码
                 clickPos = (int) view.getTag(R.id.tag_donut);//取出在列表中的位置
                 dialDialog.call(number);
@@ -128,12 +125,12 @@ public class NewOrderFragment
     }
 
     @Override
-    protected int getContentView() {
+    protected int getContentView () {
         return R.layout.fgm_order_base;
     }
 
     @Override
-    public void uiUpData(Intent intent) {
+    public void uiUpData (Intent intent) {
         String action = intent.getAction();
         if (action.equals(AppKeyMap.NO_NETWORK_ACTION)) {
             LogTools.i("no Net work");
@@ -145,48 +142,54 @@ public class NewOrderFragment
             LogTools.w("updata new order fragment");
             //重新执行访问后台刷新数据操作
             networkModel.myOrderList("1",
-                    "1",
-                    "100",
-                    NetworkParams.CUPCAKE);
+                                     "1",
+                                     "100",
+                                     NetworkParams.CUPCAKE);
         }
     }
 
     @Override
-    public void onBinderItemClick(View view, int pos) {
+    public void onBinderItemClick (View view, int pos) {
         MyOrderBean.ListEntity listEntity = list.get(pos);
         String unread = listEntity.getUnread();
         final String orderId = listEntity.getOrderid();
-        Intent intent = new Intent(getActivity(), AppointmentClientActivity.class).putExtra(
-                "orderId", orderId).putExtra("unread", unread).putExtra("identifier",
-                listEntity.getIdentifier());
+        Intent intent = new Intent(getActivity(),
+                                   AppointmentClientActivity.class).putExtra(
+                "orderId",
+                orderId)
+                                                                   .putExtra("unread",
+                                                                             unread)
+                                                                   .putExtra("identifier",
+                                                                             listEntity
+                                                                                     .getIdentifier());
         startActivity(intent);
     }
 
     @Override
-    public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout bgaRefreshLayout) {
+    public void onBGARefreshLayoutBeginRefreshing (BGARefreshLayout bgaRefreshLayout) {
         page = 1;
         pageSize = 100;
         requestNetwork();
     }
 
     @Override
-    public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout bgaRefreshLayout) {
+    public boolean onBGARefreshLayoutBeginLoadingMore (BGARefreshLayout bgaRefreshLayout) {
         if (myOrderBean.getIsNext() == 1) {
             pageSize += 10;
             networkModel.myOrderList("1",
-                    page + "",
-                    pageSize + "",
-                    NetworkParams.FROYO);
+                                     page + "",
+                                     pageSize + "",
+                                     NetworkParams.FROYO);
         } else {
             AppTools.showNormalSnackBar(orderBaseLayout.getRoot(),
-                    getString(R.string.no_more));
+                                        getString(R.string.no_more));
             return false;
         }
         return true;
     }
 
     @Override
-    public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {
+    public void onJsonObjectSuccess (BaseBean baseBean, NetworkParams paramsCode) {
         myOrderBean = (MyOrderBean) baseBean;
         switch (paramsCode) {
             case CUPCAKE://the first time load
@@ -210,57 +213,57 @@ public class NewOrderFragment
     }
 
     @Override
-    public void dial() {
+    public void dial () {
         if (clickPos != -1) {
             String orderId = list.get(clickPos)
-                    .getOrderid();
+                                 .getOrderid();
             startActivity(new Intent(getContext(),
-                    AppointmentClientActivity.class).putExtra("orderId",
-                    orderId));
+                                     AppointmentClientActivity.class).putExtra("orderId",
+                                                                               orderId));
         }
     }
 
     @Override
-    public void onDestroy() {
+    public void onDestroy () {
         super.onDestroy();
         EventBus.getDefault()
                 .unregister(this);
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
-    public void onDetach() {
+    public void onDetach () {
         super.onDetach();
         try {
             Field field = Fragment.class.getDeclaredField("mChildFragmentManager");
             field.setAccessible(true);
             field.set(this,
-                    null);
+                      null);
         } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }
     }
 
-    public void onEvent(NewOrderEvent newOrderEvent) {
+    public void onEvent (NewOrderEvent newOrderEvent) {
         requestNetwork();
     }
 
-    public void onEvent(SearchGod searchGod) {
+    public void onEvent (SearchGod searchGod) {
         if (searchGod.isSelf(this)) {
             SearcherManager.searchItems(this,
-                    getLocalList(NEWORDERKEY),
-                    searchGod.getSearchFields());
+                                        getLocalList(NEWORDERKEY),
+                                        searchGod.getSearchFields());
         }
     }
 
-    private void requestNetwork() {
+    private void requestNetwork () {
         networkModel.myOrderList("1",
-                "",
-                "",
-                NetworkParams.CUPCAKE);
+                                 "",
+                                 "",
+                                 NetworkParams.CUPCAKE);
     }
 
     @Override
-    public void searchResult(List<MyOrderBean.ListEntity> list) {
+    public void searchResult (List<MyOrderBean.ListEntity> list) {
         this.list.clear();
         this.list.addAll(list);
         commonBinderAdapter.notifyDataSetChanged();

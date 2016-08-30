@@ -17,12 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.location.BDLocationListener;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.szbb.pro.AppKeyMap;
 import com.szbb.pro.dialog.DialDialog;
 import com.szbb.pro.dialog.LoadingDialog;
 import com.szbb.pro.impl.DialListener;
-import com.szbb.pro.impl.ImageLoadComplete;
 
 import java.sql.Date;
 
@@ -44,7 +42,7 @@ public class AppTools {
     private static AppCompatActivity loadingActivity;
     private static FileTools fileTools = FileTools.getInstance();
 
-    public static void init(Context context) {
+    public static void init (Context context) {
         AppTools.context = context;
     }
 
@@ -54,7 +52,7 @@ public class AppTools {
      *
      * @param phoneNum the number will be dial
      */
-    public static void CALL(String phoneNum) {
+    public static void CALL (String phoneNum) {
         context.startActivity(SystemTools.CALL(phoneNum)
                                          .addFlags(Intent
                                                            .FLAG_ACTIVITY_NEW_TASK));
@@ -65,12 +63,12 @@ public class AppTools {
      *
      * @param view the view which need to be get token
      */
-    public static void hideSoftInputMethod(View view) {
+    public static void hideSoftInputMethod (View view) {
         SystemTools.hideSoftInput(context,
                                   view);
     }
 
-    public static void showSoftInputMethod(View view) {
+    public static void showSoftInputMethod (View view) {
         SystemTools.showSoftInput(context,
                                   view);
     }
@@ -82,7 +80,7 @@ public class AppTools {
      *                          picture
      * @param requestCode       requestCode
      */
-    public static void PHOTO(AppCompatActivity appCompatActivity, int requestCode) {
+    public static void PHOTO (AppCompatActivity appCompatActivity, int requestCode) {
         appCompatActivity.startActivityForResult(SystemIntentTools.PICTURE(),
                                                  requestCode);
     }
@@ -92,7 +90,7 @@ public class AppTools {
      *
      * @return Open Setting intent
      */
-    public static void SETTING() {
+    public static void SETTING () {
         context.startActivity(SystemTools.SETTING()
                                          .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
@@ -102,7 +100,7 @@ public class AppTools {
      *
      * @return Open wifi intent
      */
-    public static Intent WIFI() {
+    public static Intent WIFI () {
         return SystemTools.WIFI();
     }
 
@@ -113,7 +111,7 @@ public class AppTools {
      * @param millions who need be format
      * @return the time after formatter
      */
-    public static String convertMillions(long millions) {
+    public static String convertMillions (long millions) {
         return DataFormatter.convertMillions(millions);
     }
 
@@ -123,7 +121,7 @@ public class AppTools {
      * @param phpTime phpTime
      * @return the real time and the appoint time's distance
      */
-    public static String formatPHPDiffTime(@NonNull String phpTime) {
+    public static String formatPHPDiffTime (@NonNull String phpTime) {
         return DataFormatter.formatPHPDiffTime(phpTime);
     }
 
@@ -132,7 +130,7 @@ public class AppTools {
      *
      * @return the time after formatter
      */
-    public static String formatTime(String time, boolean isPhp) {
+    public static String formatTime (String time, boolean isPhp) {
         return DataFormatter.formatTimeDefaultRegex(time,
                                                     isPhp);
     }
@@ -144,7 +142,7 @@ public class AppTools {
      * @param regex the format
      * @return the time after formatter
      */
-    public static String fotmatTime(Date date, String regex) {
+    public static String fotmatTime (Date date, String regex) {
         return DataFormatter.formatTimeDefaultRegex(date,
                                                     regex);
     }
@@ -155,7 +153,7 @@ public class AppTools {
      * @param html the html character
      * @return the formatter html character
      */
-    public static Spanned fromHtml(String html) {
+    public static Spanned fromHtml (String html) {
         return Html.fromHtml(html);
     }
 
@@ -165,7 +163,7 @@ public class AppTools {
      * @param px the px need to be dp
      * @return the dp depend on px
      */
-    public static int px2dp(int px) {
+    public static int px2dp (int px) {
         return DensityTools.px2dip(context,
                                    px);
     }
@@ -176,7 +174,7 @@ public class AppTools {
      * @param dip the dip need to be px
      * @return the px depend on dp
      */
-    public static int dip2px(int dip) {
+    public static int dip2px (int dip) {
         return DensityTools.dip2px(context,
                                    dip);
     }
@@ -185,7 +183,7 @@ public class AppTools {
      * @return status bar height
      * @see DensityTools#getStatusHeight(android.content.Context)
      */
-    public static int getStatusBarHeight() {
+    public static int getStatusBarHeight () {
         return ScreenTools.getStatusHeight(context);
     }
 
@@ -193,7 +191,7 @@ public class AppTools {
      * @return screen width
      * @see ScreenTools#getScreenWidth(android.content.Context)
      */
-    public static int getScreenWidth() {
+    public static int getScreenWidth () {
         return ScreenTools.getScreenWidth(context);
     }
 
@@ -201,7 +199,7 @@ public class AppTools {
      * @return screen height
      * @see ScreenTools#getScreenHeight(android.content.Context)
      */
-    public static int getScreenHeight() {
+    public static int getScreenHeight () {
         return ScreenTools.getScreenHeight(context);
     }
 
@@ -210,7 +208,7 @@ public class AppTools {
      * @return snapShotWithStatusBar
      * @see ScreenTools#snapShotWithStatusBar(android.app.Activity)
      */
-    public static Bitmap snapShotWithStatusBar(AppCompatActivity appCompatActivity) {
+    public static Bitmap snapShotWithStatusBar (AppCompatActivity appCompatActivity) {
         return ScreenTools.snapShotWithStatusBar(appCompatActivity);
     }
 
@@ -219,17 +217,17 @@ public class AppTools {
      * @return the snapShotWithoutStatusBar
      * @see ScreenTools#snapShotWithoutStatusBar(android.app.Activity)
      */
-    public static Bitmap snapShotWithoutStatusBar(AppCompatActivity appCompatActivity) {
+    public static Bitmap snapShotWithoutStatusBar (AppCompatActivity appCompatActivity) {
         return ScreenTools.snapShotWithoutStatusBar(appCompatActivity);
     }
 
     /**
      * remove all activitys
      *
-     * @see UITools#removeAllActivities()
      */
-    public static void removeAllActivitys() {
-        UITools.removeAllActivities();
+    public static void removeAllActivitys () {
+        ActivityManager.getActivityManager()
+                       .finishAllActivity();
     }
 
     /**
@@ -238,7 +236,7 @@ public class AppTools {
      * @param bgaRefreshLayout         the refresh view
      * @param bgaRefreshLayoutDelegate the refresh callback
      */
-    public static void defaultRefresh(BGARefreshLayout bgaRefreshLayout, BGARefreshLayout
+    public static void defaultRefresh (BGARefreshLayout bgaRefreshLayout, BGARefreshLayout
             .BGARefreshLayoutDelegate bgaRefreshLayoutDelegate) {
         RefreshTools.defaultRefresh(bgaRefreshLayout,
                                     context,
@@ -252,31 +250,31 @@ public class AppTools {
      * @param phone the phone which need to verify
      * @return the phone qualified or not
      */
-    public static boolean verifyPhone(View view, String phone) {
+    public static boolean verifyPhone (View view, String phone) {
         return VerificationTools.verifyPhone(context,
                                              view,
                                              phone);
     }
 
-    public static boolean verifyCitizenId(View view, String citizenId) {
+    public static boolean verifyCitizenId (View view, String citizenId) {
         return VerificationTools.verifyCitizenID(context,
                                                  view,
                                                  citizenId);
     }
 
-    public static boolean verifyChineseName(View view, String name) {
+    public static boolean verifyChineseName (View view, String name) {
         return VerificationTools.verifyChineseName(context,
                                                    view,
                                                    name);
     }
 
-    public static boolean verifyVerificationCode(View view, String verificationCode) {
+    public static boolean verifyVerificationCode (View view, String verificationCode) {
         return VerificationTools.verifyVerificationCode(context,
                                                         view,
                                                         verificationCode);
     }
 
-    public static boolean verifyZipCode(View view, String zipCode) {
+    public static boolean verifyZipCode (View view, String zipCode) {
         return VerificationTools.verifyZipCode(context,
                                                view,
                                                zipCode);
@@ -289,7 +287,7 @@ public class AppTools {
      * @param pwd  the passwords pwds[0] is the password,password[1] is the rePassword
      * @return the password qualified or not
      */
-    public static boolean verifyPwd(View view, String... pwd) {
+    public static boolean verifyPwd (View view, String... pwd) {
         return VerificationTools.verifyPwd(context,
                                            view,
                                            pwd);
@@ -300,8 +298,9 @@ public class AppTools {
      *
      * @param fragmentActivity the activity which need remove
      */
-    public static void removeSingleActivity(FragmentActivity fragmentActivity) {
-        UITools.removeSingleActivity(fragmentActivity);
+    public static void removeSingleActivity (FragmentActivity fragmentActivity) {
+        ActivityManager.getActivityManager()
+                       .finishActivity(fragmentActivity);
     }
 
     /**
@@ -309,8 +308,9 @@ public class AppTools {
      *
      * @param fragmentActivity the activity which need to add
      */
-    public static void addActivity(FragmentActivity fragmentActivity) {
-        UITools.addActivity(fragmentActivity);
+    public static void addActivity (FragmentActivity fragmentActivity) {
+        ActivityManager.getActivityManager()
+                       .addActivity(fragmentActivity);
     }
 
     /**
@@ -320,8 +320,8 @@ public class AppTools {
      * @param phoneNum         the phone number whcich need to dial
      * @param listener         the callback
      */
-    public static void showDialDialog(FragmentActivity fragmentActivity, String phoneNum,
-                                      DialListener listener) {
+    public static void showDialDialog (FragmentActivity fragmentActivity, String phoneNum,
+                                       DialListener listener) {
         DialDialog dialDialog = new DialDialog(fragmentActivity,
                                                listener);
         dialDialog.call(phoneNum);
@@ -335,9 +335,9 @@ public class AppTools {
      * @param actionCharSequence the action msg
      * @param onClickListener    the action callback
      */
-    public static void showActionSnackBar(View view, CharSequence charSequence, CharSequence
+    public static void showActionSnackBar (View view, CharSequence charSequence, CharSequence
             actionCharSequence, View.OnClickListener
-                                                  onClickListener) {
+                                                   onClickListener) {
         SnakeTools.getInstance()
                   .showSnackBar(context,
                                 view,
@@ -346,14 +346,14 @@ public class AppTools {
                                 onClickListener);
     }
 
-    public static void showNormalSnackBar(View view, CharSequence charSequence) {
+    public static void showNormalSnackBar (View view, CharSequence charSequence) {
         showActionSnackBar(view,
                            charSequence,
                            null,
                            null);
     }
 
-    public static void showSettingSnackBar(View view, CharSequence charSequence) {
+    public static void showSettingSnackBar (View view, CharSequence charSequence) {
         new SnakeTools().showSettingSnackBar(context,
                                              view,
                                              charSequence);
@@ -370,9 +370,9 @@ public class AppTools {
      * @see android.view.Gravity
      * .lang.CharSequence, java.lang.CharSequence, android.view.View.OnClickListener, int)
      */
-    public static void showSnackBarAtLocation(View view, CharSequence charSequence,
-                                              CharSequence actionCharSequence, View.OnClickListener
-                                                      listener, int gravity) {
+    public static void showSnackBarAtLocation (View view, CharSequence charSequence,
+                                               CharSequence actionCharSequence, View.OnClickListener
+                                                       listener, int gravity) {
         new SnakeTools().showSnackBarAtLocation(context,
                                                 view,
                                                 charSequence,
@@ -387,7 +387,7 @@ public class AppTools {
      * @param fileName the fileName
      * @return the text in file
      */
-    public static String getFromAssets(@NonNull String fileName) {
+    public static String getFromAssets (@NonNull String fileName) {
         return ParserTools.getFromAssets(context,
                                          fileName);
     }
@@ -397,7 +397,7 @@ public class AppTools {
      *
      * @param listener the callback when locate is finished
      */
-    public static void locate(BDLocationListener listener) {
+    public static void locate (BDLocationListener listener) {
         if (CheckNetworkTools.isNetworkAvailable(context)) {
             locationTools = new LocationTools(context,
                                               listener);
@@ -415,7 +415,7 @@ public class AppTools {
     /**
      * stop locate
      */
-    public static void stopLocate() {
+    public static void stopLocate () {
         if (locationTools == null) {
             return;
         }
@@ -428,7 +428,7 @@ public class AppTools {
      * @param bundle the params in receiver
      * @param action the action be filtered
      */
-    public static void sendBroadcast(Bundle bundle, @NonNull String action) {
+    public static void sendBroadcast (Bundle bundle, @NonNull String action) {
         BroadcastTools.sendBroadcast(context,
                                      bundle,
                                      action);
@@ -440,7 +440,7 @@ public class AppTools {
      * @param receiver the receiver will be register
      * @param actions  which action must be filtered
      */
-    public static void registerBroadcast(@NonNull BroadcastReceiver receiver, @NonNull String...
+    public static void registerBroadcast (@NonNull BroadcastReceiver receiver, @NonNull String...
             actions) {
         BroadcastTools.registerReceiver(context,
                                         receiver,
@@ -452,7 +452,7 @@ public class AppTools {
      *
      * @param receiver the receiver which will be unregister(cannot be null)
      */
-    public static void unregisterBroadcast(@NonNull BroadcastReceiver receiver) {
+    public static void unregisterBroadcast (@NonNull BroadcastReceiver receiver) {
         BroadcastTools.unRegisterReceiver(context,
                                           receiver);
     }
@@ -462,7 +462,7 @@ public class AppTools {
      *
      * @return default horizontal decoration
      */
-    public static RecyclerView.ItemDecoration defaultHorizontalDecoration() {
+    public static RecyclerView.ItemDecoration defaultHorizontalDecoration () {
         return DefaultDecorationTools.defaultHorizontalDecoration(context);
     }
 
@@ -471,7 +471,7 @@ public class AppTools {
      *
      * @return default vertical decoration
      */
-    public static RecyclerView.ItemDecoration defaultVerticalDecoration() {
+    public static RecyclerView.ItemDecoration defaultVerticalDecoration () {
         return DefaultDecorationTools.defaultVerticalDecoration(context);
     }
 
@@ -481,7 +481,7 @@ public class AppTools {
      * @param appCompatActivity activity -- which background will be changed
      * @param alpha             alpha take from 0.0f-1.0f
      */
-    public static void setWindowBackground(AppCompatActivity appCompatActivity, float alpha) {
+    public static void setWindowBackground (AppCompatActivity appCompatActivity, float alpha) {
         WindowManagerTools.setWindowBackground(appCompatActivity,
                                                alpha);
     }
@@ -491,7 +491,7 @@ public class AppTools {
      *
      * @param appCompatActivity the dialog attach window
      */
-    public static void showLoadingDialog(AppCompatActivity appCompatActivity) {
+    public static void showLoadingDialog (AppCompatActivity appCompatActivity) {
         if (appCompatActivity != loadingActivity) {
             loadingDialog = new LoadingDialog(appCompatActivity);
         }
@@ -504,7 +504,7 @@ public class AppTools {
     /**
      * dismiss loading dialog
      */
-    public static void dismissLoadingDialog() {
+    public static void dismissLoadingDialog () {
         if (loadingDialog != null && loadingDialog.isShowing()) {
             loadingDialog.dismiss();
             loadingActivity = null;
@@ -517,11 +517,11 @@ public class AppTools {
      *
      * @return the picture cache dir
      */
-    public static String getPictureCacheDir() {
+    public static String getPictureCacheDir () {
         return fileTools.getPictureCacheDir();
     }
 
-    public static boolean isFileOverLimitSize(String filePath, long sizeLimit) {
+    public static boolean isFileOverLimitSize (String filePath, long sizeLimit) {
         return fileTools.isFileOverLimitSize(filePath,
                                              sizeLimit);
     }
@@ -532,11 +532,11 @@ public class AppTools {
      * @param str the string which need to convert
      * @return the converted md5 String
      */
-    public static String stringToMD5(String str) {
+    public static String stringToMD5 (String str) {
         return StringFormatTools.stringToMD5(str);
     }
 
-    public static SharedPreferencesTools putStringSharedPreferences(String key, String value) {
+    public static SharedPreferencesTools putStringSharedPreferences (String key, String value) {
         initSharedPreferencesTools();
         sharedPreferencesTools.putString(key,
                                          value)
@@ -545,29 +545,29 @@ public class AppTools {
     }
 
 
-    public static String getStringSharedPreferences(String key, String
+    public static String getStringSharedPreferences (String key, String
             defaultValue) {
         initSharedPreferencesTools();
         return sharedPreferencesTools.getString(key,
                                                 defaultValue);
     }
 
-    private static void initSharedPreferencesTools() {
+    private static void initSharedPreferencesTools () {
         if (sharedPreferencesTools == null) {
             sharedPreferencesTools = new SharedPreferencesTools(context);
         }
     }
 
-    public static SharedPreferences getSharePreferences() {
+    public static SharedPreferences getSharePreferences () {
         initSharedPreferencesTools();
         return sharedPreferencesTools.getSharedPreferences();
     }
 
-    public static void deleteDrawable(TextView textView) {
+    public static void deleteDrawable (TextView textView) {
         ViewUtils.deleteDrawable(textView);
     }
 
-    protected static void setCompoundDrawable(TextView textView, int resId, int side) {
+    protected static void setCompoundDrawable (TextView textView, int resId, int side) {
         ViewUtils.setCompoundDrawable(textView,
                                       resId,
                                       side);
@@ -578,7 +578,7 @@ public class AppTools {
      * @return true if one of network is Available false otherwise
      * @see com.szbb.pro.tools.CheckNetworkTools#isNetworkAvailable(android.content.Context)
      */
-    public static boolean isNetworkConnected() {
+    public static boolean isNetworkConnected () {
         return CheckNetworkTools.isNetworkAvailable(context);
     }
 
@@ -586,14 +586,14 @@ public class AppTools {
      * @return true if wifi is connected false otherwise
      * @see CheckNetworkTools#isWifiState(android.content.Context)
      */
-    public static boolean isWifiConnected() {
+    public static boolean isWifiConnected () {
         return CheckNetworkTools.isWifiState(context);
     }
 
     /**
      * @see CheckNetworkTools#openWifi(android.content.Context)
      */
-    public static void openWifi() {
+    public static void openWifi () {
         CheckNetworkTools.openWifi(context);
     }
 }

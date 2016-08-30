@@ -15,7 +15,7 @@ import java.io.File;
  */
 public class DownloadService extends IntentService {
 
-    public DownloadService() {
+    public DownloadService () {
         super("");
     }
 
@@ -24,7 +24,7 @@ public class DownloadService extends IntentService {
      *
      * @param name Used to name the worker thread, important only for debugging.
      */
-    public DownloadService(String name) {
+    public DownloadService (String name) {
         super(name);
     }
 
@@ -42,13 +42,18 @@ public class DownloadService extends IntentService {
      *               Context#startService(Intent)}.
      */
     @Override
-    protected void onHandleIntent(Intent intent) {
+    protected void onHandleIntent (Intent intent) {
         if (intent != null) {
-            DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(intent.getStringExtra("uri")));
+            DownloadManager downloadManager = (DownloadManager) getSystemService(
+                    Context.DOWNLOAD_SERVICE);
+            DownloadManager.Request request = new DownloadManager.Request(
+                    Uri.parse(intent.getStringExtra("uri")));
             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
-            request.setDestinationUri(Uri.fromFile(new File(FileTools.getInstance().getDownloadCacheDir() + "szbb.apk")));
-            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
+            request.setDestinationUri(Uri.fromFile(new File(FileTools.getInstance()
+                                                                     .getDownloadCacheDir() +
+                                                            "szbb.apk")));
+            request.setNotificationVisibility(
+                    DownloadManager.Request.VISIBILITY_HIDDEN);
             request.allowScanningByMediaScanner();
             request.setAllowedOverRoaming(false);
             downloadManager.enqueue(request);

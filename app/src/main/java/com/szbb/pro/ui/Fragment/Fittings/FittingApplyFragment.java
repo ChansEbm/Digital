@@ -52,14 +52,14 @@ public class FittingApplyFragment
     private int currentPos = 0;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate (@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault()
                 .register(this);
     }
 
     @Override
-    protected void initViews() {
+    protected void initViews () {
         fittingOrderLayout = (FittingOrderLayout) viewDataBinding;
         refreshRecyclerView = fittingOrderLayout.include.recyclerView;
         refreshLayout = fittingOrderLayout.include.refreshLayout;
@@ -71,7 +71,7 @@ public class FittingApplyFragment
     }
 
     @Override
-    protected void initEvents() {
+    protected void initEvents () {
         AppTools.defaultRefresh(refreshLayout,
                                 this);
         menuAdapter.setBinderOnItemClickListener(this);
@@ -89,7 +89,7 @@ public class FittingApplyFragment
                               NetworkParams.CUPCAKE);
     }
 
-    private void menuEvents() {
+    private void menuEvents () {
         menuRecyclerView.setAdapter(menuAdapter);
         menuRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         menuRecyclerView.addItemDecoration(AppTools.defaultHorizontalDecoration());
@@ -97,47 +97,48 @@ public class FittingApplyFragment
     }
 
     @Override
-    protected void noNetworkStatus() {
+    protected void noNetworkStatus () {
         refreshLayout.endRefreshing();
         refreshLayout.endLoadingMore();
     }
 
     @Override
-    protected void onClick(int id, View view) {
+    protected void onClick (int id, View view) {
 
     }
 
-    private void refreshEvents() {
+    private void refreshEvents () {
         refreshRecyclerView.setAdapter(commonBinderAdapter);
         refreshRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         refreshRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder
-                                                      (getContext()).sizeResId(R.dimen.large_margin_15dp)
-                                                                    .color(getResources().getColor
-                                                                            (R.color.color_bg_gravy))
-                                                                    .build());
+                                                      (getContext())
+                                                      .sizeResId(R.dimen.large_margin_15dp)
+                                                      .color(getResources().getColor
+                                                              (R.color.color_bg_gravy))
+                                                      .build());
     }
 
 
-    private void initContentAdapter() {
-        commonBinderAdapter = new CommonBinderAdapter<MyFittingOrderBean.ListEntity>(getContext()
-                ,
+    private void initContentAdapter () {
+        commonBinderAdapter = new CommonBinderAdapter<MyFittingOrderBean.ListEntity>(getContext(),
                                                                                      R.layout.item_fgm_fitting_apply,
                                                                                      list) {
             @Override
-            public void onBind(ViewDataBinding viewDataBinding, CommonBinderHolder holder, int
+            public void onBind (ViewDataBinding viewDataBinding, CommonBinderHolder holder, int
                     position, MyFittingOrderBean.ListEntity listEntity) {
                 ((ItemFgmFittingApplyLayout) viewDataBinding).setFitting(listEntity);
             }
         };
     }
 
-    private void initMenuAdapter() {
+    private void initMenuAdapter () {
         menuAdapter = new CommonBinderAdapter<String>(getActivity(),
                                                       R.layout.item_fitting_order,
                                                       getResources
-                                                              ().getStringArray(R.array.fitting_apply)) {
+                                                              ().getStringArray(
+                                                              R.array.fitting_apply)) {
             @Override
-            public void onBind(ViewDataBinding viewDataBinding, CommonBinderHolder holder, int
+            public void onBind (ViewDataBinding viewDataBinding, CommonBinderHolder holder, int
                     position, String s) {
                 ItemFittingOrderLayout itemFittingOrderLayout = (ItemFittingOrderLayout)
                         viewDataBinding;
@@ -151,7 +152,7 @@ public class FittingApplyFragment
         };
     }
 
-    public void onEvent(FittingNavEvent fittingNavEvent) {
+    public void onEvent (FittingNavEvent fittingNavEvent) {
         if (fittingNavEvent.getCurrentPos() == 0) {
             drawerToggle();
         } else {
@@ -159,7 +160,7 @@ public class FittingApplyFragment
         }
     }
 
-    private void drawerToggle() {
+    private void drawerToggle () {
         if (drawerLayout.isDrawerOpen(menuRecyclerView)) {
             drawerLayout.closeDrawer(menuRecyclerView);
         } else {
@@ -168,12 +169,12 @@ public class FittingApplyFragment
     }
 
     @Override
-    protected int getContentView() {
+    protected int getContentView () {
         return R.layout.fragment_fitting_order;
     }
 
     @Override
-    public void onBinderItemClick(View view, int pos) {
+    public void onBinderItemClick (View view, int pos) {
         View v = (View) view.getParent();
         switch (v.getId()) {
             case R.id.rv_menu:
@@ -191,12 +192,12 @@ public class FittingApplyFragment
         }
     }
 
-    private void setChosenColor(View view) {
+    private void setChosenColor (View view) {
         TextView textView = (TextView) view.findViewById(R.id.textView);
         textView.setTextColor(getResources().getColor(R.color.theme_primary));
     }
 
-    private void resetAllTextColor() {
+    private void resetAllTextColor () {
         for (int i = 0;
              i < menuRecyclerView.getChildCount();
              i++) {
@@ -207,14 +208,14 @@ public class FittingApplyFragment
         }
     }
 
-    private void switchContent(int pos) {
+    private void switchContent (int pos) {
         final MyFittingOrderBean.ListEntity listEntity = list.get(pos);
         final String acceid = listEntity.getAcceid();
         switchExeType(listEntity,
                       acceid);
     }
 
-    private void switchExeType(MyFittingOrderBean.ListEntity listEntity, String acceid) {
+    private void switchExeType (MyFittingOrderBean.ListEntity listEntity, String acceid) {
         final String exe_type = listEntity.getExe_type();
         switch (exe_type) {
             case "1"://A模式
@@ -232,7 +233,7 @@ public class FittingApplyFragment
         }
     }
 
-    private void switchMenuPos(int pos) {
+    private void switchMenuPos (int pos) {
         switch (pos) {
             case 0:
                 networkModel.acceList("0",
@@ -256,7 +257,7 @@ public class FittingApplyFragment
     }
 
     @Override
-    public void onJsonObjectSuccess(MyFittingOrderBean t, NetworkParams paramsCode) {
+    public void onJsonObjectSuccess (MyFittingOrderBean t, NetworkParams paramsCode) {
         super.onJsonObjectSuccess(t,
                                   paramsCode);
         this.myFittingOrderBean = t;
@@ -275,14 +276,14 @@ public class FittingApplyFragment
     }
 
     @Override
-    public void onDestroy() {
+    public void onDestroy () {
         super.onDestroy();
         EventBus.getDefault()
                 .unregister(this);
     }
 
     @Override
-    public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout bgaRefreshLayout) {
+    public void onBGARefreshLayoutBeginRefreshing (BGARefreshLayout bgaRefreshLayout) {
         final int status = myFittingOrderBean.getCond()
                                              .getStatus();
         networkModel.acceList(status + "",
@@ -292,7 +293,7 @@ public class FittingApplyFragment
     }
 
     @Override
-    public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout bgaRefreshLayout) {
+    public boolean onBGARefreshLayoutBeginLoadingMore (BGARefreshLayout bgaRefreshLayout) {
         if (myFittingOrderBean.getIsNext() == 1) {
             final int page = myFittingOrderBean.getPage();
             final int status = myFittingOrderBean.getCond()
@@ -311,7 +312,7 @@ public class FittingApplyFragment
 
     class DisplaceDrawerToggle
             extends ContentDisplaceDrawerToggle {
-        public DisplaceDrawerToggle() {
+        public DisplaceDrawerToggle () {
             super(getActivity(),
                   drawerLayout,
                   fittingOrderLayout.flytContant,
@@ -319,7 +320,7 @@ public class FittingApplyFragment
         }
 
         @Override
-        public void onDrawerOpened(View arg0) {
+        public void onDrawerOpened (View arg0) {
             super.onDrawerOpened(arg0);
             menuRecyclerView.bringToFront();
             drawerLayout.requestLayout();

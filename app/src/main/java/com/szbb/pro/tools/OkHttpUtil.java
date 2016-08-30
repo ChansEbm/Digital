@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -32,6 +33,7 @@ public class OkHttpUtil<T> implements Callback {
     private OkHttpResponseListener<T> okHttpResponseListener;
     //Entity Class
     private Class<T> clz;
+    private Call call;
 
     //判断码
     private final static int OBJECT = 0x001;
@@ -41,18 +43,19 @@ public class OkHttpUtil<T> implements Callback {
     private NetworkParams networkParams = NetworkParams.CUPCAKE;
 
     static {
-        //初始化超时时间 15s
-        okHttpClient.setConnectTimeout(15, TimeUnit.SECONDS);
+        //初始化超时时间 30s
+        okHttpClient.setConnectTimeout(30, TimeUnit.SECONDS);
     }
 
     /**
      * @param url 获取数据的URl
      * @return 返回this
      */
-    public OkHttpUtil GET(String url, NetworkParams networkParams) {
+    public OkHttpUtil GET (String url, NetworkParams networkParams) {
         Request request = new Request.Builder().url(url).get().build();
         this.networkParams = networkParams;
-        okHttpClient.newCall(request).enqueue(this);
+        call = okHttpClient.newCall(request);
+        call.enqueue(this);
         return this;
     }
 
@@ -61,10 +64,11 @@ public class OkHttpUtil<T> implements Callback {
      * @param requestBody 构建体
      * @return this
      */
-    public OkHttpUtil POST(String url, RequestBody requestBody, NetworkParams networkParams) {
+    public OkHttpUtil POST (String url, RequestBody requestBody, NetworkParams networkParams) {
         Request request = new Request.Builder().url(url).post(requestBody).build();
         this.networkParams = networkParams;
-        okHttpClient.newCall(request).enqueue(this);
+        call = okHttpClient.newCall(request);
+        call.enqueue(this);
         return this;
     }
 
@@ -73,20 +77,24 @@ public class OkHttpUtil<T> implements Callback {
      * @param e       错误
      */
     @Override
-    public void onFailure(Request request, IOException e) {
+    public void onFailure (Request request, IOException e) {
         AppTools.dismissLoadingDialog();
         e.printStackTrace();
         if (okHttpResponseListener != null) {
             sendErrorMessage(request.toString());
+        } else {
+            cancelCall();
         }
     }
+
+    private void cancelCall () {if (call != null) { call.cancel(); }}
 
     /**
      * @param response 返回的数据
      * @throws IOException IO错误
      */
     @Override
-    public void onResponse(Response response) throws IOException {
+    public void onResponse (Response response) throws IOException {
         AppTools.dismissLoadingDialog();
         //如果数据获取成功
         if (response.isSuccessful()) {
@@ -105,6 +113,7 @@ public class OkHttpUtil<T> implements Callback {
             if (okHttpResponseListener != null) {
                 sendErrorMessage(response.toString());
             }
+            cancelCall();
         }
     }
 
@@ -113,14 +122,14 @@ public class OkHttpUtil<T> implements Callback {
      *
      * @param jsonStr json字符串
      */
-    private void parseJson(String jsonStr) {
+    private void parseJson (String jsonStr) {
         //新建Message
         Message msg = Message.obtain();
         //如果设置了回调
         if (okHttpResponseListener != null) {
             //判断类型
             JsonType type = type(jsonStr);
-            if (type != null)
+            if (type != null) {
                 switch (type) {
                     case JSON_OBJECT:
                         try {
@@ -145,9 +154,11 @@ public class OkHttpUtil<T> implements Callback {
 
                         break;
                     default:
+                        cancelCall();
                         throw new IllegalArgumentException("response not jsonObject either " +
-                                "JsonArray");
+                                                           "JsonArray");
                 }
+            }
         }
     }
 
@@ -156,12 +167,12 @@ public class OkHttpUtil<T> implements Callback {
      * @param clz 设置Entity Class
      * @return this
      */
-    public OkHttpUtil setClz(Class clz) {
+    public OkHttpUtil setClz (Class clz) {
         this.clz = (Class<T>) clz;
         return this;
     }
 
-    private JsonType type(String response) {
+    private JsonType type (String response) {
         //获取第一个字符
         String charFirst = response.substring(0, 1);
         //如果是"{"则返回的是JsonObject
@@ -177,7 +188,7 @@ public class OkHttpUtil<T> implements Callback {
     //创建handler
     private Handler handler = new Handler() {
         @Override
-        public void handleMessage(Message msg) {
+        public void handleMessage (Message msg) {
             super.handleMessage(msg);
             //判断msg.what
             switch (msg.what) {
@@ -193,6 +204,7 @@ public class OkHttpUtil<T> implements Callback {
                     break;
                 //否则回调错误处理方法
                 case ERROR:
+                    cancelCall();
                     okHttpResponseListener.onError((String) msg.obj, networkParams);
                     break;
             }
@@ -205,7 +217,7 @@ public class OkHttpUtil<T> implements Callback {
      *
      * @param error 错误代码
      */
-    private void sendErrorMessage(String error) {
+    private void sendErrorMessage (String error) {
         Message message = Message.obtain();
         message.obj = "ErrorCode:" + error;
         message.what = ERROR;
@@ -218,7 +230,7 @@ public class OkHttpUtil<T> implements Callback {
      *
      * @param okHttpResponseListener 回调
      */
-    public void setOkHttpResponseListener(OkHttpResponseListener<T> okHttpResponseListener) {
+    public void setOkHttpResponseListener (OkHttpResponseListener<T> okHttpResponseListener) {
         this.okHttpResponseListener = okHttpResponseListener;
     }
 }

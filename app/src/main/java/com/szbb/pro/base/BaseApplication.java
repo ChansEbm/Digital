@@ -11,20 +11,22 @@ import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatActivity;
 
 import com.baidu.mapapi.SDKInitializer;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.Request;
+import com.bumptech.glide.request.target.ImageViewTarget;
 import com.facebook.common.soloader.SoLoaderShim;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.orhanobut.logger.LogLevel;
 import com.orhanobut.logger.Logger;
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.Picasso;
 import com.szbb.pro.BuildConfig;
+import com.szbb.pro.R;
 import com.szbb.pro.entity.eventbus.ChatListEvent;
 import com.szbb.pro.entity.eventbus.UpdateListBadgeEvent;
 import com.szbb.pro.service.ChatService;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.FileTools;
-import com.szbb.pro.tools.LogTools;
-import com.tencent.TIMElem;
 import com.tencent.TIMManager;
 import com.tencent.TIMMessage;
 import com.tencent.TIMMessageListener;
@@ -72,15 +74,15 @@ public class BaseApplication
 
     private static AppCompatActivity appCompatActivity;
 
-    public BaseApplication() {
+    public BaseApplication () {
         super();
     }
 
-    public static AppCompatActivity getCurrentActivity() {
+    public static AppCompatActivity getCurrentActivity () {
         return appCompatActivity;
     }
 
-    public static void setCurrentActivity(AppCompatActivity appCompatActivity) {
+    public static void setCurrentActivity (AppCompatActivity appCompatActivity) {
         BaseApplication.appCompatActivity = appCompatActivity;
     }
 
@@ -92,7 +94,7 @@ public class BaseApplication
     }
 
     @Override
-    public void onCreate() {
+    public void onCreate () {
         super.onCreate();
         AppTools.init(this);
         SDKInitializer.initialize(getApplicationContext());
@@ -113,8 +115,9 @@ public class BaseApplication
                 .init(this);
         TIMManager.getInstance().addMessageListener(new TIMMessageListener() {
             @Override
-            public boolean onNewMessages(List<TIMMessage> list) {
-                EventBus.getDefault().post(new ChatListEvent(list));//接收聊天消息后发送给相应页面更新数据(CustomerActivity)
+            public boolean onNewMessages (List<TIMMessage> list) {
+                EventBus.getDefault()
+                        .post(new ChatListEvent(list));//接收聊天消息后发送给相应页面更新数据(CustomerActivity)
                 EventBus.getDefault().post(new UpdateListBadgeEvent());
                 return false;
             }
@@ -129,8 +132,8 @@ public class BaseApplication
 
     }
 
-    private void initGalleryFinal() {
-        ImageLoader imageloader = new PicassoImageLoader();
+    private void initGalleryFinal () {
+        ImageLoader imageloader = new GlideImageLoader();
         FunctionConfig functionConfig = new FunctionConfig.Builder()
                 .setEnablePreview(true)
                 .setMutiSelectMaxSize(8)
@@ -146,52 +149,65 @@ public class BaseApplication
                 .setIconCamera(android.R.drawable.ic_menu_camera)
                 .build();
         CoreConfig coreConfig = new CoreConfig.Builder(this, imageloader, CYAN)
-                .setTakePhotoFolder(new File(AppTools
-                        .getPictureCacheDir()))
+                .setTakePhotoFolder(new File(AppTools.getPictureCacheDir()))
                 .setFunctionConfig(functionConfig)
                 .build();
         GalleryFinal.init(coreConfig);
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
+    public void onConfigurationChanged (Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
     }
 
-    public class PicassoImageLoader
+    public class GlideImageLoader
             implements cn.finalteam.galleryfinal.ImageLoader {
 
         private Bitmap.Config mConfig;
 
-        public PicassoImageLoader() {
+        public GlideImageLoader () {
             this(Bitmap.Config.RGB_565);
         }
 
-        public PicassoImageLoader(Bitmap.Config config) {
+        public GlideImageLoader (Bitmap.Config config) {
             this.mConfig = config;
         }
 
         @Override
-        public void displayImage(Activity activity,
-                                 String path,
-                                 GFImageView imageView,
-                                 Drawable defaultDrawable,
-                                 int width,
-                                 int height) {
-            Picasso
-                    .with(activity)
-                    .load(new File(path))
-                    .placeholder(defaultDrawable)
-                    .error(defaultDrawable)
-                    .config(mConfig)
-                    .resize(width, height)
-                    .centerInside()
-                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
-                    .into(imageView);
+        public void displayImage (Activity activity,
+                                  String path,
+                                  final GFImageView imageView,
+                                  Drawable defaultDrawable,
+                                  int width,
+                                  int height) {
+            Glide.with(activity)
+                 .load("file://" + path)
+                 .placeholder(defaultDrawable)
+                 .error(defaultDrawable)
+                 .override(width, height)
+                 .diskCacheStrategy(DiskCacheStrategy.NONE) //不缓存到SD卡
+                 .skipMemoryCache(true)
+                 //.centerCrop()
+                 .into(new ImageViewTarget<GlideDrawable>(imageView) {
+                     @Override
+                     protected void setResource (GlideDrawable resource) {
+                         imageView.setImageDrawable(resource);
+                     }
+
+                     @Override
+                     public void setRequest (Request request) {
+                         imageView.setTag(R.id.tag_cupcake, request);
+                     }
+
+                     @Override
+                     public Request getRequest () {
+                         return (Request) imageView.getTag(R.id.tag_cupcake);
+                     }
+                 });
         }
 
         @Override
-        public void clearMemoryCache() {
+        public void clearMemoryCache () {
         }
     }
 

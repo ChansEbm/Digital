@@ -20,7 +20,7 @@ import com.szbb.pro.base.BaseApplication;
 import com.szbb.pro.entity.jpushinfo.JpushBean;
 import com.szbb.pro.entity.vip.VipInfoBean;
 import com.szbb.pro.eum.NetworkParams;
-import com.szbb.pro.model.NetworkModel;
+import com.szbb.pro.biz.NetworkBiz;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.LogTools;
 import com.szbb.pro.ui.activity.login.LoginActivity;
@@ -37,20 +37,19 @@ public class JpushReceiver
         extends BroadcastReceiver {
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive (Context context, Intent intent) {
         Bundle bundle = intent.getExtras();
         LogTools.w(intent.getAction());
         if (intent.getAction()
                   .equals("cn.jpush.android.intent.REGISTRATION")) {
             Prefser prefser = new Prefser(AppTools.getSharePreferences());
-            final String extraRegistrationId = bundle.getString(JPushInterface
-                                                                        .EXTRA_REGISTRATION_ID,
-                                                                "");
+            final String extraRegistrationId = bundle.getString(
+                    JPushInterface.EXTRA_REGISTRATION_ID, "");
             LogTools.i("receiver:" + extraRegistrationId);
             if (!TextUtils.isEmpty(extraRegistrationId)) {
                 prefser.put("registrationId",
                             extraRegistrationId);
-                NetworkModel networkModel = new NetworkModel(context);
+                NetworkBiz networkModel = new NetworkBiz(context);
                 networkModel.setDevice(extraRegistrationId,
                                        NetworkParams.CUPCAKE);
             }
@@ -67,7 +66,7 @@ public class JpushReceiver
         }
     }
 
-    private PendingIntent getPendingIntent(Context context, Bundle bundle) {
+    private PendingIntent getPendingIntent (Context context, Bundle bundle) {
         final String extra = bundle.getString(JPushInterface.EXTRA_EXTRA);
         LogTools.w(extra);
         Intent intent = new Intent();
@@ -166,7 +165,7 @@ public class JpushReceiver
     }
 
 
-    private void notifyMsg(Context context, Bundle bundle1, PendingIntent pendingIntent) {
+    private void notifyMsg (Context context, Bundle bundle1, PendingIntent pendingIntent) {
         String title = bundle1.getString(JPushInterface.EXTRA_TITLE,
                                          context.getResources()
                                                 .getString(R.string.app_name));

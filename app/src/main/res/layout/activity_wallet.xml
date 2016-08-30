@@ -1,188 +1,295 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-    <data class=".WalletLayout">
+	<data class=".WalletLayout">
 
-        <variable
-            name="wallet"
-            type="com.szbb.pro.entity.vip.WalletBean.DataEntity"/>
-    </data>
+		<variable
+			name="wallet"
+			type="com.szbb.pro.entity.vip.WalletBean.DataEntity"/>
+	</data>
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:background="@color/theme_primary">
+	<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				 android:layout_width="match_parent"
+				 android:layout_height="match_parent"
+				 android:background="@color/theme_primary">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/color_white"
-                android:orientation="vertical">
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:background="@color/color_white"
+				android:orientation="vertical">
 
-                <include layout="@layout/title_bar"/>
+				<include layout="@layout/title_bar"/>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="225dp"
-                    android:background="@drawable/bg_blue_gradient"
-                    android:paddingBottom="25dp"
-                    android:paddingEnd="@dimen/large_margin_15dp"
-                    android:paddingStart="@dimen/large_margin_15dp"
-                    android:paddingTop="25dp">
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="225dp"
+					android:background="@drawable/bg_blue_gradient"
+					android:minHeight="225dp"
+					android:orientation="vertical"
+					android:paddingTop="@dimen/labelHeight_35dp">
 
-                    <TextView
-                        android:id="@+id/tv_t1"
-                        style="@style/textStyle"
-                        android:layout_centerHorizontal="true"
-                        android:text="@string/wallet_account_balance"
-                        android:textColor="@color/color_white"/>
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="0dp"
+						android:layout_weight="1"
+						android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/tv_detail"
-                        style="@style/textStyle"
-                        android:layout_alignBottom="@id/tv_t1"
-                        android:layout_alignParentEnd="true"
-                        android:onClick="onClick"
-                        android:text="@string/wallet_translation_details"
-                        android:textColor="@color/color_white"
-                        android:textSize="10sp"/>
+						<LinearLayout
+							android:layout_width="0dp"
+							android:layout_height="match_parent"
+							android:layout_weight="1"
+							android:gravity="center"
+							android:orientation="vertical">
 
-                    <TextView
-                        android:id="@id/tv_t2"
-                        style="@style/textStyle"
-                        android:layout_below="@id/tv_t1"
-                        android:layout_centerHorizontal="true"
-                        android:text="@{wallet.money}"
-                        android:textColor="@color/color_white"
-                        android:textSize="66sp"
-                        android:textStyle="bold"/>
+							<TextView
+								android:id="@+id/tv_t1"
+								style="@style/textStyle"
+								android:text="@string/wallet_account_balance"
+								android:textColor="@color/color_white"
+								android:textSize="@dimen/text_normal_size"/>
 
-                    <TextView
-                        android:id="@id/tv_t3"
-                        style="@style/textStyle"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignTop="@id/tv_t2"
-                        android:layout_marginTop="@dimen/large_margin_15dp"
-                        android:text="@string/wallet_security_deposit"
-                        android:textColor="@color/color_white"
-                        android:textSize="10sp"/>
+							<TextView
+								style="@style/wrap"
+								android:layout_marginTop="@dimen/small_margin_5dp"
+								android:singleLine="true"
+								android:text="@{wallet.money}"
+								android:textColor="@color/color_white"
+								android:textSize="36sp"
+								android:textStyle="bold"
+								/>
+						</LinearLayout>
 
-                    <TextView
-                        android:id="@id/tv_t4"
-                        style="@style/textStyle"
-                        android:layout_alignParentEnd="true"
-                        android:layout_below="@id/tv_t3"
-                        android:text="@{wallet.quality_money}"
-                        android:textColor="@color/color_white"
-                        android:textSize="10sp"/>
+						<View
+							android:layout_width="1dp"
+							android:layout_height="match_parent"
 
-                    <TextView
-                        android:id="@id/tv_t5"
-                        style="@style/textStyle"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
-                        android:text="@{wallet.income_money}"
-                        android:textColor="@color/color_white"
-                        android:textSize="24sp"/>
+							android:background="#97c8e4"/>
 
-                    <TextView
-                        style="@style/textStyle"
-                        android:layout_above="@id/tv_t5"
-                        android:layout_centerHorizontal="true"
-                        android:text="@string/wallet_cumulative_revenue"
-                        android:textColor="@color/color_white"/>
-                </RelativeLayout>
+						<LinearLayout
+							android:id="@+id/llyt_performance"
+							android:layout_width="0dp"
+							android:layout_height="match_parent"
+							android:layout_weight="1"
+							android:gravity="center"
+							android:onClick="onClick"
+							android:orientation="vertical">
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/labelHeight_35dp"
-                    android:minHeight="@dimen/minHeight_50dp"
-                    android:paddingEnd="@dimen/large_margin_15dp"
-                    android:paddingStart="@dimen/large_margin_15dp">
+							<TextView
+								style="@style/textStyle"
+								android:text="@string/wallet_security_deposit"
+								android:textColor="@color/color_white"
+								android:textSize="@dimen/text_normal_size"/>
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:layout_gravity="start|center_vertical"
-                        android:orientation="vertical">
+							<TextView
+								style="@style/wrap"
+								android:layout_marginTop="@dimen/small_margin_5dp"
+								android:singleLine="true"
+								android:text="@{wallet.quality_money}"
+								android:textColor="@color/color_white"
+								android:textSize="36sp"
+								android:textStyle="bold"/>
+						</LinearLayout>
 
-                        <TextView
-                            style="@style/textStyle"
-                            android:text="@string/wallet_wait_confirm"
-                            android:textColor="@color/color_text_gravy"
-                            android:textSize="10sp"/>
+					</LinearLayout>
 
-                        <TextView
-                            style="@style/textStyle"
-                            android:text="@{wallet.unsettled_orders}"
-                            android:textColor="#004d9b"
-                            android:textSize="24sp"/>
-                    </LinearLayout>
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="0dp"
+						android:layout_weight="1"
+						android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:orientation="vertical">
+						<RelativeLayout
+							android:layout_width="0dp"
+							android:layout_height="match_parent"
+							android:layout_weight="1">
 
-                        <TextView
-                            style="@style/textStyle"
-                            android:text="@string/wallet_withdrawing"
-                            android:textColor="@color/color_text_gravy"
-                            android:textSize="10sp"/>
+							<LinearLayout
+								android:id="@+id/tv_t2"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_centerInParent="true"
+								android:baselineAligned="false"
+								android:gravity="center"
+								android:orientation="vertical">
 
-                        <TextView
-                            style="@style/textStyle"
-                            android:text="@{wallet.withdrawing_money}"
-                            android:textColor="#004d9b"
-                            android:textSize="24sp"/>
-                    </LinearLayout>
+								<TextView
+									style="@style/wrap"
+									android:text="@string/wallet_cumulative_revenue"
+									android:textColor="#b2c8da"
+									android:textSize="@dimen/text_small_size"/>
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end|center_vertical"
-                        android:orientation="vertical">
+								<TextView
+									style="@style/wrap"
+									android:text="@{wallet.income_money}"
+									android:textColor="#b2c8da"
+									android:textSize="24sp"
+									/>
+							</LinearLayout>
 
-                        <TextView
-                            style="@style/textStyle"
-                            android:text="@string/wallet_withdrawed"
-                            android:textColor="@color/color_text_gravy"
-                            android:textSize="10sp"/>
+							<TextView
+								android:id="@+id/tv_detail"
+								style="@style/wrap"
+								android:layout_alignBottom="@id/tv_t2"
+								android:layout_alignParentRight="true"
+								android:layout_marginRight="@dimen/large_margin_15dp"
+								android:drawableRight="@mipmap/ic_keyboard_arrow_right_white_24dp"
+								android:gravity="center"
+								android:onClick="onClick"
+								android:text="@string/title_transaction_detail"
+								android:textColor="@color/color_white"
+								android:textSize="12sp"
+								/>
+						</RelativeLayout>
+					</LinearLayout>
 
-                        <TextView
-                            style="@style/textStyle"
-                            android:text="@{wallet.withdrawials_money}"
-                            android:textColor="#004d9b"
-                            android:textSize="24sp"/>
-                    </LinearLayout>
-                </FrameLayout>
-            </LinearLayout>
+					<!--<TextView-->
+					<!--android:id="@+id/tv_detail"-->
+					<!--style="@style/textStyle"-->
+					<!--android:layout_alignBottom="@id/tv_t1"-->
+					<!--android:layout_alignParentRight="true"-->
+					<!--android:onClick="onClick"-->
+					<!--android:text="@string/wallet_translation_details"-->
+					<!--android:textColor="@color/color_white"-->
+					<!--android:textSize="10sp"/>-->
+					<!--&lt;!&ndash;android:text="@{wallet.money}"&ndash;&gt;-->
+					<!--<TextView-->
+					<!--android:id="@id/tv_t2"-->
+					<!--style="@style/textStyle"-->
+					<!--android:layout_below="@id/tv_t1"-->
+					<!--android:layout_centerHorizontal="true"-->
+					<!--android:text="123"-->
+					<!--android:textColor="@color/color_white"-->
+					<!--android:textSize="66sp"-->
+					<!--android:textStyle="bold"/>-->
 
-            <Button
-                android:id="@+id/btn_withdraw"
-                style="@style/buttonStyle"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="@dimen/large_margin_15dp"
-                android:layout_marginTop="@dimen/large_margin_15dp"
-                android:background="@drawable/bg_round_orange_dark_disable_sliver"
-                android:onClick="onClick"
-                android:text="@string/wallet_withdraw"/>
+					<!--<TextView-->
+					<!--android:id="@id/tv_t3"-->
+					<!--style="@style/textStyle"-->
+					<!--android:layout_alignParentRight="true"-->
+					<!--android:layout_alignTop="@id/tv_t2"-->
+					<!--android:layout_marginTop="@dimen/large_margin_15dp"-->
+					<!--android:text="@string/wallet_security_deposit"-->
+					<!--android:textColor="@color/color_white"-->
+					<!--android:textSize="10sp"/>-->
+					<!--&lt;!&ndash;android:text="@{wallet.quality_money}"&ndash;&gt;-->
+					<!--<TextView-->
+					<!--android:id="@id/tv_t4"-->
+					<!--style="@style/textStyle"-->
+					<!--android:layout_alignParentRight="true"-->
+					<!--android:layout_below="@id/tv_t3"-->
+					<!--android:text="123"-->
+					<!--android:textColor="@color/color_white"-->
+					<!--android:textSize="10sp"/>-->
 
-            <Button
-                android:id="@+id/btn_bank_card"
-                style="@style/buttonStyle"
-                android:layout_above="@id/btn_withdraw"
-                android:background="@drawable/bg_round_blue_medium_nav_selector"
-                android:onClick="onClick"
-                android:text="@string/wallet_bank_card"/>
+					<!--&lt;!&ndash;android:text="@{wallet.income_money}"&ndash;&gt;-->
+					<!--<TextView-->
+					<!--android:id="@id/tv_t5"-->
+					<!--style="@style/textStyle"-->
+					<!--android:layout_alignParentBottom="true"-->
+					<!--android:layout_centerHorizontal="true"-->
+					<!--android:text="123"-->
+					<!--android:textColor="@color/color_white"-->
+					<!--android:textSize="24sp"/>-->
 
-        </RelativeLayout>
-    </FrameLayout>
+					<!--<TextView-->
+					<!--style="@style/textStyle"-->
+					<!--android:layout_above="@id/tv_t5"-->
+					<!--android:layout_centerHorizontal="true"-->
+					<!--android:text="@string/wallet_cumulative_revenue"-->
+					<!--android:textColor="@color/color_white"/>-->
+				</LinearLayout>
+
+				<FrameLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="@dimen/labelHeight_35dp"
+					android:minHeight="@dimen/minHeight_50dp"
+					android:paddingEnd="@dimen/large_margin_15dp"
+					android:paddingStart="@dimen/large_margin_15dp">
+
+					<LinearLayout
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_gravity="start|center_vertical"
+						android:gravity="center_horizontal"
+						android:orientation="vertical">
+
+						<TextView
+							style="@style/textStyle"
+							android:text="@string/wallet_wait_confirm"
+							android:textColor="@color/color_text_gravy"
+							android:textSize="10sp"/>
+
+						<TextView
+							style="@style/textStyle"
+							android:text="@{wallet.unsettled_orders}"
+							android:textColor="#004d9b"
+							android:textSize="24sp"/>
+					</LinearLayout>
+
+					<LinearLayout
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_gravity="center_horizontal|center_vertical"
+						android:orientation="vertical">
+
+						<TextView
+							style="@style/textStyle"
+							android:text="@string/wallet_withdrawing"
+							android:textColor="@color/color_text_gravy"
+							android:textSize="10sp"/>
+
+						<TextView
+							style="@style/textStyle"
+							android:text="@{wallet.withdrawing_money}"
+							android:textColor="#004d9b"
+							android:textSize="24sp"/>
+					</LinearLayout>
+
+					<LinearLayout
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_gravity="end|center_vertical"
+						android:orientation="vertical">
+
+						<TextView
+							style="@style/textStyle"
+							android:text="@string/wallet_withdrawed"
+							android:textColor="@color/color_text_gravy"
+							android:textSize="10sp"/>
+
+						<TextView
+							style="@style/textStyle"
+							android:text="@{wallet.withdrawials_money}"
+							android:textColor="#004d9b"
+							android:textSize="24sp"/>
+					</LinearLayout>
+				</FrameLayout>
+			</LinearLayout>
+
+			<Button
+				android:id="@+id/btn_withdraw"
+				style="@style/buttonStyle"
+				android:layout_alignParentBottom="true"
+				android:layout_marginBottom="@dimen/large_margin_15dp"
+				android:layout_marginTop="@dimen/large_margin_15dp"
+				android:background="@drawable/bg_round_orange_dark_disable_sliver"
+				android:onClick="onClick"
+				android:text="@string/wallet_withdraw"/>
+
+			<Button
+				android:id="@+id/btn_bank_card"
+				style="@style/buttonStyle"
+				android:layout_above="@id/btn_withdraw"
+				android:background="@drawable/bg_round_blue_medium_nav_selector"
+				android:onClick="onClick"
+				android:text="@string/wallet_bank_card"/>
+
+		</RelativeLayout>
+	</FrameLayout>
 </layout>

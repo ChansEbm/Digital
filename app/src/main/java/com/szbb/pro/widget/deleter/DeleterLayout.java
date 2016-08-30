@@ -1,7 +1,6 @@
 package com.szbb.pro.widget.deleter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -10,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.BitmapCompressTool;
 import com.szbb.pro.tools.ScreenTools;
@@ -37,31 +36,31 @@ public class DeleterLayout
     private int[] placerImages = new int[]{};
     private DeleterConfigs configs;
 
-    public DeleterLayout(Context context,
-                         DeleterConfigs configs) {
+    public DeleterLayout (Context context,
+                          DeleterConfigs configs) {
         super(context);
         this.configs = configs;
     }
 
-    public DeleterLayout(Context context,
-                         AttributeSet attrs,
-                         DeleterConfigs configs) {
+    public DeleterLayout (Context context,
+                          AttributeSet attrs,
+                          DeleterConfigs configs) {
         super(context,
               attrs);
         this.configs = configs;
     }
 
-    public DeleterLayout(Context context,
-                         AttributeSet attrs,
-                         int defStyleAttr) {
+    public DeleterLayout (Context context,
+                          AttributeSet attrs,
+                          int defStyleAttr) {
         super(context,
               attrs,
               defStyleAttr);
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec,
-                             int heightMeasureSpec) {
+    protected void onMeasure (int widthMeasureSpec,
+                              int heightMeasureSpec) {
         if (getChildCount() == 0) {
             addPhotoIntoLayoutSelf();
         }
@@ -99,12 +98,12 @@ public class DeleterLayout
         }
         if (pMeasureWidth < ScreenTools.getScreenWidth(getContext())) {
             pMeasureWidth = widthMode == MeasureSpec.EXACTLY ? widthSize : pMeasureWidth +
-                    configs.margin;
+                                                                           configs.margin;
         } else {
             pMeasureWidth += configs.margin;
         }
         pMeasureHeight = heightMode == MeasureSpec.EXACTLY ? heightSize : pMeasureHeight + 2 *
-                configs.margin;
+                                                                                           configs.margin;
 
         setMeasuredDimension(pMeasureWidth,
                              pMeasureHeight);
@@ -112,11 +111,11 @@ public class DeleterLayout
     }
 
     @Override
-    protected void onLayout(boolean changed,
-                            int l,
-                            int t,
-                            int r,
-                            int b) {
+    protected void onLayout (boolean changed,
+                             int l,
+                             int t,
+                             int r,
+                             int b) {
         //放置子view并且全部垂直居中
         int childCount = getChildCount();
         int left = getFirstLayoutLeftMargin();
@@ -145,12 +144,12 @@ public class DeleterLayout
     }
 
     @Override
-    public LayoutParams generateLayoutParams(AttributeSet attrs) {
+    public LayoutParams generateLayoutParams (AttributeSet attrs) {
         return new MarginLayoutParams(getContext(),
                                       attrs);
     }
 
-    private void addPhotoIntoLayoutSelf() {
+    private void addPhotoIntoLayoutSelf () {
         if (configs.getMode() == DeleterConfigs.MODE_HAND) {
             Log.e("digital",
                   "addPhotoIntoLayoutSelf: hand"
@@ -179,7 +178,7 @@ public class DeleterLayout
                         imageView.getLayoutParams());
             }
         } else if (configs.getMode() == DeleterConfigs.MODE_VIEW && configs.getNetworkUrls() !=
-                null) {
+                                                                    null) {
             removeAllViews();
             Log.i("digital",
                   "addPhotoIntoLayoutSelf: " + configs.getNetworkUrls()
@@ -190,11 +189,10 @@ public class DeleterLayout
                 }
                 DeleterImageView imageView = getAdderDeleterImageView();
                 imageView.setRole(DeleterImageView.VIEWER);
-                Picasso.with(getContext())
-                       .load(url)
-                       .resize(500,
-                               500)
-                       .into(imageView);
+                Glide.with(getContext())
+                     .load(url)
+                     .override(150, 150)
+                     .into(imageView);
                 addView(imageView,
                         getChildCount(),
                         imageView.getLayoutParams());
@@ -202,7 +200,7 @@ public class DeleterLayout
         }
     }
 
-    private DeleterImageView getAdderDeleterImageView() {
+    private DeleterImageView getAdderDeleterImageView () {
         DeleterImageView imageView = new DeleterImageView(getContext(),
                                                           configs);
         MarginLayoutParams params = new MarginLayoutParams(configs.deleterWidth,
@@ -218,7 +216,7 @@ public class DeleterLayout
         return imageView;
     }
 
-    private int getFirstLayoutLeftMargin() {
+    private int getFirstLayoutLeftMargin () {
         View childView = getChildAt(0);
         if (childView != null) {
             MarginLayoutParams marginLayoutParams = (MarginLayoutParams) childView
@@ -230,8 +228,8 @@ public class DeleterLayout
 
 
     @Override
-    public void photoAdd(String photoPath,
-                         DeleterImageView deleterImageView) {
+    public void photoAdd (String photoPath,
+                          DeleterImageView deleterImageView) {
         //判断是否超过最大数量
         if (getChildCount() - 1 == configs.maxPhotoLimit) {
             Toast.makeText(DeleterLayout.this.getContext(),
@@ -248,9 +246,9 @@ public class DeleterLayout
                 imageView.setRole(DeleterImageView.CHILDREN);//设置角色
                 imageView.setPhotoPath(photoPath);
                 String osPath = compressPhoto(photoPath);
-//                Picasso.with(getContext()).load(new File(photoPath)).resize(150, 150).into
-// (imageView);
-                imageView.setImageURI(Uri.fromFile(new File(photoPath)));
+                Glide.with(getContext()).load(new File(photoPath)).override(150, 150).centerCrop()
+                     .into(imageView);
+
                 addView(imageView,
                         i);//添加到ViewGroup
                 savePhotoPaths.put(imageView.getFlag(),
@@ -270,8 +268,8 @@ public class DeleterLayout
     }
 
     @Override
-    public void placerAdd(String photoPath,
-                          DeleterImageView deleterImageView) {
+    public void placerAdd (String photoPath,
+                           DeleterImageView deleterImageView) {
         for (int i = 0;
              i < getChildCount();
              i++) {
@@ -287,8 +285,8 @@ public class DeleterLayout
     }
 
     @Override
-    public void photoDelete(String photoPath,
-                            DeleterImageView deleterImageView) {
+    public void photoDelete (String photoPath,
+                             DeleterImageView deleterImageView) {
         int childCount = getChildCount();
         for (int i = 0;
              i < childCount;
@@ -309,7 +307,7 @@ public class DeleterLayout
         postInvalidate();
     }
 
-    private void callBackSuccess() {
+    private void callBackSuccess () {
         Set<Integer> keySet = savePhotoPaths.keySet();//所有图片的key值
         List<String> photo = new ArrayList<>();//所有图片的路径
         configs.alreadyAddPhoto.clear();//清空过滤图片list
@@ -328,7 +326,7 @@ public class DeleterLayout
         calcSelectLimit();
     }
 
-    public int getDeleterImageViewFlag() {
+    public int getDeleterImageViewFlag () {
         //获得100----9999的随机数 用于作为保存图片路径的key
         Random random = new Random();
         int flag = random.nextInt(9999) % (9999 - 100 + 1) + 100;
@@ -345,7 +343,7 @@ public class DeleterLayout
         return flag;
     }
 
-    private String compressPhoto(String photoPath) {
+    private String compressPhoto (String photoPath) {
         if (TextUtils.isEmpty(photoPath)) {
             return "";
         }
@@ -360,12 +358,12 @@ public class DeleterLayout
     }
 
     @Override
-    protected void onDetachedFromWindow() {
+    protected void onDetachedFromWindow () {
         super.onDetachedFromWindow();
 
     }
 
-    public void setPlacerImages(int... placeImages) {
+    public void setPlacerImages (int... placeImages) {
         //设置占位图跟占位图数量
         this.placerImages = placeImages;
         this.placerCount = this.placerImages.length;
@@ -373,17 +371,17 @@ public class DeleterLayout
     }
 
     //计算可添加的图片数量
-    private void calcSelectLimit() {
+    private void calcSelectLimit () {
         int count = getChildCount() - 1 - placerCount;//计算剩下可添加图片的数量,由于添加图片的标识符不能算在内,故要-1出来
         configs.surplusSelectLimit = configs.maxPhotoLimit - count;//重置可添加图片数量
     }
 
-    public DeleterLayout setDeleterHandlerCallback(DeleterHandlerCallback deleterHandlerCallback) {
+    public DeleterLayout setDeleterHandlerCallback (DeleterHandlerCallback deleterHandlerCallback) {
         this.deleterHandlerCallback = deleterHandlerCallback;
         return this;
     }
 
-    public void setConfigs(DeleterConfigs configs) {
+    public void setConfigs (DeleterConfigs configs) {
         this.configs = configs;
         postInvalidate();
     }

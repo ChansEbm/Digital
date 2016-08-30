@@ -4,9 +4,12 @@ import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.databinding.ViewDataBinding;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,17 +32,20 @@ import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.factory.MapFactory;
 import com.szbb.pro.factory.TencentLocationListener;
 import com.szbb.pro.factory.TencentMapper;
+import com.szbb.pro.impl.CallActionCallback;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.CheckNetworkTools;
 import com.szbb.pro.tools.PermissionTools;
 import com.szbb.pro.ui.activity.grab.GrabAgreementActivity;
 import com.szbb.pro.ui.activity.grab.GrabDetailActivity;
+import com.szbb.pro.widget.PopupWindow.CallPopupWindow;
 import com.tencent.map.geolocation.TencentLocation;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import java.util.List;
 
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
+import cn.finalteam.galleryfinal.permission.EasyPermissions;
 
 
 public class GrabFragment
@@ -53,23 +59,22 @@ public class GrabFragment
     private TencentMapper tencentMapper = new MapFactory().createTencentMapper();
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate (@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppTools.registerBroadcast(new GrabBroadcast(),
                                    AppKeyMap.GRAB_ACTION);
     }
 
     @Override
-    protected void initViews() {
+    protected void initViews () {
         grabLayout = (GrabLayout) viewDataBinding;
         recyclerView = grabLayout.include.recyclerView;
 
-        cancelRefreshBlink();
         commonBinderAdapter = new CommonBinderAdapter<GrabBean.ListBean>(getContext(),
                                                                          R.layout.item_grab,
                                                                          list) {
             @Override
-            public void onBind(ViewDataBinding viewDataBinding, CommonBinderHolder holder, int
+            public void onBind (ViewDataBinding viewDataBinding, CommonBinderHolder holder, int
                     position, GrabBean.ListBean listBean) {
                 ItemGrabLayout layout = (ItemGrabLayout) viewDataBinding;
                 layout.setGrab(listBean);
@@ -79,7 +84,7 @@ public class GrabFragment
         checkProtocol();
     }
 
-    private void checkProtocol() {
+    private void checkProtocol () {
         Prefser prefser = new Prefser(AppTools.getSharePreferences());
         boolean isNeedShowGrabAgreement = prefser.get("isNeedShowGrabAgreement", Boolean.class,
                                                       true);
@@ -88,11 +93,11 @@ public class GrabFragment
         }
     }
 
-    private void locate() {
+    private void locate () {
         tencentMapper.locate(getContext(), new TencentListener());
     }
 
-    private void cancelRefreshBlink() {
+    private void cancelRefreshBlink () {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             RecyclerView.ItemAnimator itemAnimator = recyclerView.getItemAnimator();
             if (itemAnimator instanceof SimpleItemAnimator) {
@@ -105,7 +110,7 @@ public class GrabFragment
     }
 
     @Override
-    protected void initEvents() {
+    protected void initEvents () {
         recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getContext())
                                                .sizeResId(R.dimen.small_margin_5dp)
                                                .colorResId(R.color.color_transparent)
@@ -123,10 +128,12 @@ public class GrabFragment
                                                  Manifest.permission.ACCESS_COARSE_LOCATION)) {
             locate();
         }
+        grabLayout.btnSigned.setOnClickListener(this);
+        cancelRefreshBlink();
 
     }
 
-    private void requestNetworkData(String radius) {
+    private void requestNetworkData (String radius) {
         if (tencentLocation == null) {
             return;
         }
@@ -135,47 +142,57 @@ public class GrabFragment
                            radius,
                            page + "",
                            NetworkParams.CUPCAKE);
-//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-//            networkModel.index(String.valueOf(tencentLocation.getLatitude()),
-//                               String.valueOf(tencentLocation.getLongitude()),
-//                               radius,
-//                               page + "",
-//                               NetworkParams.CUPCAKE);
-//        } else {
-//            networkModel.index("",
-//                               "",
-//                               radius,
-//                               page + "",
-//                               NetworkParams.CUPCAKE);
-//        }
     }
 
     @Override
-    protected void noNetworkStatus() {
+    protected void noNetworkStatus () {
         endRefreshLoading();
     }
 
-    private void endRefreshLoading() {
+    private void endRefreshLoading () {
         grabLayout.include.refreshLayout.endLoadingMore();
         grabLayout.include.refreshLayout.endRefreshing();
     }
 
     @Override
-    protected void onClick(int id, View view) {
-
+    protected void onClick (int id, View view) {
+        switch (id) {
+            case R.id.btn_signed:
+                CallPopupWindow window = new CallPopupWindow(getContext());
+                window.setCallNumbers(new String[]{"020-81316728", "020-81316730"})
+                      .setCallActionCallback(
+                              new CallActionCallback() {
+                                  @Override public void onCall (String callNumber) {
+                                      Intent intent = new Intent(Intent.ACTION_CALL,
+                                                                 Uri.parse("tel:" + callNumber));
+                                      if (EasyPermissions.hasPermissions(getContext(),
+                                                                         Manifest.permission
+                                                                                 .CALL_PHONE)) {
+                                          startActivity(intent);
+                                      } else {
+                                          permissions.put("phone", callNumber);
+                                          requestPermissions(
+                                                  new String[]{Manifest.permission.CALL_PHONE},
+                                                  AppKeyMap.CUPCAKE);
+                                      }
+                                  }
+                              });
+                window.showAtDefaultLocation();
+                break;
+        }
     }
 
     @Override
-    protected int getContentView() {
+    protected int getContentView () {
         return R.layout.fragment_grab;
     }
 
     @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
+    public void onCheckedChanged (RadioGroup group, int checkedId) {
         page = 1;
     }
 
-    private String getRadius() {
+    private String getRadius () {
         int checkedRadioButtonId = grabLayout.radioGroup.getCheckedRadioButtonId();
         switch (checkedRadioButtonId) {
             case R.id.rb_within_5km:
@@ -192,7 +209,7 @@ public class GrabFragment
     }
 
     @Override
-    public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout bgaRefreshLayout) {
+    public void onBGARefreshLayoutBeginRefreshing (BGARefreshLayout bgaRefreshLayout) {
         page = 1;
 //        requestNetworkData(getRadius());
         if (!CheckNetworkTools.isNetworkAvailable(getContext())) {
@@ -203,7 +220,7 @@ public class GrabFragment
     }
 
     @Override
-    public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout bgaRefreshLayout) {
+    public boolean onBGARefreshLayoutBeginLoadingMore (BGARefreshLayout bgaRefreshLayout) {
         if (hasNext()) {
             page++;
             networkModel.index(String.valueOf(tencentLocation.getLatitude()),
@@ -215,7 +232,7 @@ public class GrabFragment
         return hasNext();
     }
 
-    private boolean hasNext() {
+    private boolean hasNext () {
         if (grabBean == null) {
             return false;
         }
@@ -231,7 +248,7 @@ public class GrabFragment
     }
 
     @Override
-    public void onJsonObjectSuccess(GrabBean t, NetworkParams paramsCode) {
+    public void onJsonObjectSuccess (GrabBean t, NetworkParams paramsCode) {
         endRefreshLoading();
         grabLayout.setGrab(t);
         this.grabBean = t;
@@ -245,19 +262,19 @@ public class GrabFragment
     }
 
     @Override
-    public void onError() {
+    public void onError () {
         super.onError();
         endRefreshLoading();
     }
 
     @Override
-    public void onBinderItemClick(View view, int pos) {
+    public void onBinderItemClick (View view, int pos) {
         Log.i("digital",
               "onBinderItemClick: " + pos);
         startGrabDetailActivity(pos);
     }
 
-    private void startGrabDetailActivity(final int pos) {
+    private void startGrabDetailActivity (final int pos) {
         GrabBean.ListBean listBean = list.get(pos);
         startActivity(new Intent(getContext(),
                                  GrabDetailActivity.class).putExtra("grab",
@@ -265,7 +282,7 @@ public class GrabFragment
     }
 
 
-    private void showEmptyView(GrabBean t) {
+    private void showEmptyView (GrabBean t) {
         List<GrabBean.ListBean> list = t.getList();
         if (list.isEmpty() && this.list.isEmpty()) {
             grabLayout.llytEmptyData.setVisibility(View.VISIBLE);
@@ -274,7 +291,7 @@ public class GrabFragment
         }
     }
 
-    private void notifyAdapter(GrabBean t) {
+    private void notifyAdapter (GrabBean t) {
         this.list.clear();
         this.list.addAll(t.getList());
         commonBinderAdapter.notifyDataSetChanged();
@@ -284,7 +301,7 @@ public class GrabFragment
             extends BroadcastReceiver {
 
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive (Context context, Intent intent) {
             if (intent.getAction()
                       .equals(AppKeyMap.GRAB_ACTION)) {
                 requestNetworkData(getRadius());
@@ -292,18 +309,30 @@ public class GrabFragment
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult (int requestCode, @NonNull String[] permissions,
+                                            @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (permissions[0].equals(Manifest.permission.CALL_PHONE) &&
+            grantResults[0] == PackageInfo.REQUESTED_PERMISSION_GRANTED) {
+            String phone = (String) this.permissions.get("phone");
+            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phone));
+            startActivity(intent);
+        }
+    }
+
     class TencentListener
             extends TencentLocationListener {
 
         @Override
-        public void onLocationChanged(TencentLocation tencentLocation, int i, String s) {
+        public void onLocationChanged (TencentLocation tencentLocation, int i, String s) {
             GrabFragment.this.tencentLocation = tencentLocation;
             requestNetworkData(getRadius());
             tencentMapper.stopLocate(getContext(), this);
         }
 
         @Override
-        public void onStatusUpdate(String s, int i, String s1) {
+        public void onStatusUpdate (String s, int i, String s1) {
 
         }
     }

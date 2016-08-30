@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 public class BaseBean extends BaseObservable implements Serializable {
 
-    private int errorcode;
+    private int errorcode = 0;
     private String msg;
     private int isNext;
     private int page;
@@ -19,61 +19,61 @@ public class BaseBean extends BaseObservable implements Serializable {
     private View.OnClickListener onClickListener;
     private String tag;
 
-    public int getErrorcode() {
+    public int getErrorcode () {
         return errorcode;
     }
 
-    public void setErrorcode(int errorcode) {
+    public void setErrorcode (int errorcode) {
         this.errorcode = errorcode;
     }
 
-    public String getMsg() {
+    public String getMsg () {
         return msg;
     }
 
-    public void setMsg(String msg) {
+    public void setMsg (String msg) {
         this.msg = msg;
     }
 
-    public int getIsNext() {
+    public int getIsNext () {
         return isNext;
     }
 
-    public void setIsNext(int isNext) {
+    public void setIsNext (int isNext) {
         this.isNext = isNext;
     }
 
-    public int getPage() {
+    public int getPage () {
         return page;
     }
 
-    public void setPage(int page) {
+    public void setPage (int page) {
         this.page = page;
     }
 
-    public String getTotal() {
+    public String getTotal () {
         return total;
     }
 
-    public void setTotal(String total) {
+    public void setTotal (String total) {
         this.total = total;
     }
 
     @Bindable
-    public View.OnClickListener getOnClickListener() {
+    public View.OnClickListener getOnClickListener () {
         return onClickListener;
     }
 
-    public void setOnClickListener(View.OnClickListener onClickListener) {
+    public void setOnClickListener (View.OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
     }
 
     @Bindable
-    public String getTag() {
+    public String getTag () {
         return tag;
     }
 
-    public void setTag(String tag) {
+    public void setTag (String tag) {
         this.tag = tag;
     }
 }

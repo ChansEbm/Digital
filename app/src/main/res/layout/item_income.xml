@@ -26,13 +26,13 @@
 
         <TextView
             style="@style/textStyle"
-            android:layout_toEndOf="@id/tv_t1"
+            android:layout_toRightOf="@id/tv_t1"
             android:text="@{income.sn}" />
 
         <TextView
             style="@style/textStyle"
             android:layout_alignBaseline="@id/tv_t1"
-            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:text="@{income.addtime}"
             android:textSize="12sp" />
 
@@ -48,14 +48,14 @@
         <TextView
             style="@style/textStyle"
             android:layout_alignTop="@id/tv_t2"
-            android:layout_toEndOf="@id/tv_t2"
+            android:layout_toRightOf="@id/tv_t2"
             android:text="@{income.remain_money}"
             android:textColor="@color/color_text_gravy"
             android:textSize="13sp" />
 
         <TextView
             style="@style/textStyle"
-            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_alignTop="@id/tv_t2"
             android:text="@{income.money}"
             android:textColor="@color/color_text_red" />

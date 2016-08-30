@@ -27,17 +27,12 @@ import com.szbb.pro.entity.fittings.ExpressComBean;
 import com.szbb.pro.entity.fittings.FittingDetailBean;
 import com.szbb.pro.entity.fittings.FittingResendBean;
 import com.szbb.pro.eum.NetworkParams;
-import com.szbb.pro.eum.PhotoPopupOpts;
 import com.szbb.pro.eum.WheelOptions;
 import com.szbb.pro.impl.InputCallBack;
-import com.szbb.pro.impl.OnAddPictureDoneListener;
-import com.szbb.pro.impl.OnPhotoOptsSelectListener;
 import com.szbb.pro.impl.OnWheelOptsSelectCallback;
-import com.szbb.pro.model.MarkPictureModel;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.ui.activity.main.MainActivity;
 import com.szbb.pro.ui.activity.orders.operating.OrderDetailActivity;
-import com.szbb.pro.widget.PopupWindow.PhotoPopupWindow;
 import com.szbb.pro.widget.PopupWindow.WheelPopupWindow;
 import com.szbb.pro.widget.deleter.DeleterHandlerCallback;
 
@@ -46,10 +41,6 @@ import org.solovyev.android.views.llm.LinearLayoutManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
-import cn.finalteam.galleryfinal.FunctionConfig;
-import cn.finalteam.galleryfinal.GalleryFinal;
-import cn.finalteam.galleryfinal.model.PhotoInfo;
 
 /**
  * 配件申请订单详情-技工寄回-A模式-填写回寄信息

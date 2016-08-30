@@ -26,7 +26,7 @@ import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.factory.MapFactory;
 import com.szbb.pro.factory.TencentLocationListener;
 import com.szbb.pro.factory.TencentMapper;
-import com.szbb.pro.model.MapModel;
+import com.szbb.pro.biz.MapBiz;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.LogTools;
 import com.szbb.pro.tools.ScreenTools;
@@ -85,20 +85,20 @@ public class GrabDetailActivity
         GrabBean.ListBean grab = grabDetailLayout.getGrab();
         double lat = Double.parseDouble(grab.getLat());
         double lng = Double.parseDouble(grab.getLng());
-        new MapModel(this).addOverlay(grabDetailLayout.mapView.getMap(),
-                                      lat,
-                                      lng,
-                                      false,
-                                      R.mipmap.ic_fixable_user);
+        new MapBiz(this).addOverlay(grabDetailLayout.mapView.getMap(),
+                                    lat,
+                                    lng,
+                                    false,
+                                    R.mipmap.ic_fixable_user);
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
                                                      R.mipmap.ic_fixable_user);
-        new MapModel(this).addInfoWindow(grabDetailLayout.mapView.getMap(),
-                                         getInfoView(),
-                                         lat,
-                                         lng,
-                                         -bitmap.getHeight());
-        new MapModel(this).moveToSpecifyLocation(grabDetailLayout.mapView.getMap(),
-                                                 new LatLng
+        new MapBiz(this).addInfoWindow(grabDetailLayout.mapView.getMap(),
+                                       getInfoView(),
+                                       lat,
+                                       lng,
+                                       -bitmap.getHeight());
+        new MapBiz(this).moveToSpecifyLocation(grabDetailLayout.mapView.getMap(),
+                                               new LatLng
                                                          (lat,
                                                           lng));
 

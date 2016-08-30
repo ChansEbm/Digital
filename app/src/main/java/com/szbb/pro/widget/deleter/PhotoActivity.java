@@ -1,22 +1,19 @@
 package com.szbb.pro.widget.deleter;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.szbb.pro.tools.ActivityManager;
 import com.szbb.pro.tools.AppTools;
-import com.szbb.pro.tools.DataFormatter;
+import com.szbb.pro.tools.PermissionTools;
 
 import java.io.File;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 /**
  * Created by KenChan on 16/5/27.
@@ -27,25 +24,28 @@ public class PhotoActivity
     private File finaFile = null;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate (@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityManager.getActivityManager()
                        .addActivity(this);
+        if (PermissionTools.alreadyHasPermission(this, 1, android.Manifest.permission.CAMERA)) {
+            startCamera();
+        }
+    }
+
+    private void startCamera () {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        File externalStoragePublicDirectory = Environment.getExternalStoragePublicDirectory
-//                (Environment.DIRECTORY_PICTURES);
-//        DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss",
-//                                                     Locale.CHINA);
         finaFile = new File(AppTools.getPictureCacheDir() + System.currentTimeMillis() +
-                                    ".jpg");
+                            ".jpg");
         intent.putExtra(MediaStore.EXTRA_OUTPUT,
                         Uri.fromFile(finaFile));
         startActivityForResult(intent,
                                REQUEST_CODE);
     }
 
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult (int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode,
                                resultCode,
                                data);
@@ -55,5 +55,25 @@ public class PhotoActivity
         }
         ActivityManager.getActivityManager()
                        .finishActivity(PhotoActivity.this);
+    }
+
+    @Override
+    public void onRequestPermissionsResult (int requestCode, @NonNull String[] permissions,
+                                            @NonNull int[] grantResults) {
+        if (requestCode == 1 && permissions[0].equals(android.Manifest.permission.CAMERA) &&
+            grantResults[0] ==
+            PackageInfo.REQUESTED_PERMISSION_GRANTED) {
+            startCamera();
+        } else {
+            ActivityManager.getActivityManager()
+                           .finishActivity();
+        }
+    }
+
+    @Override
+    protected void onDestroy () {
+        super.onDestroy();
+        ActivityManager.getActivityManager()
+                       .finishActivity();
     }
 }

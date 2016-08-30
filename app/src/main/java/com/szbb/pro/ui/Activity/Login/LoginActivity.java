@@ -1,7 +1,6 @@
 package com.szbb.pro.ui.activity.login;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.TextInputLayout;
@@ -19,17 +18,11 @@ import com.szbb.pro.databinding.AtyLoginBinding;
 import com.szbb.pro.dialog.MessageDialog;
 import com.szbb.pro.entity.base.BaseBean;
 import com.szbb.pro.entity.login.AuthBean;
-import com.szbb.pro.entity.vip.CheckUpdateBean;
 import com.szbb.pro.eum.NetworkParams;
-import com.szbb.pro.service.DownloadService;
-import com.szbb.pro.tools.ApkTools;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.ChatManager;
 import com.szbb.pro.tools.LogTools;
-import com.szbb.pro.tools.MiscUtils;
 import com.szbb.pro.ui.activity.main.MainActivity;
-
-import java.io.File;
 
 /**
  * Created by ChanZeeBm on 2015/9/9.
@@ -46,7 +39,7 @@ public class LoginActivity extends BaseAty<BaseBean, AuthBean> {
     private boolean isBeenKick = false;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = (AtyLoginBinding) viewDataBinding;
         isBeenKick = getIntent().getBooleanExtra("isBeenKick",
@@ -54,7 +47,7 @@ public class LoginActivity extends BaseAty<BaseBean, AuthBean> {
     }
 
     @Override
-    protected void initViews() {
+    protected void initViews () {
         textInputLayoutLoginUser = binding.textInputLayoutLoginUser;
         textInputLayoutLoginPwd = binding.textInputLayoutLoginPwd;
         tvLoginReg = binding.tvLoginReg;
@@ -63,7 +56,7 @@ public class LoginActivity extends BaseAty<BaseBean, AuthBean> {
     }
 
     @Override
-    protected void initEvents() {
+    protected void initEvents () {
         //设置登录框Hint
         textInputLayoutLoginUser.setHint(getResources().getString(R.string.phone_num));
         //设置密码框Hint
@@ -72,40 +65,43 @@ public class LoginActivity extends BaseAty<BaseBean, AuthBean> {
         tvLoginFindPwd.setOnClickListener(this);
         btnLoginLog.setOnClickListener(this);
         autoLogin();
-        networkModel.versions(MiscUtils.getAppVersion(this),
-                              NetworkParams.GINGERBREAD);
-        progressUpdateAPK();
+//        networkModel.versions(MiscUtils.getAppVersion(this),
+//                              NetworkParams.GINGERBREAD);
+//        progressUpdateAPK();
     }
 
-    private void progressUpdateAPK() {
-        final String updateApkFile = ApkTools.getUpdateApkFile(this);
-        if (!TextUtils.isEmpty(updateApkFile)) {
-            final MessageDialog messageDialog = new MessageDialog(this);
-            messageDialog.setTitle("发现新版本")
-                         .setPositiveButton("安装",
-                                            new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View v) {
-                                                    Intent intent = new Intent(Intent.ACTION_VIEW).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                                                                                  .setDataAndTypeAndNormalize(Uri.fromFile(new File(updateApkFile)),
-                                                                                                                              "application/vnd.android.package-archive");
-                                                    startActivity(intent);
-                                                    messageDialog.dismiss();
-                                                }
-                                            })
-                         .setNegativeButton("取消",
-                                            new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View v) {
-                                                    messageDialog.dismiss();
-                                                }
-                                            })
-                         .setMessage("新版本已下载完毕,需要安装吗")
-                         .show();
-        }
-    }
+//    private void progressUpdateAPK () {
+//        final String updateApkFile = ApkTools.getUpdateApkFile(this);
+//        if (!TextUtils.isEmpty(updateApkFile)) {
+//            final MessageDialog messageDialog = new MessageDialog(this);
+//            messageDialog.setTitle("发现新版本")
+//                         .setPositiveButton("安装",
+//                                            new View.OnClickListener() {
+//                                                @Override
+//                                                public void onClick (View v) {
+//                                                    Intent intent = new Intent(Intent
+// .ACTION_VIEW).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//
+//   .setDataAndTypeAndNormalize(Uri.fromFile(new File(updateApkFile)),
+//
+//                               "application/vnd.android.package-archive");
+//                                                    startActivity(intent);
+//                                                    messageDialog.dismiss();
+//                                                }
+//                                            })
+//                         .setNegativeButton("取消",
+//                                            new View.OnClickListener() {
+//                                                @Override
+//                                                public void onClick (View v) {
+//                                                    messageDialog.dismiss();
+//                                                }
+//                                            })
+//                         .setMessage("新版本已下载完毕,需要安装吗")
+//                         .show();
+//        }
+//    }
 
-    private void autoLogin() {
+    private void autoLogin () {
         String userName = AppTools.getStringSharedPreferences("loginUser",
                                                               null);
         String pwd = AppTools.getStringSharedPreferences("loginPwd",
@@ -113,12 +109,12 @@ public class LoginActivity extends BaseAty<BaseBean, AuthBean> {
         if (!isBeenKick) {
             if (!TextUtils.isEmpty(userName) && !TextUtils.isEmpty(pwd)) {
                 if (textInputLayoutLoginUser != null && textInputLayoutLoginUser.getEditText() !=
-                        null) {
+                                                        null) {
                     textInputLayoutLoginUser.getEditText()
                                             .setText(userName);
                 }
                 if (textInputLayoutLoginPwd != null && textInputLayoutLoginPwd.getEditText() !=
-                        null) {
+                                                       null) {
                     textInputLayoutLoginPwd.getEditText()
                                            .setText(pwd);
                 }
@@ -129,7 +125,7 @@ public class LoginActivity extends BaseAty<BaseBean, AuthBean> {
         } else {
             if (!TextUtils.isEmpty(userName)) {
                 if (textInputLayoutLoginUser != null && textInputLayoutLoginUser.getEditText() !=
-                        null) {
+                                                        null) {
                     textInputLayoutLoginUser.getEditText()
                                             .setText(userName);
                 }
@@ -142,7 +138,7 @@ public class LoginActivity extends BaseAty<BaseBean, AuthBean> {
                                                               .string.positive),
                                             new View.OnClickListener() {
                                                 @Override
-                                                public void onClick(View v) {
+                                                public void onClick (View v) {
                                                     messageDialog.dismiss();
                                                 }
                                             })
@@ -152,14 +148,15 @@ public class LoginActivity extends BaseAty<BaseBean, AuthBean> {
     }
 
     @Override
-    protected void noNetworkStatus() {
+    protected void noNetworkStatus () {
         AppTools.showSnackBarAtLocation(parentView,
                                         getString(R.string.no_network_is_detected),
                                         getString(R.string.check_setting),
                                         new View.OnClickListener() {
                                             @Override
-                                            public void onClick(View v) {
-                                                Intent intent = new Intent(Settings.ACTION_SETTINGS);
+                                            public void onClick (View v) {
+                                                Intent intent = new Intent(
+                                                        Settings.ACTION_SETTINGS);
                                                 startActivity(intent);
                                             }
                                         },
@@ -167,12 +164,12 @@ public class LoginActivity extends BaseAty<BaseBean, AuthBean> {
     }
 
     @Override
-    protected int getContentView() {
+    protected int getContentView () {
         return R.layout.aty_login;
     }
 
     @Override
-    protected void onClick(int id, View view) {
+    protected void onClick (int id, View view) {
         switch (id) {
             case R.id.btn_login_log:
                 AppTools.hideSoftInputMethod(textInputLayoutLoginUser);
@@ -201,7 +198,7 @@ public class LoginActivity extends BaseAty<BaseBean, AuthBean> {
     }
 
     //验证用户名合法程度
-    private boolean checkUser() {
+    private boolean checkUser () {
         LogTools.e(textInputLayoutLoginUser.getEditText()
                                            .getText()
                                            .toString());
@@ -213,7 +210,7 @@ public class LoginActivity extends BaseAty<BaseBean, AuthBean> {
     }
 
     //验证密码准确性
-    private boolean checkPwd() {
+    private boolean checkPwd () {
         String pwd = textInputLayoutLoginPwd.getEditText()
                                             .getText()
                                             .toString();
@@ -222,26 +219,28 @@ public class LoginActivity extends BaseAty<BaseBean, AuthBean> {
     }
 
     @Override
-    public void onJsonObjectSuccess(BaseBean baseBean, NetworkParams paramsCode) {
+    public void onJsonObjectSuccess (BaseBean baseBean, NetworkParams paramsCode) {
         if (paramsCode == NetworkParams.FROYO) {//登录
             loginSuccess((AuthBean) baseBean);
-        } else if (paramsCode == NetworkParams.GINGERBREAD) {//检查版本
-            CheckUpdateBean checkUpdateBean = (CheckUpdateBean) baseBean;
-            if (!checkUpdateBean.getUrl()
-                                .isEmpty() && !ApkTools.getUpdateApkFile(this)
-                                                       .isEmpty()) {
-                Intent intent = new Intent(LoginActivity.this,
-                                           DownloadService.class).putExtra("uri",
-                                                                           checkUpdateBean.getUrl
-                                                                                   ());
-                intent.putExtra("uri",
-                                checkUpdateBean.getUrl());
-                startService(intent);
-            }
         }
+//        else if (paramsCode == NetworkParams.GINGERBREAD) {//检查版本
+//            CheckUpdateBean checkUpdateBean = (CheckUpdateBean) baseBean;
+//            if (!checkUpdateBean.getUrl()
+//                                .isEmpty() && !ApkTools.getUpdateApkFile(this)
+//                                                       .isEmpty()) {
+//                Intent intent = new Intent(LoginActivity.this,
+//                                           DownloadService.class).putExtra("uri",
+//                                                                           checkUpdateBean.getUrl
+//                                                                                   ());
+//                intent.putExtra("uri",
+//                                checkUpdateBean.getUrl());
+//                startService(intent);
+//                LogTools.w("start down update apk");
+//            }
+//        }
     }
 
-    private void loginSuccess(AuthBean authBean) {
+    private void loginSuccess (AuthBean authBean) {
         Prefser prefser = new Prefser(AppTools.getSharePreferences());
         saveIdentifier(authBean,
                        prefser);
@@ -262,7 +261,7 @@ public class LoginActivity extends BaseAty<BaseBean, AuthBean> {
         }
     }
 
-    private void saveIdentifier(AuthBean authBean, Prefser prefser) {
+    private void saveIdentifier (AuthBean authBean, Prefser prefser) {
         prefser.put(AppKeyMap.AUTH,
                     authBean.getAuth());
         //腾讯用户名
@@ -275,7 +274,7 @@ public class LoginActivity extends BaseAty<BaseBean, AuthBean> {
     }
 
 
-    private void loginLogic(AuthBean authBean) {
+    private void loginLogic (AuthBean authBean) {
         messageDialog = new MessageDialog(this);
         Prefser prefser = new Prefser(AppTools.getSharePreferences());
         prefser.put("authInfo",
@@ -290,7 +289,7 @@ public class LoginActivity extends BaseAty<BaseBean, AuthBean> {
                                                               .string.positive),
                                             new View.OnClickListener() {
                                                 @Override
-                                                public void onClick(View v) {
+                                                public void onClick (View v) {
                                                     messageDialog.dismiss();
                                                 }
                                             })
@@ -299,8 +298,7 @@ public class LoginActivity extends BaseAty<BaseBean, AuthBean> {
             if (authBean.getIs_check() == 1) {
                 start(MainActivity.class,
                       Intent.FLAG_ACTIVITY_CLEAR_TASK,
-                      Intent
-                              .FLAG_ACTIVITY_NEW_TASK);
+                      Intent.FLAG_ACTIVITY_NEW_TASK);
                 AppTools.putStringSharedPreferences("loginUser",
                                                     textInputLayoutLoginUser
                                                             .getEditText()
@@ -319,7 +317,7 @@ public class LoginActivity extends BaseAty<BaseBean, AuthBean> {
                                                                   .string.positive),
                                                 new View.OnClickListener() {
                                                     @Override
-                                                    public void onClick(View v) {
+                                                    public void onClick (View v) {
                                                         messageDialog.dismiss();
                                                     }
                                                 })

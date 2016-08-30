@@ -22,7 +22,6 @@ import com.szbb.pro.databinding.FgmOrderBinding;
 import com.szbb.pro.entity.eventbus.SearchGod;
 import com.szbb.pro.impl.UpdateUIListener;
 import com.szbb.pro.tools.AppTools;
-import com.szbb.pro.tools.LogTools;
 import com.szbb.pro.ui.fragment.order.NewOrderFragment;
 import com.szbb.pro.ui.fragment.order.ServicedFragment;
 import com.szbb.pro.ui.fragment.order.WaitAccountFragment;
@@ -49,19 +48,18 @@ public class OrderFragment
     private FgmOrderBinding binding;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         broadcast = new UpdateUIBroadcast();
         broadcast.setListener(this);
         AppTools.registerBroadcast(broadcast,
-                AppKeyMap.REFRESH_ORDER_ACTION,
-                AppKeyMap
-                        .APPOINTMENT_CAN_NOT_CONTENT_CLIENT,
-                AppKeyMap.GRAB_ACTION);
+                                   AppKeyMap.REFRESH_AND_JUMPTO_SERVICED_PAGE,
+                                   AppKeyMap.APPOINTMENT_CAN_NOT_CONTENT_CLIENT,
+                                   AppKeyMap.GRAB_ACTION);
     }
 
     @Override
-    protected void initViews() {
+    protected void initViews () {
         binding = (FgmOrderBinding) viewDataBinding;
         toolbar = binding.toolBar;
         tabLayout = binding.tabLayout;
@@ -71,12 +69,12 @@ public class OrderFragment
         initFragments();
 
         adapter = new TabFragmentAdapter(getChildFragmentManager(),
-                fragmentList,
-                tabs);
+                                         fragmentList,
+                                         tabs);
     }
 
     @Override
-    protected void initEvents() {
+    protected void initEvents () {
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(3);
         tabLayout.setupWithViewPager(viewPager);
@@ -85,7 +83,7 @@ public class OrderFragment
         toolbar.inflateMenu(R.menu.menu_search);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
+            public boolean onMenuItemClick (MenuItem item) {
                 MaterialSearchView searchView = binding.materialSearchView;
                 searchView.setOnQueryTextListener(OrderFragment.this);
                 searchView.setMenuItem(item);
@@ -98,52 +96,52 @@ public class OrderFragment
     }
 
     @Override
-    protected void noNetworkStatus() {
+    protected void noNetworkStatus () {
 
     }
 
     @Override
-    protected void onClick(int id, View view) {
+    protected void onClick (int id, View view) {
 
     }
 
     @Override
-    protected int getContentView() {
+    protected int getContentView () {
         return R.layout.fgm_order;
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState (Bundle outState) {
         super.onSaveInstanceState(outState);
     }
 
-    private void initTabs() {
+    private void initTabs () {
         tabs = getActivity().getResources()
-                .getStringArray(R.array.tabs_order_name);
+                            .getStringArray(R.array.tabs_order_name);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
         tabLayout.addTab(tabLayout.newTab()
-                        .setText(tabs[0]),
-                true);
+                                  .setText(tabs[0]),
+                         true);
         tabLayout.addTab(tabLayout.newTab()
-                .setText(tabs[1]));
+                                  .setText(tabs[1]));
         tabLayout.addTab(tabLayout.newTab()
-                .setText(tabs[2]));
+                                  .setText(tabs[2]));
     }
 
-    private void initFragments() {
+    private void initFragments () {
         fragmentList.add(new NewOrderFragment());
         fragmentList.add(new ServicedFragment());
         fragmentList.add(new WaitAccountFragment());
     }
 
     @Override
-    public void uiUpData(Intent intent) {
+    public void uiUpData (Intent intent) {
         super.uiUpData(intent);
         final String action = intent.getAction();
         switch (action) {
             case AppKeyMap.NO_NETWORK_ACTION:
                 return;
-            case AppKeyMap.REFRESH_ORDER_ACTION:
+            case AppKeyMap.REFRESH_AND_JUMPTO_SERVICED_PAGE:
                 viewPager.setCurrentItem(1);
                 break;
             case AppKeyMap.WAITING_COST_ACTION:
@@ -158,7 +156,7 @@ public class OrderFragment
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
-    public void onDetach() {
+    public void onDetach () {
         super.onDetach();
         try {
             Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
@@ -170,14 +168,15 @@ public class OrderFragment
     }
 
     @Override
-    public void onDestroy() {
+    public void onDestroy () {
         super.onDestroy();
         AppTools.unregisterBroadcast(broadcast);
     }
 
     @Override
-    public boolean onQueryTextSubmit(String query) {
-        Toast.makeText(getContext(), "搜索中..", Toast.LENGTH_SHORT).show();
+    public boolean onQueryTextSubmit (String query) {
+        Toast.makeText(getContext(), "搜索中..", Toast.LENGTH_SHORT)
+             .show();
         String[] searchFields;
         String trim = query.trim();
         if (!trim.contains(" ")) {
@@ -186,13 +185,14 @@ public class OrderFragment
         } else {
             searchFields = trim.split(" ");
         }
-        EventBus.getDefault().post(new SearchGod(viewPager.getCurrentItem(), searchFields));
+        EventBus.getDefault()
+                .post(new SearchGod(viewPager.getCurrentItem(), searchFields));
 
         return false;
     }
 
     @Override
-    public boolean onQueryTextChange(String newText) {
+    public boolean onQueryTextChange (String newText) {
         return false;
     }
 }

@@ -9,10 +9,11 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.szbb.pro.impl.BinderOnItemClickListener;
-import com.szbb.pro.tools.LogTools;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.finalteam.galleryfinal.GalleryFinal;
 
 /**
  * Created by ChanZeeBm on 2015/10/12.
@@ -33,6 +34,7 @@ public abstract class CommonBinderAdapter<T> extends RecyclerView.Adapter<Common
         this.context = context;
         this.list = list;
         this.resId = resId;
+
     }
 
     public CommonBinderAdapter(Context context, int resId, T[] t) {

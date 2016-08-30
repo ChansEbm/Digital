@@ -31,45 +31,63 @@ public class InputDialog implements View.OnClickListener {
     private NetworkParams params;//标记
     private AlertDialog alertDialog;
 
-    public InputDialog(Context context) {
+    public InputDialog (Context context) {
         this(context, false);
     }
 
-    public InputDialog(final Context context, boolean isCitizenId) {
+    public InputDialog (final Context context, boolean isCitizenId) {
         editText = new EditText(context);
         editText.setSingleLine(true);
         setEditTextInputType(isCitizenId);
         materialDialog = new MaterialDialog(context).setTitle(title)
-                .setContentView(editText)
-                .setPositiveButton(R.string.positive, new View.OnClickListener() {
+                                                    .setContentView(editText)
+                                                    .setPositiveButton(R.string.positive,
+                                                                       new View.OnClickListener() {
 
-                    @Override
-                    public void onClick(View v) {
-                        String word = editText.getText().toString();
-                        if (inputCallBack != null && !word.isEmpty()) {
-                            inputCallBack.inputWord(word, params);
-                        }
-                        materialDialog.dismiss();
-                    }
-                }).setNegativeButton(R.string.negative, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        materialDialog.dismiss();
-                    }
-                }).setCanceledOnTouchOutside(true);
+                                                                           @Override
+                                                                           public void onClick (
+                                                                                   View v) {
+                                                                               String word =
+                                                                                       editText
+                                                                                               .getText()
+                                                                                               .toString();
+                                                                               if (inputCallBack !=
+                                                                                   null &&
+                                                                                   !word.isEmpty
+                                                                                           ()) {
+                                                                                   inputCallBack
+                                                                                           .inputWord(
+                                                                                                   word,
+                                                                                                   params);
+                                                                               }
+                                                                               materialDialog
+                                                                                       .dismiss();
+                                                                           }
+                                                                       })
+                                                    .setNegativeButton(R.string.negative,
+                                                                       new View.OnClickListener() {
+                                                                           @Override
+                                                                           public void onClick (
+                                                                                   View v) {
+                                                                               materialDialog
+                                                                                       .dismiss();
+                                                                           }
+                                                                       })
+                                                    .setCanceledOnTouchOutside(true);
         editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
+            public void onFocusChange (View v, boolean hasFocus) {
                 if (hasFocus) {
-                    if (alertDialog != null)
+                    if (alertDialog != null) {
                         alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams
-                                .SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                                                                         .SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                    }
                 }
             }
         });
     }
 
-    private void setEditTextInputType(boolean isCitizenId) {
+    private void setEditTextInputType (boolean isCitizenId) {
         if (isCitizenId) {
             String digital = "1234657890xX";
             editText.setKeyListener(DigitsKeyListener.getInstance(digital));
@@ -77,7 +95,7 @@ public class InputDialog implements View.OnClickListener {
         }
     }
 
-    private void initAlterDialog() {
+    private void initAlterDialog () {
         try {
             Field f = materialDialog.getClass().getDeclaredField("mAlertDialog");
             f.setAccessible(true);
@@ -89,11 +107,11 @@ public class InputDialog implements View.OnClickListener {
         }
     }
 
-    public void setInputType(int inputType) {
+    public void setInputType (int inputType) {
         setEditTextInputType(inputType, false);
     }
 
-    public void setEditTextInputType(int inputType, boolean isPassword) {
+    public void setEditTextInputType (int inputType, boolean isPassword) {
         if (!isPassword) {
             editText.setKeyListener(DigitsKeyListener.getInstance());
             editText.setInputType(inputType);
@@ -102,34 +120,38 @@ public class InputDialog implements View.OnClickListener {
         }
     }
 
-    public void setInputCallBack(InputCallBack inputCallBack) {
+    public void setInputCallBack (InputCallBack inputCallBack) {
         this.inputCallBack = inputCallBack;
     }
 
-    public void setTitle(@NonNull String title) {
+    public void setTitle (@NonNull String title) {
         this.title = title;
         materialDialog.setTitle(title);
     }
 
-    public void setParams(@NonNull NetworkParams params) {
+    public void setParams (@NonNull NetworkParams params) {
         this.params = params;
     }
 
-    public void show() {
+    public void show () {
+        show(null);
+    }
+
+    public void show (String msg) {
+
         if (TextUtils.isEmpty(title)) {
             LogTools.e("title not set");
             return;
         }
-        editText.setText("");
+        editText.setText(TextUtils.isEmpty(msg) ? "" : msg);
         materialDialog.show();
         initAlterDialog();
         editText.requestFocus();
         editText.setFocusable(true);
-
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick (View v) {
 
     }
 }

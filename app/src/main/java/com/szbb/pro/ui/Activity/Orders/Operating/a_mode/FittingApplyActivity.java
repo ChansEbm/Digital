@@ -23,7 +23,6 @@ import com.szbb.pro.entity.fittings.FittingWareHouseBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.impl.InputCallBack;
 import com.szbb.pro.tools.AppTools;
-import com.szbb.pro.ui.activity.main.MainActivity;
 import com.szbb.pro.ui.activity.orders.operating.FittingReceiverActivity;
 import com.szbb.pro.ui.activity.orders.operating.OrderDetailActivity;
 import com.szbb.pro.widget.deleter.DeleterHandlerCallback;
@@ -210,7 +209,7 @@ public class FittingApplyActivity
     private void postApplySuccess() {
         start(OrderDetailActivity.class,
                 Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        AppTools.sendBroadcast(new Bundle(), AppKeyMap.REFRESH_ORDER_ACTION);
+        AppTools.sendBroadcast(new Bundle(), AppKeyMap.REFRESH_AND_JUMPTO_SERVICED_PAGE);
     }
 
     @Override

@@ -10,7 +10,7 @@ public class AppKeyMap {
     public final static String PHONE_REGEX = "[1]\\d{10}";
     //身份证正则
     public final static String CITIZEN_ID_REGEX = "^(\\d{6})(\\d{4})(\\d{2})(\\d{2})(\\d{3})" +
-            "([0-9]|X||x)$";
+                                                  "([0-9]|X||x)$";
     //中国人名正则
     public final static String CHINESE_PEOPLE_REGEX = "(([\\u4E00-\\u9FA5]|[·]){2,15})";
     //密码正则(只能输入数字字母)
@@ -23,15 +23,23 @@ public class AppKeyMap {
     public final static String LOCATION_ACTION = "android.intent.action.LOCATION";
     //抢单ACTION
     public final static String GRAB_ACTION = "android.intent.action.GRAB";
-    //预约客户成功Action
-    public final static String REFRESH_ORDER_ACTION = "android.intent.action" +
-            ".REFRESH_ORDER";
+    //预约客户成功并且跳转到待处理页面Action
+    public final static String REFRESH_AND_JUMPTO_SERVICED_PAGE = "android.intent.action" +
+                                                                  ".REFRESH_ORDER";
+    //刷新新工单页面
+    public static final String REFRESH_NEW_ORDER = "android.intent.action" +
+                                                   ".REFRESH_NEW_ORDER";
+
+    public static final String REFRESH_ALL = "android.intent.action" +
+                                             ".REFRESH_ALL";
+    //刷新待结算页面
+    public final static String WAITING_COST_ACTION = "android.intent.action.COST";
+
     //联系不上客户
     public final static String APPOINTMENT_CAN_NOT_CONTENT_CLIENT = "android.intent.action" +
-            ".APPOINTMENT_CAN_NOT_CONTENT_CLIENT";
+                                                                    ".APPOINTMENT_CAN_NOT_CONTENT_CLIENT";
 
     //待结算Action
-    public final static String WAITING_COST_ACTION = "android.intent.action.COST";
     //检测无网络action
     public final static String NO_NETWORK_ACTION = "android.intent.action.NO_NETWORK";
     //默认动画执行时间 300ms
@@ -80,7 +88,7 @@ public class AppKeyMap {
     public final static String SIG = "sig";
     public final static String IDENTIFIER = "identifier";
 
-    public static boolean isAuthEmpty() {
+    public static boolean isAuthEmpty () {
         return AppTools.getStringSharedPreferences(AUTH,
                                                    "")
                        .isEmpty();

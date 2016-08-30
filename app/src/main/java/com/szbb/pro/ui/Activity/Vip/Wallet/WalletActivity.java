@@ -11,11 +11,11 @@ import com.szbb.pro.BuildConfig;
 import com.szbb.pro.R;
 import com.szbb.pro.WalletLayout;
 import com.szbb.pro.base.BaseAty;
+import com.szbb.pro.biz.WalletBiz;
 import com.szbb.pro.dialog.MessageDialog;
 import com.szbb.pro.entity.base.BaseBean;
 import com.szbb.pro.entity.vip.WalletBean;
 import com.szbb.pro.eum.NetworkParams;
-import com.szbb.pro.model.WalletMode;
 import com.szbb.pro.ui.activity.vip.WebViewActivity;
 
 public class WalletActivity extends BaseAty<WalletBean, BaseBean> {
@@ -50,7 +50,7 @@ public class WalletActivity extends BaseAty<WalletBean, BaseBean> {
     @Override
     protected void onClick (int id, View view) {
         final WalletBean.DataEntity wallet = walletLayout.getWallet();
-        WalletMode walletMode = new WalletMode();
+        WalletBiz walletMode = new WalletBiz();
         switch (id) {
             case R.id.btn_bank_card:
                 walletMode.payPasswordLogic(this,
@@ -94,6 +94,9 @@ public class WalletActivity extends BaseAty<WalletBean, BaseBean> {
                                                     InputPayPasswordActivity.class)
                                           .putExtra("flag",
                                                     AppKeyMap.CUPCAKE));
+                break;
+            case R.id.llyt_performance:
+                start(PerformanceBondActivity.class);
                 break;
         }
     }

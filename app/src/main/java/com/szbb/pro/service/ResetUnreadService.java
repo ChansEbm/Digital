@@ -10,7 +10,7 @@ import com.szbb.pro.AppKeyMap;
 import com.szbb.pro.entity.base.BaseBean;
 import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.impl.OkHttpResponseListener;
-import com.szbb.pro.model.NetworkModel;
+import com.szbb.pro.biz.NetworkBiz;
 import com.szbb.pro.tools.AppTools;
 import com.szbb.pro.tools.ChatManager;
 import com.szbb.pro.tools.LogTools;
@@ -29,7 +29,7 @@ public class ResetUnreadService extends Service implements OkHttpResponseListene
 
     @Override
     public int onStartCommand (Intent intent, int flags, int startId) {
-        NetworkModel<BaseBean> networkModel = new NetworkModel<>(getApplicationContext());
+        NetworkBiz<BaseBean> networkModel = new NetworkBiz<>(getApplicationContext());
         networkModel.setResultCallBack(this);
         networkModel.resetUnread(intent.getStringExtra("orderId"),
                                  NetworkParams.CUPCAKE);
@@ -43,7 +43,7 @@ public class ResetUnreadService extends Service implements OkHttpResponseListene
             LogTools.w("resetServiceSuccess");
             ChatManager.setChattingFlag("");
             AppTools.sendBroadcast(new Bundle(),
-                                   AppKeyMap.REFRESH_ORDER_ACTION);
+                                   AppKeyMap.REFRESH_ALL);
             stopSelf();
         }
     }

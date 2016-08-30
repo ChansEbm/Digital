@@ -13,7 +13,6 @@ import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
 import com.szbb.pro.AppKeyMap;
 import com.szbb.pro.BR;
 import com.szbb.pro.R;
@@ -24,8 +23,6 @@ import com.szbb.pro.ui.activity.expenses.ExpensesResultActivity;
 import com.szbb.pro.ui.activity.orders.operating.a_mode.FittingApplyDetailActivity;
 import com.szbb.pro.ui.activity.orders.operating.b_mode.FittingResendDetailActivity;
 
-import java.io.File;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,19 +36,19 @@ public class OrderDetailBean
 
     private List<ListEntity> list;
 
-    public DataEntity getData() {
+    public DataEntity getData () {
         return data;
     }
 
-    public void setData(DataEntity data) {
+    public void setData (DataEntity data) {
         this.data = data;
     }
 
-    public List<ListEntity> getList() {
+    public List<ListEntity> getList () {
         return list;
     }
 
-    public void setList(List<ListEntity> list) {
+    public void setList (List<ListEntity> list) {
         this.list = list;
     }
 
@@ -68,7 +65,7 @@ public class OrderDetailBean
         private String is_submit_complete = "";
         private String diffTime;//预约时间跟现在时间的时间差
         private String formatAppointTime = "";
-        private String is_sign_in;
+        private String is_sign_in = "";
         private String sign_in_time;
         private Spanned sign_in_desc;
         private String distribute_time;
@@ -94,12 +91,12 @@ public class OrderDetailBean
         private String order_settlement;
         private String sms_template;
 
-        public DataEntity() {
+        public DataEntity () {
         }
 
         @BindingAdapter(value = {"app:signInText"})
-        public static void setSignInText(Button button,
-                                         String signIn) {
+        public static void setSignInText (Button button,
+                                          String signIn) {
             if (button == null || TextUtils.isEmpty(signIn)) {
                 return;
             }
@@ -120,13 +117,13 @@ public class OrderDetailBean
         }
 
         @BindingAdapter(value = {"app:signInBackground"})
-        public static void setSignInBackground(Button button,
-                                               String sign) {
+        public static void setSignInBackground (Button button,
+                                                String sign) {
             if (button == null || TextUtils.isEmpty(sign)) {
                 return;
             }
             if (TextUtils.equals("0",
-                    sign)) {
+                                 sign)) {
                 button.setBackgroundResource(R.drawable.bg_cyan_frame);
             } else {
                 button.setBackground(null);
@@ -134,219 +131,219 @@ public class OrderDetailBean
             }
         }
 
-        public String getOrderid() {
+        public String getOrderid () {
             return orderid;
         }
 
-        public void setOrderid(String orderid) {
+        public void setOrderid (String orderid) {
             this.orderid = orderid;
         }
 
         @Bindable
-        public String getAppoint_time() {
+        public String getAppoint_time () {
             return appoint_time;
         }
 
-        public void setAppoint_time(String appoint_time) {
+        public void setAppoint_time (String appoint_time) {
             this.appoint_time = AppTools.formatTime(appoint_time,
-                    true);
+                                                    true);
         }
 
-        public String getIs_sign_in() {
+        public String getIs_sign_in () {
             return is_sign_in;
         }
 
-        public void setIs_sign_in(String is_sign_in) {
+        public void setIs_sign_in (String is_sign_in) {
             this.is_sign_in = is_sign_in;
         }
 
         @Bindable
-        public String getDistribute_time() {
+        public String getDistribute_time () {
             return distribute_time;
         }
 
-        public void setDistribute_time(String distribute_time) {
+        public void setDistribute_time (String distribute_time) {
             this.distribute_time = distribute_time;
         }
 
-        public String getNickname() {
+        public String getNickname () {
             return nickname;
         }
 
-        public void setNickname(String nickname) {
+        public void setNickname (String nickname) {
             this.nickname = nickname;
         }
 
-        public String getTel() {
+        public String getTel () {
             return tel;
         }
 
-        public void setTel(String tel) {
+        public void setTel (String tel) {
             this.tel = tel;
         }
 
         @Bindable
-        public String getEst_miles() {
+        public String getEst_miles () {
             return est_miles + "公里";
         }
 
-        public void setEst_miles(String est_miles) {
+        public void setEst_miles (String est_miles) {
             this.est_miles = est_miles;
         }
 
-        public String getAddress() {
+        public String getAddress () {
             return address;
         }
 
-        public void setAddress(String address) {
+        public void setAddress (String address) {
             this.address = address;
         }
 
-        public String getLat() {
+        public String getLat () {
             return lat;
         }
 
-        public void setLat(String lat) {
+        public void setLat (String lat) {
             this.lat = lat;
         }
 
-        public String getLng() {
+        public String getLng () {
             return lng;
         }
 
-        public void setLng(String lng) {
+        public void setLng (String lng) {
             this.lng = lng;
         }
 
-        public String getService_type() {
+        public String getService_type () {
             return service_type;
         }
 
-        public void setService_type(String service_type) {
+        public void setService_type (String service_type) {
             this.service_type = service_type;
         }
 
-        public String getFactory_logo() {
+        public String getFactory_logo () {
             return factory_logo;
         }
 
-        public void setFactory_logo(String factory_logo) {
+        public void setFactory_logo (String factory_logo) {
             this.factory_logo = factory_logo;
         }
 
-        public String getFactory_desc() {
+        public String getFactory_desc () {
             return factory_desc;
         }
 
-        public void setFactory_desc(String factory_desc) {
+        public void setFactory_desc (String factory_desc) {
             this.factory_desc = factory_desc;
         }
 
-        public String getFactory_technology_tel() {
+        public String getFactory_technology_tel () {
             return factory_technology_tel;
         }
 
-        public void setFactory_technology_tel(String factory_technology_tel) {
+        public void setFactory_technology_tel (String factory_technology_tel) {
             this.factory_technology_tel = factory_technology_tel;
         }
 
-        public String getAcce_exe_type() {
+        public String getAcce_exe_type () {
             return acce_exe_type;
         }
 
-        public void setAcce_exe_type(String acce_exe_type) {
+        public void setAcce_exe_type (String acce_exe_type) {
             this.acce_exe_type = acce_exe_type;
         }
 
         @Bindable
-        public String getDiffTime() {
+        public String getDiffTime () {
             return AppTools.formatPHPDiffTime(appoint_time);
         }
 
         @Bindable
-        public String getOrder_status_desc() {
+        public String getOrder_status_desc () {
             return order_status_desc;
         }
 
-        public void setOrder_status_desc(String order_status_desc) {
+        public void setOrder_status_desc (String order_status_desc) {
             this.order_status_desc = order_status_desc;
         }
 
-        public String getService_pro() {
+        public String getService_pro () {
             return service_pro;
         }
 
-        public void setService_pro(String service_pro) {
+        public void setService_pro (String service_pro) {
             this.service_pro = service_pro;
         }
 
         @Bindable
-        public String getType_and_pro() {
+        public String getType_and_pro () {
             this.type_and_pro = service_pro + "(" + service_type + ")";
             return type_and_pro;
         }
 
-        public void setType_and_pro(String type_and_pro) {
+        public void setType_and_pro (String type_and_pro) {
             this.type_and_pro = type_and_pro;
         }
 
-        public boolean isSignIn() {
+        public boolean isSignIn () {
             return TextUtils.equals("1",
-                    is_sign_in);
+                                    is_sign_in);
         }
 
-        public String getIs_all_repair() {
+        public String getIs_all_repair () {
             return is_all_repair;
         }
 
-        public void setIs_all_repair(String is_all_repair) {
+        public void setIs_all_repair (String is_all_repair) {
             this.is_all_repair = is_all_repair;
         }
 
-        public boolean isAllRepair() {
+        public boolean isAllRepair () {
             return TextUtils.equals(is_all_repair,
-                    "1");
+                                    "1");
         }
 
         @Bindable
-        public String getFormatAppointTime() {
+        public String getFormatAppointTime () {
             appoint_time = TextUtils.isEmpty(appoint_time) ? "" : appoint_time;
             return AppTools.formatTime(appoint_time,
-                    true);
+                                       true);
         }
 
-        public void setFormatAppointTime(String formatAppointTime) {
+        public void setFormatAppointTime (String formatAppointTime) {
             this.formatAppointTime = formatAppointTime;
         }
 
         @Bindable
-        public String getSn() {
+        public String getSn () {
             return sn;
         }
 
-        public void setSn(String sn) {
+        public void setSn (String sn) {
             this.sn = sn;
         }
 
-        public boolean getIs_submit_complete() {
+        public boolean getIs_submit_complete () {
             return is_submit_complete.equals("1");
         }
 
-        public void setIs_submit_complete(String is_submit_complete) {
+        public void setIs_submit_complete (String is_submit_complete) {
             this.is_submit_complete = is_submit_complete;
         }
 
         @Bindable
-        public List<AcceCostListEntity> getAcce_cost_list() {
+        public List<AcceCostListEntity> getAcce_cost_list () {
             return acce_cost_list;
         }
 
-        public void setAcce_cost_list(List<AcceCostListEntity> acce_cost_list) {
+        public void setAcce_cost_list (List<AcceCostListEntity> acce_cost_list) {
             this.acce_cost_list = acce_cost_list;
         }
 
         @Bindable
-        public Spanned getSign_in_desc() {
+        public Spanned getSign_in_desc () {
             if (TextUtils.isEmpty(getAppoint_time())) {
                 return null;
             }
@@ -355,106 +352,106 @@ public class OrderDetailBean
             String result = AppTools.convertMillions(at - ct);
             String isSignIn = getIs_sign_in();
             if (TextUtils.equals(isSignIn,
-                    "0")) {
+                                 "0")) {
                 if (!TextUtils.equals("-1",
-                        result)) {
+                                      result)) {
                     this.sign_in_desc = Html.fromHtml("<font " +
-                            "color=\"#a0a0a0\">距上门服务还有</font><font " +
-                            "color=\"#ff9000" +
-                            "\">" + result + "</font>");
+                                                      "color=\"#a0a0a0\">距上门服务还有</font><font " +
+                                                      "color=\"#ff9000" +
+                                                      "\">" + result + "</font>");
                 } else {
                     this.sign_in_desc = Html.fromHtml("<font " +
-                            "color=\"#a0a0a0\">距上门服务还有</font><font " +
-                            "color=\"#ff9000" +
-                            "\">" + "0个小时" + "</font>");
+                                                      "color=\"#a0a0a0\">距上门服务还有</font><font " +
+                                                      "color=\"#ff9000" +
+                                                      "\">" + "0个小时" + "</font>");
                 }
             } else if (TextUtils.equals(isSignIn,
-                    "1")) {
+                                        "1")) {
                 this.sign_in_desc = Html.fromHtml("<font color=\"#a0a0a0\">已于" + getSign_in_time() +
-                        "</font><font " +
-                        "color=\"#ff9000\">签到成功</font>");
+                                                  "</font><font " +
+                                                  "color=\"#ff9000\">签到成功</font>");
             } else if (TextUtils.equals(isSignIn,
-                    "2")) {
+                                        "2")) {
                 this.sign_in_desc = Html.fromHtml("<font color=\"#ff9000\">签到失败</font>");
             } else if (TextUtils.equals(isSignIn,
-                    "3")) {
+                                        "3")) {
                 this.sign_in_desc = Html.fromHtml("<font color=\"#ff9000\">签到已超时</font>");
             }
             return sign_in_desc;
         }
 
-        public String getSign_in_time() {
+        public String getSign_in_time () {
             return sign_in_time;
         }
 
-        public void setSign_in_time(String sign_in_time) {
+        public void setSign_in_time (String sign_in_time) {
             this.sign_in_time = sign_in_time;
         }
 
         @Bindable
-        public String getSubsidy() {
+        public String getSubsidy () {
             return subsidy;
         }
 
-        public void setSubsidy(String subsidy) {
+        public void setSubsidy (String subsidy) {
             this.subsidy = subsidy;
         }
 
         @Bindable
-        public String getAcce_cost_title() {
+        public String getAcce_cost_title () {
             return acce_cost_title;
         }
 
-        public void setAcce_cost_title(String acce_cost_title) {
+        public void setAcce_cost_title (String acce_cost_title) {
             this.acce_cost_title = acce_cost_title;
         }
 
         @Bindable
-        public String getService_evaluation() {
+        public String getService_evaluation () {
             return service_evaluation;
         }
 
-        public void setService_evaluation(String service_evaluation) {
+        public void setService_evaluation (String service_evaluation) {
             this.service_evaluation = service_evaluation;
         }
 
         @Bindable
-        public String getOrder_settlement() {
+        public String getOrder_settlement () {
             return order_settlement;
         }
 
-        public void setOrder_settlement(String order_settlement) {
+        public void setOrder_settlement (String order_settlement) {
             this.order_settlement = order_settlement;
         }
 
         @Bindable
-        public Spanned getSubsidy_desc() {
+        public Spanned getSubsidy_desc () {
             subsidy_desc = Html.fromHtml("完单可获补贴<font color=\"#f74c31\">" + getSubsidy() +
-                    "</font>元");
+                                         "</font>元");
             return subsidy_desc;
         }
 
-        public String getCustomer_service_phone() {
+        public String getCustomer_service_phone () {
             return customer_service_phone;
         }
 
-        public void setCustomer_service_phone(String customer_service_phone) {
+        public void setCustomer_service_phone (String customer_service_phone) {
             this.customer_service_phone = customer_service_phone;
         }
 
-        public String getSms_template() {
+        public String getSms_template () {
             return sms_template;
         }
 
-        public void setSms_template(String sms_template) {
+        public void setSms_template (String sms_template) {
             this.sms_template = sms_template;
         }
 
-        public String getCS_identifier() {
+        public String getCS_identifier () {
             return CS_identifier;
         }
 
-        public void setCS_identifier(String CS_identifier) {
+        public void setCS_identifier (String CS_identifier) {
             this.CS_identifier = CS_identifier;
         }
 
@@ -470,84 +467,84 @@ public class OrderDetailBean
             private String addtime;
             private String acid;
 
-            public String getHandle_type() {
+            public String getHandle_type () {
                 return handle_type;
             }
 
-            public void setHandle_type(String handle_type) {
+            public void setHandle_type (String handle_type) {
                 this.handle_type = handle_type;
             }
 
-            public String getExe_type() {
+            public String getExe_type () {
                 return exe_type;
             }
 
-            public void setExe_type(String exe_type) {
+            public void setExe_type (String exe_type) {
                 this.exe_type = exe_type;
             }
 
-            public String getExe_status() {
+            public String getExe_status () {
                 return exe_status;
             }
 
-            public void setExe_status(String exe_status) {
+            public void setExe_status (String exe_status) {
                 this.exe_status = exe_status;
             }
 
-            public String getExe_desc() {
+            public String getExe_desc () {
                 return exe_desc;
             }
 
-            public void setExe_desc(String exe_desc) {
+            public void setExe_desc (String exe_desc) {
                 this.exe_desc = exe_desc;
             }
 
-            public String getTitle() {
+            public String getTitle () {
                 return title;
             }
 
-            public void setTitle(String title) {
+            public void setTitle (String title) {
                 this.title = title;
             }
 
-            public String getAddtime() {
+            public String getAddtime () {
                 return addtime;
             }
 
-            public void setAddtime(String addtime) {
+            public void setAddtime (String addtime) {
                 this.addtime = addtime;
             }
 
-            public Class<?> getIntentFlag() {
+            public Class<?> getIntentFlag () {
                 if (TextUtils.equals("0",
-                        getExe_type())) {//费用申请
+                                     getExe_type())) {//费用申请
                     return ExpensesResultActivity.class;
                 } else if (TextUtils.equals("1",
-                        getExe_type())) {//A模式
+                                            getExe_type())) {//A模式
                     return FittingApplyDetailActivity.class;
                 } else if (TextUtils.equals("2",
-                        getExe_type())) {//B模式
+                                            getExe_type())) {//B模式
                     return FittingResendDetailActivity.class;
                 }
                 return null;
             }
 
-            public String getAcid() {
+            public String getAcid () {
                 return acid;
             }
 
-            public void setAcid(String acid) {
+            public void setAcid (String acid) {
                 this.acid = acid;
             }
 
             @Override
-            public int describeContents() {
+            public int describeContents () {
                 return 0;
             }
 
             @Override
-            public void writeToParcel(Parcel dest,
-                                      int flags) {
+            public void writeToParcel (Parcel dest,
+                                       int flags) {
                 dest.writeString(this.handle_type);
                 dest.writeString(this.exe_type);
                 dest.writeString(this.exe_status);
@@ -557,10 +554,10 @@ public class OrderDetailBean
                 dest.writeString(this.acid);
             }
 
-            public AcceCostListEntity() {
+            public AcceCostListEntity () {
             }
 
-            protected AcceCostListEntity(Parcel in) {
+            protected AcceCostListEntity (Parcel in) {
                 this.handle_type = in.readString();
                 this.exe_type = in.readString();
                 this.exe_status = in.readString();
@@ -573,12 +570,12 @@ public class OrderDetailBean
             public static final Parcelable.Creator<AcceCostListEntity> CREATOR = new Parcelable
                     .Creator<AcceCostListEntity>() {
                 @Override
-                public AcceCostListEntity createFromParcel(Parcel source) {
+                public AcceCostListEntity createFromParcel (Parcel source) {
                     return new AcceCostListEntity(source);
                 }
 
                 @Override
-                public AcceCostListEntity[] newArray(int size) {
+                public AcceCostListEntity[] newArray (int size) {
                     return new AcceCostListEntity[size];
                 }
             };
@@ -604,7 +601,7 @@ public class OrderDetailBean
         private String service_type;
         private String fault_lable;
         private String fault_desc;
-        private String product_thumb;
+        private String product_thumb = "";
         private String last_handle_type;
         private String last_handle_status;
         private String last_handle_desc;
@@ -619,295 +616,286 @@ public class OrderDetailBean
         private String complete_report;
         private String productNum;
 
-        public ListEntity() {
+        public ListEntity () {
         }
 
         @BindingAdapter(value = {"app:compoundDrawable"})
-        public static void setCompoundDrawable(TextView textView,
-                                               String lastHandleType) {
-            if (TextUtils.equals(lastHandleType,
-                    "3") || TextUtils.equals
-                    (lastHandleType,
-                            "4")) {
+        public static void setCompoundDrawable (TextView textView,
+                                                String lastHandleType) {
+            if (TextUtils.equals(lastHandleType, "3") || TextUtils.equals(lastHandleType, "4")) {
                 textView.setCompoundDrawables(null,
-                        null,
-                        null,
-                        null);
+                                              null,
+                                              null,
+                                              null);
             } else {
                 Drawable drawable = textView.getResources()
-                        .getDrawable(R.mipmap.ic_arrow_right);
+                                            .getDrawable(R.mipmap.ic_arrow_right);
                 if (drawable != null) {
-                    drawable.setBounds(0,
-                            0,
-                            drawable.getMinimumWidth(),
-                            drawable
-                                    .getMinimumHeight());
-                    textView.setCompoundDrawables(null,
-                            null,
-                            drawable,
-                            null);
+                    drawable.setBounds(0, 0, drawable.getMinimumWidth(),
+                                       drawable.getMinimumHeight());
+                    textView.setCompoundDrawables(null, null, drawable, null);
                 }
             }
         }
 
 
-        public String getDetailid() {
+        public String getDetailid () {
             return detailid;
         }
 
-        public void setDetailid(String detailid) {
+        public void setDetailid (String detailid) {
             this.detailid = detailid;
         }
 
-        public String getServiceid() {
+        public String getServiceid () {
             return serviceid;
         }
 
-        public void setServiceid(String serviceid) {
+        public void setServiceid (String serviceid) {
             this.serviceid = serviceid;
         }
 
-        public String getName() {
+        public String getName () {
             return name;
         }
 
-        public void setName(String name) {
+        public void setName (String name) {
             this.name = name;
         }
 
-        public String getBrand() {
+        public String getBrand () {
             return brand;
         }
 
-        public void setBrand(String brand) {
+        public void setBrand (String brand) {
             this.brand = brand;
         }
 
-        public String getStantard() {
+        public String getStantard () {
             return stantard;
         }
 
-        public void setStantard(String stantard) {
+        public void setStantard (String stantard) {
             this.stantard = stantard;
         }
 
-        public String getModel() {
+        public String getModel () {
             return model;
         }
 
-        public void setModel(String model) {
+        public void setModel (String model) {
             this.model = model;
         }
 
-        public String getFault_lable() {
+        public String getFault_lable () {
             return fault_lable;
         }
 
-        public void setFault_lable(String fault_lable) {
+        public void setFault_lable (String fault_lable) {
             this.fault_lable = fault_lable;
         }
 
-        public String getFault_desc() {
+        public String getFault_desc () {
             return fault_desc;
         }
 
-        public void setFault_desc(String fault_desc) {
+        public void setFault_desc (String fault_desc) {
             this.fault_desc = fault_desc;
         }
 
-        public String getProduct_thumb() {
+        public String getProduct_thumb () {
             return product_thumb;
         }
 
-        public void setProduct_thumb(String product_thumb) {
+        public void setProduct_thumb (String product_thumb) {
             this.product_thumb = product_thumb;
         }
 
         @Bindable
-        public String getLast_handle_type() {
+        public String getLast_handle_type () {
             return last_handle_type;
         }
 
-        public void setLast_handle_type(String last_handle_type) {
+        public void setLast_handle_type (String last_handle_type) {
             this.last_handle_type = last_handle_type;
         }
 
-        public String getLast_handle_status() {
+        public String getLast_handle_status () {
             return last_handle_status;
         }
 
-        public void setLast_handle_status(String last_handle_status) {
+        public void setLast_handle_status (String last_handle_status) {
             this.last_handle_status = last_handle_status;
         }
 
         @Bindable
-        public String getLast_handle_desc() {
+        public String getLast_handle_desc () {
             return last_handle_desc;
         }
 
-        public void setLast_handle_desc(String last_handle_desc) {
+        public void setLast_handle_desc (String last_handle_desc) {
             this.last_handle_desc = last_handle_desc;
         }
 
-        public ArrayList<ServiceListEntity> getService_list() {
+        public ArrayList<ServiceListEntity> getService_list () {
             return service_list;
         }
 
-        public void setService_list(ArrayList<ServiceListEntity> service_list) {
+        public void setService_list (ArrayList<ServiceListEntity> service_list) {
             this.service_list = service_list;
         }
 
         @Bindable
-        public String getLast_handle_statue_chinese() {
+        public String getLast_handle_statue_chinese () {
             this.last_handle_statue_chinese = OperateLastHandle.getLastHandle(last_handle_type,
-                    last_handle_status,
-                    acce_exe_type);
+                                                                              last_handle_status,
+                                                                              acce_exe_type);
             return last_handle_statue_chinese;
         }
 
-        public String getAcce_exe_type() {
+        public String getAcce_exe_type () {
             return acce_exe_type;
         }
 
-        public void setAcce_exe_type(String acce_exe_type) {
+        public void setAcce_exe_type (String acce_exe_type) {
             this.acce_exe_type = acce_exe_type;
         }
 
-        public boolean canDone() {
+        public boolean canDone () {
             return TextUtils.equals(last_handle_type,
-                    "3") || TextUtils.equals(last_handle_type,
-                    "4");
+                                    "3") || TextUtils.equals(last_handle_type,
+                                                             "4");
         }
 
-        public boolean canNext() {
+        public boolean canNext () {
             return (TextUtils.equals(last_handle_type,
-                    "1") && TextUtils.equals
+                                     "1") && TextUtils.equals
                     (last_handle_status,
-                            "2")) ||
-                    (TextUtils.equals(last_handle_type,
-                            "1") && TextUtils.equals
-                            (last_handle_status,
-                                    "3")) ||
-                    (TextUtils.equals(last_handle_type,
-                            "2") && TextUtils.equals(acce_exe_type,
-                            "1") && TextUtils.equals
-                            (last_handle_status,
-                                    "5")) ||
-                    (TextUtils.equals(last_handle_type,
-                            "2") && TextUtils.equals(acce_exe_type,
-                            "1") && TextUtils.equals
-                            (last_handle_status,
-                                    "6")) ||
-                    (TextUtils.equals(last_handle_type,
-                            "2") && TextUtils.equals(acce_exe_type,
-                            "2") && TextUtils.equals
-                            (last_handle_status,
-                                    "3"));
+                     "2")) ||
+                   (TextUtils.equals(last_handle_type,
+                                     "1") && TextUtils.equals
+                           (last_handle_status,
+                            "3")) ||
+                   (TextUtils.equals(last_handle_type,
+                                     "2") && TextUtils.equals(acce_exe_type,
+                                                              "1") && TextUtils.equals
+                           (last_handle_status,
+                            "5")) ||
+                   (TextUtils.equals(last_handle_type,
+                                     "2") && TextUtils.equals(acce_exe_type,
+                                                              "1") && TextUtils.equals
+                           (last_handle_status,
+                            "6")) ||
+                   (TextUtils.equals(last_handle_type,
+                                     "2") && TextUtils.equals(acce_exe_type,
+                                                              "2") && TextUtils.equals
+                           (last_handle_status,
+                            "3"));
         }
 
-        public void setServicePage(int servicePage) {
+        public void setServicePage (int servicePage) {
             //AppKeyMap.CUPCAKE 标记服务项目显示在工单详情页
             //APPKeyMap.FROYO 标记为服务项目显示在工单操作页
             this.servicePage = servicePage;
         }
 
         @Bindable
-        public String getService_name() {
+        public String getService_name () {
             return TextUtils.isEmpty(service_name) ? (servicePage == AppKeyMap.CUPCAKE ? "暂无" :
                     "请选择") :
                     service_name;
         }
 
-        public void setService_name(String service_name) {
+        public void setService_name (String service_name) {
             this.service_name = service_name;
             notifyPropertyChanged(BR.service_name);
         }
 
-        public String getService_id() {
+        public String getService_id () {
             return service_id;
         }
 
-        public void setService_id(String service_id) {
+        public void setService_id (String service_id) {
             this.service_id = service_id;
         }
 
         @Bindable
-        public String getThis_service_name() {
+        public String getThis_service_name () {
             return TextUtils.isEmpty(this_service_name) ? "请选择" : this_service_name;
         }
 
-        public void setThis_service_name(String this_service_name) {
+        public void setThis_service_name (String this_service_name) {
             this.this_service_name = this_service_name;
             notifyPropertyChanged(BR.this_service_name);
         }
 
-        public ButtonType getButtonType() {
+        public ButtonType getButtonType () {
             return buttonType;
         }
 
-        public void setButtonType(ButtonType buttonType) {
+        public void setButtonType (ButtonType buttonType) {
             this.buttonType = buttonType;
         }
 
-        public List<CompletePhotosEntity> getComplete_photos() {
+        public List<CompletePhotosEntity> getComplete_photos () {
             return complete_photos;
         }
 
-        public void setComplete_photos(List<CompletePhotosEntity> complete_photos) {
+        public void setComplete_photos (List<CompletePhotosEntity> complete_photos) {
             this.complete_photos = (ArrayList<CompletePhotosEntity>) complete_photos;
         }
 
-        public List<String> getAddPics() {
+        public List<String> getAddPics () {
             return addPics;
         }
 
-        public void setAddPics(List<String> addPics) {
+        public void setAddPics (List<String> addPics) {
             this.addPics = (ArrayList<String>) addPics;
         }
 
         @Bindable
-        public String getReport() {
+        public String getReport () {
             return report;
         }
 
-        public void setReport(String report) {
+        public void setReport (String report) {
             this.report = report;
             notifyPropertyChanged(BR.report);
         }
 
         @Bindable
-        public String getComplete_report() {
+        public String getComplete_report () {
             return complete_report;
         }
 
-        public void setComplete_report(String complete_report) {
+        public void setComplete_report (String complete_report) {
             this.complete_report = complete_report;
         }
 
 
         @Bindable
-        public String getService_type() {
+        public String getService_type () {
             return service_type;
         }
 
-        public void setService_type(String service_type) {
+        public void setService_type (String service_type) {
             this.service_type = service_type;
         }
 
         @Bindable
-        public String getProductNum() {
+        public String getProductNum () {
             return productNum;
         }
 
-        public void setProductNum(String productNum) {
+        public void setProductNum (String productNum) {
             this.productNum = productNum;
         }
 
-        public String getService_desc() {
+        public String getService_desc () {
             return service_desc;
         }
 
-        public void setService_desc(String service_desc) {
+        public void setService_desc (String service_desc) {
             this.service_desc = service_desc;
         }
 
@@ -921,58 +909,58 @@ public class OrderDetailBean
             private String service_desc;
 
 
-            public ServiceListEntity() {
+            public ServiceListEntity () {
             }
 
-            public String getService_id() {
+            public String getService_id () {
                 return service_id;
             }
 
-            public void setService_id(String service_id) {
+            public void setService_id (String service_id) {
                 this.service_id = service_id;
             }
 
             @Bindable
-            public String getService_name() {
+            public String getService_name () {
                 return service_name;
             }
 
-            public void setService_name(String service_name) {
+            public void setService_name (String service_name) {
                 this.service_name = service_name;
             }
 
             @Bindable
-            public String getService_cost() {
+            public String getService_cost () {
                 return service_cost + " 元";
             }
 
-            public void setService_cost(String service_cost) {
+            public void setService_cost (String service_cost) {
                 this.service_cost = service_cost;
             }
 
-            public String getService_desc() {
+            public String getService_desc () {
                 return service_desc;
             }
 
-            public void setService_desc(String service_desc) {
+            public void setService_desc (String service_desc) {
                 this.service_desc = service_desc;
             }
 
             @Override
-            public int describeContents() {
+            public int describeContents () {
                 return 0;
             }
 
             @Override
-            public void writeToParcel(Parcel dest,
-                                      int flags) {
+            public void writeToParcel (Parcel dest,
+                                       int flags) {
                 dest.writeString(this.service_id);
                 dest.writeString(this.service_name);
                 dest.writeString(this.service_cost);
                 dest.writeString(this.service_desc);
             }
 
-            protected ServiceListEntity(Parcel in) {
+            protected ServiceListEntity (Parcel in) {
                 this.service_id = in.readString();
                 this.service_name = in.readString();
                 this.service_cost = in.readString();
@@ -982,12 +970,12 @@ public class OrderDetailBean
             public static final Creator<ServiceListEntity> CREATOR = new
                     Creator<ServiceListEntity>() {
                         @Override
-                        public ServiceListEntity createFromParcel(Parcel source) {
+                        public ServiceListEntity createFromParcel (Parcel source) {
                             return new ServiceListEntity(source);
                         }
 
                         @Override
-                        public ServiceListEntity[] newArray(int size) {
+                        public ServiceListEntity[] newArray (int size) {
                             return new ServiceListEntity[size];
                         }
                     };
@@ -999,38 +987,38 @@ public class OrderDetailBean
             private String name;
             private String url;
 
-            public String getName() {
+            public String getName () {
                 return name;
             }
 
-            public void setName(String name) {
+            public void setName (String name) {
                 this.name = name;
             }
 
-            public String getUrl() {
+            public String getUrl () {
                 return url;
             }
 
-            public void setUrl(String url) {
+            public void setUrl (String url) {
                 this.url = url;
             }
 
             @Override
-            public int describeContents() {
+            public int describeContents () {
                 return 0;
             }
 
             @Override
-            public void writeToParcel(Parcel dest,
-                                      int flags) {
+            public void writeToParcel (Parcel dest,
+                                       int flags) {
                 dest.writeString(this.name);
                 dest.writeString(this.url);
             }
 
-            public CompletePhotosEntity() {
+            public CompletePhotosEntity () {
             }
 
-            protected CompletePhotosEntity(Parcel in) {
+            protected CompletePhotosEntity (Parcel in) {
                 this.name = in.readString();
                 this.url = in.readString();
             }
@@ -1038,25 +1026,25 @@ public class OrderDetailBean
             public static final Creator<CompletePhotosEntity> CREATOR = new
                     Creator<CompletePhotosEntity>() {
                         @Override
-                        public CompletePhotosEntity createFromParcel(Parcel source) {
+                        public CompletePhotosEntity createFromParcel (Parcel source) {
                             return new CompletePhotosEntity(source);
                         }
 
                         @Override
-                        public CompletePhotosEntity[] newArray(int size) {
+                        public CompletePhotosEntity[] newArray (int size) {
                             return new CompletePhotosEntity[size];
                         }
                     };
         }
 
         @Override
-        public int describeContents() {
+        public int describeContents () {
             return 0;
         }
 
         @Override
-        public void writeToParcel(Parcel dest,
-                                  int flags) {
+        public void writeToParcel (Parcel dest,
+                                   int flags) {
             dest.writeString(this.detailid);
             dest.writeString(this.service_id);
             dest.writeString(this.serviceid);
@@ -1085,7 +1073,7 @@ public class OrderDetailBean
             dest.writeString(this.productNum);
         }
 
-        protected ListEntity(Parcel in) {
+        protected ListEntity (Parcel in) {
             this.detailid = in.readString();
             this.service_id = in.readString();
             this.serviceid = in.readString();
@@ -1111,7 +1099,7 @@ public class OrderDetailBean
             this.service_list = in.createTypedArrayList(ServiceListEntity.CREATOR);
             this.complete_photos = new ArrayList<>();
             in.readList(this.complete_photos,
-                    CompletePhotosEntity.class.getClassLoader());
+                        CompletePhotosEntity.class.getClassLoader());
             this.addPics = in.createStringArrayList();
             this.complete_report = in.readString();
             this.productNum = in.readString();
@@ -1120,21 +1108,21 @@ public class OrderDetailBean
         public static final Parcelable.Creator<ListEntity> CREATOR = new Parcelable
                 .Creator<ListEntity>() {
             @Override
-            public ListEntity createFromParcel(Parcel source) {
+            public ListEntity createFromParcel (Parcel source) {
                 return new ListEntity(source);
             }
 
             @Override
-            public ListEntity[] newArray(int size) {
+            public ListEntity[] newArray (int size) {
                 return new ListEntity[size];
             }
         };
     }
 
     static class OperateLastHandle {
-        private static String getLastHandle(@NonNull String lastType,
-                                            @NonNull String lastStatus,
-                                            @NonNull String accExeType) {
+        private static String getLastHandle (@NonNull String lastType,
+                                             @NonNull String lastStatus,
+                                             @NonNull String accExeType) {
             switch (lastType) {
                 case "0":
                     return "暂无操作";
@@ -1148,7 +1136,7 @@ public class OrderDetailBean
                     return getFittingApplyStatus(lastStatus);
                 case "2":
                     return getOperateStatus(lastStatus,
-                            accExeType);
+                                            accExeType);
                 default:
                     return "无";
             }
@@ -1160,7 +1148,7 @@ public class OrderDetailBean
          * @param lastStatus 上次处理状态
          * @return 费用申请的最终状态
          */
-        private static String getFittingApplyStatus(String lastStatus) {
+        private static String getFittingApplyStatus (String lastStatus) {
             switch (lastStatus) {
                 case "1":
                     return "费用单申请中,等待后台审核";
@@ -1180,8 +1168,8 @@ public class OrderDetailBean
          * @param accExeType 配件单执行流程码
          * @return 最终上次操作工单的状态
          */
-        private static String getOperateStatus(String lastStatus,
-                                               String accExeType) {
+        private static String getOperateStatus (String lastStatus,
+                                                String accExeType) {
             switch (accExeType) {
                 case "1":
                     return getOperateFirstStatus(lastStatus);
@@ -1198,7 +1186,7 @@ public class OrderDetailBean
          * @param lastStatus 上次处理状态
          * @return 申请配件状态
          */
-        private static String getOperateFirstStatus(String lastStatus) {
+        private static String getOperateFirstStatus (String lastStatus) {
             switch (lastStatus) {
                 case "1":
                     return "申请配件等待厂家审核";
@@ -1223,7 +1211,7 @@ public class OrderDetailBean
          * @param lastStatus 上次处理状态
          * @return 申请配件状态
          */
-        private static String getOperateSecondStatus(String lastStatus) {
+        private static String getOperateSecondStatus (String lastStatus) {
             switch (lastStatus) {
                 case "1":
                     return "返回配件等待厂家确认";

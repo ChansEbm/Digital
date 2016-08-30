@@ -13,7 +13,6 @@ import com.szbb.pro.AppKeyMap;
 import com.szbb.pro.R;
 import com.szbb.pro.entity.eventbus.ChatListEvent;
 import com.szbb.pro.entity.order.OrderMsgListBean;
-import com.szbb.pro.eum.NetworkParams;
 import com.szbb.pro.eum.PhotoPopupOpts;
 import com.szbb.pro.service.ResetUnreadService;
 import com.szbb.pro.tools.AppTools;
@@ -172,6 +171,7 @@ public class CustomerActivity
 
     @Override
     public void onPhotoSuccess (String path, int requestCode) {
+//        ChatManager.setChattingFlag(orderId);
         TIMImageElem imageElem = new TIMImageElem();
         imageElem.setPath(path);
         sendMessage(imageElem);
@@ -248,41 +248,44 @@ public class CustomerActivity
 
     @Override
     public void onBGARefreshLayoutBeginRefreshing (BGARefreshLayout bgaRefreshLayout) {
-        TIMMessage timMessage = list.get(0)
-                                    .getTimMessage();
-        conversation.getLocalMessage(10,
-                                     timMessage,
-                                     new TIMValueCallBack<List<TIMMessage>>() {
-                                         @Override
-                                         public void onError (int i, String s) {
+        if (!list.isEmpty()) {
+            TIMMessage timMessage = list.get(0)
+                                        .getTimMessage();
+            conversation.getLocalMessage(10,
+                                         timMessage,
+                                         new TIMValueCallBack<List<TIMMessage>>() {
+                                             @Override
+                                             public void onError (int i, String s) {
 
-                                         }
+                                             }
 
-                                         @Override
-                                         public void onSuccess (List<TIMMessage> timMessages) {
-                                             if (timMessages.isEmpty()) {
-                                                 Toast.makeText(CustomerActivity.this,
-                                                                "历史信息加载完毕",
-                                                                Toast.LENGTH_SHORT)
-                                                      .show();
+                                             @Override
+                                             public void onSuccess (List<TIMMessage> timMessages) {
+                                                 if (timMessages.isEmpty()) {
+                                                     Toast.makeText(CustomerActivity.this,
+                                                                    "历史信息加载完毕",
+                                                                    Toast.LENGTH_SHORT)
+                                                          .show();
+                                                     customerServiceLayout.include.refreshLayout
+                                                             .endRefreshing();
+                                                     return;
+                                                 }
+                                                 Collections.reverse(timMessages);
+                                                 List<OrderMsgListBean> chatRecord = ChatManager
+                                                         .getChatRecord(timMessages);
+                                                 if (CustomerActivity.this.list.isEmpty()) {
+                                                     CustomerActivity.this.list.addAll(chatRecord);
+                                                 } else {
+                                                     CustomerActivity.this.list.addAll(0,
+                                                                                       chatRecord);
+                                                 }
+                                                 multiAdapter.notifyDataSetChanged();
                                                  customerServiceLayout.include.refreshLayout
                                                          .endRefreshing();
-                                                 return;
                                              }
-                                             Collections.reverse(timMessages);
-                                             List<OrderMsgListBean> chatRecord = ChatManager
-                                                     .getChatRecord(timMessages);
-                                             if (CustomerActivity.this.list.isEmpty()) {
-                                                 CustomerActivity.this.list.addAll(chatRecord);
-                                             } else {
-                                                 CustomerActivity.this.list.addAll(0,
-                                                                                   chatRecord);
-                                             }
-                                             multiAdapter.notifyDataSetChanged();
-                                             customerServiceLayout.include.refreshLayout
-                                                     .endRefreshing();
-                                         }
-                                     });
+                                         });
+        }
+
     }
 
     @Override
